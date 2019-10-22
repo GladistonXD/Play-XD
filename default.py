@@ -87,7 +87,7 @@ def getLocaleString(id):
 def Categories(): #70
 	#AddDir("[B]!{0}: {1}[/B] - {2} ".format(getLocaleString(30036), getLocaleString(30037) if makeGroups else getLocaleString(30038) , getLocaleString(30039)), "setting" ,50 ,os.path.join(iconsDir, "setting.png"), isFolder=False)
 	#AddDir("[COLOR white][B][Canais de TV1][/B][/COLOR]" , "", 100, "http://oi68.tinypic.com/116jn69.jpg", "http://oi68.tinypic.com/116jn69.jpg")
-	AddDir("[COLOR white][B]Canais de TV[/B][/COLOR]" , "", 102, "https://uploaddeimagens.com.br/images/002/440/340/original/TV.png", "https://uploaddeimagens.com.br/images/002/440/340/original/TV.png")
+	AddDir("[COLOR white][B]Canais de TV[/B][/COLOR]" , "", 102, "https://uploaddeimagens.com.br/images/002/440/396/original/TV.jpg", "https://uploaddeimagens.com.br/images/002/440/396/original/TV.jpg")
 	AddDir("[B][COLOR white]Filmes[/COLOR][/B]", "" , -2,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True)
 	AddDir("[COLOR white][B]Séries[/B][/COLOR]" , "", -3, "https://uploaddeimagens.com.br/images/002/376/145/original/Novo_3.jpg", "https://uploaddeimagens.com.br/images/002/376/145/original/Novo_3.jpg")
 	AddDir("[COLOR green][B]Histórico Filmes[/B][/COLOR]", "" ,305 , "https://cdn2.iconfinder.com/data/icons/business-office-icons/256/To-do_List-512.png", "https://cdn2.iconfinder.com/data/icons/business-office-icons/256/To-do_List-512.png")
@@ -1541,7 +1541,7 @@ def getmd5(t):
 
 def CheckUpdate(msg): #200
 	try:
-		uversao = urllib2.urlopen( "https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/version.txt" ).read().replace('\n','').replace('\r','')
+		uversao = urllib2.urlopen( "https://raw.githubusercontent.com/GladistonXD/Play-XD/master/version.txt" ).read().replace('\n','').replace('\r','')
 		uversao = re.compile('[a-zA-Z\.\d]+').findall(uversao)[0]
 		#xbmcgui.Dialog().ok(Versao, uversao)
 		if uversao != Versao:
@@ -1554,24 +1554,24 @@ def CheckUpdate(msg): #200
 		if msg==True:
 			xbmcgui.Dialog().ok('Play XD', "Não foi possível checar")
 
-def Update(): # Atualização automatica
+def Update(): #futura atualização automatica
 	Path = xbmc.translatePath( xbmcaddon.Addon().getAddonInfo('path') ).decode("utf-8")
 	try:
-		fonte = urllib2.urlopen( "https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/default.py" ).read().replace('\n','')
+		fonte = urllib2.urlopen( "https://raw.githubusercontent.com/GladistonXD/Play-XD/master/default.py" ).read().replace('\n','')
 		prog = re.compile('#checkintegrity25852').findall(fonte)
 		if prog:
 			py = os.path.join( Path, "default.py")
 			file = open(py, "w")
 			file.write(fonte)
 			file.close()
-		fonte = urllib2.urlopen( "https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/settings.xml" ).read().replace('\n','')
+		fonte = urllib2.urlopen( "https://raw.githubusercontent.com/GladistonXD/Play-XD/master/resources/settings.xml" ).read().replace('\n','')
 		prog = re.compile('</settings>').findall(fonte)
 		if prog:
 			py = os.path.join( Path, "resources/settings.xml")
 			file = open(py, "w")
 			file.write(fonte)
 			file.close()
-		fonte = urllib2.urlopen( "https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/addon.xml" ).read().replace('\n','')
+		fonte = urllib2.urlopen( "https://raw.githubusercontent.com/GladistonXD/Play-XD/master/addon.xml" ).read().replace('\n','')
 		prog = re.compile('</addon>').findall(fonte)
 		if prog:
 			py = os.path.join( Path, "addon.xml")
