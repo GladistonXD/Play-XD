@@ -591,7 +591,65 @@ def TemporadasRC(x): #135 Episodios
 			#ST(urlm)
 			url2 = re.sub('(\w)-(\w)', r'\1 \2', url2)
 			try:
-
+				namem = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), re.compile('([^\-]+)').findall(url2)[0] ).encode('utf-8')
+			except:
+				namem = re.compile('([^\-]+)').findall(url2)[0]
+			namem = re.sub('<[\/]{0,1}strong>', "", namem)
+			if "<" in namem:
+				namem = ""
+			#if urlm:
+				#urlm[0][0] = "http://www." + RC + urlm[0][0] if "http" not in urlm[0][0] else urlm[0][0]
+			#if len(urlm) > 1:
+				#urlm[0][1] = "http://www." + RC + urlm[0][1] if "http" not in urlm[0][1] else urlm[0][1]
+				#AddDir("[COLOR yellow][Dub][/COLOR] "+ name3 +" "+namem ,urlm[0], 133, iconimage, iconimage, info="", isFolder=False, IsPlayable=True)
+				#AddDir("[COLOR blue][Leg][/COLOR] "+ name3 +" "+namem ,urlm[1], 133, iconimage, iconimage, info="", isFolder=False, IsPlayable=True)
+			try:
+				urlm2 = "https://www." + RC + urlm[0][0] if "http" not in urlm[0][0] else urlm[0][0]
+				dubleg=""
+				if "Dub" in urlm[0][2]:
+					dubleg = "[COLOR yellow][D][/COLOR] "
+				elif "Leg" in urlm[0][2]:
+					dubleg = "[COLOR blue][L][/COLOR] "
+				AddDir(dubleg + name3 +" "+namem, urlm2, 133, iconimage, iconimage, info="", isFolder=False, IsPlayable=True)
+				#AddDir(urlm2, urlm2, 133, iconimage, iconimage, info="", isFolder=False, IsPlayable=True)
+			except:
+				pass				
+			try:
+				urlm2 = "https://www." + RC + urlm[1][0] if "http" not in urlm[1][0] else urlm[1][0]
+				dubleg=""
+				if "Dub" in urlm[1][2]:
+					dubleg = "[COLOR yellow][D][/COLOR] "
+				elif "Leg" in urlm[1][2]:
+					dubleg = "[COLOR blue][L][/COLOR] "
+				AddDir(dubleg + name3 +" "+namem, urlm2, 133, iconimage, iconimage, info="", isFolder=False, IsPlayable=True)
+			except:
+				pass
+def SeriesRC(urlrc,pagina2): #130 Lista as Series RC
+	try:
+		CategoryOrdem("cOrdRCS")
+		pagina=eval(pagina2)
+		p= 1
+		if int(pagina) > 0:
+			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"[/B]][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background=pagina2)
+		l= int(pagina)*5
+		for x in range(0, 5):
+			l +=1
+			link = common.OpenURL(proxy+"https://www." + RC + "browse-"+urlrc+"-videos-"+str(l)+"-"+cOrdRCS+".html")
+			match = re.compile('href=\"([^\"]+).{0,10}title=\"([^\"]+)\".{20,350}echo=\"([^\"]+)').findall(link.replace('\n','').replace('\r',''))
+			if match:
+				for url2,name2,img2 in match:
+					url2 = re.sub('^\.', "https://www."+ RC , url2 )
+					img2 = re.sub('^/', "https://www."+RC, img2 )
+					if not "index.html" in url2:
+						AddDir(name2 ,url2, 135, img2, img2, info="")
+						p += 1
+			else:
+					break
+		if p >= 40:
+			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"[/B]][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background=pagina2)
+	except urllib2.URLError, e:
+		AddDir("Server error, tente novamente em alguns minutos" , url, 0, "", "")
+def AllEpisodiosRC(): #139 Mostrar todos Epi
 	url2 = re.sub('redecanais\.[^\/]+', RC, url.replace("http\:","https\:") )
 	if not "redecanais" in url2:
 		url2 = "https://www."+ RC + url2
