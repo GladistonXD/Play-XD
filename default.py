@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.16.02"
+Versao = "19.17.02"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -482,7 +482,7 @@ def PlayMRC(): #95 Play filmes
 			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
 		player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link)
 		if player:
-			player = re.sub('.php', "playerfree.php", player[0] )
+			player = re.sub('.php', "player.php", player[0] )
 			player = re.sub('^/', RC2, player)
 			mp4 = common.OpenURL(player ,headers={'referer': "https://cometa.top/"})
 			file=re.compile('[^"|\']+\.mp4').findall(mp4)
@@ -519,7 +519,7 @@ def PlayMRC2(): #96 Play filmes
 			#m = re.compile(reg, re.IGNORECASE).findall(pb)
 			#url2 = m[0]
 			#file = mp4[0][1]+".mp4"
-			player = re.sub('.php', "playerfree.php", player[0] )
+			player = re.sub('.php', "player.php", player[0] )
 			player = re.sub('^/', RC2, player)
 			mp4 = common.OpenURL(player ,headers={'referer': "https://cometa.top/"})
 			file=re.compile('[^"|\']+\.mp4').findall(mp4)
@@ -556,7 +556,7 @@ def PlaySRC(): #133 Play series
 			#m = re.compile(reg, re.IGNORECASE).findall(pb)
 			#url2 = m[0]
 			#file = mp4[0][1]+".mp4"
-			player = re.sub('.php', "playerfree.php", player[0] )
+			player = re.sub('.php', "player.php", player[0] )
 			player = re.sub('^/', "https://"+RC, player)
 			mp4 = common.OpenURL(player ,headers={'referer': "https://cometa.top/"})
 			file=re.compile('[^"|\']+\.mp4').findall(mp4)
