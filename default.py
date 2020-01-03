@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.24.02"
+Versao = "19.25.02"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -78,8 +78,8 @@ URLFO=URLP+"fo/"
 proxy = "http://cubeplay.000webhostapp.com/nc/nc.php?u="
 proxy = ""
 
-RC="redecanais.observer/"
-RC2="https://redecanais.observer/"
+RC="redecanais.bz/"
+RC2="https://redecanais.bz/"
 	
 def getLocaleString(id):
 	return Addon.getLocalizedString(id).encode('utf-8')
