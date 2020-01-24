@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.33.02"
+Versao = "19.34.02"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -75,8 +75,8 @@ URLP="http://cubeplay.000webhostapp.com/"
 URLNC=URLP+"cloud/v2/nc/"
 URLFO=URLP+"fo/"
 
-proxy = "http://cubeplay.000webhostapp.com/nc/nc.php?u="
-proxy = ""
+proxy = "http://localhost:8080/index.php?q="
+proxy1 = ""
 
 reference="https://canaisgratis.org/"
 RC="redecanais.bz/"
