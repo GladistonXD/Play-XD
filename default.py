@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.35.02"
+Versao = "19.36.02"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -686,19 +686,19 @@ def PlayMRC2(): #96 Play filmes
 			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
 		player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link)
 		if player:
-			#mp4 = re.compile('server(f?\d*).+vid\=(\w+)').findall(player[0])
-			#reg = "(.+)\\$rc"+mp4[0][0]
-			#pb = common.OpenURL("https://pastebin.com/raw/FwSnnr65")
-			#ss = re.compile('(.{1,65})RCFServer.{1,35}\.mp4').findall(pb)
-			#pb = re.sub('\$s1\/', ss[0], pb )
-			#pb = re.sub('\$s2\/', ss[1], pb )
-			#m = re.compile(reg, re.IGNORECASE).findall(pb)
-			#url2 = m[0]
-			#file = mp4[0][1]+".mp4"
-			player = re.sub('.php',".php", player[0] )
-			player = re.sub('^/', RC2, player)
-			mp4 = common.OpenURL(player ,headers={'referer': reference})
-			file=re.compile('[^"|\']+\.mp4').findall(mp4)
+			mp4 = re.compile('server(f?\d*).+vid\=(\w+)').findall(player[0])
+			reg = "(.+)\\$rc"+mp4[0][0]
+			pb = common.OpenURL("https://pastebin.com/raw/FwSnnr65")
+			ss = re.compile('(.{1,65})RCFServer.{1,35}\.mp4').findall(pb)
+			pb = re.sub('\$s1\/', ss[0], pb )
+			pb = re.sub('\$s2\/', ss[1], pb )
+			m = re.compile(reg, re.IGNORECASE).findall(pb)
+			url2 = m[0]
+			file = url2 + mp4[0][1]+".mp4"
+			#player = re.sub('.php',".php", player[0] )
+			#player = re.sub('^/', RC2, player)
+			#mp4 = common.OpenURL(player ,headers={'referer': reference})
+			#file=re.compile('[^"|\']+\.mp4').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC2"
 			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + "|Referer="+ reference, iconimage, desc) #aqui
