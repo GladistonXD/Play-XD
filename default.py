@@ -701,7 +701,8 @@ def PlayMRC2(): #96 Play filmes
 			#file=re.compile('[^"|\']+\.mp4').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC2"
-			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + "|Referer="+ reference, iconimage, desc) #aqui
+			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file + "|Referer="+ reference, iconimage, desc) #aqui
+			#PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + "|Referer="+ reference, iconimage, desc) #aqui
 		else:
 			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
 	except:
