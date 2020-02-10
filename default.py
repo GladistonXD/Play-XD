@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.37.02"
+Versao = "19.38.02"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -79,7 +79,8 @@ URLFO=URLP+"fo/"
 proxy = ""
 
 reference="https://bemestarglobal.com.br"
-reference2="https://redecanais.bz/"
+reference2="https://lll.llllllllllllllllllllllllllllllllllllllll.fun/player3/serverf3-bk.php"
+reference3="https://l.llllllllllllllllllllllllllllllllllllllll.fun/player3/canais-bk.php"
 RC="redecanais.bz/"
 RC2="https://redecanais.bz/"
 	
@@ -879,7 +880,7 @@ def Busca(): # 160
 		l= 0
 		for x in range(0, 10):
 			l +=1
-			link = common.OpenURL(proxy+"https://" + RC +"search.php?keywords="+d+"&page="+str(l))
+			link = common.OpenURL(proxy+"https://" + RC +"ajax_search.php?queryString="+d+str(l))
 			match = re.compile('data\-echo\=\"([^\"]+).{10,150}href=\"([^\"]+).{0,10}title=\"([^\"]+)\"').findall(link.replace('\n','').replace('\r',''))
 			if match:
 				for img2,url2,name2 in match:
@@ -983,7 +984,7 @@ def PlayTVCB(): #103
 	player = re.sub('^/', "https://canaisgratis.info/" , player)
 	link2 = common.OpenURL(player,headers={'referer': reference})
 	m = re.compile('http.{10,250}?m3u8').findall(link2)
-	PlayUrl(name, m[0] + "|Referer="+ reference2 + "&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30", iconimage, name, "")
+	PlayUrl(name, m[0] + "|Referer="+ reference3 + "&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30", iconimage, name, "")
 	link3 = common.OpenURL("http://cbplay.000webhostapp.com/rc/_grc.php?u="+m[0])
 	#ST(m[0])
 	#AddDir("play", m[0] + "?play|Referer=https://cometa.top", 3, isFolder=False, IsPlayable=True, info="")
