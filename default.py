@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.38.02"
+Versao = "19.39.02"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -79,8 +79,8 @@ URLFO=URLP+"fo/"
 proxy = ""
 
 reference="https://bemestarglobal.com.br"
-reference2="https://lll.llllllllllllllllllllllllllllllllllllllll.fun/player3/serverf3-bk.php"
-reference3="https://l.llllllllllllllllllllllllllllllllllllllll.fun/player3/canais-bk.php"
+reference2="https://lll.llllllllllllllllllllllllllllllllllllllll.fun/"
+reference3="https://l.llllllllllllllllllllllllllllllllllllllll.fun/"
 RC="redecanais.bz/"
 RC2="https://redecanais.bz/"
 	
