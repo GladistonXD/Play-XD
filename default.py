@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.40.02"
+Versao = "19.41.02"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -79,7 +79,8 @@ URLFO=URLP+"fo/"
 proxy = ""
 
 reference="https://bemestarglobal.com.br"
-reference2="https://lll.llllllllllllllllllllllllllllllllllllllll.fun/"
+#reference2="|Referer=https://lll.llllllllllllllllllllllllllllllllllllllll.fun/"
+reference2=""
 reference3="https://l.llllllllllllllllllllllllllllllllllllllll.fun/"
 RC="redecanais.bz/"
 RC2="https://redecanais.bz/"
@@ -663,7 +664,7 @@ def PlayMRC(): #95 Play filmes
 			player = re.sub('.php', "-bk.php", player[0] )
 			player = re.sub('^/', RC2, player)
 			mp4 = common.OpenURL(player ,headers={'referer': reference})
-			file=re.compile('[^"|\']+\.mp4.{1,60}').findall(mp4)
+			file=re.compile('https:\/\/([^"|\']+\.mp4.{1,60})').findall(mp4)
 			#mp4 = re.compile('server(f?\d*).+vid\=(\w+)').findall(player[0])
 			#reg = "(.+)\\$rc"+mp4[0][0]
 			#pb = common.OpenURL("https://pastebin.com/raw/FwSnnr65")
@@ -673,7 +674,7 @@ def PlayMRC(): #95 Play filmes
 			#m = re.compile(reg, re.IGNORECASE).findall(pb)
 			#url2 = m[0]
 			#file = mp4[0][1]+".mp4"
-			AddDir("[B][COLOR yellow]"+ name +" [/COLOR][/B]"  , file[0] + "|Referer="+ reference2, 3, iconimage, iconimage, index=0, isFolder=False, IsPlayable=True, info=desc, background=url+";;;"+name+";;;RC")
+			AddDir("[B][COLOR yellow]"+ name +" [/COLOR][/B]"  , "http://" + file[0] + reference2, 3, iconimage, iconimage, index=0, isFolder=False, IsPlayable=True, info=desc, background=url+";;;"+name+";;;RC")
 		else:
 			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
 	except:
@@ -700,10 +701,10 @@ def PlayMRC2(): #96 Play filmes
 			player = re.sub('.php',"-bk.php", player[0] )
 			player = re.sub('^/', RC2, player)
 			mp4 = common.OpenURL(player ,headers={'referer': reference})
-			file=re.compile('[^"|\']+\.mp4.{1,60}').findall(mp4)
+			file=re.compile('https:\/\/([^"|\']+\.mp4.{1,60})').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC2"
-			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + "|Referer="+ reference2, iconimage, desc) #aqui
+			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "http://" + file[0] + reference2, iconimage, desc) #aqui
 		else:
 			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
 	except:
@@ -737,8 +738,8 @@ def PlaySRC(): #133 Play series
 			player = re.sub('.php', "-bk.php", player[0] )
 			player = re.sub('^/', "https://"+RC, player)
 			mp4 = common.OpenURL(player ,headers={'referer': reference})
-			file=re.compile('[^"|\']+\.mp4.{1,60}').findall(mp4)
-			PlayUrl(name, file[0] + "|Referer="+ reference2, iconimage, name)
+			file=re.compile('https:\/\/([^"|\']+\.mp4.{1,60})').findall(mp4)
+			PlayUrl(name, "http://" + file[0] + reference2, iconimage, name)
 		else:
 			xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
 	except:
