@@ -79,7 +79,7 @@ URLFO=URLP+"fo/"
 proxy = ""
 
 reference="https://bemestarglobal.com.br"
-#reference2="|Referer=https://lll.llllllllllllllllllllllllllllllllllllllll.fun/"
+#reference2="|verifypeer=false&referer=http://lll.llllllllllllllllllllllllllllllllllllllll.fun/"
 reference2=""
 reference3="https://l.llllllllllllllllllllllllllllllllllllllll.fun/"
 RC="redecanais.bz/"
