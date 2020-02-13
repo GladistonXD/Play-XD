@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.41.02"
+Versao = "19.42.02"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -881,13 +881,13 @@ def Busca(): # 160
 		l= 0
 		for x in range(0, 10):
 			l +=1
-			link = common.OpenURL(proxy+"https://" + RC +"ajax_search.php?queryString="+d+str(l))
+			link = common.OpenURL(proxy+"https://" + RC +"search.php?keywords="+d+"&page="+str(l))
 			match = re.compile('data\-echo\=\"([^\"]+).{10,150}href=\"([^\"]+).{0,10}title=\"([^\"]+)\"').findall(link.replace('\n','').replace('\r',''))
 			if match:
 				for img2,url2,name2 in match:
 					#url2 = re.sub('^\.', "http://www." + RC, url2 )
-					url2 = re.sub('^\.', RC2, url2 )
-					img2 = re.sub('^/', RC2, img2 )
+					url2 = re.sub('^\.', "https://"+RC, url2 )
+					img2 = re.sub('^/', "https://"+RC, img2 )
 					if re.compile('\d+p').findall(name2):
 						if cPlayD == "true":
 							AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 96, img2, img2, info="", isFolder=False, IsPlayable=True)
