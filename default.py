@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.43.02"
+Versao = "19.44.02"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -665,7 +665,7 @@ def PlayMRC(): #95 Play filmes
 			player = re.sub('.php', "-bk.php", player[0] )
 			player = re.sub('^/', RC2, player)
 			mp4 = common.OpenURL(player ,headers={'referer': reference})
-			file=re.compile('https:\/\/([^"|\']+\.mp4.{1,60})').findall(mp4)
+			file=re.compile(':\/\/([^"|\']+\.mp4.{1,60})').findall(mp4)
 			#mp4 = re.compile('server(f?\d*).+vid\=(\w+)').findall(player[0])
 			#reg = "(.+)\\$rc"+mp4[0][0]
 			#pb = common.OpenURL("https://pastebin.com/raw/FwSnnr65")
@@ -702,7 +702,7 @@ def PlayMRC2(): #96 Play filmes
 			player = re.sub('.php',"-bk.php", player[0] )
 			player = re.sub('^/', RC2, player)
 			mp4 = common.OpenURL(player ,headers={'referer': reference})
-			file=re.compile('https:\/\/([^"|\']+\.mp4.{1,60})').findall(mp4)
+			file=re.compile(':\/\/([^"|\']+\.mp4.{1,60})').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC2"
 			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", protocol + file[0] + reference2, iconimage, desc) #aqui
@@ -739,7 +739,7 @@ def PlaySRC(): #133 Play series
 			player = re.sub('.php', "-bk.php", player[0] )
 			player = re.sub('^/', "https://"+RC, player)
 			mp4 = common.OpenURL(player ,headers={'referer': reference})
-			file=re.compile('https:\/\/([^"|\']+\.mp4.{1,60})').findall(mp4)
+			file=re.compile(':\/\/([^"|\']+\.mp4.{1,60})').findall(mp4)
 			PlayUrl(name, protocol + file[0] + reference2, iconimage, name)
 		else:
 			xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
