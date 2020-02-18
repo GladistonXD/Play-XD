@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.44.02"
+Versao = "19.45.02"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -79,10 +79,11 @@ URLFO=URLP+"fo/"
 proxy = ""
 
 protocol="http://"
+protocol2="http://"
 reference="https://bemestarglobal.com.br"
 #reference2="|verifypeer=false&referer=http://lll.llllllllllllllllllllllllllllllllllllllll.fun/"
 reference2=""
-reference3="https://l.llllllllllllllllllllllllllllllllllllllll.fun/"
+reference3="https://l.llllllllllllllllllllllllllllllllllllllll.fun/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
 RC="redecanais.bz/"
 RC2="https://redecanais.bz/"
 	
@@ -665,7 +666,7 @@ def PlayMRC(): #95 Play filmes
 			player = re.sub('.php', "-bk.php", player[0] )
 			player = re.sub('^/', RC2, player)
 			mp4 = common.OpenURL(player ,headers={'referer': reference})
-			file=re.compile(':\/\/([^"|\']+\.mp4.{1,60})').findall(mp4)
+			file=re.compile(':\/\/([^"|\']+\.mp4?.{1,60})').findall(mp4)
 			#mp4 = re.compile('server(f?\d*).+vid\=(\w+)').findall(player[0])
 			#reg = "(.+)\\$rc"+mp4[0][0]
 			#pb = common.OpenURL("https://pastebin.com/raw/FwSnnr65")
@@ -702,7 +703,7 @@ def PlayMRC2(): #96 Play filmes
 			player = re.sub('.php',"-bk.php", player[0] )
 			player = re.sub('^/', RC2, player)
 			mp4 = common.OpenURL(player ,headers={'referer': reference})
-			file=re.compile(':\/\/([^"|\']+\.mp4.{1,60})').findall(mp4)
+			file=re.compile(':\/\/([^"|\']+\.mp4?.{1,60})').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC2"
 			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", protocol + file[0] + reference2, iconimage, desc) #aqui
@@ -739,7 +740,7 @@ def PlaySRC(): #133 Play series
 			player = re.sub('.php', "-bk.php", player[0] )
 			player = re.sub('^/', "https://"+RC, player)
 			mp4 = common.OpenURL(player ,headers={'referer': reference})
-			file=re.compile(':\/\/([^"|\']+\.mp4.{1,60})').findall(mp4)
+			file=re.compile(':\/\/([^"|\']+\.mp4?.{1,60})').findall(mp4)
 			PlayUrl(name, protocol + file[0] + reference2, iconimage, name)
 		else:
 			xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
@@ -985,8 +986,8 @@ def PlayTVCB(): #103
 	player = re.sub('.php', "-bk.php", player[0] )
 	player = re.sub('^/', "https://canaisgratis.info/" , player)
 	link2 = common.OpenURL(player,headers={'referer': reference})
-	m = re.compile('http.{10,250}?m3u8').findall(link2)
-	PlayUrl(name, m[0] + "|Referer="+ reference3 + "&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30", iconimage, name, "")
+	m = re.compile(':\/\/([^"|\']+\.m3u8?.{1,60})').findall(link2)
+	PlayUrl(name, protocol2 + m[0] + "|Referer="+ reference3, iconimage, name, "")
 	link3 = common.OpenURL("http://cbplay.000webhostapp.com/rc/_grc.php?u="+m[0])
 	#ST(m[0])
 	#AddDir("play", m[0] + "?play|Referer=https://cometa.top", 3, isFolder=False, IsPlayable=True, info="")
