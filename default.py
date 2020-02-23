@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.45.02"
+Versao = "19.46.02"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -80,10 +80,11 @@ proxy = ""
 
 protocol="http://"
 protocol2="http://"
-reference="https://bemestarglobal.com.br"
+reference="https://canaisgratis.info/"
 #reference2="|verifypeer=false&referer=http://lll.llllllllllllllllllllllllllllllllllllllll.fun/"
 reference2=""
-reference3="https://l.llllllllllllllllllllllllllllllllllllllll.fun/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
+#reference3="|Referer=https://canaisgratis.org/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
+reference3=""
 RC="redecanais.bz/"
 RC2="https://redecanais.bz/"
 	
@@ -980,14 +981,14 @@ def TVCB(x): #102
 	#	AddDir("Servidor offline, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def PlayTVCB(): #103
 	#ST(url)
-	link = common.OpenURL("https://canaisgratis.info/"+url)
+	link = common.OpenURL("https://canais.gratis/"+url)
 	#link = common.OpenURL("https://canaisgratis.top/assistir-max-prime-online-24-horas-ao-vivo_8586fbbe2.html")
 	player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link)
-	player = re.sub('.php', "-bk.php", player[0] )
-	player = re.sub('^/', "https://canaisgratis.info/" , player)
+	player = re.sub('^/', "https://canaisgratis.info/" , player[0])
+	#player = re.sub('.php', ".php", player[0] )
 	link2 = common.OpenURL(player,headers={'referer': reference})
 	m = re.compile(':\/\/([^"|\']+\.m3u8?.{1,60})').findall(link2)
-	PlayUrl(name, protocol2 + m[0] + "|Referer="+ reference3, iconimage, name, "")
+	PlayUrl(name, protocol2 + m[0] + reference3, iconimage, name, "")
 	link3 = common.OpenURL("http://cbplay.000webhostapp.com/rc/_grc.php?u="+m[0])
 	#ST(m[0])
 	#AddDir("play", m[0] + "?play|Referer=https://cometa.top", 3, isFolder=False, IsPlayable=True, info="")
