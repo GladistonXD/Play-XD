@@ -335,7 +335,6 @@ def MoviesNC(): #71
 			link = common.OpenURL("https://netcine.info/ano-lancamento/2019/").replace('\n','').replace('\r','')
 			l61 = re.compile("box_movies(.+)").findall(link)
 			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l60[0]+l61[0])            
-			lista = sorted(lista, key=lambda lista: lista[1])
 		if CatGO=="2":        
 			link = common.OpenURL("http://netcine.me/category/acao/?mt").replace('\n','').replace('\r','')
 			l100 = re.compile("box_movies(.+)").findall(link)
