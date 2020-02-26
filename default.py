@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.48.02"
+Versao = "19.49.02"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -94,10 +94,10 @@ def getLocaleString(id):
 def Categories(): #70
 	#AddDir("[B]!{0}: {1}[/B] - {2} ".format(getLocaleString(30036), getLocaleString(30037) if makeGroups else getLocaleString(30038) , getLocaleString(30039)), "setting" ,50 ,os.path.join(iconsDir, "setting.png"), isFolder=False)
 	#AddDir("[COLOR white][B][Canais de TV1][/B][/COLOR]" , "", 100, "http://oi68.tinypic.com/116jn69.jpg", "http://oi68.tinypic.com/116jn69.jpg")
-	AddDir("[COLOR white][B]Canais de TV[/B][/COLOR]" , "", 102, "https://uploaddeimagens.com.br/images/002/440/396/original/TV.jpg", "https://uploaddeimagens.com.br/images/002/440/396/original/TV.jpg")
-	AddDir("[B][COLOR white]Filmes[/COLOR][/B]", "" , -2,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True)
-	AddDir("[COLOR white][B]Séries[/B][/COLOR]" , "", -3, "https://uploaddeimagens.com.br/images/002/376/145/original/Novo_3.jpg", "https://uploaddeimagens.com.br/images/002/376/145/original/Novo_3.jpg")
-	AddDir("[COLOR green][B]Histórico Filmes[/B][/COLOR]", "" ,305 , "https://cdn2.iconfinder.com/data/icons/business-office-icons/256/To-do_List-512.png", "https://cdn2.iconfinder.com/data/icons/business-office-icons/256/To-do_List-512.png")
+	AddDir("[COLOR white][B]Canais de TV[/B][/COLOR]" , "", 102, "https://uploaddeimagens.com.br/images/002/440/396/original/TV.jpg", "https://uploaddeimagens.com.br/images/002/440/396/original/TV.jpg", info='[COLOR][/COLOR]')
+	AddDir("[B][COLOR white]Filmes[/COLOR][/B]", "" , -2,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True, info='[COLOR][/COLOR]')
+	AddDir("[COLOR white][B]Séries[/B][/COLOR]" , "", -3, "https://uploaddeimagens.com.br/images/002/376/145/original/Novo_3.jpg", "https://uploaddeimagens.com.br/images/002/376/145/original/Novo_3.jpg", info='[COLOR][/COLOR]')
+	AddDir("[COLOR green][B]Histórico Filmes[/B][/COLOR]", "" ,305 , "https://cdn2.iconfinder.com/data/icons/business-office-icons/256/To-do_List-512.png", "https://cdn2.iconfinder.com/data/icons/business-office-icons/256/To-do_List-512.png", info='[COLOR][/COLOR]')
 	AddDir("[COLOR pink][B]Busca[/B][/COLOR]" , "", 160, "https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", "https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", "https://azure.microsoft.com/svghandler/search/?width=400&height=315", "https://azure.microsoft.com/svghandler/search/?width=400&height=315", info="Pesquisa em todo o Addon por palavra-chave")
 	AddDir("[B][COLOR orange]Checar Atualizações[/COLOR][/B]", "" , 200,"https://uploaddeimagens.com.br/images/002/376/161/original/Update.jpg", "https://uploaddeimagens.com.br/images/002/376/161/original/Update.jpg", isFolder=False, info="Checar se há atualizações\n\nAs atualizações normalmente são automáticas\nUse esse recurso caso não esteja recebendo automaticamente\r\nVersão atual: "+Versao)
 # --------------  Menu
@@ -110,23 +110,23 @@ def MCanais(): #-1
 	setViewM()
 def MFilmes(): #-2
 	#AddDir("[COLOR white][B][Filmes Dublado/Legendado][/B][/COLOR]" , cPage, 220, "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", background="cPage")
-	AddDir("[B][COLOR cyan]Filmes Lançamentos MMFilmes[/COLOR][/B]", "config" , 184,"https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", "https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", isFolder=True)
-	AddDir("[B][COLOR cyan]Filmes MMFilmes[/COLOR][/B]", "config" , 180,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True)
+	AddDir("[B][COLOR cyan]Filmes Lançamentos MMFilmes[/COLOR][/B]", "config" , 184,"https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", "https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", isFolder=True, info='[COLOR][/COLOR]')
+	AddDir("[B][COLOR cyan]Filmes MMFilmes[/COLOR][/B]", "config" , 180,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	#AddDir("[COLOR maroon][B][Filmes GoFilmes.me][/B][/COLOR]" , "", 210, "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg")
-	AddDir("[COLOR yellow][B]Filmes NetCine[/B][/COLOR]" , "", 71, "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg")
-	AddDir("[COLOR blue][B]Filmes Lançamentos RedeCanais[/B][/COLOR]" , cPage, 221, "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", background="cPage")
-	AddDir("[COLOR blue][B]Filmes Dublado RedeCanais[/B][/COLOR]" , cPage, 90, "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", background="cPage")
-	AddDir("[COLOR blue][B]Filmes Legendado RedeCanais[/B][/COLOR]" , cPageleg, 91, "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", background="cPageleg")
-	AddDir("[COLOR blue][B]Filmes Nacional RedeCanais[/B][/COLOR]" , cPagenac, 92, "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", background="cPagenac")
+	AddDir("[COLOR yellow][B]Filmes NetCine[/B][/COLOR]" , "", 71, "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", info='[COLOR][/COLOR]')
+	AddDir("[COLOR blue][B]Filmes Lançamentos RedeCanais[/B][/COLOR]" , cPage, 221, "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", background="cPage", info='[COLOR][/COLOR]')
+	AddDir("[COLOR blue][B]Filmes Dublado RedeCanais[/B][/COLOR]" , cPage, 90, "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", background="cPage", info='[COLOR][/COLOR]')
+	AddDir("[COLOR blue][B]Filmes Legendado RedeCanais[/B][/COLOR]" , cPageleg, 91, "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", background="cPageleg", info='[COLOR][/COLOR]')
+	AddDir("[COLOR blue][B]Filmes Nacional RedeCanais[/B][/COLOR]" , cPagenac, 92, "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", background="cPagenac", info='[COLOR][/COLOR]')
 	#AddDir("[COLOR purple][B]Filmes FilmesOnline[/B][/COLOR]" , "", 170, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg")
 	#AddDir("[COLOR lightgreen][B]Filmes Superflix[/B][/COLOR]" , "", 411, "https://walter.trakt.tv/images/movies/000/167/163/fanarts/thumb/23ecb5f950.jpg.webp", "https://walter.trakt.tv/images/movies/000/167/163/fanarts/thumb/23ecb5f950.jpg.webp")
 	setViewM()
 def MSeries(): #-3
 	AddDir("[COLOR yellow][B]Séries NetCine[/B][/COLOR]" , "", 60, "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg", "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg")
-	AddDir("[COLOR blue][B]Séries RedeCanais[/B][/COLOR]" , cPageser, 130, "https://walter.trakt.tv/images/shows/000/001/393/fanarts/thumb/fc68b3b649.jpg", "https://walter.trakt.tv/images/shows/000/001/393/fanarts/thumb/fc68b3b649.jpg", background="cPageser")
-	AddDir("[COLOR blue][B]Animes RedeCanais[/B][/COLOR]" , cPageser, 140, "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", background="cPageser")
-	AddDir("[COLOR blue][B]Desenhos RedeCanais[/B][/COLOR]" , cPageani, 150, "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", background="cPageser")
-	AddDir("[B][COLOR cyan]Séries MMFilmes[/COLOR][/B]", "config" , 190,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True)
+	AddDir("[COLOR blue][B]Séries RedeCanais[/B][/COLOR]" , cPageser, 130, "https://walter.trakt.tv/images/shows/000/001/393/fanarts/thumb/fc68b3b649.jpg", "https://walter.trakt.tv/images/shows/000/001/393/fanarts/thumb/fc68b3b649.jpg", background="cPageser", info='[COLOR][/COLOR]')
+	AddDir("[COLOR blue][B]Animes RedeCanais[/B][/COLOR]" , cPageser, 140, "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", background="cPageser", info='[COLOR][/COLOR]')
+	AddDir("[COLOR blue][B]Desenhos RedeCanais[/B][/COLOR]" , cPageani, 150, "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", background="cPageser", info='[COLOR][/COLOR]')
+	AddDir("[B][COLOR cyan]Séries MMFilmes[/COLOR][/B]", "config" , 190,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	setViewM()
 # --------------  Fim menu
 # --------------  Inicio Filme CB
@@ -136,7 +136,7 @@ def Filmes96(): #220
 	for x in m:
 		try:
 			meta = eval(x)
-			AddDir(meta['title'] +" [COLOR yellow]("+str(meta['year'])+")[/COLOR] "+" [COLOR blue]["+str(meta['rating'])+"][/COLOR]" , meta['mp4'] +"?play", 229, isFolder=False, IsPlayable=True, metah=meta)
+			AddDir(meta['title'] +" [COLOR yellow]("+str(meta['year'])+")[/COLOR] "+" [COLOR blue]["+str(meta['rating'])+"][/COLOR]" , meta['mp4'] +"?play", 229, isFolder=False, IsPlayable=True, metah=meta, info='[COLOR][/COLOR]')
 		except:
 			pass
 	setViewM()
@@ -152,7 +152,7 @@ def FilmesRC(): #221
 			reg = "(.+)\$"+file[1]
 			m = re.compile(reg, re.IGNORECASE).findall(link2)
 			url2 = m[0]
-			AddDir(meta['title'] +" [COLOR yellow]("+str(meta['year'])+")[/COLOR] "+" [COLOR blue]["+str(meta['rating'])+"][/COLOR]" , url2 + file[0] +"?play|Referer=http://redecanais.xyz/", 229, isFolder=False, IsPlayable=True, metah=meta)
+			AddDir(meta['title'] +" [COLOR yellow]("+str(meta['year'])+")[/COLOR] "+" [COLOR blue]["+str(meta['rating'])+"][/COLOR]" , url2 + file[0] +"?play|Referer=http://redecanais.xyz/", 229, isFolder=False, IsPlayable=True, metah=meta, info='[COLOR][/COLOR]')
 		except:
 			pass
 	setViewM()
@@ -163,7 +163,7 @@ def PlayFilmes96(): #229
 def CategoryOrdem(x):
 	x2 = Addon.getSetting(eval("x"))
 	name2 = "Data" if x2=="0" else "Título"
-	AddDir("[COLOR green][B][Organizado por:][/B] "+name2 +" (Clique para alterar)[/COLOR]" , x, 81, "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False)
+	AddDir("[COLOR green][B][Organizado por:][/B] "+name2 +" (Clique para alterar)[/COLOR]" , x, 81, "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 def CategoryOrdem2(url):
 	x2 = Addon.getSetting(url)
 	x = "0" if x2=="1" else "1"
@@ -192,7 +192,7 @@ def Series(): #60
 			if name2!="Close":
 				name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'")
 				img2 = re.sub('-120x170.(jpg|png)', r'.\1', img2 )
-				AddDir(name2 ,url2, 61, img2, img2, isFolder=True)
+				AddDir(name2 ,url2, 61, img2, img2, isFolder=True, info='[COLOR][/COLOR]')
 	except:
 		AddDir("Server NETCINE offline, tente novamente em alguns minutos" , "", 0, isFolder=False)
 def ListSNC(x): #61
@@ -263,8 +263,7 @@ def PlayS(): #62
 		xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
 # --------------------------------------
 def MoviesNC(): #71
-	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False)
-	CategoryOrdem("cOrdNCF")
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	try:
 		if CatGO=="0":
 			link = common.OpenURL("http://netcine.me/page/1/?mt").replace('\n','').replace('\r','')
@@ -334,7 +333,9 @@ def MoviesNC(): #71
 			l60 = re.compile("box_movies(.+)").findall(link)
 			link = common.OpenURL("https://netcine.info/ano-lancamento/2019/").replace('\n','').replace('\r','')
 			l61 = re.compile("box_movies(.+)").findall(link)
-			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l60[0]+l61[0])            
+			link = common.OpenURL("https://netcine.info/ano-lancamento/2019/page/2/").replace('\n','').replace('\r','')
+			l62 = re.compile("box_movies(.+)").findall(link)
+			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l60[0]+l61[0]+l62[0])            
 		if CatGO=="2":        
 			link = common.OpenURL("http://netcine.me/category/acao/?mt").replace('\n','').replace('\r','')
 			l100 = re.compile("box_movies(.+)").findall(link)
@@ -483,7 +484,7 @@ def MoviesNC(): #71
 				img2 = re.sub('-120x170.(jpg|png)', r'.\1', img2 )
 			if "tvshows" in url2: False
 			else:
-				AddDir(name2,url2, 78, img2, img2, isFolder=True)
+				AddDir(name2,url2, 78, img2, img2, isFolder=True, info='[COLOR][/COLOR]')
 	except urllib2.URLError, e:
 		AddDir("Server NETCINE offline, tente novamente em alguns minutos" , "", 0, isFolder=False)
 def ListMoviesNC(): #78
@@ -493,7 +494,7 @@ def ListMoviesNC(): #78
 		m2 = re.compile("\#play-...(\w*)").findall(link)
 		info2 = re.compile('<h2>Synopsis<\/h2>(.*?).<\/').findall(link)
 		info2 = re.sub('<(.*?)>', '', info2[0] ) if info2 else ""
-		info2 = info2.replace('&#8217;','').replace('&#8211;','')
+		info2 = info2.replace('&#8217;','').replace('&#8211;','').replace('&#038;','')
 		i=0
 		for name2 in m2:
 			AddDir(name +" [COLOR blue]("+ name2 +")[/COLOR]", m[i], 79, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
@@ -547,7 +548,7 @@ def Generos(): #80
 # --------------  FIM NETCINE
 # --------------  REDECANAIS FILMES
 def MoviesRCD(): #90 Filme dublado
-	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + Clista2[int(Cat)] +"[/COLOR]", "url" ,80 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False)
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + Clista2[int(Cat)] +"[/COLOR]", "url" ,80 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	CategoryOrdem("cOrdRCF")
 	try:
 		p= 1
@@ -584,7 +585,7 @@ def MoviesRCD(): #90 Filme dublado
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "")
 def MoviesRCL(): #91 Filme Legendado
-	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + Clista2[int(Cat)] +"[/COLOR]", "url" ,80 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False)
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + Clista2[int(Cat)] +"[/COLOR]", "url" ,80 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	CategoryOrdem("cOrdRCF")
 	try:
 		p= 1
@@ -972,7 +973,7 @@ def TVCB(x): #102
 	m = re.compile('url="(.+?)".mg="(.+?)".ame="(.+?)"').findall(link)
 	#ST(m)
 	for url2,img2,name2 in m:
-		AddDir(name2 , url2, 103, img2, img2, isFolder=False, IsPlayable=True)
+		AddDir(name2 , url2, 103, img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
 	
 	#try:
 	#AddDir("Play", m[0], 50, "", "", isFolder=False, IsPlayable=True, info="")
@@ -1042,7 +1043,7 @@ def TVRC(): #100
 	#link = common.OpenURL("http://localhost:8080/epg/_rc.php?c="+str(d))
 	match = re.compile('tvg\-logo\=\"([^\"]+).+,(.+)\s(.+)|,(.+)\s(.+)').findall(link)
 	for img2,name2,url2,a,c in match:
-		AddDir(name2, url2, 3, img2, img2, isFolder=False, IsPlayable=True, info="")
+		AddDir(name2, url2, 3, img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
 def PlayTVRC(): # 101
 	#url2 = re.sub('redecanais\.[^\/]+', "redecanais.xyz", url.replace("https","http") )
 	try:
@@ -1173,19 +1174,19 @@ def ListFilmeLancMM(): #184
 				for name2,b,url2 in m:
 					name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'").replace("&#8230;","")
 					if not url2 in ms:
-						AddDir(name2+ " [COLOR yellow]"+res[i]+"[/COLOR] [COLOR green]"+dubleg[i]+"[/COLOR]", url2, 181, jpg[i], jpg[i],isFolder=True,IsPlayable=False)
+						AddDir(name2+ " [COLOR yellow]"+res[i]+"[/COLOR] [COLOR green]"+dubleg[i]+"[/COLOR]", url2, 181, jpg[i], jpg[i],isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
 					i+=1
 			i=0
 	except:
 		pass
 def ListFilmeMM(pagina2): #180
-	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + ClistaMM1[int(CatMM)] +"[/COLOR]", "url" ,189 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False)
+	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + ClistaMM1[int(CatMM)] +"[/COLOR]", "url" ,189 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	pagina=eval(pagina2)
 	l= int(pagina)*5
 	p=1
 	i=0
 	if int(pagina) > 0:
-		AddDir("[COLOR lime][B]<< Pagina Anterior ["+ str( int(pagina) ) +"[/B]][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background=pagina2)
+		AddDir("[COLOR lime][B]<< Pagina Anterior ["+ str( int(pagina) ) +"[/B]][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background=pagina2, info='[COLOR][/COLOR]')
 	try:
 		links = common.OpenURL("http://www.mmfilmes.tv/series/")
 		ms = re.compile('href\=\"(.+www.mmfilmes.tv.+)\" rel\=\"bookmark\"').findall(links)
@@ -1200,7 +1201,7 @@ def ListFilmeMM(pagina2): #180
 				for name2,b,url2 in m:
 					name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'").replace("&#8230;","")
 					if not url2 in ms:
-						AddDir(name2+ " [B][COLOR yellow]"+res[i]+"[/COLOR][/B] [B][COLOR cyan]"+dubleg[i]+"[/COLOR][/B]", url2, 181, jpg[i], jpg[i],isFolder=True,IsPlayable=False)
+						AddDir(name2+ " [B][COLOR yellow]"+res[i]+"[/COLOR][/B] [B][COLOR cyan]"+dubleg[i]+"[/COLOR][/B]", url2, 181, jpg[i], jpg[i],isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
 					i+=1
 					p+=1
 			i=0
@@ -1265,7 +1266,7 @@ def ListSerieMM(): #190
 			m2 = sorted(m2, key=lambda m2: m2[0])
 			for name2,url2,jpg2 in m2:
 				name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'").replace("&#8230;","")
-				AddDir(name2, url2, 191, jpg2, jpg2, isFolder=True,IsPlayable=False)
+				AddDir(name2, url2, 191, jpg2, jpg2, isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
 	except:
 		AddDir( "Server offline" ,"", 0, "", "", isFolder=False)
 def ListSMM(x): #191
@@ -1434,7 +1435,7 @@ def ListMovieSF(): #411:
 				for url2,img2,name2,year2 in mm:
 					img2 = "http:"+img2 if not "http" in img2 else img2
 					name2 = name2.replace("#038;","").replace("&#8211;","-")
-					AddDir(name2+" ("+year2+")", url2, 405, img2, img2,isFolder=False,IsPlayable=True)
+					AddDir(name2+" ("+year2+")", url2, 405, img2, img2,isFolder=False,IsPlayable=True, info='[COLOR][/COLOR]')
 		except:
 			pass
 # -----------------
