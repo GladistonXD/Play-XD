@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.49.02"
+Versao = "19.50.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -492,9 +492,9 @@ def ListMoviesNC(): #78
 		link = common.OpenURL(url).replace('\n','').replace('\r','')
 		m = re.compile("\"play-.\".+?src=\"([^\"]+)").findall(link)
 		m2 = re.compile("\#play-...(\w*)").findall(link)
-		info2 = re.compile('<h2>Synopsis<\/h2>(.*?).<\/').findall(link)
+		info2 = re.compile('<h2>Synopsis<\/h2>(.*?)<\/').findall(link)
 		info2 = re.sub('<(.*?)>', '', info2[0] ) if info2 else ""
-		info2 = info2.replace('&#8217;','').replace('&#8211;','').replace('&#038;','')
+		info2 = info2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘')
 		i=0
 		for name2 in m2:
 			AddDir(name +" [COLOR blue]("+ name2 +")[/COLOR]", m[i], 79, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
