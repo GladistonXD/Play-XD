@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.47.02"
+Versao = "19.48.02"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -54,8 +54,8 @@ Clistafo0=[ "0",                        "48",         "3",    "7",        "8",  
 Clistafo1=["Sem filtro (Mostrar Todos)","Lançamentos","Ação", "Animação", "Aventura", "Comédia", "Drama",  "Ficção-Científica", "Romance", "Suspense", "Terror"]
 ClistaMM0=["ultimos","category/lancamentos","category/acao","category/animacao","category/aventura","category/comedia","category/drama","category/fantasia","category/ficcao-cientifica","category/guerra","category/policial","category/romance","category/suspense","category/terror"]
 ClistaMM1=["[COLOR red][B]Ultimos Adicionados[/COLOR][/B]","[COLOR red][B]Lançamentos[/COLOR][/B]","[COLOR red][B]Ação[/COLOR][/B]","[COLOR red][B]Animação[/COLOR][/B]","[COLOR red][B]Aventura[/COLOR][/B]","[COLOR red][B]Comédia[/COLOR][/B]","[COLOR red][B]Drama[/COLOR][/B]","[COLOR red][B]Fantasia[/COLOR][/B]","[COLOR red][B]F. Científica[/COLOR][/B]","[COLOR red][B]Guerra[/COLOR][/B]","[COLOR red][B]Policial[/COLOR][/B]","[COLOR red][B]Romance[/COLOR][/B]","[COLOR red][B]Suspense[/COLOR][/B]","[COLOR red][B]Terror[/COLOR][/B]"]
-ClistaGO0=["0",                                                                "1",                                      "2",                                       "3",                                        "4",                                            "5",                                     "6",                                              "7",                                                "8",                                       "9",                                                      "10",                                        "11"]
-ClistaGO1=["[COLOR yellow][B]Mostrar Todos[/COLOR][/B]",            "[COLOR red][B]Ação[/COLOR][/B]", "[COLOR lime][B]Animação[/COLOR][/B]", "[COLOR darkorchid][B]Aventura[/COLOR][/B]", "[COLOR hotpink][B]Comédia[/COLOR][/B]",       "[COLOR springgreen][B]Drama[/COLOR][/B]", "[COLOR salmon][B]Fantasia[/COLOR][/B]", "[COLOR paleturquoise][B]Ficção-Científica[/COLOR][/B]","[COLOR darkorange][B]Faroeste[/COLOR][/B]","[COLOR deepskyblue][B]Romance[/COLOR][/B]", "[COLOR darkorchid][B]Suspense[/COLOR][/B]",             "[COLOR lightgreen][B]Terror[/COLOR][/B]"]
+ClistaGO0=["0",                                                                  "1",                                        "2",                                      "3",                                       "4",                                        "5",                                            "6",                                     "7",                                              "8",                                                "9",                                       "10",                                                      "11",                                        "12", ]
+ClistaGO1=["[COLOR deepskyblue][B]Mostrar Todos[/COLOR][/B]",    "[COLOR yellow][B]Lançamentos[/COLOR][/B]",       "[COLOR red][B]Ação[/COLOR][/B]", "[COLOR lime][B]Animação[/COLOR][/B]", "[COLOR darkorchid][B]Aventura[/COLOR][/B]", "[COLOR hotpink][B]Comédia[/COLOR][/B]",       "[COLOR springgreen][B]Drama[/COLOR][/B]", "[COLOR salmon][B]Fantasia[/COLOR][/B]", "[COLOR paleturquoise][B]Ficção-Científica[/COLOR][/B]","[COLOR darkorange][B]Faroeste[/COLOR][/B]","[COLOR deepskyblue][B]Romance[/COLOR][/B]", "[COLOR darkorchid][B]Suspense[/COLOR][/B]",             "[COLOR lightgreen][B]Terror[/COLOR][/B]"]
 
 def setViewS():
 	xbmcplugin.setContent(int(sys.argv[1]), 'tvshows')
@@ -330,6 +330,13 @@ def MoviesNC(): #71
 			link = common.OpenURL("http://netcine.me/page/31/?mt").replace('\n','').replace('\r','')
 			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l1[0]+l2[0]+l3[0]+l4[0]+l5[0]+l6[0]+l7[0]+l8[0]+l9[0]+l10[0]+l11[0]+l12[0]+l13[0]+l14[0]+l15[0]+l16[0]+l17[0]+l18[0]+l19[0]+l20[0]+l21[0]+l22[0]+l23[0]+l24[0]+l25[0]+l26[0]+l27[0]+l28[0]+l29[0]+l30[0])
 		if CatGO=="1":        
+			link = common.OpenURL("https://netcine.info/ano-lancamento/2020/").replace('\n','').replace('\r','')
+			l60 = re.compile("box_movies(.+)").findall(link)
+			link = common.OpenURL("https://netcine.info/ano-lancamento/2019/").replace('\n','').replace('\r','')
+			l61 = re.compile("box_movies(.+)").findall(link)
+			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l60[0]+l61[0])            
+			lista = sorted(lista, key=lambda lista: lista[1])
+		if CatGO=="2":        
 			link = common.OpenURL("http://netcine.me/category/acao/?mt").replace('\n','').replace('\r','')
 			l100 = re.compile("box_movies(.+)").findall(link)
 			link = common.OpenURL("http://netcine.me/category/acao/page/2/?mt").replace('\n','').replace('\r','')
@@ -351,7 +358,7 @@ def MoviesNC(): #71
 			link = common.OpenURL("http://netcine.me/category/acao/page/10/?mt").replace('\n','').replace('\r','')
 			l109 = re.compile("box_movies(.+)").findall(link)
 			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l100[0]+l101[0]+l102[0]+l103[0]+l104[0]+l105[0]+l106[0]+l107[0]+l108[0]+l109[0])
-		if CatGO=="2":        
+		if CatGO=="3":        
 			link = common.OpenURL("https://netcine.info/category/animacao/").replace('\n','').replace('\r','')
 			l200 = re.compile("box_movies(.+)").findall(link)
 			link = common.OpenURL("https://netcine.info/category/animacao/page/2/?mt").replace('\n','').replace('\r','')
@@ -361,7 +368,7 @@ def MoviesNC(): #71
 			link = common.OpenURL("https://netcine.info/category/animacao/page/4/?mt").replace('\n','').replace('\r','')
 			l203 = re.compile("box_movies(.+)").findall(link)
 			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l200[0]+l201[0]+l202[0]+l203[0])
-		if CatGO=="3":        
+		if CatGO=="4":        
 			link = common.OpenURL("https://netcine.info/category/aventura/").replace('\n','').replace('\r','')
 			l300 = re.compile("box_movies(.+)").findall(link)
 			link = common.OpenURL("https://netcine.info/category/aventura/page/2/?mt").replace('\n','').replace('\r','')
@@ -371,7 +378,7 @@ def MoviesNC(): #71
 			link = common.OpenURL("https://netcine.info/category/aventura/page/4/?mt").replace('\n','').replace('\r','')
 			l303 = re.compile("box_movies(.+)").findall(link)
 			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l300[0]+l301[0]+l302[0]+l303[0])
-		if CatGO=="4":        
+		if CatGO=="5":        
 			link = common.OpenURL("https://netcine.info/category/comedia/").replace('\n','').replace('\r','')
 			l400 = re.compile("box_movies(.+)").findall(link)
 			link = common.OpenURL("http://netcine.me/category/comedia/page/2/?mt").replace('\n','').replace('\r','')
@@ -391,7 +398,7 @@ def MoviesNC(): #71
 			link = common.OpenURL("http://netcine.me/category/comedia/page/9/?mt").replace('\n','').replace('\r','')
 			l408 = re.compile("box_movies(.+)").findall(link)
 			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l400[0]+l401[0]+l402[0]+l403[0]+l404[0]+l405[0]+l406[0]+l407[0]+l408[0])            
-		if CatGO=="5":        
+		if CatGO=="6":        
 			link = common.OpenURL("http://netcine.me/category/drama/?mt").replace('\n','').replace('\r','')
 			l500 = re.compile("box_movies(.+)").findall(link)
 			link = common.OpenURL("http://netcine.me/category/drama/page/2/?mt").replace('\n','').replace('\r','')
@@ -417,7 +424,7 @@ def MoviesNC(): #71
 			link = common.OpenURL("http://netcine.me/category/drama/page/12/?mt").replace('\n','').replace('\r','')
 			l511 = re.compile("box_movies(.+)").findall(link)
 			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l500[0]+l501[0]+l502[0]+l503[0]+l504[0]+l505[0]+l506[0]+l507[0]+l508[0]+l509[0]+l510[0]+l511[0])
-		if CatGO=="6":        
+		if CatGO=="7":        
 			link = common.OpenURL("https://netcine.info/category/fantasia/").replace('\n','').replace('\r','')
 			l600 = re.compile("box_movies(.+)").findall(link)
 			link = common.OpenURL("https://netcine.info/category/fantasia/page/2/?mt").replace('\n','').replace('\r','')
@@ -425,7 +432,7 @@ def MoviesNC(): #71
 			link = common.OpenURL("https://netcine.info/category/fantasia/page/3/?mt").replace('\n','').replace('\r','')
 			l602 = re.compile("box_movies(.+)").findall(link)
 			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l600[0]+l601[0]+l602[0])
-		if CatGO=="7":        
+		if CatGO=="8":        
 			link = common.OpenURL("https://netcine.info/category/ficcao-cientifica/").replace('\n','').replace('\r','')
 			l700 = re.compile("box_movies(.+)").findall(link)
 			link = common.OpenURL("https://netcine.info/category/ficcao-cientifica/page/2/?mt").replace('\n','').replace('\r','')
@@ -435,11 +442,11 @@ def MoviesNC(): #71
 			link = common.OpenURL("https://netcine.info/category/ficcao-cientifica/page/4/?mt").replace('\n','').replace('\r','')
 			l703 = re.compile("box_movies(.+)").findall(link)
 			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l700[0]+l701[0]+l702[0]+l703[0])
-		if CatGO=="8":        
+		if CatGO=="9":        
 			link = common.OpenURL("https://netcine.info/category/faroeste/").replace('\n','').replace('\r','')
 			l800 = re.compile("box_movies(.+)").findall(link)
 			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l800[0])
-		if CatGO=="9":        
+		if CatGO=="10":        
 			link = common.OpenURL("https://netcine.info/category/romance/").replace('\n','').replace('\r','')
 			l900 = re.compile("box_movies(.+)").findall(link)
 			link = common.OpenURL("https://netcine.info/category/romance/page/2/?mt").replace('\n','').replace('\r','')
@@ -447,7 +454,7 @@ def MoviesNC(): #71
 			link = common.OpenURL("https://netcine.info/category/romance/page/3/?mt").replace('\n','').replace('\r','')
 			l902 = re.compile("box_movies(.+)").findall(link)
 			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l900[0]+l901[0]+l902[0])
-		if CatGO=="10":        
+		if CatGO=="11":        
 			link = common.OpenURL("http://netcine.me/category/suspense/?mt").replace('\n','').replace('\r','')
 			l1000 = re.compile("box_movies(.+)").findall(link)
 			link = common.OpenURL("http://netcine.me/category/suspense/page/2/?mt").replace('\n','').replace('\r','')
@@ -461,7 +468,7 @@ def MoviesNC(): #71
 			link = common.OpenURL("http://netcine.me/category/suspense/page/6/?mt").replace('\n','').replace('\r','')
 			l1005 = re.compile("box_movies(.+)").findall(link)
 			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l1000[0]+l1001[0]+l1002[0]+l1003[0]+l1004[0]+l1005[0])
-		if CatGO=="11":        
+		if CatGO=="12":        
 			link = common.OpenURL("https://netcine.info/category/terror/").replace('\n','').replace('\r','')
 			l2000 = re.compile("box_movies(.+)").findall(link)
 			link = common.OpenURL("https://netcine.info/category/terror/page/2/?mt").replace('\n','').replace('\r','')
@@ -470,13 +477,14 @@ def MoviesNC(): #71
 			l2002 = re.compile("box_movies(.+)").findall(link)
 			link = common.OpenURL("https://netcine.info/category/terror/page/4/?mt").replace('\n','').replace('\r','')
 			l2003 = re.compile("box_movies(.+)").findall(link)
-			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l2000[0]+l2001[0]+l2002[0]+l2003[0])       
-			lista = sorted(lista, key=lambda lista: lista[1])
+			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l2000[0]+l2001[0]+l2002[0]+l2003[0])
 		for img2,name2,url2 in lista:
-			if name2!="Close":
+			if name2!="Close" and name2!="NetCine":
 				name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'")
 				img2 = re.sub('-120x170.(jpg|png)', r'.\1', img2 )
-				AddDir(name2 ,url2, 78, img2, img2, isFolder=True)
+			if "tvshows" in url2: False
+			else:
+				AddDir(name2,url2, 78, img2, img2, isFolder=True)
 	except urllib2.URLError, e:
 		AddDir("Server NETCINE offline, tente novamente em alguns minutos" , "", 0, isFolder=False)
 def ListMoviesNC(): #78
@@ -484,8 +492,9 @@ def ListMoviesNC(): #78
 		link = common.OpenURL(url).replace('\n','').replace('\r','')
 		m = re.compile("\"play-.\".+?src=\"([^\"]+)").findall(link)
 		m2 = re.compile("\#play-...(\w*)").findall(link)
-		info2 = re.compile("<h2>Synopsis<\/h2>+.+?[div|p].{0,15}?.+?(.+?)<\/").findall(link)
-		info2 = re.sub('style\=.+?\>', '', info2[0] ) if info2 else ""
+		info2 = re.compile('<h2>Synopsis<\/h2>(.*?).<\/').findall(link)
+		info2 = re.sub('<(.*?)>', '', info2[0] ) if info2 else ""
+		info2 = info2.replace('&#8217;','').replace('&#8211;','')
 		i=0
 		for name2 in m2:
 			AddDir(name +" [COLOR blue]("+ name2 +")[/COLOR]", m[i], 79, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
