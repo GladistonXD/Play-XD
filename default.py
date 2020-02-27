@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.50.00"
+Versao = "19.51.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -87,6 +87,7 @@ reference2=""
 reference3=""
 RC="redecanais.bz/"
 RC2="https://redecanais.bz/"
+RC3="https://canaisgratis.org/"
 	
 def getLocaleString(id):
 	return Addon.getLocalizedString(id).encode('utf-8')
@@ -995,8 +996,8 @@ def PlayTVCB(): #103
 	link = common.OpenURL("https://canais.gratis/"+url)
 	#link = common.OpenURL("https://canaisgratis.top/assistir-max-prime-online-24-horas-ao-vivo_8586fbbe2.html")
 	player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link)
-	player = re.sub('^/', "https://canaisgratis.info/" , player[0])
-	#player = re.sub('.php', ".php", player[0] )
+	#player = re.sub('^/', "https://canaisgratis.org/" , player)
+	player = re.sub('.php', "-bk.php",RC3 + player[0] )
 	link2 = common.OpenURL(player,headers={'referer': reference})
 	m = re.compile(':\/\/([^"|\']+\.m3u8?.{1,60})').findall(link2)
 	PlayUrl(name, protocol2 + m[0] + reference3, iconimage, name, "")
@@ -1382,12 +1383,13 @@ def ListGO(pagina2): #210
 		for x in range(0, 5):
 			l+=1
 			if ClistaGO0[int(CatGO)] == "all":
-				link = common.OpenURL("http://gofilmes.me/?p="+str(l)).replace("</div></div>","\r\n")
+				link = common.OpenURL("http://gofilmes.me/?p="+str(l)).replace('<div class="poster">(.?*)</div>',"\r\n")
 			else:
 				link = common.OpenURL("http://gofilmes.me/genero/"+ClistaGO0[int(CatGO)]+"?p="+str(l)).replace("</div></div>","\r\n")
-			m = re.compile('href=\"([^\"]+)\" title\=\"([^\"]+).+b\" src\=\"([^\"]+).+n\">([^\<]+)').findall(link)
+			m = re.compile('href=\"([^\"]+)\" title\=\"([^\"]+).+b\".+data-src\=\"([^\"]+).+n\">([^\<]+)').findall(link)
 			for url2,name2,img2,info2 in m:
 				try:
+					img2 = re.sub('-120x170.(jpg|png)', r'.\1', img2 )
 					info2= re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), info2).encode('utf-8')
 				except:
 					pass
@@ -1401,15 +1403,15 @@ def ListGO(pagina2): #210
 def PlayGO(): #211
 	try:
 		link = common.OpenURL(url)
-		m = re.compile('iframe src\="([^\"]+)').findall(link)
+		m = re.compile('link yellow">(.*?)<\/div>').findall(link)
 		link2 = common.OpenURL(m[0])
-		m2 = re.compile('href=\"([^\"]+)\".+?\"\>([^\<]+)').findall(link2)
+		m2 = re.compile('href=\"([^\"]+)\"').findall(link2)
 		listu=[]
 		listn=[]
 		i=0
 		for url3,dl3 in m2:
-			link3 = common.OpenURL("http://sokodi.net/play/moon.php?url="+url3)
-			m3 = re.compile('\=(.+?x[^,]+).+\s(.+)').findall(link3)
+			link3 = common.OpenURL(m2)
+			m3 = re.compile(r'href=[\'"]?([^\'" >]+)').findall(link3)
 			m3 = sorted(m3, key=lambda m3: m3[0])
 			for res4,url4 in m3:
 				listn.append("[COLOR blue]"+ m2[i][1] +"[/COLOR] " + "[COLOR yellow]"+ res4 +"[/COLOR]")
@@ -1420,9 +1422,9 @@ def PlayGO(): #211
 			if d!= -1:
 				PlayUrl(name, listu[d], iconimage, info)
 		else:
-			xbmcgui.Dialog().ok("Play XD", "Não foi possível carregar o vídeo")
+			xbmcgui.Dialog().ok("Cube Play", "Não foi possível carregar o vídeo")
 	except:
-		xbmcgui.Dialog().ok("Play XD", "Não foi possível carregar o vídeo")
+		xbmcgui.Dialog().ok("Cube Play", "Não foi possível carregar o vídeo")
 # ----------------- Fim Go Filmes
 # ----------------- Inicio Superflix
 def ListMovieSF(): #411:
