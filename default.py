@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.51.00"
+Versao = "19.52.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -997,7 +997,7 @@ def PlayTVCB(): #103
 	#link = common.OpenURL("https://canaisgratis.top/assistir-max-prime-online-24-horas-ao-vivo_8586fbbe2.html")
 	player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link)
 	#player = re.sub('^/', "https://canaisgratis.org/" , player)
-	player = re.sub('.php', "-bk.php",RC3 + player[0] )
+	player = re.sub('.php', ".php",RC3 + player[0] )
 	link2 = common.OpenURL(player,headers={'referer': reference})
 	m = re.compile(':\/\/([^"|\']+\.m3u8?.{1,60})').findall(link2)
 	PlayUrl(name, protocol2 + m[0] + reference3, iconimage, name, "")
