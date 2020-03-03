@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.52.00"
+Versao = "19.53.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -86,8 +86,8 @@ reference2=""
 #reference3="|Referer=https://canaisgratis.org/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
 reference3=""
 RC="redecanais.bz/"
-RC2="https://redecanais.bz/"
-RC3="https://canaisgratis.org/"
+RC2="https://redecanais.se/"
+RC3="https://canaisgratis.se/"
 	
 def getLocaleString(id):
 	return Addon.getLocalizedString(id).encode('utf-8')
@@ -495,7 +495,7 @@ def ListMoviesNC(): #78
 		m2 = re.compile("\#play-...(\w*)").findall(link)
 		info2 = re.compile('<h2>Synopsis<\/h2>(.*?)<\/').findall(link)
 		info2 = re.sub('<(.*?)>', '', info2[0] ) if info2 else ""
-		info2 = info2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘')
+		info2 = info2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”')
 		i=0
 		for name2 in m2:
 			AddDir(name +" [COLOR blue]("+ name2 +")[/COLOR]", m[i], 79, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
@@ -676,10 +676,10 @@ def PlayMRC(): #95 Play filmes
 			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
 		player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link)
 		if player:
-			player = re.sub('.php', "-bk.php", player[0] )
-			player = re.sub('^/', RC2, player)
-			mp4 = common.OpenURL(player ,headers={'referer': reference})
-			file=re.compile(':\/\/([^"|\']+\.mp4?.{1,60})').findall(mp4)
+			#player = re.sub('.php', "playerfree.php", player[0] )
+			player = re.sub('^/', "https://"+RC, player[0])
+			mp4 = common.OpenURL(player ,headers={'referer': "https://cometa.top/"})
+			file=re.compile('[^"|\']+\.mp4').findall(mp4)
 			#mp4 = re.compile('server(f?\d*).+vid\=(\w+)').findall(player[0])
 			#reg = "(.+)\\$rc"+mp4[0][0]
 			#pb = common.OpenURL("https://pastebin.com/raw/FwSnnr65")
@@ -689,7 +689,7 @@ def PlayMRC(): #95 Play filmes
 			#m = re.compile(reg, re.IGNORECASE).findall(pb)
 			#url2 = m[0]
 			#file = mp4[0][1]+".mp4"
-			AddDir("[B][COLOR yellow]"+ name +" [/COLOR][/B]"  , protocol + file[0] + reference2, 3, iconimage, iconimage, index=0, isFolder=False, IsPlayable=True, info=desc, background=url+";;;"+name+";;;RC")
+			AddDir("[B][COLOR yellow]"+ name +" [/COLOR][/B]"  , file[0] + reference2, 3, iconimage, iconimage, index=0, isFolder=False, IsPlayable=True, info=desc, background=url+";;;"+name+";;;RC")
 		else:
 			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
 	except:
@@ -712,14 +712,18 @@ def PlayMRC2(): #96 Play filmes
 			#pb = re.sub('\$s2\/', ss[1], pb )
 			#m = re.compile(reg, re.IGNORECASE).findall(pb)
 			#url2 = m[0]
-			#file = mp4[0][1]+".mp4"
-			player = re.sub('.php',"-bk.php", player[0] )
-			player = re.sub('^/', RC2, player)
-			mp4 = common.OpenURL(player ,headers={'referer': reference})
-			file=re.compile(':\/\/([^"|\']+\.mp4?.{1,60})').findall(mp4)
+			#file = url2 + mp4[0][1]+".mp4"
+			player = re.sub('^/', "https://"+RC, player[0])
+			#player = re.sub('\.php', "-bk3.php", player)
+			auth = common.OpenURL(player ,headers={'referer': "https://redecanais.bz/"})
+			exp = re.compile('expires\=([^\'|\"]+)').findall(auth)
+			player = re.sub('\.php', "hlb.php", player)
+			mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://redecanais.bz/"})
+			file=re.compile('[^"|\']+\.mp4[^\n]+').findall(mp4)
 			global background
-			background=url+";;;"+name+";;;RC2"
-			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", protocol + file[0] + reference2, iconimage, desc) #aqui
+			background=url+";;;"+name+";;;RC"
+			file[0] = re.sub('https', 'http', file[0])
+			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2, iconimage, desc) #aqui
 		else:
 			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
 	except:
@@ -997,7 +1001,7 @@ def PlayTVCB(): #103
 	#link = common.OpenURL("https://canaisgratis.top/assistir-max-prime-online-24-horas-ao-vivo_8586fbbe2.html")
 	player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link)
 	#player = re.sub('^/', "https://canaisgratis.org/" , player)
-	player = re.sub('.php', ".php",RC3 + player[0] )
+	player = re.sub('.php', "hlb.php",RC3 + player[0] )
 	link2 = common.OpenURL(player,headers={'referer': reference})
 	m = re.compile(':\/\/([^"|\']+\.m3u8?.{1,60})').findall(link2)
 	PlayUrl(name, protocol2 + m[0] + reference3, iconimage, name, "")
