@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.54.00"
+Versao = "19.55.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1003,14 +1003,18 @@ def TVCB(x): #102
 	#	AddDir("Servidor offline, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def PlayTVCB(): #103
 	#ST(url)
-	link = common.OpenURL("https://canais.gratis/"+url)
+	link = common.OpenURL("https://canaisgratis.eu/"+url)
 	#link = common.OpenURL("https://canaisgratis.top/assistir-max-prime-online-24-horas-ao-vivo_8586fbbe2.html")
 	player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link)
-	#player = re.sub('^/', "https://canaisgratis.org/" , player)
-	player = re.sub('.php', "hlb.php",RC3 + player[0] )
-	link2 = common.OpenURL(player,headers={'referer': reference})
-	m = re.compile(':\/\/([^"|\']+\.m3u8?.{1,60})').findall(link2)
-	PlayUrl(name, protocol2 + m[0] + reference3, iconimage, name, "")
+	player = re.sub('^/', "https://canaisgratis.eu/" , player[0] )
+	player = re.sub('.php', "hlb.php", player )
+	if "canal" in url:
+		c = re.compile('canal\=(.+)').findall(url)
+		player = re.sub('canal=bbb', "canal="+c[0], player )
+	m3u = common.OpenURL(player,headers={'referer': "https://canaisgratis.eu/"})
+	m = re.compile('http.{10,250}?m3u8[^"|\n]+').findall(m3u)
+	m[0] = re.sub('https', 'http', m[0] )
+	PlayUrl(name, m[0] + reference3, iconimage, name, "")
 	link3 = common.OpenURL("http://cbplay.000webhostapp.com/rc/_grc.php?u="+m[0])
 	#ST(m[0])
 	#AddDir("play", m[0] + "?play|Referer=https://cometa.top", 3, isFolder=False, IsPlayable=True, info="")
