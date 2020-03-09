@@ -581,13 +581,13 @@ def MoviesRCD(): #90 Filme dublado
 			match = re.compile('href=\"([^\"]+).{0,10}title=\"([^\"]+)\".{20,350}echo=\"([^\"]+)').findall(link.replace('\n','').replace('\r',''))
             #match = re.compile('href=\"([^\"]+).{0,10}title=\"([^\"]+)\".{20,350}echo=\"([^\"]+)').findall(link.replace('\n','').replace('\r',''))
 			if match:
-				for url2,name2,img2 in match:
+			 for url2,name2,img2 in match:
 					url2 = re.sub('^\.', "https://"+RC, url2 )
 					img2 = re.sub('^/', "https://"+RC, img2 )
-					if cPlayD == "true":
-						AddDir(name2 ,url2, 96, img2, img2, info="", isFolder=False, IsPlayable=True) 
+					if "criaturas-2-dublado-1989-720p" in url2: False
+						#AddDir(name2 ,url2, 96, img2, img2, info="", isFolder=False, IsPlayable=True)                       
 					else:
-						AddDir(name2 ,url2, 95, img2, img2, info="")
+						AddDir(name2 ,url2, 96, img2, img2, info="", isFolder=False, IsPlayable=True)  
 					p += 1
 			else:
 				break
