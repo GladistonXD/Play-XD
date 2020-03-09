@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.55.00"
+Versao = "19.56.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -48,8 +48,9 @@ CatGO = Addon.getSetting("CatGO")
 
 cSIPTV = Addon.getSetting("cSIPTV")
 
-Clista=[ "todos",                     "acao", "animacao", "aventura", "comedia", "drama", "fantasia", "ficcao-cientifica", "romance", "suspense", "terror"]
-Clista2=["Sem filtro (Mostrar Todos)","Acao", "Animacao", "Aventura", "Comedia", "Drama", "Fantasia", "ficcao-cientifica", "Romance", "Suspense", "Terror"]
+Clista0=[ "Lançamentos",  "Acao", "Faroeste", "Animacao", "Aventura", "Comedia", "Drama", "Fantasia", "Ficcao-cientifica", "Romance", "Suspense", "Terror"]
+Clista1=["[COLOR blue][B]Lançamentos[/COLOR][/B]",  "[COLOR blue][B]Ação[/COLOR][/B]", "[COLOR blue][B]Faroeste[/COLOR][/B]", "[COLOR blue][B]Animação[/COLOR][/B]", "[COLOR blue][B]Aventura[/COLOR][/B]", "[COLOR blue][B]Comedia[/COLOR][/B]", "[COLOR blue][B]Drama[/COLOR][/B]", "[COLOR blue][B]Fantasia[/COLOR][/B]", "[COLOR blue][B]Ficção-ciêntifica[/COLOR][/B]", "[COLOR blue][B]Romance[/COLOR][/B]", "[COLOR blue][B]Suspense[/COLOR][/B]", "[COLOR blue][B]Terror[/COLOR][/B]"]
+Clista2=["Sem filtro (Mostrar Todos)", "Lançamentos",  "Acao", "Faroeste", "Animacao", "Aventura", "Comedia", "Drama", "Fantasia", "Ficcao-cientifica", "Romance", "Suspense", "Terror"]
 Clistafo0=[ "0",                        "48",         "3",    "7",        "8",        "5",       "4",      "14",                "16",      "15",       "11"]
 Clistafo1=["Sem filtro (Mostrar Todos)","Lançamentos","Ação", "Animação", "Aventura", "Comédia", "Drama",  "Ficção-Científica", "Romance", "Suspense", "Terror"]
 ClistaMM0=["ultimos","category/lancamentos","category/acao","category/animacao","category/aventura","category/comedia","category/drama","category/fantasia","category/ficcao-cientifica","category/guerra","category/policial","category/romance","category/suspense","category/terror"]
@@ -538,6 +539,15 @@ def PlayMNC(): #79
 		xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
 		sys.exit()
 def Generos(): #80
+	d = xbmcgui.Dialog().select("Escolha o Genero", Clista1)
+	if d != -1:
+		global Cat
+		Addon.setSetting("Cat", str(d) )
+		Cat = d
+		Addon.setSetting("cPage", "0" )
+		Addon.setSetting("cPageleg", "0" )
+		xbmc.executebuiltin("XBMC.Container.Refresh()")
+def Generos2(): #500
 	d = xbmcgui.Dialog().select("Escolha o Genero", Clista2)
 	if d != -1:
 		global Cat
@@ -549,7 +559,7 @@ def Generos(): #80
 # --------------  FIM NETCINE
 # --------------  REDECANAIS FILMES
 def MoviesRCD(): #90 Filme dublado
-	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + Clista2[int(Cat)] +"[/COLOR]", "url" ,80 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + Clista1[int(Cat)] +"[/COLOR]", "url" ,80 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	CategoryOrdem("cOrdRCF")
 	try:
 		p= 1
@@ -565,9 +575,9 @@ def MoviesRCD(): #90 Filme dublado
 			exurl = re.compile('\_[^\']+').findall(str(chList))
 		for x in range(0, 5):
 			l +=1
-			link = common.OpenURL(proxy+"https://"+RC+"browse-filmes-dublado-videos-"+str(l)+"-"+cOrdRCF+".html")
-			if Clista2[int(Cat)] != "Sem filtro (Mostrar Todos)":
-				link = common.OpenURL(proxy+"https://"+RC+"browse-"+Clista2[int(Cat)]+"-Filmes-videos-"+str(l)+"-"+cOrdRCF+".html")
+			link = common.OpenURL(proxy+"https://"+RC+"browse-filmes-lancamentos-videos-"+str(l)+"-"+cOrdRCF+".html")
+			if Clista0[int(Cat)] != "Lançamentos":
+				link = common.OpenURL(proxy+"https://"+RC+"browse-"+Clista0[int(Cat)]+"-Filmes-videos-"+str(l)+"-"+cOrdRCF+".html")
 			match = re.compile('href=\"([^\"]+).{0,10}title=\"([^\"]+)\".{20,350}echo=\"([^\"]+)').findall(link.replace('\n','').replace('\r',''))
             #match = re.compile('href=\"([^\"]+).{0,10}title=\"([^\"]+)\".{20,350}echo=\"([^\"]+)').findall(link.replace('\n','').replace('\r',''))
 			if match:
@@ -586,7 +596,7 @@ def MoviesRCD(): #90 Filme dublado
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "")
 def MoviesRCL(): #91 Filme Legendado
-	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + Clista2[int(Cat)] +"[/COLOR]", "url" ,80 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + Clista2[int(Cat)] +"[/COLOR]", "url" ,500 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	CategoryOrdem("cOrdRCF")
 	try:
 		p= 1
@@ -1979,6 +1989,8 @@ elif mode == 79:
 	setViewS()
 elif mode == 80:
 	Generos()
+elif mode == 500:
+	Generos2()
 elif mode == 81:
 	CategoryOrdem2(url)
 elif mode == 90:
