@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.56.00"
+Versao = "19.57.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -725,10 +725,10 @@ def PlayMRC2(): #96 Play filmes
 			#file = url2 + mp4[0][1]+".mp4"
 			player = re.sub('^/', "https://"+RC, player[0])
 			#player = re.sub('\.php', "-bk3.php", player)
-			auth = common.OpenURL(player ,headers={'referer': "https://redecanais.bz/"})
+			auth = common.OpenURL(player ,headers={'referer': "https://dietafitness.fun/"})
 			exp = re.compile('expires\=([^\'|\"]+)').findall(auth)
 			player = re.sub('\.php', "hlb.php", player)
-			mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://redecanais.bz/"})
+			mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://dietafitness.fun/"})
 			file=re.compile('[^"|\']+\.mp4[^\n]+').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
