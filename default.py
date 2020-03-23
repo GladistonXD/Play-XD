@@ -1868,13 +1868,13 @@ def Update(): #futura atualização automatica
 			file = open(py, "w")
 			file.write(fonte)
 			file.close()
-#		fonte = common.OpenURL( "https://raw.githubusercontent.com/GladistonXD/Play-XD/master/resources/settings.xml" )
-#		prog = re.compile('</settings>').findall(fonte)
-#		if prog:
-#			py = os.path.join( Path, "resources/settings.xml")
-#			file = open(py, "w")
-#			file.write(fonte)
-#			file.close()
+		fonte = common.OpenURL( "https://raw.githubusercontent.com/GladistonXD/Play-XD/master/resources/settings.xml" )
+		prog = re.compile('</settings>').findall(fonte)
+		if prog:
+			py = os.path.join( Path, "resources/settings.xml")
+			file = open(py, "w")
+			file.write(fonte)
+			file.close()
 		fonte = common.OpenURL( "https://raw.githubusercontent.com/GladistonXD/Play-XD/master/addon.xml" )
 		prog = re.compile('</addon>').findall(fonte)
 		if prog:
