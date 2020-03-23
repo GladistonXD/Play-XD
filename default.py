@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.58.00"
+Versao = "19.59.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1861,21 +1861,21 @@ def CheckUpdate(msg): #200
 def Update(): #futura atualização automatica
 	Path = xbmc.translatePath( xbmcaddon.Addon().getAddonInfo('path') ).decode("utf-8")
 	try:
-		fonte = common.OpenURL( "https://raw.githubusercontent.com/GladistonXD/Play-XD/master/default.py" ).read().replace('\n','')
+		fonte = common.OpenURL( "https://raw.githubusercontent.com/GladistonXD/Play-XD/master/default.py" )
 		prog = re.compile('#checkintegrity25852').findall(fonte)
 		if prog:
 			py = os.path.join( Path, "default.py")
 			file = open(py, "w")
 			file.write(fonte)
 			file.close()
-		fonte = common.OpenURL( "https://raw.githubusercontent.com/GladistonXD/Play-XD/master/resources/settings.xml" ).read().replace('\n','')
-		prog = re.compile('</settings>').findall(fonte)
-		if prog:
-			py = os.path.join( Path, "resources/settings.xml")
-			file = open(py, "w")
-			file.write(fonte)
-			file.close()
-		fonte = common.OpenURL( "https://raw.githubusercontent.com/GladistonXD/Play-XD/master/addon.xml" ).read().replace('\n','')
+#		fonte = common.OpenURL( "https://raw.githubusercontent.com/GladistonXD/Play-XD/master/resources/settings.xml" )
+#		prog = re.compile('</settings>').findall(fonte)
+#		if prog:
+#			py = os.path.join( Path, "resources/settings.xml")
+#			file = open(py, "w")
+#			file.write(fonte)
+#			file.close()
+		fonte = common.OpenURL( "https://raw.githubusercontent.com/GladistonXD/Play-XD/master/addon.xml" )
 		prog = re.compile('</addon>').findall(fonte)
 		if prog:
 			py = os.path.join( Path, "addon.xml")
