@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.59.00"
+Versao = "19.60.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -82,10 +82,10 @@ proxy = ""
 protocol="http://"
 protocol2="http://"
 reference="https://canaisgratis.info/"
-#reference2="|verifypeer=false&referer=http://lll.llllllllllllllllllllllllllllllllllllllll.fun/"
-reference2=""
-#reference3="|Referer=https://canaisgratis.org/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
-reference3=""
+reference2="|verifypeer=false"
+#reference2=""
+reference3="|Referer=https://canaisgratis.eu/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
+#reference3=""
 RC="redecanais.bz/"
 RC2="https://redecanais.se/"
 RC3="https://canaisgratis.se/"
@@ -733,7 +733,7 @@ def PlayMRC2(): #96 Play filmes
 			file=re.compile('[^"|\']+\.mp4[^\n]+').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
-			file[0] = re.sub('https', 'http', file[0])
+			file[0] = re.sub('https', 'https', file[0])
 			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2, iconimage, desc) #aqui
 		else:
 			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
@@ -1019,12 +1019,12 @@ def PlayTVCB(): #103
 	player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link)
 	player = re.sub('^/', "https://canaisgratis.eu/" , player[0] )
 	player = re.sub('.php', "hlb.php", player )
-	if "canal" in url:
-		c = re.compile('canal\=(.+)').findall(url)
-		player = re.sub('canal=bbb', "canal="+c[0], player )
+	#if "canal" in url:
+	#	c = re.compile('canal\=(.+)').findall(url)
+	#	player = re.sub('canal=bbb', "canal="+c[0], player )
 	m3u = common.OpenURL(player,headers={'referer': "https://canaisgratis.eu/"})
-	m = re.compile('http.{10,250}?m3u8[^"|\n]+').findall(m3u)
-	m[0] = re.sub('https', 'http', m[0] )
+	m = re.compile('https.{10,250}?m3u8').findall(m3u)
+	m[0] = re.sub('https', 'https', m[0] )
 	PlayUrl(name, m[0] + reference3, iconimage, name, "")
 	link3 = common.OpenURL("http://cbplay.000webhostapp.com/rc/_grc.php?u="+m[0])
 	#ST(m[0])
