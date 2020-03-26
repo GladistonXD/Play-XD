@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.60.00"
+Versao = "19.61.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -82,7 +82,7 @@ proxy = ""
 protocol="http://"
 protocol2="http://"
 reference="https://canaisgratis.info/"
-reference2="|verifypeer=false"
+reference2="|verifypeer=false&referer=https://redecanais.se/"
 #reference2=""
 reference3="|Referer=https://canaisgratis.eu/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
 #reference3=""
