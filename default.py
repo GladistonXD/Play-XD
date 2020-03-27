@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.61.00"
+Versao = "19.62.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -86,7 +86,7 @@ reference2="|verifypeer=false&referer=https://redecanais.se/"
 #reference2=""
 reference3="|Referer=https://canaisgratis.eu/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
 #reference3=""
-RC="redecanais.bz/"
+RC="redecanais.se/"
 RC2="https://redecanais.se/"
 RC3="https://canaisgratis.se/"
 	
@@ -712,7 +712,7 @@ def PlayMRC2(): #96 Play filmes
 		desc = re.compile('itemprop=\"?description\"?>\s.{0,10}?<p>(.+)<\/p>').findall(link)
 		if desc:
 			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
-		player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link)
+		player = re.compile('Player "" src=\"([^\"]+)\"').findall(link)
 		if player:
 			#mp4 = re.compile('server(f?\d*).+vid\=(\w+)').findall(player[0])
 			#reg = "(.+)\\$rc"+mp4[0][0]
@@ -729,7 +729,7 @@ def PlayMRC2(): #96 Play filmes
 			#exp = re.compile('expires\=([^\'|\"]+)').findall(auth)
 			player = re.sub('\.php', "hlb.php", player)
 			#mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://dietafitness.fun/"})
-			mp4 = common.OpenURL(player, headers={'referer': "https://dietafitness.fun/"})
+			mp4 = common.OpenURL(player, headers={'referer': "https://redecanais.se/"})
 			file=re.compile('[^"|\']+\.mp4[^\n]+').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
@@ -748,7 +748,7 @@ def PlaySRC(): #133 Play series
 		desc = re.compile('itemprop=\"?description\"?>\s<p>(.+)<\/p>').findall(link)
 		if desc:
 			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
-		player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link)
+		player = re.compile('Player "" src=\"([^\"]+)\"').findall(link)
 		if player:
 			#mp4 = re.compile('server(f?\d*).+vid\=(\w+)').findall(player[0])
 			#reg = "(.+)\\$rc"+mp4[0][0]
@@ -767,14 +767,15 @@ def PlaySRC(): #133 Play series
 			#file = mp4[0][1]+".mp4"
 			player = re.sub('^/', "https://"+RC, player[0])
 			#player = re.sub('\.php', "-bk3.php", player)
-			auth = common.OpenURL(player ,headers={'referer': "https://redecanais.bz/"})
-			exp = re.compile('expires\=([^\'|\"]+)').findall(auth)
+			#auth = common.OpenURL(player ,headers={'referer': "https://redecanais.bz/"})
+			#exp = re.compile('expires\=([^\'|\"]+)').findall(auth)
 			player = re.sub('\.php', "hlb.php", player)
-			mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://redecanais.bz/"})
+			#mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://redecanais.bz/"})
+			mp4 = common.OpenURL(player, headers={'referer': "https://redecanais.se/"})
 			file=re.compile('[^"|\']+\.mp4[^\n]+').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
-			file[0] = re.sub('https', 'http', file[0])
+			file[0] = re.sub('https', 'https', file[0])
 			PlayUrl(name, file[0] + reference2, iconimage, name)
 		else:
 			xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
