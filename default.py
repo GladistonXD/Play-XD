@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.63.00"
+Versao = "19.64.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1254,7 +1254,7 @@ def PlayLinkMM(): #182
 		m[0] = "http://player.openload.network" + m[0] if not "http" in m[0] else m[0]
 		link2 = common.OpenURL(re.sub('(\/.{1,25}\/).{1,10}\/', r'\1', m[0]),headers={'referer': "http://player.openload.network"}).replace("file","\nfile")
 		#m2 = re.compile("file.+?(h[^\']+).+?(\,)").findall(link2)
-		m2 = re.compile('file.+?(h[^\']+).+?(\d+p)\'').findall(link2)
+		m2 = re.compile('(:\/\/[^\']+).+?(\d+p)\'').findall(link2)
 		legenda = re.compile('([^\']+\.(vtt|srt|sub|ssa|txt|ass))').findall(link2)
 		listar=[]
 		listal=[]
@@ -1274,9 +1274,9 @@ def PlayLinkMM(): #182
 				legenda = re.sub(' ', '%20', legenda[0][0] )
 				if not "http" in legenda:
 					legenda = "http://player.openload.network/" + legenda
-				PlayUrl(name, url2, iconimage, info, sub=legenda)
+				PlayUrl(name,'https' + url2, iconimage, info, sub=legenda)
 			else:
-				PlayUrl(name, url2, iconimage, info)
+				PlayUrl(name,'https' + url2, iconimage, info)
 # -----------------
 def ListSerieMM(): #190
 	try:
