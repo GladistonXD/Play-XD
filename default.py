@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.65.00"
+Versao = "19.66.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -731,7 +731,7 @@ def PlayMRC2(): #96 Play filmes
 			player = re.sub('\.php', "hlb.php", player)
 			#mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://dietafitness.fun/"})
 			mp4 = common.OpenURL(player, headers={'referer': "https://redecanais.se/"})
-			file=re.compile('src="([^"|\']+\.mp4)').findall(mp4)
+			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
 			file[0] = re.sub('https', 'https', file[0])
@@ -773,7 +773,7 @@ def PlaySRC(): #133 Play series
 			player = re.sub('\.php', "hlb.php", player)
 			#mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://redecanais.bz/"})
 			mp4 = common.OpenURL(player, headers={'referer': "https://redecanais.se/"})
-			file=re.compile('src="([^"|\']+\.mp4)').findall(mp4)
+			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
 			file[0] = re.sub('https', 'https', file[0])
