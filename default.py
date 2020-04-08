@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.64.00"
+Versao = "19.65.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -82,14 +82,14 @@ proxy = ""
 protocol="http://"
 protocol2="http://"
 reference="https://canaisgratis.info/"
-#reference2="|verifypeer=false&referer=https://redecanais.se/"
-reference2="|referer=https://redecanais.se/"
+reference2="|verifypeer=false&referer=https://redecanais.se/"
+#reference2="|referer=https://redecanais.se/"
 #reference2=""
 reference3="|Referer=https://canaisgratis.eu/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
 #reference3=""
-RC="redecanais.se/"
-RC2="https://redecanais.se/"
-RC3="https://canaisgratis.se/"
+RC="redecanais.bz/"
+RC2="https://redecanais.bz/"
+RC3="https://canaisgratis.sbz/"
 	
 def getLocaleString(id):
 	return Addon.getLocalizedString(id).encode('utf-8')
@@ -731,7 +731,7 @@ def PlayMRC2(): #96 Play filmes
 			player = re.sub('\.php', "hlb.php", player)
 			#mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://dietafitness.fun/"})
 			mp4 = common.OpenURL(player, headers={'referer': "https://redecanais.se/"})
-			file=re.compile('src="([^"|\']+\.mp4[^\n]+)" type').findall(mp4)
+			file=re.compile('src="([^"|\']+\.mp4)').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
 			file[0] = re.sub('https', 'https', file[0])
@@ -773,7 +773,7 @@ def PlaySRC(): #133 Play series
 			player = re.sub('\.php', "hlb.php", player)
 			#mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://redecanais.bz/"})
 			mp4 = common.OpenURL(player, headers={'referer': "https://redecanais.se/"})
-			file=re.compile('src="([^"|\']+\.mp4[^\n]+)" type').findall(mp4)
+			file=re.compile('src="([^"|\']+\.mp4)').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
 			file[0] = re.sub('https', 'https', file[0])
