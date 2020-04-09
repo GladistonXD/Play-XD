@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.67.00"
+Versao = "19.68.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -779,10 +779,9 @@ def PlaySRC(): #133 Play series
 			file[0] = re.sub('https', 'http', file[0])
 			PlayUrl(name, file[0] + reference2, iconimage, name)
 		else:
-			xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
+			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
 	except:
-		xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
-		sys.exit()
+		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "")
 def TemporadasRC(x): #135 Episodios
 	url2 = re.sub('redecanais\.[^\/]+', RC, url.replace("http\:","https\:") )
 	url2 = re.sub('^/', "https://"+RC, url2 )
