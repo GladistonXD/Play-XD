@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.66.00"
+Versao = "19.67.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -82,9 +82,9 @@ proxy = ""
 protocol="http://"
 protocol2="http://"
 reference="https://canaisgratis.info/"
-reference2="|verifypeer=false&referer=https://redecanais.se/"
+#reference2="|verifypeer=false&referer=https://redecanais.se/"
 #reference2="|referer=https://redecanais.se/"
-#reference2=""
+reference2=""
 reference3="|Referer=https://canaisgratis.eu/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
 #reference3=""
 RC="redecanais.bz/"
@@ -734,7 +734,7 @@ def PlayMRC2(): #96 Play filmes
 			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
-			file[0] = re.sub('https', 'https', file[0])
+			file[0] = re.sub('https', 'http', file[0])
 			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2, iconimage, desc) #aqui
 		else:
 			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
@@ -776,7 +776,7 @@ def PlaySRC(): #133 Play series
 			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
-			file[0] = re.sub('https', 'https', file[0])
+			file[0] = re.sub('https', 'http', file[0])
 			PlayUrl(name, file[0] + reference2, iconimage, name)
 		else:
 			xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
