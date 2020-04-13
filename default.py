@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.68.00"
+Versao = "19.69.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -25,12 +25,14 @@ cPage = Addon.getSetting("cPage") # dublado redecanais
 cPageleg = Addon.getSetting("cPageleg")
 cPagenac = Addon.getSetting("cPagenac")
 cPagelan = Addon.getSetting("cPagelan")
+cPageflix = Addon.getSetting("cPageflix")
 cPageser = Addon.getSetting("cPageser")
 cPageani = Addon.getSetting("cPageani")
 cPagedes = Addon.getSetting("cPagedes")
 cPagefo1 = Addon.getSetting("cPagefo1")
 cPageMMf = Addon.getSetting("cPageMMf")
 cPageGOf = Addon.getSetting("cPageGOf")
+cPageFlf = Addon.getSetting("cPageFlf")
 
 cEPG = Addon.getSetting("cEPG")
 cOrdFO = "date" if Addon.getSetting("cOrdFO")=="0" else "title"
@@ -45,6 +47,7 @@ Cat = Addon.getSetting("Cat")
 Catfo = Addon.getSetting("Catfo")
 CatMM = Addon.getSetting("CatMM")
 CatGO = Addon.getSetting("CatGO")
+CatFl = Addon.getSetting("CatFl")
 
 cSIPTV = Addon.getSetting("cSIPTV")
 
@@ -57,7 +60,8 @@ ClistaMM0=["ultimos","category/lancamentos","category/acao","category/animacao",
 ClistaMM1=["[COLOR red][B]Ultimos Adicionados[/COLOR][/B]","[COLOR red][B]Lançamentos[/COLOR][/B]","[COLOR red][B]Ação[/COLOR][/B]","[COLOR red][B]Animação[/COLOR][/B]","[COLOR red][B]Aventura[/COLOR][/B]","[COLOR red][B]Comédia[/COLOR][/B]","[COLOR red][B]Drama[/COLOR][/B]","[COLOR red][B]Fantasia[/COLOR][/B]","[COLOR red][B]F. Científica[/COLOR][/B]","[COLOR red][B]Guerra[/COLOR][/B]","[COLOR red][B]Policial[/COLOR][/B]","[COLOR red][B]Romance[/COLOR][/B]","[COLOR red][B]Suspense[/COLOR][/B]","[COLOR red][B]Terror[/COLOR][/B]"]
 ClistaGO0=["0",                                                                  "1",                                        "2",                                      "3",                                       "4",                                        "5",                                            "6",                                     "7",                                              "8",                                                "9",                                       "10",                                                      "11",                                        "12", ]
 ClistaGO1=["[COLOR deepskyblue][B]Mostrar Todos[/COLOR][/B]",    "[COLOR yellow][B]Lançamentos[/COLOR][/B]",       "[COLOR red][B]Ação[/COLOR][/B]", "[COLOR lime][B]Animação[/COLOR][/B]", "[COLOR darkorchid][B]Aventura[/COLOR][/B]", "[COLOR hotpink][B]Comédia[/COLOR][/B]",       "[COLOR springgreen][B]Drama[/COLOR][/B]", "[COLOR salmon][B]Fantasia[/COLOR][/B]", "[COLOR paleturquoise][B]Ficção-Científica[/COLOR][/B]","[COLOR darkorange][B]Faroeste[/COLOR][/B]","[COLOR deepskyblue][B]Romance[/COLOR][/B]", "[COLOR darkorchid][B]Suspense[/COLOR][/B]",             "[COLOR lightgreen][B]Terror[/COLOR][/B]"]
-
+ClistaFl0=["filmes", "genero/acao", "genero/animacao", "genero/aventura", "genero/comedia", "genero/drama", "genero/ficcao", "genero/romance", "genero/suspense", "genero/terror"]
+ClistaFl1=["[COLOR yellow][B]Mostrar Todos[/COLOR][/B]", "[COLOR yellow][B]Ação[/COLOR][/B]", "[COLOR yellow][B]Animação[/COLOR][/B]", "[COLOR yellow][B]Aventura[/COLOR][/B]", "[COLOR yellow][B]Comedia[/COLOR][/B]", "[COLOR yellow][B]Drama[/COLOR][/B]", "[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]", "[COLOR yellow][B]Romance[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]", "[COLOR yellow][B]Terror[/COLOR][/B]"]
 def setViewS():
 	xbmcplugin.setContent(int(sys.argv[1]), 'tvshows')
 	xbmc.executebuiltin("Container.SetViewMode(50)")
@@ -90,6 +94,7 @@ reference3="|Referer=https://canaisgratis.eu/&verifypeer=false&User-Agent=Mozill
 RC="redecanais.bz/"
 RC2="https://redecanais.bz/"
 RC3="https://canaisgratis.sbz/"
+RC4="https://topflix.tv/"
 	
 def getLocaleString(id):
 	return Addon.getLocalizedString(id).encode('utf-8')
@@ -115,7 +120,8 @@ def MFilmes(): #-2
 	#AddDir("[COLOR white][B][Filmes Dublado/Legendado][/B][/COLOR]" , cPage, 220, "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", background="cPage")
 	AddDir("[B][COLOR cyan]Filmes Lançamentos MMFilmes[/COLOR][/B]", "config" , 184,"https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", "https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR cyan]Filmes MMFilmes[/COLOR][/B]", "config" , 180,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	#AddDir("[COLOR maroon][B][Filmes GoFilmes.me][/B][/COLOR]" , "", 210, "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg")
+	AddDir("[COLOR maroon][B]Filmes Lançamentos Topflix.tv[/B][/COLOR]" , "config", 310, "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg")
+	AddDir("[COLOR maroon][B]Filmes Topflix.tv[/B][/COLOR]" , "config", 210, "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg")
 	AddDir("[COLOR yellow][B]Filmes NetCine[/B][/COLOR]" , "", 71, "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Lançamentos RedeCanais[/B][/COLOR]" , cPage, 221, "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", background="cPage", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Dublado RedeCanais[/B][/COLOR]" , cPage, 90, "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", background="cPage", info='[COLOR][/COLOR]')
@@ -1395,61 +1401,111 @@ def GenerosGO(): #219
 		Cat = d
 		Addon.setSetting("cPageGOf", "0" )
 		xbmc.executebuiltin("XBMC.Container.Refresh()")
-def ListGO(pagina2): #210
-	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False)
-	pagina=eval(pagina2)
-	l= int(pagina)*5
-	p=1
-	i=0
-	if int(pagina) > 0:
-		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"[/B]][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background=pagina2)
+def GenerosFl(): #230
+	d = xbmcgui.Dialog().select("Escolha o Genero", ClistaFl1)
+	if d != -1:
+		global Cat
+		Addon.setSetting("CatFl", str(d) )
+		Cat = d
+		Addon.setSetting("cPageFlf", "0" )
+		xbmc.executebuiltin("XBMC.Container.Refresh()")        
+def ListGO(): #210
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaFl1[int(CatFl)] +"[/COLOR]", "url" ,230 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+#	CategoryOrdem("cOrdRCF")
 	try:
-		for x in range(0, 5):
-			l+=1
-			if ClistaGO0[int(CatGO)] == "all":
-				link = common.OpenURL("http://gofilmes.me/?p="+str(l)).replace('<div class="poster">(.?*)</div>',"\r\n")
-			else:
-				link = common.OpenURL("http://gofilmes.me/genero/"+ClistaGO0[int(CatGO)]+"?p="+str(l)).replace("</div></div>","\r\n")
-			m = re.compile('href=\"([^\"]+)\" title\=\"([^\"]+).+b\".+data-src\=\"([^\"]+).+n\">([^\<]+)').findall(link)
-			for url2,name2,img2,info2 in m:
-				try:
-					img2 = re.sub('-120x170.(jpg|png)', r'.\1', img2 )
-					info2= re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), info2).encode('utf-8')
-				except:
-					pass
-				name2 = name2.replace("Assistir ","").replace(" Online"," -")
-				AddDir(name2, url2, 211, img2, img2, isFolder=False, IsPlayable=True, info=info2)
-				p+=1
-		if p >= 120:
-			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"[/B]][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background=pagina2)
+		p= 1
+		if int(cPageFlf) > 0:
+			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageFlf) ) +"][/B][/COLOR]", cPageFlf , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageFlf")
+		l= int(cPageFlf)*3
+		for x in range(0, 4):
+			l +=1
+			link = common.OpenURL("https://topflix.tv/"+ClistaFl0[int(CatFl)]+"/"+ str(l))
+			#link = common.OpenURL("https://topflix.tv/genero/animacao/"+str(l))
+			match = re.compile("'(.{5,30}[^\']jpg).{4,41}<a href=\'([^\']+).{4,300}'>([^\']+)<\/a").findall(link.replace('\n','').replace('\r',''))
+			if match:
+				for img2,url2,name2, in match:
+					img2 = re.sub('^\.', RC4, img2 )
+					url2 = re.sub('^\.', RC4, url2 )
+					if name2!="Close":
+						name2 = name2.replace("</font>","")
+						AddDir(name2 ,RC4 + url2, 211, RC4 +img2, RC4 + img2, info="", isFolder=True, IsPlayable=True)
+					p += 1
+		if p >= 97:
+			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageFlf) + 2) +"][/B][/COLOR]", cPageFlf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageFlf")
 	except:
-		AddDir( "Server offline" ,"", 0, "", "", isFolder=False)
-def PlayGO(): #211
+		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
+def ListTop1(): #211 rascunho
 	try:
-		link = common.OpenURL(url)
-		m = re.compile('link yellow">(.*?)<\/div>').findall(link)
-		link2 = common.OpenURL(m[0])
-		m2 = re.compile('href=\"([^\"]+)\"').findall(link2)
-		listu=[]
-		listn=[]
+		link = common.OpenURL(url).replace('\n','').replace('\r','')
+		m = re.compile("globalUri='([^\']+)'").findall(link)
+		m2 = re.compile('idJs = "([^\"]+";var _ano)').findall(link)
+		#m3 = re.compile('ChangeSource."([^\"]+", "3").;').findall(link)
+		m3 = re.compile('ChangeSource."([^\"]+mp4", "1")').findall(link)
+		m4 = re.compile('var _data = "([^\"]+";var lnc)').findall(link)
+		m5 = re.compile('ctm = "([^\"]+";_data)=').findall(link)
+		m6 = re.compile("\/#\/'>(d[^\']+)<\/a").findall(link)
+		lista = re.compile("(.+)").findall(m[0]+m2[0]+m3[0]+m4[0]+m5[0])
+#		i=0
+		for url2 in lista:
+			if url2!="Close":
+				url2 = url2.replace('.php',"/").replace('";var _ano',"&url=").replace('", "1"',"&mediaType=filme&mediaName=").replace('";var lnc',"&idfy=3&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn16")	
+				AddDir(name, url2, 212, iconimage, iconimage, isFolder=False, IsPlayable=True,)
+#			i+=1
+	except urllib2.URLError, e:
+		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)
+def ListTop(): #211
+	try:
+		link = common.OpenURL(url).replace('\n','').replace('\r','')
+		m = re.compile("globalUri='([^\']+)'").findall(link)
+		m2 = re.compile('ChangeSource."([^\"]+mp4", "1")').findall(link)
+		lista = re.compile("(.+)").findall(m[0]+m2[0])
+		info2 = re.compile('col-xs-12">\s<p>([^\']+)<\/p>').findall(link)
+		info2 = re.sub('style\=.+?\>', '', info2[0] ) if info2 else ""
 		i=0
-		for url3,dl3 in m2:
-			link3 = common.OpenURL(m2)
-			m3 = re.compile(r'href=[\'"]?([^\'" >]+)').findall(link3)
-			m3 = sorted(m3, key=lambda m3: m3[0])
-			for res4,url4 in m3:
-				listn.append("[COLOR blue]"+ m2[i][1] +"[/COLOR] " + "[COLOR yellow]"+ res4 +"[/COLOR]")
-				listu.append(url4)
+		for url2 in lista:
+			if url2!="Close":
+				url2 = url2.replace('topflix.tv/player/share_vi.php?code=',"cdn13.ntcdn.stream/prop/httpdelivery").replace('";var _ano',"&url=").replace('", "1"',"")
+				AddDir(name + " - [COLOR blue]Dublado[/COLOR]", url2, 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
 			i+=1
-		if len(listn) >=1:
-			d = xbmcgui.Dialog().select("Selecione a resolução", listn)
-			if d!= -1:
-				PlayUrl(name, listu[d], iconimage, info)
-		else:
-			xbmcgui.Dialog().ok("Cube Play", "Não foi possível carregar o vídeo")
+	except urllib2.URLError, e:
+		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)
+def PlayTop(): #212
+	PlayUrl(name, url+"|Referer=https://topflix.tv/&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla%2F5.0+%28compatible%3B+MSIE+10.6%3B+Windows+NT+6.1%3B+Trident%2F6.0%29", iconimage, info, "", metah)
+def ListGOL(): #310 Lançamentos ---------------------------------------
+	try:
+		p= 1
+		if int(cPageFlf) > 0:
+			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageFlf) ) +"][/B][/COLOR]", cPageFlf , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageFlf")
+		l= int(cPageFlf)*7
+		for x in range(0,7):
+			l +=1
+			link = common.OpenURL("https://topflix.tv/lancamentos/"+ str(l))
+			match = re.compile("'(.{5,30}[^\']jpg).{4,41}<a href=\'([^\']+).'>([^\']+)<\/span>").findall(link.replace('\n','').replace('\r',''))
+			if match:
+				for img2,url2,name2, in match:
+					img2 = re.sub('^\.', RC4, img2 )
+					url2 = re.sub('^\.', RC4, url2 )
+					if name2!="Close":
+						name2 = name2.replace("</font>","").replace("<span>","- ").replace("</span>","")
+						AddDir(name2 ,RC4 + url2, 311, RC4 +img2, RC4 + img2, info="", isFolder=True, IsPlayable=True)
+					p += 1
+		if p >= 72:
+			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageFlf) + 2) +"][/B][/COLOR]", cPageFlf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageFlf")
 	except:
-		xbmcgui.Dialog().ok("Cube Play", "Não foi possível carregar o vídeo")
-# ----------------- Fim Go Filmes
+		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
+def ListTopL(): #311 Lançamento ------------------------------------
+	try:
+		link = common.OpenURL(url).replace('\n','').replace('\r','')
+		m = re.compile("(.{1,8}topflix.tv\/player[^\']+)").findall(link)
+		m2 = re.compile('"([^\"]+mp4)", "1"').findall(link)
+		i=0
+		for url2 in m2:
+			if url2!="Close":
+				url2 = url2.replace('/filmes/',"https://cdn13.ntcdn.stream/prop/httpdelivery/filmes/").replace('.mp4"',".mp4")
+				AddDir(name + " - [COLOR blue]Dublado[/COLOR]", url2, 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info="", background=url)
+			i+=1
+	except urllib2.URLError, e:
+		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)        
 # ----------------- Inicio Superflix
 def ListMovieSF(): #411:
 	for x in range(1, 11):
@@ -2084,12 +2140,21 @@ elif mode == 194:
 elif mode == 200:
 	CheckUpdate(True)
 elif mode == 210:
-	ListGO("cPageGOf")
+	ListGO()
 	setViewM()
+elif mode == 310:
+	ListGOL()
+	setViewM()    
 elif mode == 211:
-	PlayGO()
+	ListTop()
+elif mode == 311:
+	ListTopL()    
+elif mode == 212:
+	PlayTop()    
 elif mode == 219:
 	GenerosGO()
+elif mode == 230:
+	GenerosFl()    
 elif mode == 220:
 	Filmes96()
 elif mode == 221:
