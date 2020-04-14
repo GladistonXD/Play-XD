@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.70.00"
+Versao = "19.71.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -103,6 +103,7 @@ def Categories(): #70
 	#AddDir("[B]!{0}: {1}[/B] - {2} ".format(getLocaleString(30036), getLocaleString(30037) if makeGroups else getLocaleString(30038) , getLocaleString(30039)), "setting" ,50 ,os.path.join(iconsDir, "setting.png"), isFolder=False)
 	#AddDir("[COLOR white][B][Canais de TV1][/B][/COLOR]" , "", 100, "http://oi68.tinypic.com/116jn69.jpg", "http://oi68.tinypic.com/116jn69.jpg")
 	AddDir("[COLOR white][B]Canais de TV[/B][/COLOR]" , "", 102, "https://uploaddeimagens.com.br/images/002/440/396/original/TV.jpg", "https://uploaddeimagens.com.br/images/002/440/396/original/TV.jpg", info='[COLOR][/COLOR]')
+	AddDir("[COLOR white][B]Canais de TV 2[/B][/COLOR]" , "", 104, "https://uploaddeimagens.com.br/images/002/440/396/original/TV.jpg", "https://uploaddeimagens.com.br/images/002/440/396/original/TV.jpg", info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR white]Filmes[/COLOR][/B]", "" , -2,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	AddDir("[COLOR white][B]Séries[/B][/COLOR]" , "", -3, "https://uploaddeimagens.com.br/images/002/376/145/original/Novo_3.jpg", "https://uploaddeimagens.com.br/images/002/376/145/original/Novo_3.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR green][B]Histórico Filmes[/B][/COLOR]", "" ,305 , "https://cdn2.iconfinder.com/data/icons/business-office-icons/256/To-do_List-512.png", "https://cdn2.iconfinder.com/data/icons/business-office-icons/256/To-do_List-512.png", info='[COLOR][/COLOR]')
@@ -120,8 +121,8 @@ def MFilmes(): #-2
 	#AddDir("[COLOR white][B][Filmes Dublado/Legendado][/B][/COLOR]" , cPage, 220, "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", background="cPage")
 	AddDir("[B][COLOR cyan]Filmes Lançamentos MMFilmes[/COLOR][/B]", "config" , 184,"https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", "https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR cyan]Filmes MMFilmes[/COLOR][/B]", "config" , 180,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	AddDir("[COLOR maroon][B]Filmes Lançamentos Topflix.tv[/B][/COLOR]" , "config", 310, "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg")
-	AddDir("[COLOR maroon][B]Filmes Topflix.tv[/B][/COLOR]" , "config", 210, "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg")
+	AddDir("[COLOR maroon][B]Filmes Lançamentos Topflix.tv[/B][/COLOR]" , "config", 310, "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", info='[COLOR][/COLOR]')
+	AddDir("[COLOR maroon][B]Filmes Topflix.tv[/B][/COLOR]" , "config", 210, "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR yellow][B]Filmes NetCine[/B][/COLOR]" , "", 71, "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Lançamentos RedeCanais[/B][/COLOR]" , cPage, 221, "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", background="cPage", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Dublado RedeCanais[/B][/COLOR]" , cPage, 90, "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", background="cPage", info='[COLOR][/COLOR]')
@@ -1468,6 +1469,13 @@ def PlaySMM(): #194
 			else:
 				PlayUrl(name, url2, iconimage, info)
 # ----------------- Fim MM filmes
+def TVCB2(x): #104
+	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive001").replace("\n","").replace('\r','')
+	m = re.compile('logo="(.+?)".{1,50},(.+?)plugin:\/\/(.+?)#').findall(link)
+	for img2, name2, url2 in m:
+		if url2!="Close":
+		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]")
+		 AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
 # ----------------- Inicio Go Filmes
 def GenerosGO(): #219
 	d = xbmcgui.Dialog().select("Escolha o Genero", ClistaGO1)
@@ -1504,7 +1512,7 @@ def ListGO(): #210
 					url2 = re.sub('^\.', RC4, url2 )
 					if name2!="Close":
 						name2 = name2.replace("</font>","")
-						AddDir(name2 ,RC4 + url2, 211, RC4 +img2, RC4 + img2, info="", isFolder=True, IsPlayable=True)
+						AddDir(name2 ,RC4 + url2, 211, RC4 +img2, RC4 + img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
 					p += 1
 		if p >= 97:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageFlf) + 2) +"][/B][/COLOR]", cPageFlf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageFlf")
@@ -1535,8 +1543,8 @@ def ListTop(): #211
 		m = re.compile("globalUri='([^\']+)'").findall(link)
 		m2 = re.compile('ChangeSource."([^\"]+mp4", "1")').findall(link)
 		lista = re.compile("(.+)").findall(m[0]+m2[0])
-		info2 = re.compile('col-xs-12">\s<p>([^\']+)<\/p>').findall(link)
-		info2 = re.sub('style\=.+?\>', '', info2[0] ) if info2 else ""
+		info2 = re.compile('12"><p>(.+?)<\/p>').findall(link)
+		info2= info2[0]
 		i=0
 		for url2 in lista:
 			if url2!="Close":
@@ -1563,7 +1571,7 @@ def ListGOL(): #310 Lançamentos ---------------------------------------
 					url2 = re.sub('^\.', RC4, url2 )
 					if name2!="Close":
 						name2 = name2.replace("</font>","").replace("<span>","- ").replace("</span>","")
-						AddDir(name2 ,RC4 + url2, 311, RC4 +img2, RC4 + img2, info="", isFolder=True, IsPlayable=True)
+						AddDir(name2 ,RC4 + url2, 311, RC4 +img2, RC4 + img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
 					p += 1
 		if p >= 72:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageFlf) + 2) +"][/B][/COLOR]", cPageFlf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageFlf")
@@ -1574,11 +1582,13 @@ def ListTopL(): #311 Lançamento ------------------------------------
 		link = common.OpenURL(url).replace('\n','').replace('\r','')
 		m = re.compile("(.{1,8}topflix.tv\/player[^\']+)").findall(link)
 		m2 = re.compile('"([^\"]+mp4)", "1"').findall(link)
+		info2 = re.compile('12"><p>(.+?)<\/p>').findall(link)
+		info2= info2[0]
 		i=0
 		for url2 in m2:
 			if url2!="Close":
 				url2 = url2.replace('/filmes/',"https://cdn11.ntcdn.stream/prop/httpdelivery/filmes/").replace('.mp4"',".mp4")
-				AddDir(name + " - [COLOR blue]Dublado[/COLOR]", url2, 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info="", background=url)
+				AddDir(name + " - [COLOR blue]Dublado[/COLOR]", url2, 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
 			i+=1
 	except urllib2.URLError, e:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)        
@@ -2151,6 +2161,9 @@ elif mode == 102:
 	setViewS()
 elif mode == 103:
 	PlayTVCB()
+elif mode == 104:
+	TVCB2(url)
+	setViewS()
 elif mode == 105:
 	Addon.setSetting("cEPG", "1")
 	xbmc.executebuiltin("XBMC.Container.Refresh()")
@@ -2223,8 +2236,10 @@ elif mode == 310:
 	setViewM()    
 elif mode == 211:
 	ListTop()
+	setViewS()
 elif mode == 311:
-	ListTopL()    
+	ListTopL()
+	setViewS()    
 elif mode == 212:
 	PlayTop()    
 elif mode == 219:
