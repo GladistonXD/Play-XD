@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.69.00"
+Versao = "19.70.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -91,9 +91,9 @@ reference="https://canaisgratis.info/"
 reference2=""
 reference3="|Referer=https://canaisgratis.eu/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
 #reference3=""
-RC="redecanais.bz/"
-RC2="https://redecanais.bz/"
-RC3="https://canaisgratis.sbz/"
+RC="redecanais.se/"
+RC2="https://redecanais.se/"
+RC3="https://canaisgratis.eu/"
 RC4="https://topflix.tv/"
 	
 def getLocaleString(id):
@@ -711,7 +711,7 @@ def PlayMRC(): #95 Play filmes
 			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "")
-def PlayMRC2(): #96 Play filmes
+def PlayMRC21(): #96 Play filmes
 	url2 = re.sub('redecanais\.[^\/]+', RC2, url.replace("http\:","https\:") )
 	url2 = re.sub('^/', RC2, url2 )
 	try:
@@ -746,6 +746,48 @@ def PlayMRC2(): #96 Play filmes
 			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "")
+def PlayMRC2(): #96 Play filmes direto
+	url2 = re.sub('redecanais\.[^\/]+', RC, url.replace("http\:","https\:") )
+	if not "redecanais" in url2:
+		url2 = "https://"+RC+ url2
+	try:
+		link = common.OpenURL(proxy+url2.replace("http\:","https\:"))
+		desc = re.compile('itemprop=\"?description\"?>\s.{0,10}?<p>(.+)<\/p>').findall(link)
+		if desc:
+			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
+		player = re.compile('Player "" src=\"([^\"]+)\"').findall(link)
+		if player:
+			#mp4 = re.compile('server(f?\d*).+vid\=(\w+)').findall(player[0])
+			#reg = "(.+)\\$rc"+mp4[0][0]
+			#pb = common.OpenURL("https://pastebin.com/raw/FwSnnr65")
+			#ss = re.compile('(.{1,65})RCFServer.{1,35}\.mp4').findall(pb)
+			#pb = re.sub('\$s1\/', ss[0], pb )
+			#pb = re.sub('\$s2\/', ss[1], pb )
+			#m = re.compile(reg, re.IGNORECASE).findall(pb)
+			#url2 = m[0]
+			#file = url2 + mp4[0][1]+".mp4"
+			player = re.sub('^/', "https://"+RC, player[0])
+			player = re.sub('\.php', "hlb.php", player)
+			#player = "https://redecanais.bz//player3/serverf4hlb.php?vid=TGO"
+			#return
+			mp4 = common.OpenURL(player ,headers={'referer': "https://redecanais.bz/"})
+			#ST(mp4)
+			#exp = re.compile('expires\=([^\'|\"]+)').findall(auth)
+			#player = re.sub('\.php', "hlb.php", player)
+			#file=re.compile('[^"|\']+\.mp4.{1,15}.m3u8').findall(mp4)
+			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
+			#return
+			#mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://redecanais.bz/"})
+			global background
+			background=url+";;;"+name+";;;RC"
+			file[0] = re.sub('\n', '', file[0])
+			file[0] = re.sub('https', 'http', file[0])
+			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2, iconimage, desc) #aqui
+		else:
+			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
+	except:
+		xbmcgui.Dialog().ok('PlayXD', 'Erro, tente novamente em alguns minutos')
+		sys.exit()        
 # ----------------- FIM REDECANAIS
 # --------------  REDECANAIS SERIES,ANIMES,DESENHOS
 def PlaySRC(): #133 Play series
@@ -920,32 +962,48 @@ def Busca(): # 160
 		sys.exit(int(sys.argv[1]))
 	try:
 		p= 1
-		AddDir("[COLOR blue][B]RedeCanais[/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		AddDir("[COLOR blue][B][RedeCanais][/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		l= 0
-		for x in range(0, 10):
-			l +=1
-			link = common.OpenURL(proxy+"https://" + RC +"search.php?keywords="+d+"&page="+str(l))
-			match = re.compile('data\-echo\=\"([^\"]+).{10,150}href=\"([^\"]+).{0,10}title=\"([^\"]+)\"').findall(link.replace('\n','').replace('\r',''))
+		for x in range(0, 2):
+			link = common.OpenURL("https://www.google.com/search?q="+d+"+site:redecanais.bz&hl=pt-BR&&start="+str(l))
+			l +=2
+			match = re.compile('href\=\"(https?\:.{0,50}redecanais[^\"]+)\".{50,200}\>([^\<]+)').findall(link.replace('\n','').replace('\r',''))
 			if match:
-				for img2,url2,name2 in match:
-					#url2 = re.sub('^\.', "http://www." + RC, url2 )
-					url2 = re.sub('^\.', "https://"+RC, url2 )
-					img2 = re.sub('^/', "https://"+RC, img2 )
-					if re.compile('\d+p').findall(name2):
-						if cPlayD == "true":
-							AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 96, img2, img2, info="", isFolder=False, IsPlayable=True)
-						else:
-							AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 95, img2, img2)
-					elif "Lista" in name2:
-						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 135, img2, img2)
-			else:
-				break
+				for url2,name2 in match:
+					if "lista" in url2 or "Lista" in name2:
+						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 135, " ", " ", info="", isFolder=True, IsPlayable=False)
+					else:
+						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 96, " ", " ", info="", isFolder=False, IsPlayable=True)
 	except:
 		pass
+#	try:
+#		p= 1
+#		AddDir("[COLOR blue][B]RedeCanais[/B][/COLOR]", "" , 0 ,"", isFolder=False)
+#		l= 0
+#		for x in range(0, 10):
+#			l +=1
+#			link = common.OpenURL(proxy+"https://" + RC +"search.php?keywords="+d+"&page="+str(l))
+#			match = re.compile('data\-echo\=\"([^\"]+).{10,150}href=\"([^\"]+).{0,10}title=\"([^\"]+)\"').findall(link.replace('\n','').replace('\r',''))
+#			if match:
+#				for img2,url2,name2 in match:
+#					#url2 = re.sub('^\.', "http://www." + RC, url2 )
+#					url2 = re.sub('^\.', "https://"+RC, url2 )
+#					img2 = re.sub('^/', "https://"+RC, img2 )
+#					if re.compile('\d+p').findall(name2):
+#						if cPlayD == "true":
+#							AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 96, img2, img2, info="", isFolder=False, IsPlayable=True)
+#						else:
+#							AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 95, img2, img2)
+#					elif "Lista" in name2:
+#						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 135, img2, img2)
+#			else:
+#				break
+#	except:
+#		pass
 	try:
 		AddDir("[COLOR yellow][B]NetCine[/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		link2 = common.OpenURL("http://netcine.me/?s="+d).replace('\n','').replace('\r','')
-		lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(link2)
+		lista = re.compile("\s.{1,12}<img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(link2)
 		for img2,name2,url2 in lista:
 			if name2!="Close" and name2!="NetCine":
 				name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'")
@@ -980,6 +1038,24 @@ def Busca(): # 160
 			i=0
 	except:
 		pass
+	try:
+		p= 1
+		AddDir("[COLOR red][B][TopFlix][/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		l= 0
+		for x in range(0, 1):
+			link = common.OpenURL("https://www.google.com/search?q=https://m.topflix.tv+"+d+"&hl=pt-BR&source=lnms&tbm=isch&")
+			l +=1
+			match = re.compile('href\=\"(https?\:.{0,50}topflix.tv\/[^\"]+)\".{2,122}Assistir([^\<]+)Online').findall(link.replace('\n','').replace('\r',''))
+			if match:
+				for url2,name2 in match:
+					if "lista" in url2 or "Lista" in name2:
+						#if name2!="Close":
+							#name2 = url2.replace("","")
+						AddDir("[COLOR red]" +name2+ "[/COLOR]" ,url2, 211, " ", " ", info="", isFolder=True, IsPlayable=False)
+					else:
+						AddDir("[COLOR red]" +name2+ "[/COLOR]" ,url2, 211, " ", " ", info="", isFolder=True, IsPlayable=True)
+	except:
+		pass        
 	#l=0
 	#i=0
 	#try:
@@ -1041,7 +1117,7 @@ def PlayTVCB(): #103
 	#try:
 	#	PlayUrl(name, getmd5(url), "", "", "")
 	#except urllib2.URLError, e:
-	#	xbmcgui.Dialog().ok('Cube Play', "Servidor offline, tente novamente em alguns minutos")
+	#	xbmcgui.Dialog().ok('PlayXD', "Servidor offline, tente novamente em alguns minutos")
 # ----------------- Fim TV Cubeplay
 # ----------------- REDECANAIS TV
 def Acento(x):
@@ -1464,7 +1540,7 @@ def ListTop(): #211
 		i=0
 		for url2 in lista:
 			if url2!="Close":
-				url2 = url2.replace('topflix.tv/player/share_vi.php?code=',"cdn13.ntcdn.stream/prop/httpdelivery").replace('";var _ano',"&url=").replace('", "1"',"")
+				url2 = url2.replace('topflix.tv/player/share_vi.php?code=',"cdn11.ntcdn.stream/prop/httpdelivery").replace('";var _ano',"&url=").replace('", "1"',"")
 				AddDir(name + " - [COLOR blue]Dublado[/COLOR]", url2, 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
 			i+=1
 	except urllib2.URLError, e:
@@ -1501,7 +1577,7 @@ def ListTopL(): #311 Lançamento ------------------------------------
 		i=0
 		for url2 in m2:
 			if url2!="Close":
-				url2 = url2.replace('/filmes/',"https://cdn13.ntcdn.stream/prop/httpdelivery/filmes/").replace('.mp4"',".mp4")
+				url2 = url2.replace('/filmes/',"https://cdn11.ntcdn.stream/prop/httpdelivery/filmes/").replace('.mp4"',".mp4")
 				AddDir(name + " - [COLOR blue]Dublado[/COLOR]", url2, 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info="", background=url)
 			i+=1
 	except urllib2.URLError, e:
@@ -1528,7 +1604,7 @@ def PlaySSF(): #405
 		trem = re.compile("http.{10,50}trembed[^\"| ]+").findall(l)
 		legsub = re.compile("data-tplayernv.+?<span>([^\<]+)").findall(l.replace("<span>SuperFlix</span>",""))
 		if not legsub:
-			xbmcgui.Dialog().ok('Cube Play', "Episódio ainda não disponível")
+			xbmcgui.Dialog().ok('PlayXD', "Episódio ainda não disponível")
 			sys.exit()
 		if len(legsub) == 1:
 			d = 0
