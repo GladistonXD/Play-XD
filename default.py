@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.72.00"
+Versao = "19.73.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1476,6 +1476,8 @@ def TVCB2(x): #104
 		if url2!="Close":
 		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]")
 		 AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+def PlayTVCB2(): #212
+	PlayUrl(name, url, iconimage, info, "", metah)         
 # ----------------- Inicio Go Filmes
 def GenerosGO(): #219
 	d = xbmcgui.Dialog().select("Escolha o Genero", ClistaGO1)
@@ -2249,7 +2251,7 @@ elif mode == 311:
 	ListTopL()
 	setViewS()    
 elif mode == 212:
-	PlayTop()    
+	PlayTVCB2()    
 elif mode == 219:
 	GenerosGO()
 elif mode == 230:
