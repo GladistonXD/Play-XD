@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.71.00"
+Versao = "19.72.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1493,7 +1493,7 @@ def GenerosFl(): #230
 		Cat = d
 		Addon.setSetting("cPageFlf", "0" )
 		xbmc.executebuiltin("XBMC.Container.Refresh()")        
-def ListGO(): #210
+def ListGO(): #210 Topflix Dublado --------------------------------------------
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaFl1[int(CatFl)] +"[/COLOR]", "url" ,230 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 #	CategoryOrdem("cOrdRCF")
 	try:
@@ -1518,43 +1518,6 @@ def ListGO(): #210
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageFlf) + 2) +"][/B][/COLOR]", cPageFlf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageFlf")
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
-def ListTop1(): #211 rascunho
-	try:
-		link = common.OpenURL(url).replace('\n','').replace('\r','')
-		m = re.compile("globalUri='([^\']+)'").findall(link)
-		m2 = re.compile('idJs = "([^\"]+";var _ano)').findall(link)
-		#m3 = re.compile('ChangeSource."([^\"]+", "3").;').findall(link)
-		m3 = re.compile('ChangeSource."([^\"]+mp4", "1")').findall(link)
-		m4 = re.compile('var _data = "([^\"]+";var lnc)').findall(link)
-		m5 = re.compile('ctm = "([^\"]+";_data)=').findall(link)
-		m6 = re.compile("\/#\/'>(d[^\']+)<\/a").findall(link)
-		lista = re.compile("(.+)").findall(m[0]+m2[0]+m3[0]+m4[0]+m5[0])
-#		i=0
-		for url2 in lista:
-			if url2!="Close":
-				url2 = url2.replace('.php',"/").replace('";var _ano',"&url=").replace('", "1"',"&mediaType=filme&mediaName=").replace('";var lnc',"&idfy=3&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn16")	
-				AddDir(name, url2, 212, iconimage, iconimage, isFolder=False, IsPlayable=True,)
-#			i+=1
-	except urllib2.URLError, e:
-		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)
-def ListTop(): #211
-	try:
-		link = common.OpenURL(url).replace('\n','').replace('\r','')
-		m = re.compile("globalUri='([^\']+)'").findall(link)
-		m2 = re.compile('ChangeSource."([^\"]+mp4", "1")').findall(link)
-		lista = re.compile("(.+)").findall(m[0]+m2[0])
-		info2 = re.compile('12"><p>(.+?)<\/p>').findall(link)
-		info2= info2[0]
-		i=0
-		for url2 in lista:
-			if url2!="Close":
-				url2 = url2.replace('topflix.tv/player/share_vi.php?code=',"cdn11.ntcdn.stream/prop/httpdelivery").replace('";var _ano',"&url=").replace('", "1"',"")
-				AddDir(name + " - [COLOR blue]Dublado[/COLOR]", url2, 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
-			i+=1
-	except urllib2.URLError, e:
-		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)
-def PlayTop(): #212
-	PlayUrl(name, url+"|Referer=https://topflix.tv/&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla%2F5.0+%28compatible%3B+MSIE+10.6%3B+Windows+NT+6.1%3B+Trident%2F6.0%29", iconimage, info, "", metah)
 def ListGOL(): #310 Lançamentos ---------------------------------------
 	try:
 		p= 1
@@ -1571,27 +1534,69 @@ def ListGOL(): #310 Lançamentos ---------------------------------------
 					url2 = re.sub('^\.', RC4, url2 )
 					if name2!="Close":
 						name2 = name2.replace("</font>","").replace("<span>","- ").replace("</span>","")
-						AddDir(name2 ,RC4 + url2, 311, RC4 +img2, RC4 + img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
+						AddDir(name2 ,RC4 + url2, 211, RC4 +img2, RC4 + img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
 					p += 1
 		if p >= 72:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageFlf) + 2) +"][/B][/COLOR]", cPageFlf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageFlf")
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
-def ListTopL(): #311 Lançamento ------------------------------------
-	try:
+def ListTop(): #211
 		link = common.OpenURL(url).replace('\n','').replace('\r','')
-		m = re.compile("(.{1,8}topflix.tv\/player[^\']+)").findall(link)
-		m2 = re.compile('"([^\"]+mp4)", "1"').findall(link)
+		m = re.compile("globalUri='([^\']+)'").findall(link)
+		m2 = re.compile('idJs = "([^\"]+";var _ano)').findall(link)
+		m3 = re.compile('ChangeSource."([^\"]+mp4", ")').findall(link)
+		m4 = re.compile('ctm = "([^\"]+";_data)=').findall(link)
+		lista = re.compile("(.+)").findall(m[0]+m2[0]+m3[0]+m4[0])
 		info2 = re.compile('12"><p>(.+?)<\/p>').findall(link)
 		info2= info2[0]
-		i=0
-		for url2 in m2:
+		for url2 in lista:
 			if url2!="Close":
-				url2 = url2.replace('/filmes/',"https://cdn11.ntcdn.stream/prop/httpdelivery/filmes/").replace('.mp4"',".mp4")
-				AddDir(name + " - [COLOR blue]Dublado[/COLOR]", url2, 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
-			i+=1
-	except urllib2.URLError, e:
-		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)        
+				url2 = url2.replace('.php',"/").replace('";var _ano',"&url=").replace('", "',"&mediaType=filme&mediaName=&idfy=3&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11")
+				AddDir(name + " - [COLOR blue]Dublado[/COLOR]", url2, 213, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
+def ListPlay(): #213 play =====================================================================
+	link = common.OpenURL(url).replace("\n","").replace('\r','')
+	m = re.compile("mp4Id = '(.+?)';").findall(link)
+	#legenda = re.compile("(f[^\']+\.(vtt))").findall(link2)
+	#if legenda:
+	#legenda = "http://player.openload.network/" + legenda
+	#	 legenda = "http://topflix.tv" + legenda
+	for url2 in m:
+		#if url2!="Close":
+		 #url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]")
+		 PlayUrl(name, url2+"|Referer=https://topflix.tv/&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla%2F5.0+%28compatible%3B+MSIE+10.6%3B+Windows+NT+6.1%3B+Trident%2F6.0%29", iconimage, info)
+#def ListTop2(): #211
+#	try:
+#		link = common.OpenURL(url).replace('\n','').replace('\r','')
+#		m = re.compile("globalUri='([^\']+)'").findall(link)
+#		m2 = re.compile('ChangeSource."([^\"]+mp4", "1")').findall(link)
+#		lista = re.compile("(.+)").findall(m[0]+m2[0])
+#		info2 = re.compile('12"><p>(.+?)<\/p>').findall(link)
+#		info2= info2[0]
+#		i=0
+#		for url2 in lista:
+#			if url2!="Close":
+#				url2 = url2.replace('topflix.tv/player/share_vi.php?code=',"cdn11.ntcdn.stream/prop/httpdelivery").replace('";var _ano',"&url=").replace('", "1"',"")
+#				AddDir(name + " - [COLOR blue]Dublado[/COLOR]", url2, 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
+#			i+=1
+#	except urllib2.URLError, e:
+#		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)
+#def PlayTop(): #212
+#	PlayUrl(name, url+"|Referer=https://topflix.tv/&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla%2F5.0+%28compatible%3B+MSIE+10.6%3B+Windows+NT+6.1%3B+Trident%2F6.0%29", iconimage, info, "", metah)
+#def ListTopL(): #311 Lançamento ------------------------------------
+#	try:
+#		link = common.OpenURL(url).replace('\n','').replace('\r','')
+#		m = re.compile("(.{1,8}topflix.tv\/player[^\']+)").findall(link)
+#		m2 = re.compile('"([^\"]+mp4)", "1"').findall(link)
+#		info2 = re.compile('12"><p>(.+?)<\/p>').findall(link)
+#		info2= info2[0]
+#		i=0
+#		for url2 in m2:
+#			if url2!="Close":
+#				url2 = url2.replace('/filmes/',"https://cdn11.ntcdn.stream/prop/httpdelivery/filmes/").replace('.mp4"',".mp4")
+#				AddDir(name + " - [COLOR blue]Dublado[/COLOR]", url2, 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
+#			i+=1
+#	except urllib2.URLError, e:
+#		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)        
 # ----------------- Inicio Superflix
 def ListMovieSF(): #411:
 	for x in range(1, 11):
@@ -2237,6 +2242,9 @@ elif mode == 310:
 elif mode == 211:
 	ListTop()
 	setViewS()
+elif mode == 213:
+	ListPlay()
+	setViewS()    
 elif mode == 311:
 	ListTopL()
 	setViewS()    
