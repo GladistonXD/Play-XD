@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.76.00"
+Versao = "19.77.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -88,9 +88,9 @@ protocol2="http://"
 reference="https://canaisgratis.info/"
 #reference2="|verifypeer=false&referer=https://redecanais.se/"
 #reference2="|referer=https://redecanais.se/"
-reference2=""
 #reference3="|Referer=https://canaisgratis.eu/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
-reference3=""
+reference3="|referer=https://dietafitness.fun/"
+#reference3=""
 RC="redecanais.se/"
 RC2="https://redecanais.se/"
 RC3="https://canaisgratis.eu/"
@@ -1103,11 +1103,10 @@ def PlayTVCB(): #103
 	#if "canal" in url:
 	#	c = re.compile('canal\=(.+)').findall(url)
 	#	player = re.sub('canal=bbb', "canal="+c[0], player )
-	m3u = common.OpenURL(player,headers={'referer': "https://canaisgratis.eu/"})
+	m3u = common.OpenURL(player,headers={'referer': "https://canaisgratis.eu/"}).replace("\n","").replace('\r','')
 	m = re.compile('<source src="([^"|\']+)" type=').findall(m3u)
-	m[0] = re.sub('https', 'https', m[0] )
-	PlayUrl(name, m[0] + reference3, iconimage, name, "")
-	link3 = common.OpenURL("http://cbplay.000webhostapp.com/rc/_grc.php?u="+m[0])
+	m[0] = re.sub('https', 'http', m[0] )
+	PlayUrl(name, m[0]+reference3, iconimage, name, "")
 	#ST(m[0])
 	#AddDir("play", m[0] + "?play|Referer=https://cometa.top", 3, isFolder=False, IsPlayable=True, info="")
 	
