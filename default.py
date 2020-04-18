@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.78.00"
+Versao = "19.79.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -709,16 +709,16 @@ def PlayMRC(): #95 Play filmes
 			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "")
-def PlayMRC21(): #96 Play filmes
-	url2 = re.sub('redecanais\.[^\/]+', RC2, url.replace("http\:","https\:") )
-	url2 = re.sub('^/', RC2, url2 )
-	try:
-		link = common.OpenURL(proxy+url2.replace("http\:","https\:"))
-		desc = re.compile('itemprop=\"?description\"?>\s.{0,10}?<p>(.+)<\/p>').findall(link)
-		if desc:
-			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
-		player = re.compile('Player "" src=\"([^\"]+)\"').findall(link)
-		if player:
+#def PlayMRC21(): #96 Play filmes
+#	url2 = re.sub('redecanais\.[^\/]+', RC2, url.replace("http\:","https\:") )
+#	url2 = re.sub('^/', RC2, url2 )
+#	try:
+#		link = common.OpenURL(proxy+url2.replace("http\:","https\:"))
+#		desc = re.compile('itemprop=\"?description\"?>\s.{0,10}?<p>(.+)<\/p>').findall(link)
+#		if desc:
+#			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
+#		player = re.compile('Player "" src=\"([^\"]+)\"').findall(link)
+#		if player:
 			#mp4 = re.compile('server(f?\d*).+vid\=(\w+)').findall(player[0])
 			#reg = "(.+)\\$rc"+mp4[0][0]
 			#pb = common.OpenURL("https://pastebin.com/raw/FwSnnr65")
@@ -728,22 +728,22 @@ def PlayMRC21(): #96 Play filmes
 			#m = re.compile(reg, re.IGNORECASE).findall(pb)
 			#url2 = m[0]
 			#file = url2 + mp4[0][1]+".mp4"
-			player = re.sub('^/', "https://"+RC, player[0])
+#			player = re.sub('^/', "https://"+RC, player[0])
 			#player = re.sub('\.php', "-bk3.php", player)
 			#auth = common.OpenURL(player ,headers={'referer': "https://dietafitness.fun/"})
 			#exp = re.compile('expires\=([^\'|\"]+)').findall(auth)
-			player = re.sub('\.php', "hlb.php", player)
+#			player = re.sub('\.php', "hlb.php", player)
 			#mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://dietafitness.fun/"})
-			mp4 = common.OpenURL(player, headers={'referer': "https://redecanais.se/"})
-			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
-			global background
-			background=url+";;;"+name+";;;RC"
-			file[0] = re.sub('https', 'http', file[0])
-			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2, iconimage, desc) #aqui
-		else:
-			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
-	except:
-		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "")
+#			mp4 = common.OpenURL(player, headers={'referer': "https://redecanais.se/"})
+#			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
+#			global background
+#			background=url+";;;"+name+";;;RC"
+#			file[0] = re.sub('https', 'http', file[0])
+#			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2, iconimage, desc) #aqui
+#		else:
+#			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
+#	except:
+#		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "")
 def PlayMRC2(): #96 Play filmes direto
 	url2 = re.sub('redecanais\.[^\/]+', RC, url.replace("http\:","https\:") )
 	if not "redecanais" in url2:
@@ -753,7 +753,7 @@ def PlayMRC2(): #96 Play filmes direto
 		desc = re.compile('itemprop=\"?description\"?>\s.{0,10}?<p>(.+)<\/p>').findall(link)
 		if desc:
 			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
-		player = re.compile('Player "" src=\"([^\"]+)\"').findall(link)
+		player = re.compile('<iframe.{1,50}src=\"(\/?p[^\"]+)\"').findall(link)
 		if player:
 			#mp4 = re.compile('server(f?\d*).+vid\=(\w+)').findall(player[0])
 			#reg = "(.+)\\$rc"+mp4[0][0]
@@ -766,26 +766,27 @@ def PlayMRC2(): #96 Play filmes direto
 			#file = url2 + mp4[0][1]+".mp4"
 			player = re.sub('^/', "https://"+RC, player[0])
 			player = re.sub('\.php', "hlb.php", player)
-			#player = "https://redecanais.bz//player3/serverf4hlb.php?vid=TGO"
+			#player = re.sub('redecanais\.[^\/]+', "blog.canaisgratis.org", player)
+			#player = "https://redecanais.se//player3/serverf4hlb.php?vid=TGO"
 			#return
-			mp4 = common.OpenURL(player ,headers={'referer': "https://redecanais.bz/"}).replace("\n","").replace('\r','')
+			mp4 = common.OpenURL(player ,headers={'referer': "https://dietafitness.fun/"})
 			#ST(mp4)
 			#exp = re.compile('expires\=([^\'|\"]+)').findall(auth)
 			#player = re.sub('\.php', "hlb.php", player)
 			#file=re.compile('[^"|\']+\.mp4.{1,15}.m3u8').findall(mp4)
 			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
 			#return
-			#mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://redecanais.bz/"})
+			#mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://redecanais.se/"})
 			global background
 			background=url+";;;"+name+";;;RC"
 			file[0] = re.sub('\n', '', file[0])
 			file[0] = re.sub('https', 'http', file[0])
-			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2, iconimage, desc) #aqui
+			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] , iconimage, desc) #aqui
 		else:
 			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
 	except:
-		xbmcgui.Dialog().ok('PlayXD', 'Erro, tente novamente em alguns minutos')
-		sys.exit()        
+		xbmcgui.Dialog().ok('Cube Play', 'Erro, tente novamente em alguns minutos')
+		sys.exit()
 # ----------------- FIM REDECANAIS
 # --------------  REDECANAIS SERIES,ANIMES,DESENHOS
 def PlaySRC(): #133 Play series
@@ -1555,29 +1556,26 @@ def ListGOL(): #310 Lançamentos ---------------------------------------
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def ListTop(): #211
-		link = common.OpenURL(url).replace('\n','').replace('\r','')
+		link = common.OpenURL(url).replace('\n','').replace('\r','').replace(' ','%20')
 		m = re.compile("globalUri='([^\']+)'").findall(link)
-		m2 = re.compile('idJs = "([^\"]+";var _ano)').findall(link)
-		m3 = re.compile('ChangeSource."([^\"]+mp4", ")').findall(link)
-		m4 = re.compile('ctm = "([^\"]+";_data)=').findall(link)
-		lista = re.compile("(.+)").findall(m[0]+m2[0]+m3[0]+m4[0])
+		m2 = re.compile('idJs%20=%20"([^\"]+";var%20_ano)').findall(link)
+		m3 = re.compile('ChangeSource."([^\"]+mp4",%20")').findall(link)
+		m4 = re.compile('data%20=%20"([^\"]+";var%20lnc)%20=').findall(link)
+		m5 = re.compile('ctm%20=%20"([^\"]+";_data)=').findall(link)
+		lista = re.compile("(.+)").findall(m[0]+m2[0]+m3[0]+m4[0]+m5[0])
 		info2 = re.compile('12"><p>(.+?)<\/p>').findall(link)
-		info2= info2[0]
+		info2= info2[0].replace("%20"," ")
 		for url2 in lista:
 			if url2!="Close":
-				url2 = url2.replace('.php',"/").replace('";var _ano',"&url=").replace('", "',"&mediaType=filme&mediaName=&idfy=3&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11")
+				url2 = url2.replace('.php',"/").replace('";var%20_ano',"&url=").replace('",%20"',"&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=5&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11")
 				AddDir(name + " - [COLOR blue]Dublado[/COLOR]", url2, 213, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
 def ListPlay(): #213 play =====================================================================
-	link = common.OpenURL(url).replace("\n","").replace('\r','')
-	m = re.compile("mp4Id = '(.+?)';").findall(link)
-	#legenda = re.compile("(f[^\']+\.(vtt))").findall(link2)
-	#if legenda:
-	#legenda = "http://player.openload.network/" + legenda
-	#	 legenda = "http://topflix.tv" + legenda
-	for url2 in m:
-		#if url2!="Close":
-		 #url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]")
-		 PlayUrl(name, url2+"|Referer=https://topflix.tv/&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla%2F5.0+%28compatible%3B+MSIE+10.6%3B+Windows+NT+6.1%3B+Trident%2F6.0%29", iconimage, info)
+	link = common.OpenURL(url).replace("\n","")
+	m = re.compile("video\/mp4..\/(.+?)<\/video>.+var mp4Id = '(.+?)';").findall(link)
+	for legenda, url2 in m:
+		if legenda!="Close":
+		 legenda = legenda.replace("><track kind='captions' src='../../filmes","http://topflix.tv/filmes").replace("' srclang='pt-BR' label='Português' default></track> ","")
+		 PlayUrl(name, url2+"|Referer=https://topflix.tv/&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla%2F5.0+%28compatible%3B+MSIE+10.6%3B+Windows+NT+6.1%3B+Trident%2F6.0%29", iconimage, info, sub=legenda)
 #def ListTop2(): #211
 #	try:
 #		link = common.OpenURL(url).replace('\n','').replace('\r','')
