@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.81.00"
+Versao = "19.82.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -797,7 +797,7 @@ def PlaySRC(): #133 Play series
 		desc = re.compile('itemprop=\"?description\"?>\s<p>(.+)<\/p>').findall(link)
 		if desc:
 			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
-		player = re.compile('Player "" src=\"([^\"]+)\"').findall(link)
+		player = re.compile('<iframe.{1,50}src=\"(\/?p[^\"]+)\"').findall(link)
 		if player:
 			#mp4 = re.compile('server(f?\d*).+vid\=(\w+)').findall(player[0])
 			#reg = "(.+)\\$rc"+mp4[0][0]
@@ -815,21 +815,18 @@ def PlaySRC(): #133 Play series
 			#url2 = m[0]
 			#file = mp4[0][1]+".mp4"
 			player = re.sub('^/', "https://"+RC, player[0])
-			#player = re.sub('\.php', "-bk3.php", player)
-			#auth = common.OpenURL(player ,headers={'referer': "https://redecanais.bz/"})
-			#exp = re.compile('expires\=([^\'|\"]+)').findall(auth)
 			player = re.sub('\.php', "hlb.php", player)
-			#mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://redecanais.bz/"})
-			mp4 = common.OpenURL(player, headers={'referer': "https://redecanais.se/"})
+			#player = re.sub('redecanais\.[^\/]+', "blog.canaisgratis.org", player)
+			mp4 = common.OpenURL(player ,headers={'referer': "https://dietafitness.fun/"})
+			#file=re.compile('[^"|\']+\.mp4.{1,15}.m3u8').findall(mp4)
 			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
+			file[0] = re.sub('\n', '', file[0])
 			file[0] = re.sub('https', 'http', file[0])
-			PlayUrl(name, file[0] + reference2, iconimage, name)
-		else:
-			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
+			PlayUrl(name, file[0] + "|referer="+player, iconimage, name)
 	except:
-		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "")
+		sys.exit()
 def TemporadasRC(x): #135 Episodios
 	url2 = re.sub('redecanais\.[^\/]+', RC, url.replace("http\:","https\:") )
 	url2 = re.sub('^/', "https://"+RC, url2 )
@@ -1488,9 +1485,11 @@ def TVCB4(x): #108
 	jq = sorted(jq_, key=lambda jq_: jq_['name'])
 	for jq1 in jq:
 		if jq1['language']== "Brasil":
-			AddDir( "[COLOR green]" + jq1['name'] + "[/COLOR]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
+			jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]")
+			AddDir( "[B]" + jq1['name'] +  " [COLOR blue][Alter][/COLOR]" + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
 		elif jq1['language'] == "Brazilian":
-			AddDir( "[COLOR yellow]" + jq1['name'] + "[/COLOR]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
+			jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]")
+			AddDir( "[B]" + jq1['name'] + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
 def TVCB4PLAY(x): #109
 	t = common.OpenURL("https://51.178.220.155/ch.php?usercode=6017538676").replace("\\","//")
 	jq_ = json.loads(t)
