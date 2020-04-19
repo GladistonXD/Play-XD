@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.79.00"
+Versao = "19.80.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -114,6 +114,7 @@ def Categories(): #70
 def MCanais(): #-1
 	AddDir("[COLOR yellow][B]Opção 1[/B][/COLOR]" , "", 104, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR yellow][B]Opção 2[/B][/COLOR]" , "", 107, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](TVBOX)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
 def MFilmes(): #-2
 	#AddDir("[COLOR white][B][Filmes Dublado/Legendado][/B][/COLOR]" , cPage, 220, "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", background="cPage")
 	AddDir("[B][COLOR cyan]Filmes Lançamentos MMFilmes[/COLOR][/B]", "config" , 184,"https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", "https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", isFolder=True, info='[COLOR][/COLOR]')
@@ -1480,7 +1481,22 @@ def TVCB3(x): #107
 	for img2, name2, url2 in m:
 		if url2!="Close":
 		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]")
-		 AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')      
+		 AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+def TVCB4(x): #108
+	t = common.OpenURL("https://51.178.220.155/ch.php?usercode=6017538676").replace("\\","//")
+	jq_ = json.loads(t)
+	jq = sorted(jq_, key=lambda jq_: jq_['name'])
+	for jq1 in jq:
+		if jq1['language']== "Brasil":
+			AddDir( "[COLOR green]" + jq1['name'] + "[/COLOR]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
+		elif jq1['language'] == "Brazilian":
+			AddDir( "[COLOR yellow]" + jq1['name'] + "[/COLOR]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
+def TVCB4PLAY(x): #109
+	t = common.OpenURL("https://51.178.220.155/ch.php?usercode=6017538676").replace("\\","//")
+	jq_ = json.loads(t)
+	for jq1 in jq_:
+		if jq1['id'] == url:
+			PlayUrl(jq1['name'], jq1['link'],jq1['logo'],"")      
 def PlayTVCB2(): #212
 	PlayUrl(name, url, iconimage, info, "", metah)   
 def RadioTV(x): #106
@@ -2186,6 +2202,11 @@ elif mode == 104:
 elif mode == 107:
 	TVCB3(url)
 	setViewS()    
+elif mode == 108:
+	TVCB4(url)
+	setViewS()    
+elif mode == 109:
+	TVCB4PLAY(url)
 elif mode == 106:
 	RadioTV(url)
 	setViewS()    
