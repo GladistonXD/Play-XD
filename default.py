@@ -1480,7 +1480,7 @@ def TVCB3(x): #107
 		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]")
 		 AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
 def TVCB4(): #108
-	t = common.OpenURL("https://51.178.220.155/ch.php?usercode=6017538676").replace("\\","//")
+	t = common.OpenURL("https://cutt.ly/redtv2").replace("\\","//")
 	jq_ = json.loads(t)
 	jq = sorted(jq_, key=lambda jq_: jq_['name'])
 	for jq1 in jq:
@@ -1491,7 +1491,7 @@ def TVCB4(): #108
 			jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]")
 			AddDir( "[B]" + jq1['name'] + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
 def TVCB4PLAY(): #109
-	t = common.OpenURL("https://51.178.220.155/ch.php?usercode=6017538676").replace("\\","//")
+	t = common.OpenURL("https://cutt.ly/redtv2").replace("\\","//")
 	jq_ = json.loads(t)
 	for jq1 in jq_:
 		if jq1['id'] == url:
