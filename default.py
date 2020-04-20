@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.82.00"
+Versao = "19.83.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1479,7 +1479,7 @@ def TVCB3(x): #107
 		if url2!="Close":
 		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]")
 		 AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
-def TVCB4(x): #108
+def TVCB4(): #108
 	t = common.OpenURL("https://51.178.220.155/ch.php?usercode=6017538676").replace("\\","//")
 	jq_ = json.loads(t)
 	jq = sorted(jq_, key=lambda jq_: jq_['name'])
@@ -2202,7 +2202,7 @@ elif mode == 107:
 	TVCB3(url)
 	setViewS()    
 elif mode == 108:
-	TVCB4(url)
+	TVCB4()
 	setViewS()    
 elif mode == 109:
 	TVCB4PLAY(url)
