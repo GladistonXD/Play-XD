@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.87.00"
+Versao = "19.88.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -89,8 +89,8 @@ reference="https://canaisgratis.info/"
 #reference2="|verifypeer=false&referer=https://redecanais.se/"
 #reference2="|referer=https://redecanais.se/"
 reference2=""
-reference3="|Referer=https://canaisgratis.eu/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
-#reference3=""
+#reference3="|Referer=https://canaisgratis.eu/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
+reference3=""
 RC="redecanais.se/"
 RC2="https://redecanais.se/"
 RC3="https://canaisgratis.eu/"
@@ -988,12 +988,12 @@ def Busca(): # 160
 		AddDir("[COLOR blue][B][RedeCanais][/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		l= 0
 		for x in range(0, 2):
-			link = common.OpenURL("https://www.google.com/search?q="+d+"+site:redecanais.bz&hl=pt-BR&&start="+str(l))
+			link = common.OpenURL("https://www.google.com/search?q=redecanais+"+d+"&hl=pt-BR&source=lnms&tbm=isch&"+str(l))
 			l +=2
-			match = re.compile('href\=\"(https?\:.{0,50}redecanais[^\"]+)\".{50,200}\>([^\<]+)').findall(link.replace('\n','').replace('\r',''))
+			match = re.compile('alt="([^\"]+).{1,244}href\=\"(https?\:.{0,50}redecanais[^\"]+)').findall(link.replace('\n','').replace('\r',''))
 			if match:
-				for url2,name2 in match:
-					if "lista" in url2 or "Lista" in name2:
+				for name2, url2 in match:
+					if "lista" in url2 or "Lista" in name2 or "filmes" in url2 or "browse" in url2 or "Assistir" in name2: 
 						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 135, " ", " ", info="", isFolder=True, IsPlayable=False)
 					else:
 						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 96, " ", " ", info="", isFolder=False, IsPlayable=True)
@@ -1496,14 +1496,14 @@ def TVCB2(x): #104
 	m = re.compile('logo="(.+?)".{1,50},(.+?)plugin:\/\/(.+?)#').findall(link)
 	for img2, name2, url2 in m:
 		if url2!="Close":
-		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]")
+		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos vamos derrotar o virus',"[COLOR green][B]HD[/B][/COLOR]")
 		 AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
 def TVCB3(x): #107
 	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive003").replace("\n","").replace('\r','')
 	m = re.compile('logo="(.+?)".{1,50},(.+?)plugin:\/\/(.+?)#').findall(link)
 	for img2, name2, url2 in m:
 		if url2!="Close":
-		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]")
+		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos vamos derrotar o virus',"[COLOR green][B]HD[/B][/COLOR]")
 		 AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
 def TVCB4(): #108
 	t = common.OpenURL("https://cutt.ly/redtv2").replace("\\","//")
@@ -1551,7 +1551,6 @@ def GenerosFl(): #230
 		xbmc.executebuiltin("XBMC.Container.Refresh()")        
 def ListGO(): #210 Topflix Dublado --------------------------------------------
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaFl1[int(CatFl)] +"[/COLOR]", "url" ,230 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
-#	CategoryOrdem("cOrdRCF")
 	try:
 		p= 1
 		if int(cPageFlf) > 0:
@@ -1560,7 +1559,6 @@ def ListGO(): #210 Topflix Dublado --------------------------------------------
 		for x in range(0, 4):
 			l +=1
 			link = common.OpenURL("https://topflix.tv/"+ClistaFl0[int(CatFl)]+"/"+ str(l))
-			#link = common.OpenURL("https://topflix.tv/genero/animacao/"+str(l))
 			match = re.compile("'(.{5,30}[^\']jpg).{4,41}<a href=\'([^\']+).{4,300}'>([^\']+)<\/a").findall(link.replace('\n','').replace('\r',''))
 			if match:
 				for img2,url2,name2, in match:
@@ -1597,59 +1595,37 @@ def ListGOL(): #310 Lançamentos ---------------------------------------
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def ListTop(): #211
-		link = common.OpenURL(url).replace('\n','').replace('\r','').replace(' ','%20')
+		link = common.OpenURL(url).replace('\n','').replace('\r','').replace(' ','%20').replace('mp4", "1','')
 		m = re.compile("globalUri='([^\']+)'").findall(link)
 		m2 = re.compile('idJs%20=%20"([^\"]+";var%20_ano)').findall(link)
 		m3 = re.compile('ChangeSource."([^\"]+mp4",%20")').findall(link)
 		m4 = re.compile('data%20=%20"([^\"]+";var%20lnc)%20=').findall(link)
 		m5 = re.compile('ctm%20=%20"([^\"]+";_data)=').findall(link)
+		m1 = re.compile("globalUri='([^\']+)'").findall(link)
+		m12 = re.compile('idJs%20=%20"([^\"]+";var%20_ano)').findall(link)
+		m13 = re.compile('ChangeSource."([^\"]+mp4",%20")').findall(link)
+		m14 = re.compile('data%20=%20"([^\"]+";var%20lnc)%20=').findall(link)
+		m15 = re.compile('ctm%20=%20"([^\"]+";_data)=').findall(link)
 		lista = re.compile("(.+)").findall(m[0]+m2[0]+m3[0]+m4[0]+m5[0])
+		lista2 = re.compile("(.+)").findall(m1[0]+m12[0]+m13[0]+m14[0]+m15[0])
 		info2 = re.compile('12"><p>(.+?)<\/p>').findall(link)
 		info2= info2[0].replace("%20"," ")
-		for url2 in lista:
-			if url2!="Close":
-				url2 = url2.replace('.php',"/").replace('";var%20_ano',"&url=").replace('",%20"',"&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=5&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11")
-				AddDir(name + " - [COLOR blue]Dublado[/COLOR]", url2, 213, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
+		lista= lista[0].replace('.php',"/").replace('";var%20_ano',"&url=").replace('",%20"',"&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=3&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11").replace('\n','')
+		lista2= lista2[0].replace('.php',"/").replace('";var%20_ano',"&url=").replace('.mp4",%20"',"-leg.mp4&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=5&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11").replace('\n','')
+		name3 = re.compile('<title>\w.+Online(.+)<\/title>').findall(link)
+		name3= name3[0].replace("%20"," ").replace("Dublado e Legendado","[COLOR blue] Dublado[/COLOR]")
+		for url2 in [lista, lista2]:
+			if "topflix.tv" in url2:
+                		 name2 = re.compile('(|-|leg+).mp4').findall(url2)
+                		 name2 = re.sub("leg", "[COLOR blue]  Legendado  e[/COLOR]", name2[0])
+                		 AddDir(name + name2 + name3, url2, 213, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
 def ListPlay(): #213 play =====================================================================
 	link = common.OpenURL(url).replace("\n","")
 	m = re.compile("video\/mp4..\/(.+?)<\/video>.+var mp4Id = '(.+?)';").findall(link)
 	for legenda, url2 in m:
 		if legenda!="Close":
 		 legenda = legenda.replace("><track kind='captions' src='../../filmes","http://topflix.tv/filmes").replace("' srclang='pt-BR' label='Português' default></track> ","")
-		 PlayUrl(name, url2+"|Referer=https://topflix.tv/&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla%2F5.0+%28compatible%3B+MSIE+10.6%3B+Windows+NT+6.1%3B+Trident%2F6.0%29", iconimage, info, sub=legenda)
-#def ListTop2(): #211
-#	try:
-#		link = common.OpenURL(url).replace('\n','').replace('\r','')
-#		m = re.compile("globalUri='([^\']+)'").findall(link)
-#		m2 = re.compile('ChangeSource."([^\"]+mp4", "1")').findall(link)
-#		lista = re.compile("(.+)").findall(m[0]+m2[0])
-#		info2 = re.compile('12"><p>(.+?)<\/p>').findall(link)
-#		info2= info2[0]
-#		i=0
-#		for url2 in lista:
-#			if url2!="Close":
-#				url2 = url2.replace('topflix.tv/player/share_vi.php?code=',"cdn11.ntcdn.stream/prop/httpdelivery").replace('";var _ano',"&url=").replace('", "1"',"")
-#				AddDir(name + " - [COLOR blue]Dublado[/COLOR]", url2, 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
-#			i+=1
-#	except urllib2.URLError, e:
-#		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)
-#def PlayTop(): #212
-#	PlayUrl(name, url+"|Referer=https://topflix.tv/&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla%2F5.0+%28compatible%3B+MSIE+10.6%3B+Windows+NT+6.1%3B+Trident%2F6.0%29", iconimage, info, "", metah)
-#def ListTopL(): #311 Lançamento ------------------------------------
-#	try:
-#		link = common.OpenURL(url).replace('\n','').replace('\r','')
-#		m = re.compile("(.{1,8}topflix.tv\/player[^\']+)").findall(link)
-#		m2 = re.compile('"([^\"]+mp4)", "1"').findall(link)
-#		info2 = re.compile('12"><p>(.+?)<\/p>').findall(link)
-#		info2= info2[0]
-#		i=0
-#		for url2 in m2:
-#			if url2!="Close":
-#				url2 = url2.replace('/filmes/',"https://cdn11.ntcdn.stream/prop/httpdelivery/filmes/").replace('.mp4"',".mp4")
-#				AddDir(name + " - [COLOR blue]Dublado[/COLOR]", url2, 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
-#			i+=1
-#	except urllib2.URLError, e:
-#		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)        
+		 PlayUrl(name, url2+"|Referer=https://topflix.tv/&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla%2F5.0+%28compatible%3B+MSIE+10.6%3B+Windows+NT+6.1%3B+Trident%2F6.0%29", iconimage, info, sub=legenda)    
 # ----------------- Inicio Superflix
 def ListMovieSF(): #411:
 	for x in range(1, 11):
