@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.91.00"
+Versao = "19.92.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -850,7 +850,7 @@ def PlaySRC(): #133 Play series
 			background=url+";;;"+name+";;;RC"
 			file[0] = re.sub('\n', '', file[0])
 			file[0] = re.sub('https', 'http', file[0])
-			PlayUrl(name, file[0] + "|referer="+player, iconimage, name)
+			PlayUrl(name, file[0],"", iconimage, name)
 	except:
 		sys.exit()
 def TemporadasRC(x): #135 Episodios
@@ -1495,15 +1495,22 @@ def TVCB2(x): #104
 	m = re.compile('logo="(.+?)".{1,50},(.+?)plugin:\/\/(.+?)#').findall(link)
 	for img2, name2, url2 in m:
 		if url2!="Close":
-		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos vamos derrotar o virus',"[COLOR green][B]HD[/B][/COLOR]")
+		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]")
 		 AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
-def TVCB3(x): #107
+def TVCB31(x): #107
 	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive003").replace("\n","").replace('\r','')
 	m = re.compile('logo="(.+?)".{1,50},(.+?)plugin:\/\/(.+?)#').findall(link)
 	for img2, name2, url2 in m:
 		if url2!="Close":
-		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos vamos derrotar o virus',"[COLOR green][B]HD[/B][/COLOR]")
+		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]")
 		 AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+def TVCB3(x): #107
+	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive003").replace("\n","").replace('\r','')
+	m = re.compile('1,(.+?)plugin:\/\/(.+?)#').findall(link)
+	for name2, url2 in m:
+		if url2!="Close":
+		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]")
+		 AddDir(name2,"plugin://"+url2, 212, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')         
 def TVCB4(): #108
 	t = common.OpenURL("https://cutt.ly/redtv2").replace("\\","//")
 	jq_ = json.loads(t)
