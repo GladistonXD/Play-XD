@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.89.00"
+Versao = "19.90.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1604,7 +1604,7 @@ def ListTop(): #211
 		m5 = re.compile('ctm%20=%20"([^\"]+";_data)=').findall(link)
 		m1 = re.compile("globalUri='([^\']+)'").findall(link)
 		m12 = re.compile('idJs%20=%20"([^\"]+";var%20_ano)').findall(link)
-		m13 = re.compile('ChangeSource."([^\"]+mp4",%20")').findall(link)
+		m13 = re.compile('ChangeSource."([^\"]+mp4",%20"5)').findall(link)
 		m14 = re.compile('data%20=%20"([^\"]+";var%20lnc)%20=').findall(link)
 		m15 = re.compile('ctm%20=%20"([^\"]+";_data)=').findall(link)
 		lista = re.compile("(.+)").findall(m[0]+m2[0]+m3[0]+m4[0]+m5[0])
@@ -1612,14 +1612,24 @@ def ListTop(): #211
 		info2 = re.compile('12"><p>(.+?)<\/p>').findall(link)
 		info2= info2[0].replace("%20"," ")
 		lista= lista[0].replace('.php',"/").replace('";var%20_ano',"&url=").replace('",%20"',"&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=3&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11").replace('\n','')
-		lista2= lista2[0].replace('.php',"/").replace('";var%20_ano',"&url=").replace('.mp4",%20"',"-leg.mp4&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=5&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11").replace('\n','')
+		lista2= lista2[0].replace('.php',"/").replace('";var%20_ano',"&url=").replace('",%20"5',"&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=5&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11").replace('\n','')
 		for url2 in [lista, lista2]:
 			if "" in url or url2:
 				name2 = re.compile('(\w|-|leg+.+)p4').findall(url2)
 				name2= name2[0].replace("leg.m", "[COLOR blue] - Legendado[/COLOR]").replace("m", "[COLOR blue] - Dublado[/COLOR]")
 				AddDir(name + name2, url2, 213, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
-	except IndexError:
-			sys.exit()    
+	except IndexError as lista2:
+			pass
+	try:     
+            info2 = re.compile('12"><p>(.+?)<\/p>').findall(link)
+            info2= info2[0].replace("%20"," ")
+            for url2 in lista:
+				name2 = re.compile('(\w|-|leg+.+)p4').findall(url2)
+				name2= name2[0].replace("m", "[COLOR blue] - Dublado[/COLOR]")
+				url2= url2.replace('.php',"/").replace('";var%20_ano',"&url=").replace('",%20"',"&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=3&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11").replace('\n','')
+				AddDir(name + name2, url2, 213, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
+	except:
+			pass     
 def ListPlay(): #213 play =====================================================================
 	link = common.OpenURL(url).replace("\n","")
 	m = re.compile("video\/mp4..\/(.+?)<\/video>.+var mp4Id = '(.+?)';").findall(link)
