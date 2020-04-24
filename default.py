@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 
-Versao = "19.88.00"
+Versao = "19.89.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1595,6 +1595,7 @@ def ListGOL(): #310 Lançamentos ---------------------------------------
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def ListTop(): #211
+	try:	
 		link = common.OpenURL(url).replace('\n','').replace('\r','').replace(' ','%20').replace('mp4", "1','')
 		m = re.compile("globalUri='([^\']+)'").findall(link)
 		m2 = re.compile('idJs%20=%20"([^\"]+";var%20_ano)').findall(link)
@@ -1612,13 +1613,13 @@ def ListTop(): #211
 		info2= info2[0].replace("%20"," ")
 		lista= lista[0].replace('.php',"/").replace('";var%20_ano',"&url=").replace('",%20"',"&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=3&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11").replace('\n','')
 		lista2= lista2[0].replace('.php',"/").replace('";var%20_ano',"&url=").replace('.mp4",%20"',"-leg.mp4&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=5&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11").replace('\n','')
-		name3 = re.compile('<title>\w.+Online(.+)<\/title>').findall(link)
-		name3= name3[0].replace("%20"," ").replace("Dublado e Legendado","[COLOR blue] Dublado[/COLOR]")
 		for url2 in [lista, lista2]:
-			if "topflix.tv" in url2:
-                		 name2 = re.compile('(|-|leg+).mp4').findall(url2)
-                		 name2 = re.sub("leg", "[COLOR blue]  Legendado  e[/COLOR]", name2[0])
-                		 AddDir(name + name2 + name3, url2, 213, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
+			if "" in url or url2:
+				name2 = re.compile('(\w|-|leg+.+)p4').findall(url2)
+				name2= name2[0].replace("leg.m", "[COLOR blue] - Legendado[/COLOR]").replace("m", "[COLOR blue] - Dublado[/COLOR]")
+				AddDir(name + name2, url2, 213, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
+	except IndexError:
+			sys.exit()    
 def ListPlay(): #213 play =====================================================================
 	link = common.OpenURL(url).replace("\n","")
 	m = re.compile("video\/mp4..\/(.+?)<\/video>.+var mp4Id = '(.+?)';").findall(link)
