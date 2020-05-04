@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
-
-Versao = "19.92.00"
+import requests
+Versao = "19.93.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -791,12 +791,12 @@ def PlayMRC2(): #96 Play filmes direto
 			#m = re.compile(reg, re.IGNORECASE).findall(pb)
 			#url2 = m[0]
 			#file = url2 + mp4[0][1]+".mp4"
-			player = re.sub('^/', "https://"+RC, player[0])
+			player = re.sub('^/', "https://bemestarglobal.fun/", player[0])
 			player = re.sub('\.php', "hlb.php", player)
 			#player = re.sub('redecanais\.[^\/]+', "blog.canaisgratis.org", player)
 			#player = "https://redecanais.se//player3/serverf4hlb.php?vid=TGO"
 			#return
-			mp4 = common.OpenURL(player ,headers={'referer': "https://dietafitness.fun/"})
+			mp4 = common.OpenURL(player ,headers={'referer': "https://bemestarglobal.fun/"})
 			#ST(mp4)
 			#exp = re.compile('expires\=([^\'|\"]+)').findall(auth)
 			#player = re.sub('\.php', "hlb.php", player)
@@ -840,10 +840,10 @@ def PlaySRC(): #133 Play series
 			#m = re.compile(reg, re.IGNORECASE).findall(pb)
 			#url2 = m[0]
 			#file = mp4[0][1]+".mp4"
-			player = re.sub('^/', "https://"+RC, player[0])
+			player = re.sub('^/', "https://bemestarglobal.fun/", player[0])
 			player = re.sub('\.php', "hlb.php", player)
 			#player = re.sub('redecanais\.[^\/]+', "blog.canaisgratis.org", player)
-			mp4 = common.OpenURL(player ,headers={'referer': "https://dietafitness.fun/"})
+			mp4 = common.OpenURL(player ,headers={'referer': "https://bemestarglobal.fun/"})
 			#file=re.compile('[^"|\']+\.mp4.{1,15}.m3u8').findall(mp4)
 			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
 			global background
@@ -1050,17 +1050,39 @@ def Busca(): # 160
 		AddDir("[COLOR red][B][TopFlix][/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		l= 0
 		for x in range(0, 1):
-			link = common.OpenURL("https://www.ecosia.org/search?q=topflix.tv+"+d+"")
-			l +=1
-			match = re.compile('href\=\"(https?\:.{0,50}topflix.tv\/[^\"]+)\"\s+>\s+TopFlix.-.Assistir.([^\"]+)Online').findall(link.replace('\n','').replace('\r',''))
+			url = ('https://topflix.tv/landing')
+			headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+			result = {'search': d}
+			f = requests.post(url, data = result, headers=headers)
+			x = f.text.replace("><font color='white'>", " title='").replace("</font></a></h6></div><p class=", "'>")
+			match = re.findall("'(.{5,30}[^\']jpg).{2,234}on.href='\/(filmes[^\']+).{2,234}on.href='\/filmes\/assistir-online-([^\']+)\/", x)
 			if match:
-				for url2,name2 in match:
-					if "lista" in url2 or "Lista" in name2:
-						AddDir("[COLOR red]" +name2+ "[/COLOR]" , url2, 211, " ", " ", info="", isFolder=True, IsPlayable=False)
+				for img2, url2, name2 in match:
+					img2 = img2.replace('170255',"330490")
+					name2 = name2.replace("-", " ")
+					url2 = url2.replace("XXXXX", " ")
+					if "" in url2:
+						AddDir("[COLOR red]" +name2+ "[/COLOR]" , RC4 + url2, 211, RC4 + img2, info="", isFolder=True, IsPlayable=False)
 					else:
-						AddDir("[COLOR red]" +name2+ "[/COLOR]" , url2, 211, " ", " ", info="", isFolder=True, IsPlayable=True)
+						AddDir("[COLOR red]" +name2+ "[/COLOR]" , RC4 + url2, 211, RC4 + img2, info="", isFolder=True, IsPlayable=True)
 	except:
 		pass
+#	try:
+#		p= 1
+#		AddDir("[COLOR red][B][TopFlix][/B][/COLOR]", "" , 0 ,"", isFolder=False)
+#		l= 0
+#		for x in range(0, 1):
+#			link = common.OpenURL("https://www.ecosia.org/search?q=topflix.tv+"+d+"")
+#			l +=1
+#			match = re.compile('href\=\"(https?\:.{0,50}topflix.tv\/[^\"]+)\"\s+>\s+TopFlix.-.Assistir.([^\"]+)Online').findall(link.replace('\n','').replace('\r',''))
+#			if match:
+#				for url2,name2 in match:
+#					if "lista" in url2 or "Lista" in name2:
+#						AddDir("[COLOR red]" +name2+ "[/COLOR]" , url2, 211, " ", " ", info="", isFolder=True, IsPlayable=False)
+#					else:
+#						AddDir("[COLOR red]" +name2+ "[/COLOR]" , url2, 211, " ", " ", info="", isFolder=True, IsPlayable=True)
+#	except:
+#		pass
 	try:
 		p= 1
 		AddDir("[COLOR blue][B][RedeCanais][/B][/COLOR]", "" , 0 ,"", isFolder=False)
@@ -1122,12 +1144,12 @@ def PlayTVCB(): #103
 	link = common.OpenURL("https://canaisgratis.eu/"+url)
 	#link = common.OpenURL("https://canaisgratis.top/assistir-max-prime-online-24-horas-ao-vivo_8586fbbe2.html")
 	player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link)
-	player = re.sub('^/', "https://canaisgratis.eu/" , player[0] )
+	player = re.sub('^/', "https://encripted-encripted-encripted-encripted-encripted-encripted.encripted-encripted-encripted-encripted-encripted-encripted.fun/" , player[0] )
 	player = re.sub('.php', "hlb.php", player )
 	#if "canal" in url:
 	#	c = re.compile('canal\=(.+)').findall(url)
 	#	player = re.sub('canal=bbb', "canal="+c[0], player )
-	m3u = common.OpenURL(player,headers={'referer': "https://canaisgratis.eu/"}).replace("\n","").replace('\r','')
+	m3u = common.OpenURL(player,headers={'referer': "https://sqldatabasebacks.com/"}).replace("\n","").replace('\r','')
 	m = re.compile('<source src="([^"|\']+)" type=').findall(m3u)
 	m[0] = re.sub('https', 'https', m[0] )
 	PlayUrl(name, m[0] + reference3, iconimage, name, "")
