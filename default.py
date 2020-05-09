@@ -2,7 +2,7 @@
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 import requests
 import codecs
-Versao = "19.94.00"
+Versao = "19.95.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -154,14 +154,14 @@ def QuerofilmeshdMENU(): # 510
 		for x in range(0, 1):
 			l +=1
 			link = common.OpenURL("https://querofilmeshd.online/genero/"+ClistaQUE10[int(CatQ1)]+"/page/"+ str(l))
-			match = re.compile('img src=\"([^\"]+)".alt="([^\"]+).{1,135}href="([^\"]+)"').findall(link.replace('\n','').replace('\r',''))
+			match = re.compile('img src=\"([^\"]+)".alt="([^\"]+).{1,135}href="([^\"]+)".+?<span>.+?,.([^\"]+)<\/s').findall(link.replace('\n','').replace('\r',''))
 			if match:
-				for img2,name2,url2 in match:
+				for img2,name2,url2,ano in match:
 					img2= img2.replace("w185","w500")
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 					if "tvshows" in url2: False
 					else:
-						AddDir(name2 ,url2, 511, img2, img2, info="", isFolder=True, IsPlayable=True)
+						AddDir(name2 + " - ("+ano+")" ,url2, 511, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
 					p += 1
 			else:
 				break
@@ -181,7 +181,6 @@ def QuerofilmeshdLista(): #511
 		headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 		result = {'action': 'doo_player_ajax', 'post': match2, 'nume': '1','type': 'movie'}
 		f = requests.post(url3, data = result, headers=headers)
-		x = f.text
 		url4 = re.compile("(https[^\"]+)' frame").findall(f.text)
 		url4= url4[0].replace("[u'https","https")
 		link4 = common.OpenURL(url4).replace('\n','').replace('\r','')
@@ -209,35 +208,39 @@ def QuerofilmeshdLista(): #511
 #		hexd = codecs.decode(f.text, "hex_codec").decode('utf-8')
 #		AddDir(name, hexd, 513,"", isFolder=False, IsPlayable=True)
 def QuerofilmeshdPlay2(): #513
-	url6 = re.compile('(id.\w+)').findall(url)
-	url6 = url6[0].replace("id=", "http://player.filmesonlinetv.org/playlist/")
-	url7 = "/1588804130818"
-	url8 = url6 + url7
-	m = common.OpenURL(url8)
-	if m:
-		url9 = m
-		m2 = re.compile('x([^\"]..)\s(\/.+?m3u8)').findall(url9)
-		legenda = re.compile('subdata..([^\"]+)').findall(url)
-		listar=[]
-		listal=[]
-		for res, link in m2:
-			listal.append(link)
-			listar.append(res)
-		if len(listal) <1:
-			xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
-			sys.exit(int(sys.argv[1]))
-		d = xbmcgui.Dialog().select("Selecione a resolução", listar)
-		if d!= -1:
-			url2 = re.sub(' ', '%20', listal[d] )
-			global background
-			background=background+";;;"+name+";;;MM"
-			if legenda:
-				legenda = legenda[0]
-				if not "http" in legenda:
-					legenda = "https://sub.streamservice.online/subdata/" + legenda
-				PlayUrl(name,'https://player.filmesonlinetv.org' + url2, iconimage, info, sub=legenda)
-			else:
-				PlayUrl(name,'https://player.filmesonlinetv.org' + url2, iconimage, info)
+	try:	
+		url6 = re.compile('(id.\w+)').findall(url)
+		url6 = url6[0].replace("id=", "http://player.filmesonlinetv.org/playlist/")
+		url7 = "/1588804130818"
+		url8 = url6 + url7
+		m = common.OpenURL(url8)
+		if m:
+			url9 = m
+			m2 = re.compile('x([^\"]..)\s(\/.+?m3u8)').findall(url9)
+			legenda = re.compile('subdata..([^\"]+)').findall(url)
+			listar=[]
+			listal=[]
+			for res, link in m2:
+				listal.append(link)
+				listar.append(res)
+			if len(listal) <1:
+				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
+				sys.exit(int(sys.argv[1]))
+			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+			if d!= -1:
+				url2 = re.sub(' ', '%20', listal[d] )
+				global background
+				background=background+";;;"+name+";;;MM"
+				if legenda:
+					legenda = legenda[0]
+					if not "http" in legenda:
+						legenda = "https://sub.streamservice.online/subdata/" + legenda
+					PlayUrl(name,'https://player.filmesonlinetv.org' + url2, iconimage, info, sub=legenda)
+				else:
+					PlayUrl(name,'https://player.filmesonlinetv.org' + url2, iconimage, info)
+	except (IndexError, ValueError):
+		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado')
+		sys.exit()
 #def QuerofilmeshdMENU(): # 510 GoFilmes
 #	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaFl1[int(CatFl)] +"[/COLOR]", "url" ,230 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 #	try:
@@ -1692,7 +1695,7 @@ def TVCB2(x): #104
 	m = re.compile('logo="(.+?)".{1,50},(.+?)plugin:\/\/(.+?)#').findall(link)
 	for img2, name2, url2 in m:
 		if url2!="Close":
-		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]")
+		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]").replace('BR-LIVE-SEMPRE 0800',"[COLOR green][B]HD[/B][/COLOR]")
 		 AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
 def TVCB31(x): #107
 	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive003").replace("\n","").replace('\r','')
@@ -1702,12 +1705,15 @@ def TVCB31(x): #107
 		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]")
 		 AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
 def TVCB3(x): #107
-	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive003").replace("\n","").replace('\r','')
+	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive005").replace("\n","").replace('\r','')
 	m = re.compile('1,(.+?)plugin:\/\/(.+?)#').findall(link)
+	#m = re.compile('tvg-name="(.+?)".+?logo="(.+?)".+?plugin:\/\/(.+?)#').findall(link)
+    #for name2, url2 in m:
 	for name2, url2 in m:
 		if url2!="Close":
-		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]")
-		 AddDir(name2,"plugin://"+url2, 212, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')         
+		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]").replace('BR-LIVE-SEMPRE 0800',"[COLOR green][B]HD[/B][/COLOR]")
+		 #AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+		 AddDir(name2,"plugin://"+url2, 212, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')             
 def TVCB4(): #108
 	t = common.OpenURL("https://cutt.ly/redtv2").replace("\\","//")
 	jq_ = json.loads(t)
