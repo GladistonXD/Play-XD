@@ -2,7 +2,7 @@
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 import requests
 import codecs
-Versao = "19.95.00"
+Versao = "19.96.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -157,7 +157,7 @@ def QuerofilmeshdMENU(): # 510
 			match = re.compile('img src=\"([^\"]+)".alt="([^\"]+).{1,135}href="([^\"]+)".+?<span>.+?,.([^\"]+)<\/s').findall(link.replace('\n','').replace('\r',''))
 			if match:
 				for img2,name2,url2,ano in match:
-					img2= img2.replace("w185","w500")
+					img2= img2.replace("w185","original")
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 					if "tvshows" in url2: False
 					else:
@@ -1236,7 +1236,7 @@ def Busca(): # 160
 			match = re.compile('img src=\"([^\"]+)".alt="([^\"]+).{1,135}href="([^\"]+)"').findall(link.replace('\n','').replace('\r',''))
 			if match:
 				for img2,name2,url2 in match:
-					img2= img2.replace("w92","w500")
+					img2= img2.replace("w92","original")
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 					if "tvshows" in url2: False
 					else:
@@ -1715,18 +1715,23 @@ def TVCB3(x): #107
 		 #AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
 		 AddDir(name2,"plugin://"+url2, 212, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')             
 def TVCB4(): #108
-	t = common.OpenURL("https://cutt.ly/redtv2").replace("\\","//")
-	jq_ = json.loads(t)
-	jq = sorted(jq_, key=lambda jq_: jq_['name'])
-	for jq1 in jq:
-		if jq1['language']== "Brasil":
-			jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]")
-			AddDir( "[B]" + jq1['name'] +  " [COLOR blue][Alter][/COLOR]" + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
-		elif jq1['language'] == "Brazilian":
-			jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]")
-			AddDir( "[B]" + jq1['name'] + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
+	try:
+		t = common.OpenURL("https://android.rediptvmobile.com/ch.php?usercode=6017538676").replace("\\","//")
+		jq_ = json.loads(t)
+		jq = sorted(jq_, key=lambda jq_: jq_['name'])
+		for jq1 in jq:
+			if "Action 1" in jq1['name']or "Action 2" in jq1['name'] or "Action 3" in jq1['name'] or "Action 4" in jq1['name'] or "Action 5" in jq1['name'] or "Action 6" in jq1['name'] or "Action 7" in jq1['name'] or "Action 8" in jq1['name'] or "Action 9" in jq1['name'] or "Action 10" in jq1['name'] or "Adventure" in jq1['name'] or "Crime" in jq1['name'] or "Documentary" in jq1['name'] or "Drama" in jq1['name'] or "Horror" in jq1['name'] or "Sci-Fi" in jq1['name'] or "Comedy 1" in jq1['name'] or "Comedy 2" in jq1['name'] or "Comedy 3" in jq1['name'] or "Comedy 4" in jq1['name'] or "Comedy 5" in jq1['name'] or "Comedy 6" in jq1['name'] or "Comedy 7" in jq1['name'] or "Comedy 8" in jq1['name'] or "Comedy 9" in jq1['name'] or "Comedy 10" in jq1['name'] or "Kids 1" in jq1['name'] or "Kids 2" in jq1['name'] or "Kids 3" in jq1['name'] or "Kids 4" in jq1['name'] or "Kids 5" in jq1['name'] or "Kids 6" in jq1['name'] or "Kids 7" in jq1['name'] or "Kids 8" in jq1['name'] or "Kids 9" in jq1['name'] or "Kids 10" in jq1['name']: False
+			else:
+				if jq1['language']== "Brasil":
+					jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]")
+					AddDir( "[B]" + jq1['name'] +  " [COLOR blue][Alter][/COLOR]" + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
+				elif jq1['language'] == "Brazilian":
+					jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]")
+					AddDir( "[B]" + jq1['name'] + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
+	except:
+		pass
 def TVCB4PLAY(): #109
-	t = common.OpenURL("https://cutt.ly/redtv2").replace("\\","//")
+	t = common.OpenURL("https://android.rediptvmobile.com/ch.php?usercode=6017538676").replace("\\","//")
 	jq_ = json.loads(t)
 	for jq1 in jq_:
 		if jq1['id'] == url:
