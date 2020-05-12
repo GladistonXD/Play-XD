@@ -2,7 +2,7 @@
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 import requests
 import codecs
-Versao = "19.96.00"
+Versao = "19.97.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -35,6 +35,7 @@ cPageMMf = Addon.getSetting("cPageMMf")
 cPageGOf = Addon.getSetting("cPageGOf")
 cPageFlf = Addon.getSetting("cPageFlf")
 cPageQlf = Addon.getSetting("cPageQlf")
+cPageBIZ = Addon.getSetting("cPageBIZ")
 
 cEPG = Addon.getSetting("cEPG")
 cOrdFO = "date" if Addon.getSetting("cOrdFO")=="0" else "title"
@@ -50,7 +51,9 @@ Catfo = Addon.getSetting("Catfo")
 CatMM = Addon.getSetting("CatMM")
 CatGO = Addon.getSetting("CatGO")
 CatFl = Addon.getSetting("CatFl")
+CatBB = Addon.getSetting("CatBB")
 CatQ1 = Addon.getSetting("CatQ1")
+
 
 cSIPTV = Addon.getSetting("cSIPTV")
 
@@ -67,6 +70,8 @@ ClistaFl0=["filmes", "genero/acao", "genero/animacao", "genero/aventura", "gener
 ClistaFl1=["[COLOR yellow][B]Mostrar Todos[/COLOR][/B]", "[COLOR yellow][B]Ação[/COLOR][/B]", "[COLOR yellow][B]Animação[/COLOR][/B]", "[COLOR yellow][B]Aventura[/COLOR][/B]", "[COLOR yellow][B]Comedia[/COLOR][/B]", "[COLOR yellow][B]Drama[/COLOR][/B]", "[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]", "[COLOR yellow][B]Romance[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]", "[COLOR yellow][B]Terror[/COLOR][/B]"]
 ClistaQUE10=["lancamentoss",                                               "acao",                            "animacao",                                "aventura",                             "comedia",                               "faroeste",                           "documentario",                       "fantasia",                       "drama",                                "ficcao-cientifica",                           "romance",                                                 "historia",                               "misterio",                           "suspense",                                "musica",                                 "terror",                             "thriller"]
 ClistaQUE11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]", "[COLOR yellow][B]Ação[/COLOR][/B]", "[COLOR yellow][B]Animação[/COLOR][/B]", "[COLOR yellow][B]Aventura[/COLOR][/B]",  "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]","[COLOR yellow][B]Documentário[/COLOR][/B]", "[COLOR yellow][B]Fantasia[/COLOR][/B]", "[COLOR yellow][B]Drama[/COLOR][/B]","[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]", "[COLOR yellow][B]Romance[/COLOR][/B]",    "[COLOR yellow][B]História[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]", "[COLOR yellow][B]Música[/COLOR][/B]",    "[COLOR yellow][B]Terror[/COLOR][/B]", "[COLOR yellow][B]Thriller[/COLOR][/B]"]
+ClistaBIZ10=["acao",                                               "animacao",                                  "comedia",                               "faroeste",                           "policial",                        "fantasia",                                     "drama",                                "ficcao-cientifica",                           "romance",                                                 "documentario",                               "misterio",                           "suspense",                                     "nacionais",                                     "terror"]
+ClistaBIZ11=["[COLOR yellow][B]Ação[/COLOR][/B]", "[COLOR yellow][B]Animação[/COLOR][/B]",     "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]","[COLOR yellow][B]Policial[/COLOR][/B]", "[COLOR yellow][B]Fantasia[/COLOR][/B]", "[COLOR yellow][B]Drama[/COLOR][/B]","[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]", "[COLOR yellow][B]Romance[/COLOR][/B]",                       "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]","[COLOR yellow][B]Nacionais[/COLOR][/B]",       "[COLOR yellow][B]Terror[/COLOR][/B]"]
 def setViewS():
 	xbmcplugin.setContent(int(sys.argv[1]), 'tvshows')
 	xbmc.executebuiltin("Container.SetViewMode(50)")
@@ -126,8 +131,10 @@ def MFilmes(): #-2
 	AddDir("[B][COLOR cyan]Filmes MMFilmes[/COLOR][/B]", "config" , 180,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	AddDir("[COLOR maroon][B]Filmes Lançamentos Topflix.tv[/B][/COLOR]" , "config", 310, "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR maroon][B]Filmes Topflix.tv[/B][/COLOR]" , "config", 210, "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", info='[COLOR][/COLOR]')
-	AddDir("[COLOR green][B]Filmes QuerofilmesHD[/B][/COLOR]" , "config", 510, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='[COLOR][/COLOR]')
+	AddDir("[COLOR springgreen][B]Filmes QuerofilmesHD[/B][/COLOR]" , "config", 510, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='[COLOR][/COLOR]')
 	AddDir("[COLOR yellow][B]Filmes NetCine[/B][/COLOR]" , "", 71, "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", info='[COLOR][/COLOR]')
+	AddDir("[COLOR deepskyblue][B]Filmes Lançamentos Assistir.biz[/B][/COLOR]" , "", 517, "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", info='[COLOR][/COLOR]')
+	AddDir("[COLOR deepskyblue][B]Filmes Assistir.biz[/B][/COLOR]" , "", 514, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Lançamentos RedeCanais[/B][/COLOR]" , cPage, 221, "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", background="cPage", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Dublado RedeCanais[/B][/COLOR]" , cPage, 90, "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", background="cPage", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Legendado RedeCanais[/B][/COLOR]" , cPageleg, 91, "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", background="cPageleg", info='[COLOR][/COLOR]')
@@ -143,7 +150,99 @@ def MSeries(): #-3
 	AddDir("[B][COLOR cyan]Séries MMFilmes[/COLOR][/B]", "config" , 190,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	setViewM()
 # --------------  Fim menu
-# --------------  Inicio Filme CB
+# --------------  Inicio Assistir.biz
+def AssistirbizMENU2(): # 514
+	#AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaBIZ11[int(CatBB)] +"[/COLOR]", "url" ,232 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	try:
+		p= 1
+		if int(cPageBIZ) > 0:
+			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageBIZ) ) +"[/B]][/COLOR]", cPageBIZ , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageBIZ")
+		l= int(cPageBIZ)*1
+		for x in range(0, 1):
+			l +=1
+			link = common.OpenURL("https://assistir.biz/home").replace('\n','').replace('\r','')
+			#hex = link22.text.replace('\n','').replace('\r','')
+			hex2 = re.compile('<div class="tab-content" id="myTabContent">(.+?)<div class="tab-pane fade"').findall(link)
+			hex2 = hex2[0]
+			match = re.compile('data-src="([^\"]+)".+?a href="([^\"]+)">([^\"]+)<\/a.+?,.([^\"]+)<\/a').findall(hex2)
+			if match:
+				for img2,url2,name2, ano in match:
+					url2= url2.replace("/filme","https://assistir.biz/filme")
+					img2= img2.replace("//image","https://image").replace("w185","original")
+					#name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
+					if "tvshows" in url2: False
+					else:
+						AddDir(name2+ " - ("+ano+")", url2, 515, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
+					p += 1
+			else:
+				break
+		if p >= 30:
+			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageBIZ) + 2) +"[/B]][/COLOR]", cPageBIZ , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageBIZ")
+	except:
+		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
+def AssistirbizMENU(): # 514
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaBIZ11[int(CatBB)] +"[/COLOR]", "url" ,232 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	try:
+		p= 1
+		if int(cPageBIZ) > 0:
+			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageBIZ) ) +"[/B]][/COLOR]", cPageBIZ , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageBIZ")
+		l= int(cPageBIZ)*1
+		for x in range(0, 1):
+			l +=1
+			link = common.OpenURL("https://assistir.biz/categoria/"+ClistaBIZ10[int(CatBB)])
+			match = re.compile('data-src="([^\"]+)".+\s.+.\s.+.\s.+.\s.+.\s.+.\s.+.\s.+?a href="([^\"]+)".alt="([^\"]+)".+\s.+\s.+?">([^\"]+)<\/a').findall(link)
+			if match:
+				for img2,url2,name2, ano in match:
+					url2= url2.replace("/filme","https://assistir.biz/filme")
+					img2= img2.replace("//image","https://image").replace("w185","original")
+					#name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
+					if "tvshows" in url2: False
+					else:
+						AddDir(name2+ " - ("+ano+")", url2, 515, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
+					p += 1
+			else:
+				break
+		if p >= 30:
+			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageBIZ) + 2) +"[/B]][/COLOR]", cPageBIZ , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageBIZ")
+	except:
+		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
+def AssistirbizLista(): #515
+	try:	
+		link = common.OpenURL(url)
+		hexd = re.compile('<source src="([^\"].+)').findall(link)
+		sinopse = re.compile('<i>([^\"]+)<\/i>').findall(link)
+		sinopse= sinopse[0]
+		AddDir(name + "[COLOR blue] - Dublado[/COLOR]", hexd, 516, iconimage, iconimage, isFolder=False, IsPlayable=True, info=sinopse)
+	except:
+		pass
+def AssistirbizPlay(): #516
+	try:	
+			m2 = re.compile('(assistir.biz\/direct[^\"]+)".+?label="([^\"]+)"').findall(url)
+			legenda = re.compile('subdata..([^\"]+)').findall(url)
+			listar=[]
+			listal=[]
+			for link, res in m2:
+				listal.append(link)
+				listar.append(res)
+			if len(listal) <1:
+				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
+				sys.exit(int(sys.argv[1]))
+			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+			if d!= -1:
+				url2 = re.sub(' ', '%20', listal[d] )
+				global background
+				background=background+";;;"+name+";;;MM"
+				if legenda:
+					legenda = legenda[0]
+					if not "http" in legenda:
+						legenda = "https://sub.streamservice.online/subdata/" + legenda
+					PlayUrl(name,'https://' + url2, iconimage, info, sub=legenda)
+				else:
+					PlayUrl(name,'https://' + url2, iconimage, info)
+	except (IndexError, ValueError):
+		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado')
+		sys.exit()
+# --------------  Inicio QueroFilmes
 def QuerofilmeshdMENU(): # 510
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaQUE11[int(CatQ1)] +"[/COLOR]", "url" ,231 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	try:
@@ -1137,7 +1236,7 @@ def AllEpisodiosRC(): #139 Mostrar todos Epi
 # ----------------- FIM REDECANAIS SERIES,ANIMES,DESENHOS
 # ----------------- BUSCA
 def Busca(): # 160
-	AddDir("[COLOR pink][B][Nova Busca][/B][/COLOR]", "" , 50 ,"", isFolder=False)
+	AddDir("[COLOR pink][B][Nova Busca][/B][/COLOR]", "" , 50 ,"https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", isFolder=False)
 	d = xbmcgui.Dialog().input("Busca (poder demorar a carregar os resultados)").replace(" ", "+")
 	if not d:
 		return Categories()
@@ -1167,7 +1266,7 @@ def Busca(): # 160
 #	except:
 #		pass
 	try:
-		AddDir("[COLOR yellow][B]NetCine[/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		AddDir("[B][COLOR yellow]|||[/COLOR][COLOR white]|||[/COLOR][COLOR yellow]|||[/COLOR][COLOR yellow] [NetCine][/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		link2 = common.OpenURL("http://netcine.me/?s="+d).replace('\n','').replace('\r','')
 		lista = re.compile("\s.{1,12}<img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(link2)
 		for img2,name2,url2 in lista:
@@ -1183,7 +1282,7 @@ def Busca(): # 160
 	l=0
 	i=0
 	try:
-		AddDir("[COLOR cyan][B]MMfilmes[/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		AddDir("[B][COLOR cyan]|||[/COLOR][COLOR white]|||[/COLOR][COLOR cyan]|||[/COLOR][COLOR cyan] [MMfilmes][/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		links = common.OpenURL("http://www.mmfilmes.tv/series/")
 		ms = re.compile('href\=\"(.+www.mmfilmes.tv.+)\" rel\=\"bookmark\"').findall(links)
 		for x in range(0, 3):
@@ -1206,7 +1305,7 @@ def Busca(): # 160
 		pass
 	try:
 		p= 1
-		AddDir("[COLOR red][B][TopFlix][/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		AddDir("[B][COLOR red]|||[/COLOR][COLOR white]|||[/COLOR][COLOR red]|||[/COLOR][COLOR red] [TopFlix][/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		l= 0
 		for x in range(0, 1):
 			url = ('https://topflix.tv/landing')
@@ -1228,7 +1327,24 @@ def Busca(): # 160
 		pass
 	try:
 		p= 1
-		AddDir("[COLOR green][B][QueroFilmesHD][/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		AddDir("[B][COLOR deepskyblue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR deepskyblue]|||[/COLOR][COLOR deepskyblue] [Assistir.Biz][/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		l= 0
+		for x in range(0, 1):
+			l +=1
+			link = common.OpenURL("https://assistir.biz/busca?q="+d)
+			match = re.compile('data-src="([^\"]+)".+\s.+.\s.+.\s.+.\s.+.\s.+.\s.+.\s.+?a href="([^\"]+)".alt="([^\"]+)".+\s.+\s.+?">([^\"]+)<\/a').findall(link)
+			if match:
+				for img2,url2,name2, ano in match:
+					url2= url2.replace("/filme","https://assistir.biz/filme")
+					img2= img2.replace("//image","https://image").replace("w185","original")
+					if "tvshows" in url2: False
+					else:
+						AddDir("[COLOR deepskyblue]" +name2+ " - ("+ano+")[/COLOR]", url2, 515, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
+	except:
+		pass        
+	try:
+		p= 1
+		AddDir("[B][COLOR springgreen]|||[/COLOR][COLOR white]|||[/COLOR][COLOR springgreen]|||[/COLOR][COLOR springgreen] [QueroFilmesHD][/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		l= 0
 		for x in range(0, 1):
 			l +=1
@@ -1240,7 +1356,7 @@ def Busca(): # 160
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 					if "tvshows" in url2: False
 					else:
-						AddDir("[COLOR green]" +name2+ "[/COLOR]" ,url2, 511, img2, img2, info="", isFolder=True, IsPlayable=True)
+						AddDir("[COLOR springgreen]" +name2+ "[/COLOR]" ,url2, 511, img2, img2, info="", isFolder=True, IsPlayable=True)
 	except:
 		pass        
 #	try:
@@ -1261,7 +1377,7 @@ def Busca(): # 160
 #		pass
 	try:
 		p= 1
-		AddDir("[COLOR blue][B][RedeCanais][/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		AddDir("[B][COLOR blue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR blue]|||[/COLOR][COLOR blue] [RedeCanais][/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		l= 0
 		for x in range(0, 2):
 			link = common.OpenURL("https://www.google.com/search?q="+d+"+site:redecanais.se&hl=pt-BR&&start="+str(l))
@@ -1770,7 +1886,15 @@ def GenerosQUE1(): #231
 		Addon.setSetting("CatQ1", str(d) )
 		Cat = d
 		Addon.setSetting("cPageQlf", "0" )
-		xbmc.executebuiltin("XBMC.Container.Refresh()")           
+		xbmc.executebuiltin("XBMC.Container.Refresh()")
+def GenerosBIZ(): #232
+	d = xbmcgui.Dialog().select("Escolha o Genero", ClistaBIZ11)
+	if d != -1:
+		global Cat
+		Addon.setSetting("CatBB", str(d) )
+		Cat = d
+		Addon.setSetting("cPageBIZ", "0" )
+		xbmc.executebuiltin("XBMC.Container.Refresh()")             
 def ListGO(): #210 Topflix Dublado --------------------------------------------
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaFl1[int(CatFl)] +"[/COLOR]", "url" ,230 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	try:
@@ -2532,7 +2656,9 @@ elif mode == 219:
 elif mode == 230:
 	GenerosFl()
 elif mode == 231: 
-	GenerosQUE1()    
+	GenerosQUE1()
+elif mode == 232: 
+	GenerosBIZ()       
 elif mode == 220:
 	Filmes96()
 elif mode == 221:
@@ -2559,6 +2685,17 @@ elif mode == 512:
 elif mode == 513:
 	QuerofilmeshdPlay2()
 	setViewM()    
-
+elif mode == 514:
+	AssistirbizMENU()
+	setViewM()    
+elif mode == 517: 
+	AssistirbizMENU2()
+	setViewM()    
+elif mode == 515:
+	AssistirbizLista()
+	setViewM()
+elif mode == 516:
+	AssistirbizPlay()
+	setViewM()
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
 #checkintegrity25852
