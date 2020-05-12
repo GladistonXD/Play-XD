@@ -2,7 +2,7 @@
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 import requests
 import codecs
-Versao = "19.97.00"
+Versao = "19.98.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -131,10 +131,10 @@ def MFilmes(): #-2
 	AddDir("[B][COLOR cyan]Filmes MMFilmes[/COLOR][/B]", "config" , 180,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	AddDir("[COLOR maroon][B]Filmes Lançamentos Topflix.tv[/B][/COLOR]" , "config", 310, "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR maroon][B]Filmes Topflix.tv[/B][/COLOR]" , "config", 210, "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", info='[COLOR][/COLOR]')
-	AddDir("[COLOR springgreen][B]Filmes QuerofilmesHD[/B][/COLOR]" , "config", 510, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='[COLOR][/COLOR]')
 	AddDir("[COLOR yellow][B]Filmes NetCine[/B][/COLOR]" , "", 71, "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR deepskyblue][B]Filmes Lançamentos Assistir.biz[/B][/COLOR]" , "", 517, "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR deepskyblue][B]Filmes Assistir.biz[/B][/COLOR]" , "", 514, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='[COLOR][/COLOR]')
+	AddDir("[COLOR springgreen][B]Filmes QuerofilmesHD[/B][/COLOR]" , "config", 510, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Lançamentos RedeCanais[/B][/COLOR]" , cPage, 221, "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", background="cPage", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Dublado RedeCanais[/B][/COLOR]" , cPage, 90, "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", background="cPage", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Legendado RedeCanais[/B][/COLOR]" , cPageleg, 91, "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", background="cPageleg", info='[COLOR][/COLOR]')
@@ -154,56 +154,56 @@ def MSeries(): #-3
 def AssistirbizMENU2(): # 514
 	#AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaBIZ11[int(CatBB)] +"[/COLOR]", "url" ,232 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	try:
-		p= 1
-		if int(cPageBIZ) > 0:
-			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageBIZ) ) +"[/B]][/COLOR]", cPageBIZ , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageBIZ")
-		l= int(cPageBIZ)*1
-		for x in range(0, 1):
-			l +=1
+	#	p= 1
+	#	if int(cPageBIZ) > 0:
+	#		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageBIZ) ) +"[/B]][/COLOR]", cPageBIZ , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageBIZ")
+	#	l= int(cPageBIZ)*1
+	#	for x in range(0, 1):
+	#		l +=1
 			link = common.OpenURL("https://assistir.biz/home").replace('\n','').replace('\r','')
 			#hex = link22.text.replace('\n','').replace('\r','')
 			hex2 = re.compile('<div class="tab-content" id="myTabContent">(.+?)<div class="tab-pane fade"').findall(link)
 			hex2 = hex2[0]
-			match = re.compile('data-src="([^\"]+)".+?a href="([^\"]+)">([^\"]+)<\/a.+?,.([^\"]+)<\/a').findall(hex2)
+			match = re.compile('data-src="([^\"]+)".+?rate">([^\"]+)<\/span.+?a href="([^\"]+)">([^\"]+)<\/a.+?,.([^\"]+)<\/a').findall(hex2)
 			if match:
-				for img2,url2,name2, ano in match:
+				for img2, imdb, url2,name2, ano in match:
 					url2= url2.replace("/filme","https://assistir.biz/filme")
 					img2= img2.replace("//image","https://image").replace("w185","original")
 					#name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 					if "tvshows" in url2: False
 					else:
-						AddDir(name2+ " - ("+ano+")", url2, 515, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
-					p += 1
-			else:
-				break
-		if p >= 30:
-			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageBIZ) + 2) +"[/B]][/COLOR]", cPageBIZ , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageBIZ")
+						AddDir(name2+ " - ("+ano+")", url2, 515, img2, img2, info="[COLOR yellow][B]IMDb *[COLOR green]"+imdb+"[/B][/COLOR]", isFolder=True, IsPlayable=True)
+	#				p += 1
+	#		else:
+	#			break
+	#	if p >= 30:
+	#		AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageBIZ) + 2) +"[/B]][/COLOR]", cPageBIZ , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageBIZ")
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def AssistirbizMENU(): # 514
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaBIZ11[int(CatBB)] +"[/COLOR]", "url" ,232 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	try:
-		p= 1
-		if int(cPageBIZ) > 0:
-			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageBIZ) ) +"[/B]][/COLOR]", cPageBIZ , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageBIZ")
-		l= int(cPageBIZ)*1
-		for x in range(0, 1):
-			l +=1
+#		p= 1
+#		if int(cPageBIZ) > 0:
+#			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageBIZ) ) +"[/B]][/COLOR]", cPageBIZ , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageBIZ")
+#		l= int(cPageBIZ)*1
+#		for x in range(0, 1):
+#			l +=1
 			link = common.OpenURL("https://assistir.biz/categoria/"+ClistaBIZ10[int(CatBB)])
-			match = re.compile('data-src="([^\"]+)".+\s.+.\s.+.\s.+.\s.+.\s.+.\s.+.\s.+?a href="([^\"]+)".alt="([^\"]+)".+\s.+\s.+?">([^\"]+)<\/a').findall(link)
+			match = re.compile('data-src="([^\"]+)".+\s.+.\s.+.\s.+.\s.+?">([^\"]+)<\/span>\s.+.\s.+.\s.+?a href="([^\"]+)".alt="([^\"]+)".+\s.+\s.+?">([^\"]+)<\/a').findall(link)
 			if match:
-				for img2,url2,name2, ano in match:
+				for img2, imdb, url2,name2, ano in match:
 					url2= url2.replace("/filme","https://assistir.biz/filme")
 					img2= img2.replace("//image","https://image").replace("w185","original")
 					#name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 					if "tvshows" in url2: False
 					else:
-						AddDir(name2+ " - ("+ano+")", url2, 515, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
-					p += 1
-			else:
-				break
-		if p >= 30:
-			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageBIZ) + 2) +"[/B]][/COLOR]", cPageBIZ , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageBIZ")
+						AddDir(name2+ " - ("+ano+")", url2, 515, img2, img2, info="[COLOR yellow][B]IMDb *[COLOR green]"+imdb+"[/B][/COLOR]", isFolder=True, IsPlayable=True)
+	#				p += 1
+	#		else:
+	#			break
+		#if p >= 0:
+		#	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageBIZ) + 2) +"[/B]][/COLOR]", cPageBIZ , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageBIZ")
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def AssistirbizLista(): #515
@@ -1266,7 +1266,7 @@ def Busca(): # 160
 #	except:
 #		pass
 	try:
-		AddDir("[B][COLOR yellow]|||[/COLOR][COLOR white]|||[/COLOR][COLOR yellow]|||[/COLOR][COLOR yellow] [NetCine][/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		AddDir("[B][COLOR yellow]|||[/COLOR][COLOR white]|||[/COLOR][COLOR yellow]|||[/COLOR][COLOR yellow] [NetCine] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		link2 = common.OpenURL("http://netcine.me/?s="+d).replace('\n','').replace('\r','')
 		lista = re.compile("\s.{1,12}<img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(link2)
 		for img2,name2,url2 in lista:
@@ -1282,7 +1282,7 @@ def Busca(): # 160
 	l=0
 	i=0
 	try:
-		AddDir("[B][COLOR cyan]|||[/COLOR][COLOR white]|||[/COLOR][COLOR cyan]|||[/COLOR][COLOR cyan] [MMfilmes][/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		AddDir("[B][COLOR cyan]|||[/COLOR][COLOR white]|||[/COLOR][COLOR cyan]|||[/COLOR][COLOR cyan] [MMfilmes] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		links = common.OpenURL("http://www.mmfilmes.tv/series/")
 		ms = re.compile('href\=\"(.+www.mmfilmes.tv.+)\" rel\=\"bookmark\"').findall(links)
 		for x in range(0, 3):
@@ -1305,7 +1305,7 @@ def Busca(): # 160
 		pass
 	try:
 		p= 1
-		AddDir("[B][COLOR red]|||[/COLOR][COLOR white]|||[/COLOR][COLOR red]|||[/COLOR][COLOR red] [TopFlix][/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		AddDir("[B][COLOR red]|||[/COLOR][COLOR white]|||[/COLOR][COLOR red]|||[/COLOR][COLOR red] [TopFlix] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		l= 0
 		for x in range(0, 1):
 			url = ('https://topflix.tv/landing')
@@ -1327,7 +1327,7 @@ def Busca(): # 160
 		pass
 	try:
 		p= 1
-		AddDir("[B][COLOR deepskyblue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR deepskyblue]|||[/COLOR][COLOR deepskyblue] [Assistir.Biz][/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		AddDir("[B][COLOR deepskyblue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR deepskyblue]|||[/COLOR][COLOR deepskyblue] [Assistir.Biz] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		l= 0
 		for x in range(0, 1):
 			l +=1
@@ -1344,7 +1344,7 @@ def Busca(): # 160
 		pass        
 	try:
 		p= 1
-		AddDir("[B][COLOR springgreen]|||[/COLOR][COLOR white]|||[/COLOR][COLOR springgreen]|||[/COLOR][COLOR springgreen] [QueroFilmesHD][/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		AddDir("[B][COLOR springgreen]|||[/COLOR][COLOR white]|||[/COLOR][COLOR springgreen]|||[/COLOR][COLOR springgreen] [QueroFilmesHD] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		l= 0
 		for x in range(0, 1):
 			l +=1
@@ -1377,7 +1377,7 @@ def Busca(): # 160
 #		pass
 	try:
 		p= 1
-		AddDir("[B][COLOR blue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR blue]|||[/COLOR][COLOR blue] [RedeCanais][/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		AddDir("[B][COLOR blue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR blue]|||[/COLOR][COLOR blue] [RedeCanais] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		l= 0
 		for x in range(0, 2):
 			link = common.OpenURL("https://www.google.com/search?q="+d+"+site:redecanais.se&hl=pt-BR&&start="+str(l))
