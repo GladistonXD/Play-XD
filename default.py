@@ -2,7 +2,7 @@
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 import requests
 import codecs
-Versao = "19.98.00"
+Versao = "19.99.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -59,7 +59,7 @@ cSIPTV = Addon.getSetting("cSIPTV")
 
 Clista0=[ "Lançamentos",  "Acao", "Faroeste", "Animacao", "Aventura", "Comedia", "Drama", "Fantasia", "Ficcao-cientifica", "Romance", "Suspense", "Terror"]
 Clista1=["[COLOR blue][B]Lançamentos[/COLOR][/B]",  "[COLOR blue][B]Ação[/COLOR][/B]", "[COLOR blue][B]Faroeste[/COLOR][/B]", "[COLOR blue][B]Animação[/COLOR][/B]", "[COLOR blue][B]Aventura[/COLOR][/B]", "[COLOR blue][B]Comedia[/COLOR][/B]", "[COLOR blue][B]Drama[/COLOR][/B]", "[COLOR blue][B]Fantasia[/COLOR][/B]", "[COLOR blue][B]Ficção-ciêntifica[/COLOR][/B]", "[COLOR blue][B]Romance[/COLOR][/B]", "[COLOR blue][B]Suspense[/COLOR][/B]", "[COLOR blue][B]Terror[/COLOR][/B]"]
-Clista2=["Sem filtro (Mostrar Todos)", "Lançamentos",  "Acao", "Faroeste", "Animacao", "Aventura", "Comedia", "Drama", "Fantasia", "Ficcao-cientifica", "Romance", "Suspense", "Terror"]
+Clista2=["Sem filtro (Mostrar Todos)",  "Acao", "Faroeste", "Animacao", "Aventura", "Comedia", "Drama", "Fantasia", "Ficcao-cientifica", "Romance", "Suspense", "Terror"]
 Clistafo0=[ "0",                        "48",         "3",    "7",        "8",        "5",       "4",      "14",                "16",      "15",       "11"]
 Clistafo1=["Sem filtro (Mostrar Todos)","Lançamentos","Ação", "Animação", "Aventura", "Comédia", "Drama",  "Ficção-Científica", "Romance", "Suspense", "Terror"]
 ClistaMM0=["ultimos","category/lancamentos","category/acao","category/animacao","category/aventura","category/comedia","category/drama","category/fantasia","category/ficcao-cientifica","category/guerra","category/policial","category/romance","category/suspense","category/terror"]
@@ -135,7 +135,7 @@ def MFilmes(): #-2
 	AddDir("[COLOR deepskyblue][B]Filmes Lançamentos Assistir.biz[/B][/COLOR]" , "", 517, "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR deepskyblue][B]Filmes Assistir.biz[/B][/COLOR]" , "", 514, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='[COLOR][/COLOR]')
 	AddDir("[COLOR springgreen][B]Filmes QuerofilmesHD[/B][/COLOR]" , "config", 510, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='[COLOR][/COLOR]')
-	AddDir("[COLOR blue][B]Filmes Lançamentos RedeCanais[/B][/COLOR]" , cPage, 221, "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", background="cPage", info='[COLOR][/COLOR]')
+	#AddDir("[COLOR blue][B]Filmes Lançamentos RedeCanais[/B][/COLOR]" , cPage, 221, "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", background="cPage", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Dublado RedeCanais[/B][/COLOR]" , cPage, 90, "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", background="cPage", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Legendado RedeCanais[/B][/COLOR]" , cPageleg, 91, "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", background="cPageleg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Nacional RedeCanais[/B][/COLOR]" , cPagenac, 92, "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", background="cPagenac", info='[COLOR][/COLOR]')
@@ -239,6 +239,8 @@ def AssistirbizPlay(): #516
 					PlayUrl(name,'https://' + url2, iconimage, info, sub=legenda)
 				else:
 					PlayUrl(name,'https://' + url2, iconimage, info)
+			else:
+				sys.exit()
 	except (IndexError, ValueError):
 		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado')
 		sys.exit()
@@ -337,6 +339,8 @@ def QuerofilmeshdPlay2(): #513
 					PlayUrl(name,'https://player.filmesonlinetv.org' + url2, iconimage, info, sub=legenda)
 				else:
 					PlayUrl(name,'https://player.filmesonlinetv.org' + url2, iconimage, info)
+			else:
+				sys.exit()
 	except (IndexError, ValueError):
 		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado')
 		sys.exit()
@@ -1238,6 +1242,10 @@ def AllEpisodiosRC(): #139 Mostrar todos Epi
 def Busca(): # 160
 	AddDir("[COLOR pink][B][Nova Busca][/B][/COLOR]", "" , 50 ,"https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", isFolder=False)
 	d = xbmcgui.Dialog().input("Busca (poder demorar a carregar os resultados)").replace(" ", "+")
+	d = urllib.quote_plus(d)
+	progress = xbmcgui.DialogProgress()
+	progress.create('Buscando...')
+	progress.update(0, "0%", "Netcine", "")
 	if not d:
 		return Categories()
 		sys.exit(int(sys.argv[1]))
@@ -1279,6 +1287,7 @@ def Busca(): # 160
 					AddDir("[COLOR yellow]" +name2+ "[/COLOR]",url2, 78, img2, img2, isFolder=True)
 	except:
 		pass
+	progress.update(32, "32%", "MMfilmes", "")
 	l=0
 	i=0
 	try:
@@ -1303,6 +1312,7 @@ def Busca(): # 160
 			i=0
 	except:
 		pass
+	progress.update(48, "48%", "TopFlix", "")
 	try:
 		p= 1
 		AddDir("[B][COLOR red]|||[/COLOR][COLOR white]|||[/COLOR][COLOR red]|||[/COLOR][COLOR red] [TopFlix] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
@@ -1325,6 +1335,7 @@ def Busca(): # 160
 						AddDir("[COLOR red]" +name2+ "[/COLOR]" , RC4 + url2, 211, RC4 + img2, info="", isFolder=True, IsPlayable=True)
 	except:
 		pass
+	progress.update(64, "64%", "Assistir.Biz", "")
 	try:
 		p= 1
 		AddDir("[B][COLOR deepskyblue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR deepskyblue]|||[/COLOR][COLOR deepskyblue] [Assistir.Biz] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
@@ -1341,7 +1352,8 @@ def Busca(): # 160
 					else:
 						AddDir("[COLOR deepskyblue]" +name2+ " - ("+ano+")[/COLOR]", url2, 515, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
 	except:
-		pass        
+		pass
+	progress.update(80, "80%", "QueroFilmesHD", "")        
 	try:
 		p= 1
 		AddDir("[B][COLOR springgreen]|||[/COLOR][COLOR white]|||[/COLOR][COLOR springgreen]|||[/COLOR][COLOR springgreen] [QueroFilmesHD] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
@@ -1375,6 +1387,7 @@ def Busca(): # 160
 #						AddDir("[COLOR red]" +name2+ "[/COLOR]" , url2, 211, " ", " ", info="", isFolder=True, IsPlayable=True)
 #	except:
 #		pass
+	progress.update(100, "100%", "RedeCanais", "")
 	try:
 		p= 1
 		AddDir("[B][COLOR blue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR blue]|||[/COLOR][COLOR blue] [RedeCanais] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
@@ -1391,7 +1404,9 @@ def Busca(): # 160
 					else:
 						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 96, " ", " ", info="", isFolder=False, IsPlayable=True)
 	except:
-		pass        
+		pass
+	progress.update(100, "100", "", "")
+	progress.close()        
 	#l=0
 	#i=0
 	#try:
@@ -1696,6 +1711,8 @@ def PlayLinkMM(): #182
 				PlayUrl(name,'https' + url2, iconimage, info, sub=legenda)
 			else:
 				PlayUrl(name,'https' + url2, iconimage, info)
+		else:
+			sys.exit()
 # -----------------
 def ListSerieMM(): #190
 	try:
