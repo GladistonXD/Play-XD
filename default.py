@@ -2,7 +2,7 @@
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 import requests
 import codecs
-Versao = "20.00.00"
+Versao = "20.01.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -122,9 +122,10 @@ def Categories(): #70
 	AddDir("[B][COLOR orange]Checar Atualizações[/COLOR][/B]", "" , 200,"https://uploaddeimagens.com.br/images/002/376/161/original/Update.jpg", "https://uploaddeimagens.com.br/images/002/376/161/original/Update.jpg", isFolder=False, info="Checar se há atualizações\n\nAs atualizações normalmente são automáticas\nUse esse recurso caso não esteja recebendo automaticamente\r\nVersão atual: "+Versao)
 # --------------  Menu
 def MCanais(): #-1
-    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](TVBOX)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
-    AddDir("[COLOR yellow][B]Opção 2[/B][/COLOR]" , "", 104, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
-    AddDir("[COLOR yellow][B]Opção 3[/B][/COLOR]" , "", 107, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
+    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](RED-IPTV BOX)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
+    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](CANAISMAX)[/B][/COLOR]"  , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
+    AddDir("[COLOR yellow][B]Opção 3[/B][/COLOR]" , "", 104, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
+    AddDir("[COLOR yellow][B]Opção 4[/B][/COLOR]" , "", 117, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
 def MFilmes(): #-2
 	#AddDir("[COLOR white][B][Filmes Dublado/Legendado][/B][/COLOR]" , cPage, 220, "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", background="cPage")
 	AddDir("[B][COLOR cyan]Filmes Lançamentos MMFilmes[/COLOR][/B]", "config" , 184,"https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", "https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", isFolder=True, info='[COLOR][/COLOR]')
@@ -152,16 +153,8 @@ def MSeries(): #-3
 # --------------  Fim menu
 # --------------  Inicio Assistir.biz
 def AssistirbizMENU2(): # 514
-	#AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaBIZ11[int(CatBB)] +"[/COLOR]", "url" ,232 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	try:
-	#	p= 1
-	#	if int(cPageBIZ) > 0:
-	#		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageBIZ) ) +"[/B]][/COLOR]", cPageBIZ , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageBIZ")
-	#	l= int(cPageBIZ)*1
-	#	for x in range(0, 1):
-	#		l +=1
 			link = common.OpenURL("https://assistir.biz/home").replace('\n','').replace('\r','')
-			#hex = link22.text.replace('\n','').replace('\r','')
 			hex2 = re.compile('<div class="tab-content" id="myTabContent">(.+?)<div class="tab-pane fade"').findall(link)
 			hex2 = hex2[0]
 			match = re.compile('data-src="([^\"]+)".+?rate">([^\"]+)<\/span.+?a href="([^\"]+)">([^\"]+)<\/a.+?,.([^\"]+)<\/a').findall(hex2)
@@ -169,41 +162,23 @@ def AssistirbizMENU2(): # 514
 				for img2, imdb, url2,name2, ano in match:
 					url2= url2.replace("/filme","https://assistir.biz/filme")
 					img2= img2.replace("//image","https://image").replace("w185","original")
-					#name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 					if "tvshows" in url2: False
 					else:
 						AddDir(name2+ " - ("+ano+")", url2, 515, img2, img2, info="[COLOR yellow][B]IMDb *[COLOR green]"+imdb+"[/B][/COLOR]", isFolder=True, IsPlayable=True)
-	#				p += 1
-	#		else:
-	#			break
-	#	if p >= 30:
-	#		AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageBIZ) + 2) +"[/B]][/COLOR]", cPageBIZ , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageBIZ")
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def AssistirbizMENU(): # 514
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaBIZ11[int(CatBB)] +"[/COLOR]", "url" ,232 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	try:
-#		p= 1
-#		if int(cPageBIZ) > 0:
-#			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageBIZ) ) +"[/B]][/COLOR]", cPageBIZ , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageBIZ")
-#		l= int(cPageBIZ)*1
-#		for x in range(0, 1):
-#			l +=1
 			link = common.OpenURL("https://assistir.biz/categoria/"+ClistaBIZ10[int(CatBB)])
 			match = re.compile('data-src="([^\"]+)".+\s.+.\s.+.\s.+.\s.+?">([^\"]+)<\/span>\s.+.\s.+.\s.+?a href="([^\"]+)".alt="([^\"]+)".+\s.+\s.+?">([^\"]+)<\/a').findall(link)
 			if match:
 				for img2, imdb, url2,name2, ano in match:
 					url2= url2.replace("/filme","https://assistir.biz/filme")
 					img2= img2.replace("//image","https://image").replace("w185","original")
-					#name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 					if "tvshows" in url2: False
 					else:
 						AddDir(name2+ " - ("+ano+")", url2, 515, img2, img2, info="[COLOR yellow][B]IMDb *[COLOR green]"+imdb+"[/B][/COLOR]", isFolder=True, IsPlayable=True)
-	#				p += 1
-	#		else:
-	#			break
-		#if p >= 0:
-		#	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageBIZ) + 2) +"[/B]][/COLOR]", cPageBIZ , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageBIZ")
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def AssistirbizLista(): #515
@@ -217,7 +192,7 @@ def AssistirbizLista(): #515
 		pass
 def AssistirbizPlay(): #516
 	try:	
-			m2 = re.compile('(assistir.biz\/direct[^\"]+)".+?label="([^\"]+)"').findall(url)
+			m2 = re.compile('(assistir.biz\/direct[^\"]+)".+?mp4".\w+="([^\"]+)"').findall(url)
 			legenda = re.compile('subdata..([^\"]+)').findall(url)
 			listar=[]
 			listal=[]
@@ -298,16 +273,6 @@ def QuerofilmeshdLista(): #511
 		AddDir(name + name4, hexd, 513, iconimage, iconimage, isFolder=False, IsPlayable=True, info=sinopse)
 	except:
 		pass
-#def QuerofilmeshdPlay(): #512
-#		link3 = requests.get(url)
-#		w2 = link3.text
-#		match3 = re.findall('idS:."([^\"]+)', w2)
-#		url5 = ('https://player.querofilmeshd.online//CallPlayer')
-#		headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-#		result = {'id': match3}
-#		f = requests.post(url5, data=result, headers=headers)
-#		hexd = codecs.decode(f.text, "hex_codec").decode('utf-8')
-#		AddDir(name, hexd, 513,"", isFolder=False, IsPlayable=True)
 def QuerofilmeshdPlay2(): #513
 	try:	
 		url6 = re.compile('(id.\w+)').findall(url)
@@ -1878,7 +1843,26 @@ def RadioTV(x): #106
 		if url2!="Close":
 		 #url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]")
 		 AddDir(name2, url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
-   
+def TVCB5(): #111
+	link = common.OpenURL("https://canaismax.com/assistir-redetv-ao-vivo-gratis-24-horas-online")
+	m3 = re.compile('<a href="([^\"]+)".\s.+?data-src="([^\"]+)".+?alt="Assistir ([^\"]+) ao').findall(link)
+	if m3:
+		for url2,img2,name2 in m3:
+			name2 = name2.replace('HD',"[COLOR lime]HD[/COLOR]")
+			if url2!="Close":
+				AddDir("[B]"+name2+"[/B]",url2, 112, img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+def TVCB5PLAY(): #112
+	link2 = requests.get(url)
+	url2 = re.compile('data-link="(https:\/\/canaismax.com\/canal[^\"]+)"').findall(link2.text)
+	url2 = url2[0]
+	m = requests.get(url2)
+	url3 = re.compile('<a href="([^\"]+)"').findall(m.text)
+	url3 = url3[0]
+	m2 = requests.get(url3)
+	url4 = re.compile('source: "([^\"]+)"').findall(m2.text)
+	for url2 in url4:
+		if url2!="Close":
+		 PlayUrl(name, url2+"|Referer=https://canaismax.com/", iconimage, info)       
 # ----------------- Inicio Go Filmes
 def GenerosGO(): #219
 	d = xbmcgui.Dialog().select("Escolha o Genero", ClistaGO1)
@@ -2584,6 +2568,12 @@ elif mode == 108:
 	setViewS()    
 elif mode == 109:
 	TVCB4PLAY()
+elif mode == 111:
+	TVCB5()
+	setViewS()  
+elif mode == 112:
+	TVCB5PLAY()
+	setViewS()   
 elif mode == 106:
 	RadioTV(url)
 	setViewS()    
