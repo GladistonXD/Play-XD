@@ -2,7 +2,7 @@
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 import requests
 import codecs
-Versao = "20.01.00"
+Versao = "20.02.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -96,9 +96,10 @@ proxy = ""
 protocol="http://"
 protocol2="http://"
 reference="https://canaisgratis.info/"
+reference2="|verifypeer=false"
 #reference2="|verifypeer=false&referer=https://redecanais.se/"
 #reference2="|referer=https://redecanais.se/"
-reference2=""
+#reference2=""
 #reference3="|Referer=https://canaisgratis.eu/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
 reference3=""
 RC="redecanais.se/"
@@ -513,7 +514,7 @@ def MoviesNC(): #71 Netcine
 			 for img2,name2,url2 in lista:
 			  if name2!="Close" and name2!="NetCine":
 				name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'")
-				img2 = re.sub('-120x170.(jpg|png)', r'.\1', img2 )
+				img2 = img2.replace("-120x170","")
 			  if "tvshows" in url2: False
 			  else:
 				AddDir(name2,url2, 78, img2, img2, isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
@@ -1035,7 +1036,7 @@ def PlayMRC2(): #96 Play filmes direto
 			background=url+";;;"+name+";;;RC"
 			file[0] = re.sub('\n', '', file[0])
 			file[0] = re.sub('https', 'https', file[0])
-			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] , iconimage, desc) #aqui
+			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2 , iconimage, desc) #aqui
 		else:
 			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
 	except:
@@ -1077,7 +1078,7 @@ def PlaySRC(): #133 Play series
 			background=url+";;;"+name+";;;RC"
 			file[0] = re.sub('\n', '', file[0])
 			file[0] = re.sub('https', 'https', file[0])
-			PlayUrl(name, file[0],"", iconimage, name)
+			PlayUrl(name, file[0] + reference2,"", iconimage, name)
 	except:
 		sys.exit()
 def TemporadasRC(x): #135 Episodios
@@ -1245,7 +1246,7 @@ def Busca(): # 160
 		for img2,name2,url2 in lista:
 			if name2!="Close" and name2!="NetCine":
 				name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'")
-				img2 = re.sub('-120x170.(jpg|png)', r'.\1', img2 )
+				img2 = img2.replace("-120x170","")
 				if "tvshows" in url2:
 					AddDir("[COLOR yellow]" +name2+ "[/COLOR]",url2, 61, img2, img2, isFolder=True)
 				else:
@@ -1852,17 +1853,21 @@ def TVCB5(): #111
 			if url2!="Close":
 				AddDir("[B]"+name2+"[/B]",url2, 112, img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
 def TVCB5PLAY(): #112
-	link2 = requests.get(url)
-	url2 = re.compile('data-link="(https:\/\/canaismax.com\/canal[^\"]+)"').findall(link2.text)
-	url2 = url2[0]
-	m = requests.get(url2)
-	url3 = re.compile('<a href="([^\"]+)"').findall(m.text)
-	url3 = url3[0]
-	m2 = requests.get(url3)
-	url4 = re.compile('source: "([^\"]+)"').findall(m2.text)
-	for url2 in url4:
-		if url2!="Close":
-		 PlayUrl(name, url2+"|Referer=https://canaismax.com/", iconimage, info)       
+	try:
+		link2 = requests.get(url)
+		url2 = re.compile('data-link="(https:\/\/canaismax.com\/canal[^\"]+)"').findall(link2.text)
+		url2 = url2[0]
+		m = requests.get(url2)
+		url3 = re.compile('<a href="([^\"]+)"').findall(m.text)
+		url3 = url3[0]
+		m2 = requests.get(url3)
+		url4 = re.compile('source: "([^\"]+)"').findall(m2.text)
+		for url2 in url4:
+			if url2!="Close":
+			 PlayUrl(name, url2+"|Referer=https://canaismax.com/", iconimage, info)
+	except (IndexError, ValueError):
+		xbmcgui.Dialog().ok('Play XD', 'Canal indisponível no momento.')
+		sys.exit()         
 # ----------------- Inicio Go Filmes
 def GenerosGO(): #219
 	d = xbmcgui.Dialog().select("Escolha o Genero", ClistaGO1)
