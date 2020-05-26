@@ -3,9 +3,8 @@ import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, ha
 import requests
 import codecs
 
-
 from bs4 import BeautifulSoup
-Versao = "20.03.00"
+Versao = "20.04.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
