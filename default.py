@@ -2,7 +2,11 @@
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 import requests
 import codecs
-Versao = "20.02.00"
+import urlresolver
+
+
+from bs4 import BeautifulSoup
+Versao = "20.03.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -12,10 +16,11 @@ icon = Addon.getAddonInfo('icon')
 addonDir = Addon.getAddonInfo('path').decode("utf-8")
 iconsDir = os.path.join(addonDir, "resources", "images")
 
+addonfolder = Addon.getAddonInfo('path')
+cachefolder   = addonfolder + '/resources/'
 libDir = os.path.join(addonDir, 'resources', 'lib')
 sys.path.insert(0, libDir)
 import common
-
 addon_data_dir = xbmc.translatePath(Addon.getAddonInfo("profile")).decode("utf-8")
 cacheDir = os.path.join(addon_data_dir, "cache")
 if not os.path.exists(cacheDir):
@@ -36,7 +41,9 @@ cPageGOf = Addon.getSetting("cPageGOf")
 cPageFlf = Addon.getSetting("cPageFlf")
 cPageQlf = Addon.getSetting("cPageQlf")
 cPageBIZ = Addon.getSetting("cPageBIZ")
+cPageMEG = Addon.getSetting("cPageMEG")
 
+cPageserSF = Addon.getSetting("cPageserSF")
 cEPG = Addon.getSetting("cEPG")
 cOrdFO = "date" if Addon.getSetting("cOrdFO")=="0" else "title"
 cOrdRCF = "date" if Addon.getSetting("cOrdRCF")=="0" else "title"
@@ -53,6 +60,7 @@ CatGO = Addon.getSetting("CatGO")
 CatFl = Addon.getSetting("CatFl")
 CatBB = Addon.getSetting("CatBB")
 CatQ1 = Addon.getSetting("CatQ1")
+CatMG = Addon.getSetting("CatMG")
 
 
 cSIPTV = Addon.getSetting("cSIPTV")
@@ -72,6 +80,8 @@ ClistaQUE10=["lancamentoss",                                               "acao
 ClistaQUE11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]", "[COLOR yellow][B]Ação[/COLOR][/B]", "[COLOR yellow][B]Animação[/COLOR][/B]", "[COLOR yellow][B]Aventura[/COLOR][/B]",  "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]","[COLOR yellow][B]Documentário[/COLOR][/B]", "[COLOR yellow][B]Fantasia[/COLOR][/B]", "[COLOR yellow][B]Drama[/COLOR][/B]","[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]", "[COLOR yellow][B]Romance[/COLOR][/B]",    "[COLOR yellow][B]História[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]", "[COLOR yellow][B]Música[/COLOR][/B]",    "[COLOR yellow][B]Terror[/COLOR][/B]", "[COLOR yellow][B]Thriller[/COLOR][/B]"]
 ClistaBIZ10=["acao",                                               "animacao",                                  "comedia",                               "faroeste",                           "policial",                        "fantasia",                                     "drama",                                "ficcao-cientifica",                           "romance",                                                 "documentario",                               "misterio",                           "suspense",                                     "nacionais",                                     "terror"]
 ClistaBIZ11=["[COLOR yellow][B]Ação[/COLOR][/B]", "[COLOR yellow][B]Animação[/COLOR][/B]",     "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]","[COLOR yellow][B]Policial[/COLOR][/B]", "[COLOR yellow][B]Fantasia[/COLOR][/B]", "[COLOR yellow][B]Drama[/COLOR][/B]","[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]", "[COLOR yellow][B]Romance[/COLOR][/B]",                       "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]","[COLOR yellow][B]Nacionais[/COLOR][/B]",       "[COLOR yellow][B]Terror[/COLOR][/B]"]
+ClistaMEG10=["assistir-filmes-lancamentos-2020-online",                    "assistir-filmes-de-acao-online",             "assistir-filmes-de-animacao",                 "assistir-filmes-de-comedia-online",                      "faroeste",                                   "fantasia",                        "assistir-filmes-drama-online-dublado-legendado",                        "assistir-filmes-ficcao-cientifica-online",                           "assistir-filmes-de-romance-online-dublado-legendado",                                                 "documentario",                               "misterio",                           "suspense",                                     "assistir-filmes-de-terror-online-dublado-legendado"]
+ClistaMEG11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]",                   "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]",    "[COLOR yellow][B]Terror[/COLOR][/B]"]
 def setViewS():
 	xbmcplugin.setContent(int(sys.argv[1]), 'tvshows')
 	xbmc.executebuiltin("Container.SetViewMode(50)")
@@ -142,7 +152,7 @@ def MFilmes(): #-2
 	AddDir("[COLOR blue][B]Filmes Legendado RedeCanais[/B][/COLOR]" , cPageleg, 91, "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", background="cPageleg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Nacional RedeCanais[/B][/COLOR]" , cPagenac, 92, "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", background="cPagenac", info='[COLOR][/COLOR]')
 	#AddDir("[COLOR purple][B]Filmes FilmesOnline[/B][/COLOR]" , "", 170, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg")
-	#AddDir("[COLOR lightgreen][B]Filmes Superflix[/B][/COLOR]" , "", 411, "https://walter.trakt.tv/images/movies/000/167/163/fanarts/thumb/23ecb5f950.jpg.webp", "https://walter.trakt.tv/images/movies/000/167/163/fanarts/thumb/23ecb5f950.jpg.webp")
+	AddDir("[COLOR lightgreen][B]Filmes Superflix[/B][/COLOR]" , "", 411, "https://walter.trakt.tv/images/movies/000/167/163/fanarts/thumb/23ecb5f950.jpg.webp", "https://walter.trakt.tv/images/movies/000/167/163/fanarts/thumb/23ecb5f950.jpg.webp")
 	setViewM()
 def MSeries(): #-3
 	AddDir("[COLOR yellow][B]Séries NetCine[/B][/COLOR]" , "", 60, "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg", "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg")
@@ -150,6 +160,7 @@ def MSeries(): #-3
 	AddDir("[COLOR blue][B]Animes RedeCanais[/B][/COLOR]" , cPageser, 140, "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", background="cPageser", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Desenhos RedeCanais[/B][/COLOR]" , cPageani, 150, "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", background="cPageser", info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR cyan]Séries MMFilmes[/COLOR][/B]", "config" , 190,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
+	AddDir("[B][COLOR lightgreen][Séries Superflix.net][/COLOR][/B]", "config" , 401,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True)
 	setViewM()
 # --------------  Fim menu
 # --------------  Inicio Assistir.biz
@@ -1319,7 +1330,7 @@ def Busca(): # 160
 						AddDir("[COLOR deepskyblue]" +name2+ " - ("+ano+")[/COLOR]", url2, 515, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
 	except:
 		pass
-	progress.update(80, "80%", "QueroFilmesHD", "")        
+	progress.update(73, "73%", "QueroFilmesHD", "")        
 	try:
 		p= 1
 		AddDir("[B][COLOR springgreen]|||[/COLOR][COLOR white]|||[/COLOR][COLOR springgreen]|||[/COLOR][COLOR springgreen] [QueroFilmesHD] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
@@ -1353,7 +1364,7 @@ def Busca(): # 160
 #						AddDir("[COLOR red]" +name2+ "[/COLOR]" , url2, 211, " ", " ", info="", isFolder=True, IsPlayable=True)
 #	except:
 #		pass
-	progress.update(100, "100%", "RedeCanais", "")
+	progress.update(84, "84%", "RedeCanais", "")
 	try:
 		p= 1
 		AddDir("[B][COLOR blue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR blue]|||[/COLOR][COLOR blue] [RedeCanais] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
@@ -1371,8 +1382,28 @@ def Busca(): # 160
 						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 96, " ", " ", info="", isFolder=False, IsPlayable=True)
 	except:
 		pass
+	progress.update(100, "100%", "SuperFlix", "")        
+	try:
+		p= 1
+		AddDir("[B][COLOR lightgreen]|||[/COLOR][COLOR white]|||[/COLOR][COLOR lightgreen]|||[/COLOR][COLOR lightgreen] [SuperFlix] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		l= 0
+		for x in range(0, 1):
+			l +=1
+			link = common.OpenURL("https://www.superflix.net/?s="+d).replace('\n','').replace('\r','')
+			match = re.compile('href="([^\"]+).{1,100}src="([^\"]+).{1,300}Title".([^\<]+).{1,12}class="([^\"]+)').findall(link.replace('\n','').replace('\r',''))
+			if match:
+				for url2,img2,name2,tvmovie in match:
+					img2 = img2.replace("w185", 'original').replace("https:", '').replace("w220_and_h330_face", 'original').replace("-185x278", "")
+					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
+					if "Info" in tvmovie:
+						AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 405, "http:"+img2, "http:"+img2,isFolder=False,IsPlayable=True, info='[COLOR][/COLOR]')
+					if "TpTv" in tvmovie:
+						AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 402, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False)
+	except:
+		pass        
 	progress.update(100, "100", "", "")
-	progress.close()        
+	progress.close()
+    
 	#l=0
 	#i=0
 	#try:
@@ -1659,9 +1690,9 @@ def PlayLinkMM(): #182
 		listar=[]
 		listal=[]
 		for link,res in m2:
-			listal.append(link)
+			listal.append(link.replace("360","720"))
 			#listar.append("[COLOR green][B]HD[/COLOR][/B]")
-			listar.append(res)
+			listar.append(res.replace("360p","720p"))
 		if len(listal) <1:
 			xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
 			sys.exit(int(sys.argv[1]))
@@ -1804,7 +1835,7 @@ def TVCB31(x): #107
 		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]")
 		 AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
 def TVCB3(x): #107
-	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive005").replace("\n","").replace('\r','')
+	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive006").replace("\n","").replace('\r','')
 	m = re.compile('1,(.+?)plugin:\/\/(.+?)#').findall(link)
 	#m = re.compile('tvg-name="(.+?)".+?logo="(.+?)".+?plugin:\/\/(.+?)#').findall(link)
     #for name2, url2 in m:
@@ -1900,7 +1931,15 @@ def GenerosBIZ(): #232
 		Addon.setSetting("CatBB", str(d) )
 		Cat = d
 		Addon.setSetting("cPageBIZ", "0" )
-		xbmc.executebuiltin("XBMC.Container.Refresh()")             
+		xbmc.executebuiltin("XBMC.Container.Refresh()")
+def GenerosMEG(): #233
+	d = xbmcgui.Dialog().select("Escolha o Genero", ClistaMEG11)
+	if d != -1:
+		global Cat
+		Addon.setSetting("CatMG", str(d) )
+		Cat = d
+		Addon.setSetting("cPageMEG", "0" )
+		xbmc.executebuiltin("XBMC.Container.Refresh()")               
 def ListGO(): #210 Topflix Dublado --------------------------------------------
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaFl1[int(CatFl)] +"[/COLOR]", "url" ,230 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	try:
@@ -1993,83 +2032,267 @@ def ListPlay(): #213 play ======================================================
 		 PlayUrl(name, url2+"|Referer=https://topflix.tv/&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla%2F5.0+%28compatible%3B+MSIE+10.6%3B+Windows+NT+6.1%3B+Trident%2F6.0%29", iconimage, info, sub=legenda)    
 # ----------------- Inicio Superflix
 def ListMovieSF(): #411:
-	for x in range(1, 11):
-		try:
-			l = common.OpenURL("http://www.superflix.net/categoria/assistir-filmes-lancamentos-2019-online/page/"+str(x))
-			m = re.compile('li class\=\"TPostMv\"(.+?)\<.li\>').findall(l)
-			for ll in m:
-				mm = re.compile('href\=\"([^\"]+).{1,100}src=\"([^\"]+).{1,100}itle\"\>([^\<]+).{1,100}ear\"\>([^\<]+)').findall(ll)
-				for url2,img2,name2,year2 in mm:
-					img2 = "http:"+img2 if not "http" in img2 else img2
-					name2 = name2.replace("#038;","").replace("&#8211;","-")
-					AddDir(name2+" ("+year2+")", url2, 405, img2, img2,isFolder=False,IsPlayable=True, info='[COLOR][/COLOR]')
-		except:
-			pass
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaMEG11[int(CatMG)] +"[/COLOR]", "url" ,233 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	try:
+		p= 1
+		if int(cPageMEG) > 0:
+			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageMEG) ) +"][/B][/COLOR]", cPageMEG , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageMEG")
+		l= int(cPageMEG)*2
+		for x in range(0, 2):
+			l +=1
+			link = common.OpenURL("https://www.superflix.net/categoria/"+ClistaMEG10[int(CatMG)]+"/page/"+str(l)+"/?tr_post_type=1")
+			match = re.compile('href="([^\"]+).{1,100}src="([^\"]+).{1,300}Title".([^\<]+).{1,100}Year".([^\<]+)').findall(link.replace('\n','').replace('\r',''))
+			if match:
+				for url2,img2,name2,year2 in match:
+					img2 = img2.replace("w185", 'original').replace("https:", '').replace("w220_and_h330_face", 'original').replace("-185x278", "")
+					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
+					if "serie" in url2: False
+					else:
+						#name2 = name2.replace("</font>","")
+						AddDir(name2+" ("+year2+")", url2, 405, "http:"+img2, "http:"+img2,isFolder=False,IsPlayable=True, info='[COLOR][/COLOR]')
+					p += 1
+		if p >= 40:
+			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageMEG) + 2) +"][/B][/COLOR]", cPageMEG , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageMEG")
+	except:
+		pass
 # -----------------
 def PlaySSF(): #405
-	try:
-		l = common.OpenURL(url)
-		m = re.compile("\<iframe.{1,100}src\=\"([^\"]+trid[^\"]+)").findall(l)
-		trem = re.compile("http.{10,50}trembed[^\"| ]+").findall(l)
-		legsub = re.compile("data-tplayernv.+?<span>([^\<]+)").findall(l.replace("<span>SuperFlix</span>",""))
-		if not legsub:
-			xbmcgui.Dialog().ok('PlayXD', "Episódio ainda não disponível")
+        OK = True
+        titsT = []
+        idsT = []
+        
+        r = requests.get(url)
+        html = r.content
+        soup = BeautifulSoup(html, "html5lib")
+        conteudo = soup('main')
+        srvs = conteudo[0]('ul',{'class':'TPlayerNv'})
+        srvs = srvs[0]('li')
+        
+        for s in srvs:
+            titsT.append(s.text.replace("SuperFlix FBDublado","[COLOR green][B]Dublado[/B][/COLOR]").replace("SuperFlix FBLegendado","[COLOR green][B]Legendado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]"))
+
+        if not titsT : return
+        
+
+        index = xbmcgui.Dialog().select('Selecione uma das fontes suportadas :', titsT)
+
+        if index == -1 : return
+
+        i = int(index)
+        
+        tplayer = conteudo[0]('div',{'class':'TPlayer'})
+        servers = tplayer[0]('div',{'class':'TPlayerTb'})
+        totF = len(servers)
+        for s in servers:
+            try:
+                urlS = s.iframe['src']
+                idsT.append(urlS)
+            except:
+                pass
+            try:
+                l = s.get_text('src')
+                urlS = re.findall(r'src="(.*?)"', l)[0].replace('#038;','')
+                idsT.append(urlS)
+            except:
+                pass
+            try:
+                postid = re.findall(r'<body id="Tf-Wp" class="movies-template-default single single-movies postid-(.*?)">', r.text)[0]
+                urlS = 'https://www.superflix.net/?trembed=%s&trid=%s&trtype=1' % (i,postid)
+                idsT.append(urlS)
+            except:
+                pass                               
+        filme = idsT[i]
+        xbmc.log('[plugin.video.SuperFlix] L282 - ' + str(filme), xbmc.LOGNOTICE)
+        url2Play = filme
+        url3Play = common.OpenURL(url2Play)
+        url4Play = re.compile('(https.+?")').findall(url3Play)
+        url4Play= url4Play[0]
+        
+        try:
+
+            if 'www.superflix.net' in url4Play:
+                    urlxx = re.compile('tid=(.+?)&"').findall(url4Play)
+                    urlxx = urlxx[0]
+                    inverter1 = urlxx
+                    invertida1 = ''.join(palavra[::-1] for palavra in inverter1.split())
+                    hexd = codecs.decode(invertida1, "hex_codec").decode('utf-8')
+                    legenda = re.compile('sub=(.+?srt)').findall(hexd)
+                    url1 = re.compile('(id=.+?\w+)').findall(hexd)
+                    url1= url1[0].replace("id=","https://lbsuper.sfplayer.net/playlist/") + "/1590191456752"
+                    url2 = common.OpenURL(url1)
+                    url3 = re.compile('EXTM3U\s.+\s.+\s.+\s(.+?m3u8)').findall(url2)
+                    url3= url3[0].replace("/hls/","https://lbsuper.sfplayer.net/hls/").replace(".m3u8","")
+                    url4 = common.OpenURL(url3)
+                    url4x = common.OpenURL(url3)
+                    url6 = re.compile('playlist.(\w+)').findall(url1)
+                    url6 = url6[0]
+                    inverter = url6
+                    invertida = ''.join(palavra[::-1] for palavra in inverter.split())
+                    url7 = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container="+invertida+"&url=https"
+                    url8 =url4.replace('://','%3A%2F%2F').replace('/','%2F').replace('.png','').replace('?','%3F').replace('=','%3D').replace('https',url7)
+                    arquivo = open(cachefolder + "movies.m3u8", "w+")
+                    arquivo.write(url8)
+                    arquivo.close()
+                    if legenda:
+                        legenda = legenda[0]
+                        legenda2 = urllib.quote(legenda.encode('utf8'))
+                        if not "http" in legenda:
+                            legenda3 = "https://sub.sfplayer.net/subdata/"
+                            legenda4 = legenda3 + legenda2
+                        PlayUrl(name, cachefolder + "movies.m3u8", iconimage, info, sub=legenda4)
+                    else:
+                        PlayUrl(name, cachefolder + "movies.m3u8", iconimage, info)
+
+            elif 'fb.sfplayer' in url4Play:
+                    legenda3 = re.compile('vl(.+?)"').findall(url4Play)
+                    url12 = re.compile('net\/(.+?\w+.\w+)').findall(url4Play)
+                    url12= url12[0].replace("embedplay","https://fb.sfplayer.net/getLinkStreamMd5")
+                    url2x2 = common.OpenURL(url12)
+                    url3x2 = re.compile('(https.+?)"').findall(url2x2)
+                    url3x2= url3x2[0]
+                    if legenda3:
+                        legenda3 = legenda3[0]
+                        if not "http" in legenda3:
+                            legenda3= legenda3.replace("sub=","https://sub.sfplayer.net/subdata/").replace("à","%C3%A0").replace("é","%C3%A9").replace("ó","%C3%B3").replace("ô","%C3%B4").replace("ã","%C3%A3").replace("ç","%C3%A7").replace("í","%C3%AD")
+                        PlayUrl(name, url3x2, iconimage, info, sub = legenda3)
+                    else:
+                        PlayUrl(name, url3x2, iconimage, info)
+        except (IndexError, ValueError):
+			xbmcgui.Dialog().ok('Play XD', 'Filme não encontrado')
 			sys.exit()
-		if len(legsub) == 1:
-			d = 0
-		else:
-			d = xbmcgui.Dialog().select("Escolha:", legsub)
-		if not d == -1:
-			trem2 = trem[d].replace("#038;","").replace("&amp;","&")
-			l2 = common.OpenURL(trem2)
-			m2 = re.compile("(http.+\/play\/([^\"|?]+))").findall(l2)
-			msub = re.compile("vlsub\=([^\"|?]+)").findall(l2)
-			if not m2:
-				PlaySSF2(l2)
-				sys.exit()
-		leg = "https://sub.sfplayer.net/subdata/"+msub[0] if msub else ""
-		mp4 = RetLinkSF(m2[0][1])
-		if not mp4:
-			sys.exit()
-		mp4m = re.compile("RESOLUTION\=.+x([^\s]+)\n(.+)").findall(mp4[1])
-		if not mp4m:
-			mp42 = mp4[0]+"/hls/"+m2[0][1]+".playlist.m3u8"
-			PlayUrl(name, mp42, iconimage, info, sub=leg)
-			sys.exit()
-		#mp4m.sort()
-		mp4m = sorted(mp4m, key=lambda k: k[0], reverse=True)
-		mp4r=[]
-		mp4u=[]
-		for res2,url2 in mp4m:
-			mp4r.append(res2.replace("999","1080")+"p")
-			mp4u.append(url2)
-		d2 = xbmcgui.Dialog().select("Escolha a resolução:", mp4r)
-		if not d2 == -1:
-			PlayUrl(name, mp4[0]+mp4u[d2], iconimage, info, sub=leg)
-		system.exit()
-		#PlayUrl(name, "plugin://plugin.video.gdrive?mode=streamURL&amp;url="+"https://slave2.sfplayer.net/hls/a6ebb20cd567cc52309a965ee2cd82b7.playlist.m3u8", iconimage, info, sub=leg)
-	except:
-		sys.exit()
-def RetLinkSF(x):
-	for s in range(1, 8):
-		x2 = "https://slave"+str(s)+".sfplayer.net/hls/"+x+".playlist.m3u8"
-		try:
-			l = common.OpenURL(x2)
-			if len(l) > 20:
-				return ["https://slave"+str(s)+".sfplayer.net",l.replace("1080","999")]
-		except urllib2.URLError, e:
-			pass
-def PlaySSF2(x):
-	api = re.compile("http[^\"]+api[^\"]+").findall(x)
-	if not api:
-		sys.exit()
-	l = common.OpenURL(api[0])
-	m = re.compile("iframe.{1,10}(http[^\"]+api[^\"]+)").findall(l)
-	l2 = common.OpenURL(m[0])
-	m2 = re.compile('http[^\"]+file.{1,5}\/([^\/"]+)').findall(l2)
-	url2 = "https://drive.google.com/file/d/"+m2[0]+"/edit"
-	PlayUrl(name, "plugin://plugin.video.gdrive?mode=streamURL&amp;url="+url2.encode('utf-8'), iconimage, info)
 # ----------------- Fim Superflix
+# ----------------- Inicio Superflix
+def ListSerieSF(): #401:
+	pagina = "0" if not cPageserSF else cPageserSF
+	if int(pagina) > 0:
+		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"[/B]][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserSF")
+	y= int(pagina)*4
+	for x in range(0, 4):
+		try:
+			y +=1
+			l = common.OpenURL("http://www.superflix.net/assistir-series-online/page/"+str(y)+"/")
+			match = re.compile('href\=\"([^\"]+).{1,150}src=\"([^\"]+).{1,200}itle\"\>([^\<]+).{1,150}ear\"\>([^\<]+)').findall(l)
+			if match:
+				for url2,img2,name2,year2 in match:
+					img2 = img2.replace("w185", 'original').replace("https:", '').replace("w220_and_h330_face", 'original').replace("-185x278", "")
+					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
+					AddDir(name2+" ("+year2+")", url2, 402, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False)
+		except:
+			pass
+	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"[/B]][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserSF")
+def ListTempSF(): #402
+	l = common.OpenURL(url).replace("\n","").replace("\r","")
+	m = re.compile('Temporada ?.{5,6}(\d+)(.+?)\<\/Season\>').findall(l)
+	for temp2,cont2 in m:
+		AddDir("Temporada "+ temp2, cont2, 403, iconimage, iconimage, isFolder=True)
+def ListEpiSF(): #403
+	epis = re.compile('Num.{1,2}(\d+).+?(http[^\"]+)').findall(url)
+	for E,url2 in epis:
+		AddDir("Episódio "+E,url2, 406, iconimage, iconimage, isFolder=False, IsPlayable=True)
+def PlaySSFS(): #406
+        OK = True
+        titsT = []
+        idsT = []
+        
+        r = requests.get(url)
+        html = r.content
+        soup = BeautifulSoup(html, "html5lib")
+        conteudo = soup('main')
+        srvs = conteudo[0]('ul',{'class':'TPlayerNv'})
+        srvs = srvs[0]('li')
+        
+        for s in srvs:
+            titsT.append(s.text.replace("SuperFlix FBDublado","[COLOR green][B]Dublado[/B][/COLOR]").replace("SuperFlix FBLegendado","[COLOR green][B]Legendado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]"))
+
+        if not titsT : return
+        
+
+        index = xbmcgui.Dialog().select('Selecione uma das fontes suportadas :', titsT)
+
+        if index == -1 : return
+
+        i = int(index)
+        
+        tplayer = conteudo[0]('div',{'class':'TPlayer'})
+        servers = tplayer[0]('div',{'class':'TPlayerTb'})
+        totF = len(servers)
+        for s in servers:
+            try:
+                urlS = s.iframe['src']
+                idsT.append(urlS)
+            except:
+                pass
+            try:
+                l = s.get_text('src')
+                urlS = re.findall(r'src="(.*?)"', l)[0].replace('#038;','')
+                idsT.append(urlS)
+            except:
+                pass
+            try:
+                postid = re.findall(r'<body id="Tf-Wp".+?term-.+?term-(.+?)"', r.text)[0]
+                urlS = 'https://www.superflix.net/?trembed=%s&trid=%s&trtype=2' % (i,postid)
+                idsT.append(urlS)
+            except:
+                pass                               
+        filme = idsT[i]
+        xbmc.log('[plugin.video.SuperFlix] L282 - ' + str(filme), xbmc.LOGNOTICE)
+        url2Play = filme
+        url3Play = common.OpenURL(url2Play)
+        url4Play = re.compile('(https.+?")').findall(url3Play)
+        url4Play= url4Play[0]
+        
+        try:
+
+            if 'www.superflix.net' in url4Play:
+                    urlxx = re.compile('tid=(.+?)&"').findall(url4Play)
+                    urlxx = urlxx[0]
+                    inverter1 = urlxx
+                    invertida1 = ''.join(palavra[::-1] for palavra in inverter1.split())
+                    hexd = codecs.decode(invertida1, "hex_codec").decode('utf-8')
+                    legenda = re.compile('sub=(.+?srt)').findall(hexd)
+                    url1 = re.compile('(id=.+?\w+)').findall(hexd)
+                    url1= url1[0].replace("id=","https://lbsuper.sfplayer.net/playlist/") + "/1590191456752"
+                    url2 = common.OpenURL(url1)
+                    url3 = re.compile('EXTM3U\s.+\s.+\s.+\s(.+?m3u8)').findall(url2)
+                    url3= url3[0].replace("/hls/","https://lbsuper.sfplayer.net/hls/").replace(".m3u8","")
+                    url4 = common.OpenURL(url3)
+                    url4x = common.OpenURL(url3)
+                    url6 = re.compile('playlist.(\w+)').findall(url1)
+                    url6 = url6[0]
+                    inverter = url6
+                    invertida = ''.join(palavra[::-1] for palavra in inverter.split())
+                    url7 = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container="+invertida+"&url=https"
+                    url8 =url4.replace('://','%3A%2F%2F').replace('/','%2F').replace('.png','').replace('?','%3F').replace('=','%3D').replace('https',url7)
+                    arquivo = open(cachefolder + "movies.m3u8", "w+")
+                    arquivo.write(url8)
+                    arquivo.close()
+                    if legenda:
+                        legenda = legenda[0]
+                        legenda2 = urllib.quote(legenda.encode('utf8'))
+                        if not "http" in legenda:
+                            legenda3 = "https://sub.sfplayer.net/subdata/"
+                            legenda4 = legenda3 + legenda2
+                        PlayUrl(name, cachefolder + "movies.m3u8", iconimage, info, sub=legenda4)
+                    else:
+                        PlayUrl(name, cachefolder + "movies.m3u8", iconimage, info)
+
+            elif 'fb.sfplayer' in url4Play:
+                    legenda3 = re.compile('vl(.+?)"').findall(url4Play)
+                    url12 = re.compile('net\/(.+?\w+.\w+)').findall(url4Play)
+                    url12= url12[0].replace("embedplay","https://fb.sfplayer.net/getLinkStreamMd5")
+                    url2x2 = common.OpenURL(url12)
+                    url3x2 = re.compile('(https.+?)"').findall(url2x2)
+                    url3x2= url3x2[0]
+                    if legenda3:
+                        legenda3 = legenda3[0]
+                        if not "http" in legenda3:
+                            legenda3= legenda3.replace("sub=","https://sub.sfplayer.net/subdata/").replace("à","%C3%A0").replace("é","%C3%A9").replace("ó","%C3%B3").replace("ô","%C3%B4").replace("ã","%C3%A3").replace("ç","%C3%A7").replace("í","%C3%AD")
+                        PlayUrl(name, url3x2, iconimage, info, sub = legenda3)
+                    else:
+                        PlayUrl(name, url3x2, iconimage, info)
+        except (IndexError, ValueError):
+			xbmcgui.Dialog().ok('Play XD', 'Filme não encontrado')
+			sys.exit()
 def GetChoice(choiceTitle, fileTitle, urlTitle, choiceFile, choiceUrl, choiceNone=None, fileType=1, fileMask=None, defaultText=""):
 	choice = ''
 	choiceList = [getLocaleString(choiceFile), getLocaleString(choiceUrl)]
@@ -2670,7 +2893,9 @@ elif mode == 230:
 elif mode == 231: 
 	GenerosQUE1()
 elif mode == 232: 
-	GenerosBIZ()       
+	GenerosBIZ()
+elif mode == 233: 
+	GenerosMEG()    
 elif mode == 220:
 	Filmes96()
 elif mode == 221:
@@ -2685,6 +2910,17 @@ elif mode == 411:
 	setViewM()
 elif mode == 405:
 	PlaySSF()
+elif mode == 406:
+	PlaySSFS()
+elif mode == 401:
+	ListSerieSF()
+	setViewS()
+elif mode == 402:
+	ListTempSF()
+	setViewS()
+elif mode == 403:
+	ListEpiSF()
+	setViewS()
 elif mode == 510:
 	QuerofilmeshdMENU()
 	setViewM()    
