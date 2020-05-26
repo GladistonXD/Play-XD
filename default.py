@@ -2,7 +2,6 @@
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 import requests
 import codecs
-import urlresolver
 
 
 from bs4 import BeautifulSoup
