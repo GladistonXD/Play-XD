@@ -4,7 +4,7 @@ import requests
 import codecs
 
 from bs4 import BeautifulSoup
-Versao = "20.04.00"
+Versao = "20.05.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -134,7 +134,7 @@ def MCanais(): #-1
     AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](RED-IPTV BOX)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
     AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](CANAISMAX)[/B][/COLOR]"  , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
     AddDir("[COLOR yellow][B]Opção 3[/B][/COLOR]" , "", 104, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
-    AddDir("[COLOR yellow][B]Opção 4[/B][/COLOR]" , "", 117, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
+    AddDir("[COLOR yellow][B]Opção 4[/B][/COLOR]" , "", 107, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
 def MFilmes(): #-2
 	#AddDir("[COLOR white][B][Filmes Dublado/Legendado][/B][/COLOR]" , cPage, 220, "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", background="cPage")
 	AddDir("[B][COLOR cyan]Filmes Lançamentos MMFilmes[/COLOR][/B]", "config" , 184,"https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", "https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", isFolder=True, info='[COLOR][/COLOR]')
@@ -150,7 +150,7 @@ def MFilmes(): #-2
 	AddDir("[COLOR blue][B]Filmes Legendado RedeCanais[/B][/COLOR]" , cPageleg, 91, "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", background="cPageleg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Nacional RedeCanais[/B][/COLOR]" , cPagenac, 92, "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", background="cPagenac", info='[COLOR][/COLOR]')
 	#AddDir("[COLOR purple][B]Filmes FilmesOnline[/B][/COLOR]" , "", 170, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg")
-	AddDir("[COLOR lightgreen][B]Filmes Superflix[/B][/COLOR]" , "", 411, "https://walter.trakt.tv/images/movies/000/167/163/fanarts/thumb/23ecb5f950.jpg.webp", "https://walter.trakt.tv/images/movies/000/167/163/fanarts/thumb/23ecb5f950.jpg.webp")
+	AddDir("[COLOR lightgreen][B]Filmes Superflix[/B][/COLOR]" , "", 411, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg")
 	setViewM()
 def MSeries(): #-3
 	AddDir("[COLOR yellow][B]Séries NetCine[/B][/COLOR]" , "", 60, "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg", "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg")
@@ -158,7 +158,7 @@ def MSeries(): #-3
 	AddDir("[COLOR blue][B]Animes RedeCanais[/B][/COLOR]" , cPageser, 140, "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", background="cPageser", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Desenhos RedeCanais[/B][/COLOR]" , cPageani, 150, "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", background="cPageser", info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR cyan]Séries MMFilmes[/COLOR][/B]", "config" , 190,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	AddDir("[B][COLOR lightgreen][Séries Superflix.net][/COLOR][/B]", "config" , 401,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True)
+	AddDir("[B][COLOR lightgreen]Séries Superflix[/COLOR][/B]", "config" , 401,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True)
 	setViewM()
 # --------------  Fim menu
 # --------------  Inicio Assistir.biz
@@ -1820,20 +1820,15 @@ def PlaySMM(): #194
 # ----------------- Fim MM filmes
 def TVCB2(x): #104
 	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive001").replace("\n","").replace('\r','')
-	m = re.compile('logo="(.+?)".{1,50},(.+?)plugin:\/\/(.+?)#').findall(link)
+	m = re.compile('logo="(.+?)".{1,50},(.+?)pl.+?(plugin.+?)#').findall(link)
 	for img2, name2, url2 in m:
+		url3 = "plugin://" + url2
 		if url2!="Close":
-		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]").replace('BR-LIVE-SEMPRE 0800',"[COLOR green][B]HD[/B][/COLOR]")
-		 AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
-def TVCB31(x): #107
-	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive003").replace("\n","").replace('\r','')
-	m = re.compile('logo="(.+?)".{1,50},(.+?)plugin:\/\/(.+?)#').findall(link)
-	for img2, name2, url2 in m:
-		if url2!="Close":
-		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]")
-		 AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
-def TVCB3(x): #107
-	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive006").replace("\n","").replace('\r','')
+		 url3 = url3.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]").replace('BR-LIVE-SEMPRE 0800',"[COLOR green][B]HD[/B][/COLOR]")
+		 AddDir(name2, url3, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+
+def TVCB3(): #107
+	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive005").replace("\n","").replace('\r','')
 	m = re.compile('1,(.+?)plugin:\/\/(.+?)#').findall(link)
 	#m = re.compile('tvg-name="(.+?)".+?logo="(.+?)".+?plugin:\/\/(.+?)#').findall(link)
     #for name2, url2 in m:
@@ -1841,7 +1836,7 @@ def TVCB3(x): #107
 		if url2!="Close":
 		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]").replace('BR-LIVE-SEMPRE 0800',"[COLOR green][B]HD[/B][/COLOR]")
 		 #AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
-		 AddDir(name2,"plugin://"+url2, 212, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')             
+		 AddDir(name2,"plugin://"+url2, 212, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')              
 def TVCB4(): #108
 	try:
 		t = common.OpenURL("https://android.rediptvmobile.com/ch.php?usercode=6017538676").replace("\\","//")
@@ -2787,7 +2782,7 @@ elif mode == 104:
 	TVCB2(url)
 	setViewS()
 elif mode == 107:
-	TVCB3(url)
+	TVCB3()
 	setViewS()    
 elif mode == 108:
 	TVCB4()
