@@ -4,7 +4,7 @@ import requests
 import codecs
 
 from bs4 import BeautifulSoup
-Versao = "20.05.00"
+Versao = "20.06.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2003,7 +2003,10 @@ def ListTop(): #211
 			if "" in url or url2:
 				name2 = re.compile('(\w|-|leg+.+)p4').findall(url2)
 				name2= name2[0].replace("leg.m", "[COLOR blue] - Legendado[/COLOR]").replace("m", "[COLOR blue] - Dublado[/COLOR]")
-				AddDir(name + name2, url2, 213, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
+				arquivo = open(cachefolder +"lista", "w+")
+				arquivo.write(url2)
+				arquivo.close()
+				AddDir(name + name2, "", 213, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
 	except IndexError as lista2:
 			pass
 	try:     
@@ -2013,11 +2016,16 @@ def ListTop(): #211
 				name2 = re.compile('(\w|-|leg+.+)p4').findall(url2)
 				name2= name2[0].replace("m", "[COLOR blue] - Dublado[/COLOR]")
 				url2= url2.replace('.php',"/").replace('";var%20_ano',"&url=").replace('",%20"',"&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=3&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11").replace('\n','')
-				AddDir(name + name2, url2, 213, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
+				arquivo = open(cachefolder +"lista", "w+")
+				arquivo.write(url2)
+				arquivo.close()
+				AddDir(name + name2, "", 213, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
 	except:
 			pass     
 def ListPlay(): #213 play =====================================================================
-	link = common.OpenURL(url).replace("\n","")
+	arquivo = open(cachefolder + 'lista', 'r')
+	url3 = arquivo.read()
+	link = common.OpenURL(url3).replace("\n","")
 	m = re.compile("video\/mp4..\/(.+?)<\/video>.+var mp4Id = '(.+?)';").findall(link)
 	for legenda, url2 in m:
 		if legenda!="Close":
@@ -2284,7 +2292,7 @@ def PlaySSFS(): #406
                     else:
                         PlayUrl(name, url3x2, iconimage, info)
         except (IndexError, ValueError):
-			xbmcgui.Dialog().ok('Play XD', 'Filme não encontrado')
+			xbmcgui.Dialog().ok('Play XD', 'Episódio não encontrado')
 			sys.exit()
 def GetChoice(choiceTitle, fileTitle, urlTitle, choiceFile, choiceUrl, choiceNone=None, fileType=1, fileMask=None, defaultText=""):
 	choice = ''
