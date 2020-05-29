@@ -4,7 +4,7 @@ import requests
 import codecs
 
 from bs4 import BeautifulSoup
-Versao = "20.06.00"
+Versao = "20.07.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2070,14 +2070,14 @@ def PlaySSF(): #405
         srvs = srvs[0]('li')
         
         for s in srvs:
-            titsT.append(s.text.replace("SuperFlix FBDublado","[COLOR green][B]Dublado[/B][/COLOR]").replace("SuperFlix FBLegendado","[COLOR green][B]Legendado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]"))
+            titsT.append(s.text.replace("SuperFlix FBDublado","[COLOR green][B]Dublado[/B][/COLOR]").replace("SuperFlixNacional","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlix FBLegendado","[COLOR green][B]Legendado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]").replace("- SD","[B]- SD[/B]"))
 
         if not titsT : return
         
 
         index = xbmcgui.Dialog().select('Selecione uma das fontes suportadas :', titsT)
 
-        if index == -1 : return
+        #if index == -1 : return
 
         i = int(index)
         
@@ -2102,12 +2102,15 @@ def PlaySSF(): #405
                 idsT.append(urlS)
             except:
                 pass                               
-        filme = idsT[i]
-        xbmc.log('[plugin.video.SuperFlix] L282 - ' + str(filme), xbmc.LOGNOTICE)
-        url2Play = filme
-        url3Play = common.OpenURL(url2Play)
-        url4Play = re.compile('(https.+?")').findall(url3Play)
-        url4Play= url4Play[0]
+        try:                
+                filme = idsT[i]
+                xbmc.log('[plugin.video.SuperFlix] L282 - ' + str(filme), xbmc.LOGNOTICE)
+                url2Play = filme
+                url3Play = common.OpenURL(url2Play)
+                url4Play = re.compile('(https.+?")').findall(url3Play)
+                url4Play= url4Play[0]
+        except IndexError as url4Play:
+			sys.exit()
         
         try:
 
@@ -2144,7 +2147,7 @@ def PlaySSF(): #405
                     else:
                         PlayUrl(name, cachefolder + "movies.m3u8", iconimage, info)
 
-            elif 'fb.sfplayer' in url4Play:
+            elif 'sfplayer' in url4Play:
                     legenda3 = re.compile('vl(.+?)"').findall(url4Play)
                     url12 = re.compile('net\/(.+?\w+.\w+)').findall(url4Play)
                     url12= url12[0].replace("embedplay","https://fb.sfplayer.net/getLinkStreamMd5")
@@ -2203,14 +2206,14 @@ def PlaySSFS(): #406
         srvs = srvs[0]('li')
         
         for s in srvs:
-            titsT.append(s.text.replace("SuperFlix FBDublado","[COLOR green][B]Dublado[/B][/COLOR]").replace("SuperFlix FBLegendado","[COLOR green][B]Legendado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]"))
+            titsT.append(s.text.replace("SuperFlix FBDublado","[COLOR green][B]Dublado[/B][/COLOR]").replace("SuperFlixNacional","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlix FBLegendado","[COLOR green][B]Legendado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]").replace("- SD","[B]- SD[/B]"))
 
         if not titsT : return
         
 
         index = xbmcgui.Dialog().select('Selecione uma das fontes suportadas :', titsT)
 
-        if index == -1 : return
+        #if index == -1 : return
 
         i = int(index)
         
@@ -2234,13 +2237,16 @@ def PlaySSFS(): #406
                 urlS = 'https://www.superflix.net/?trembed=%s&trid=%s&trtype=2' % (i,postid)
                 idsT.append(urlS)
             except:
-                pass                               
-        filme = idsT[i]
-        xbmc.log('[plugin.video.SuperFlix] L282 - ' + str(filme), xbmc.LOGNOTICE)
-        url2Play = filme
-        url3Play = common.OpenURL(url2Play)
-        url4Play = re.compile('(https.+?")').findall(url3Play)
-        url4Play= url4Play[0]
+                pass
+        try:                
+                filme = idsT[i]
+                xbmc.log('[plugin.video.SuperFlix] L282 - ' + str(filme), xbmc.LOGNOTICE)
+                url2Play = filme
+                url3Play = common.OpenURL(url2Play)
+                url4Play = re.compile('(https.+?")').findall(url3Play)
+                url4Play= url4Play[0]
+        except IndexError as url4Play:
+			sys.exit()
         
         try:
 
@@ -2277,7 +2283,7 @@ def PlaySSFS(): #406
                     else:
                         PlayUrl(name, cachefolder + "movies.m3u8", iconimage, info)
 
-            elif 'fb.sfplayer' in url4Play:
+            elif 'sfplayer' in url4Play:
                     legenda3 = re.compile('vl(.+?)"').findall(url4Play)
                     url12 = re.compile('net\/(.+?\w+.\w+)').findall(url4Play)
                     url12= url12[0].replace("embedplay","https://fb.sfplayer.net/getLinkStreamMd5")
