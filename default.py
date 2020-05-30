@@ -4,7 +4,7 @@ import requests
 import codecs
 
 from bs4 import BeautifulSoup
-Versao = "20.07.00"
+Versao = "20.08.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1049,7 +1049,7 @@ def PlayMRC2(): #96 Play filmes direto
 		else:
 			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
 	except:
-		xbmcgui.Dialog().ok('Cube Play', 'Erro, tente novamente em alguns minutos')
+		xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
 		sys.exit()
 # ----------------- FIM REDECANAIS
 # --------------  REDECANAIS SERIES,ANIMES,DESENHOS
@@ -2042,17 +2042,17 @@ def ListMovieSF(): #411:
 		for x in range(0, 2):
 			l +=1
 			link = common.OpenURL("https://www.superflix.net/categoria/"+ClistaMEG10[int(CatMG)]+"/page/"+str(l)+"/?tr_post_type=1")
-			match = re.compile('href="([^\"]+).{1,100}src="([^\"]+).{1,300}Title".([^\<]+).{1,100}Year".([^\<]+)').findall(link.replace('\n','').replace('\r',''))
+			match = re.compile('href="([^\"]+).{1,100}src="([^\"]+).{1,300}Title".([^\<]+).{1,12}class="([^\"]+).{1,122}range">([^\"]+?)<').findall(link.replace('\n','').replace('\r',''))
 			if match:
-				for url2,img2,name2,year2 in match:
+				for url2,img2,name2,tvmovie, year2 in match:
 					img2 = img2.replace("w185", 'original').replace("https:", '').replace("w220_and_h330_face", 'original').replace("-185x278", "")
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-					if "serie" in url2: False
+					if "TpTv" in tvmovie: False
 					else:
 						#name2 = name2.replace("</font>","")
 						AddDir(name2+" ("+year2+")", url2, 405, "http:"+img2, "http:"+img2,isFolder=False,IsPlayable=True, info='[COLOR][/COLOR]')
 					p += 1
-		if p >= 40:
+		if p >= 30:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageMEG) + 2) +"][/B][/COLOR]", cPageMEG , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageMEG")
 	except:
 		pass
@@ -2070,7 +2070,7 @@ def PlaySSF(): #405
         srvs = srvs[0]('li')
         
         for s in srvs:
-            titsT.append(s.text.replace("SuperFlix FBDublado","[COLOR green][B]Dublado[/B][/COLOR]").replace("SuperFlixNacional","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlix FBLegendado","[COLOR green][B]Legendado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]").replace("- SD","[B]- SD[/B]"))
+            titsT.append(s.text.replace("SuperFlix FBDublado","[COLOR green][B]Dublado[/B][/COLOR]").replace("SuperFlixNacional","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlix FBLegendado","[COLOR green][B]Legendado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]").replace("- SD","[B]- SD[/B]").replace("OK.RULegendado","[B]Offline[/B]").replace("OpenLoadLegendado","[B]Offline[/B]").replace("OK.RUDublado","[B]Offline[/B]").replace("OpenLoadDublado","[B]Offline[/B]").replace("MegaDublado","[B]Offline[/B]").replace("MegaLegendado","[B]Offline[/B]").replace("OkDublado","[B]Offline[/B]").replace("OkLegendado","[B]Offline[/B]").replace("The VidDublado","[B]Offline[/B]").replace("The VidLegendado","[B]Offline[/B]").replace("Alta QualidadeDublado","[B]Offline[/B]").replace("Alta QualidadeLegendado","[B]Offline[/B]").replace("Vid.ToDublado","[B]Offline[/B]").replace("Vid.ToLegendado","[B]Offline[/B]"))
 
         if not titsT : return
         
@@ -2206,7 +2206,7 @@ def PlaySSFS(): #406
         srvs = srvs[0]('li')
         
         for s in srvs:
-            titsT.append(s.text.replace("SuperFlix FBDublado","[COLOR green][B]Dublado[/B][/COLOR]").replace("SuperFlixNacional","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlix FBLegendado","[COLOR green][B]Legendado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]").replace("- SD","[B]- SD[/B]"))
+            titsT.append(s.text.replace("SuperFlix FBDublado","[COLOR green][B]Dublado[/B][/COLOR]").replace("SuperFlixNacional","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlix FBLegendado","[COLOR green][B]Legendado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]").replace("- SD","[B]- SD[/B]").replace("OK.RULegendado","[B]Offline[/B]").replace("OpenLoadLegendado","[B]Offline[/B]").replace("OK.RUDublado","[B]Offline[/B]").replace("OpenLoadDublado","[B]Offline[/B]").replace("MegaDublado","[B]Offline[/B]").replace("MegaLegendado","[B]Offline[/B]").replace("OkDublado","[B]Offline[/B]").replace("OkLegendado","[B]Offline[/B]").replace("The VidDublado","[B]Offline[/B]").replace("The VidLegendado","[B]Offline[/B]").replace("Alta QualidadeDublado","[B]Offline[/B]").replace("Alta QualidadeLegendado","[B]Offline[/B]").replace("Vid.ToDublado","[B]Offline[/B]").replace("Vid.ToLegendado","[B]Offline[/B]"))
 
         if not titsT : return
         
