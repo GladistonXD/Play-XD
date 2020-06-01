@@ -4,7 +4,7 @@ import requests
 import codecs
 
 from bs4 import BeautifulSoup
-Versao = "20.08.00"
+Versao = "20.09.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -40,6 +40,7 @@ cPageFlf = Addon.getSetting("cPageFlf")
 cPageQlf = Addon.getSetting("cPageQlf")
 cPageBIZ = Addon.getSetting("cPageBIZ")
 cPageMEG = Addon.getSetting("cPageMEG")
+cPageFHD = Addon.getSetting("cPageFHD")
 
 cPageserSF = Addon.getSetting("cPageserSF")
 cEPG = Addon.getSetting("cEPG")
@@ -59,6 +60,7 @@ CatFl = Addon.getSetting("CatFl")
 CatBB = Addon.getSetting("CatBB")
 CatQ1 = Addon.getSetting("CatQ1")
 CatMG = Addon.getSetting("CatMG")
+CatHD = Addon.getSetting("CatHD")
 
 
 cSIPTV = Addon.getSetting("cSIPTV")
@@ -80,6 +82,8 @@ ClistaBIZ10=["acao",                                               "animacao",  
 ClistaBIZ11=["[COLOR yellow][B]Ação[/COLOR][/B]", "[COLOR yellow][B]Animação[/COLOR][/B]",     "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]","[COLOR yellow][B]Policial[/COLOR][/B]", "[COLOR yellow][B]Fantasia[/COLOR][/B]", "[COLOR yellow][B]Drama[/COLOR][/B]","[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]", "[COLOR yellow][B]Romance[/COLOR][/B]",                       "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]","[COLOR yellow][B]Nacionais[/COLOR][/B]",       "[COLOR yellow][B]Terror[/COLOR][/B]"]
 ClistaMEG10=["assistir-filmes-lancamentos-2020-online",                    "assistir-filmes-de-acao-online",             "assistir-filmes-de-animacao",                 "assistir-filmes-de-comedia-online",                      "faroeste",                                   "fantasia",                        "assistir-filmes-drama-online-dublado-legendado",                        "assistir-filmes-ficcao-cientifica-online",                           "assistir-filmes-de-romance-online-dublado-legendado",                                                 "documentario",                               "misterio",                           "suspense",                                     "assistir-filmes-de-terror-online-dublado-legendado"]
 ClistaMEG11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]",                   "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]",    "[COLOR yellow][B]Terror[/COLOR][/B]"]
+ClistaFHD10=["release-year/2020",                                                        "genero/acao",                       "genero/animacao",                           "genero/comedia",                      "genero/faroeste",                                   "genero/fantasia",                                    "genero/drama",                                                         "genero/ficcao",                                                                 "genero/romance",                                                                "genero/documentario",                               "genero/musical",                           "genero/suspense",                                     "genero/terror"]
+ClistaFHD11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]",                   "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]",          "[COLOR yellow][B]Suspense[/COLOR][/B]",                       "[COLOR yellow][B]Terror[/COLOR][/B]"]
 def setViewS():
 	xbmcplugin.setContent(int(sys.argv[1]), 'tvshows')
 	xbmc.executebuiltin("Container.SetViewMode(50)")
@@ -142,6 +146,7 @@ def MFilmes(): #-2
 	AddDir("[COLOR maroon][B]Filmes Lançamentos Topflix.tv[/B][/COLOR]" , "config", 310, "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR maroon][B]Filmes Topflix.tv[/B][/COLOR]" , "config", 210, "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR yellow][B]Filmes NetCine[/B][/COLOR]" , "", 71, "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", info='[COLOR][/COLOR]')
+	#AddDir("[COLOR palevioletred][B]Filmes VerFilmesHD[/B][/COLOR]" , "", 530, "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR deepskyblue][B]Filmes Lançamentos Assistir.biz[/B][/COLOR]" , "", 517, "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR deepskyblue][B]Filmes Assistir.biz[/B][/COLOR]" , "", 514, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='[COLOR][/COLOR]')
 	AddDir("[COLOR springgreen][B]Filmes QuerofilmesHD[/B][/COLOR]" , "config", 510, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='[COLOR][/COLOR]')
@@ -161,6 +166,84 @@ def MSeries(): #-3
 	AddDir("[B][COLOR lightgreen]Séries Superflix[/COLOR][/B]", "config" , 401,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True)
 	setViewM()
 # --------------  Fim menu
+def FilmesHD(): # 530
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaFHD11[int(CatHD)] +"[/COLOR]", "url" ,234 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	try:
+		p= 1
+		if int(cPageFHD) > 0:
+			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageFHD) ) +"[/B]][/COLOR]", cPageFHD , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageFHD")
+		l= int(cPageFHD)*1
+		for x in range(0, 1):
+			l +=1
+			link = common.OpenURL("https://verfilmeshd.gratis/"+ClistaFHD10[int(CatHD)]+"/page/"+ str(l) +"/")
+			match = re.compile('href="([^\"]+)".{1,60}oldtitle="([^\"]+)".{1,30}img src="([^\"]+)".+?IMDb..([^\"].+?)<.+?tag">([^\"].+?)<').findall(link)
+			if match:
+				for url2, name2, img2, imdb, ano in match:
+					name2= name2.replace("Online","").replace("Dublado", "[COLOR blue] (Dublado)[/COLOR]").replace("Legendado", "[COLOR blue] (Legendado)[/COLOR]").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…').replace('&#039;',"'")
+					if "tvshows" in url2: False
+					else:
+						AddDir(name2, url2, 531, img2, img2, isFolder=True, IsPlayable=True, info="IMDB: "+imdb+"   Ano: "+ano)
+					p += 1
+			else:
+				break
+		if p >= 30:
+			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageFHD) + 2) +"[/B]][/COLOR]", cPageFHD , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageFHD")
+	except:
+		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
+def FilmesHDmenu(): #531
+	try:	
+		link = common.OpenURL(url)
+		hexd = re.compile('play-ico.php.v1=([^\"].+)" fra').findall(link)
+		hexd= hexd[0]
+		sinopse = re.compile('f-desc">([^\"]+).<\/p>.<\/d').findall(link)
+		sinopse= sinopse[0]
+		AddDir(name, hexd, 532, iconimage, iconimage, isFolder=False, IsPlayable=True, info=sinopse)
+	except:
+		pass
+def FilmesHDPlay(): #532
+        try:
+            if 'waaw.tv' in url:
+                    url1 = requests.get(url, headers={'Referer': 'https://waaw.tv/', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0'})
+                    url1x = re.compile("<script>\s.+.\s+.+?location.replace.'(.+?)'").findall(url1.text)
+                    url1x = url1x[0]
+                    url2x = "https://waaw.tv" + url1x
+                    url3x = requests.get(url2x,headers={'Referer': 'https://waaw.tv/', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0'})
+                    url4x = re.compile('iframe src="(.+?)"').findall(url3x.text)
+                    url4x = url4x[0]
+                    url5x = "https://waaw.tv" + url4x
+                    urlx = requests.get(url5x,headers={'Referer': 'https://waaw.tv/', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0'})
+                    hls = re.compile('content="https:\/\/cdn-(\w+)').findall(urlx.text)
+                    hls = hls[0]
+                    date = re.compile('content="https:\/\/.+?files.\w+.(\w+.\w+.\w+.\w+)').findall(urlx.text)
+                    date = date[0]
+                    date2 = re.compile('content="https:\/\/.+?files.\w+.\w+.\w+.\w+.(\w+)').findall(urlx.text)
+                    date2 = date2[0]
+                    project = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=af&url=https://d5g2f6.cfeucdn.com/secip/1988/SBqZUbsMhs7tG5ALmis4iw/MTM4LjEyMi4xMC43/1591066800/hls-vod-"+ hls + "/flv/api/files/videos/" + date
+                    url2 = requests.get(project)
+                    url3 = url2.text.replace(date2,project)
+                    arquivo = open(cachefolder + "waaw.m3u8", "w+")
+                    arquivo.write(url3)
+                    arquivo.close()
+                    PlayUrl(name, cachefolder + "waaw.m3u8", iconimage, info)
+
+            if 'hqq.tv' in url:
+                    urlx = requests.get(url,headers={'Referer': 'https://waaw.tv/', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0'})
+                    hls = re.compile('content="https:\/\/cdn-(\w+)').findall(urlx.text)
+                    hls = hls[0]
+                    date = re.compile('content="https:\/\/.+?files.\w+.(\w+.\w+.\w+.\w+)').findall(urlx.text)
+                    date = date[0]
+                    date2 = re.compile('content="https:\/\/.+?files.\w+.\w+.\w+.\w+.(\w+)').findall(urlx.text)
+                    date2 = date2[0]
+                    project = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=af&url=https://d5g2f6.cfeucdn.com/secip/1988/SBqZUbsMhs7tG5ALmis4iw/MTM4LjEyMi4xMC43/1591066800/hls-vod-"+ hls + "/flv/api/files/videos/" + date
+                    url2 = requests.get(project)
+                    url3 = url2.text.replace(date2,project)
+                    arquivo = open(cachefolder + "waaw.m3u8", "w+")
+                    arquivo.write(url3)
+                    arquivo.close()
+                    PlayUrl(name, cachefolder + "waaw.m3u8", iconimage, info)                      
+        except (IndexError, ValueError):
+			xbmcgui.Dialog().ok('Play XD', 'Filme não encontrado')
+			sys.exit()
 # --------------  Inicio Assistir.biz
 def AssistirbizMENU2(): # 514
 	try:
@@ -504,8 +587,11 @@ def PlayS(): #62
 		d = xbmcgui.Dialog().select("Escolha a resolução:", listaf)
 		if d!= -1:
 			PlayUrl(name, listal[d]+"|Referer=http://.netcine.me&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla%2F5.0+%28compatible%3B+MSIE+10.6%3B+Windows+NT+6.1%3B+Trident%2F6.0%29", iconimage, info)
-	except:
+		else:
+			sys.exit()
+	except(IndexError, ValueError):
 		xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
+		sys.exit()
 # --------------------------------------
 def MoviesNC(): #71 Netcine
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
@@ -1294,20 +1380,16 @@ def Busca(): # 160
 		l= 0
 		for x in range(0, 1):
 			url = ('https://topflix.tv/landing')
-			headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 			result = {'search': d}
-			f = requests.post(url, data = result, headers=headers)
-			x = f.text.replace("><font color='white'>", " title='").replace("</font></a></h6></div><p class=", "'>")
-			match = re.findall("'(.{5,30}[^\']jpg).{2,234}on.href='\/(filmes[^\']+).{2,234}on.href='\/filmes\/assistir-online-([^\']+)\/", x)
+			f = requests.post(url, data=result)
+			f = f.text.replace("color='white'>", " title='").replace("</font>", "'").replace("><font ", "")
+			arquivo = urllib.quote(f.encode('utf8'))
+			arquivo2 = urllib.unquote(arquivo)
+			match = re.compile("'(.{5,30}[^\']jpg).+?href.+?href.+?href.+?href='([^\']+).+?tle='(\w.+?)'").findall(arquivo2)
 			if match:
 				for img2, url2, name2 in match:
 					img2 = img2.replace('170255',"330490")
-					name2 = name2.replace("-", " ")
-					url2 = url2.replace("XXXXX", " ")
-					if "" in url2:
-						AddDir("[COLOR red]" +name2+ "[/COLOR]" , RC4 + url2, 211, RC4 + img2, info="", isFolder=True, IsPlayable=False)
-					else:
-						AddDir("[COLOR red]" +name2+ "[/COLOR]" , RC4 + url2, 211, RC4 + img2, info="", isFolder=True, IsPlayable=True)
+					AddDir("[COLOR red]" +name2+ "[/COLOR]" , RC4 + url2, 211, RC4 + img2, info="", isFolder=True, IsPlayable=False)
 	except:
 		pass
 	progress.update(64, "64%", "Assistir.Biz", "")
@@ -1328,6 +1410,23 @@ def Busca(): # 160
 						AddDir("[COLOR deepskyblue]" +name2+ " - ("+ano+")[/COLOR]", url2, 515, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
 	except:
 		pass
+	#progress.update(73, "73%", "VerFilmesHD", "")
+	#try:
+	#	p= 1
+	#	AddDir("[B][COLOR palevioletred]|||[/COLOR][COLOR white]|||[/COLOR][COLOR palevioletred]|||[/COLOR][COLOR palevioletred] [VerFilmesHD] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
+	#	l= 0
+	#	for x in range(0, 1):
+	#		l +=1
+	#		link = common.OpenURL("https://verfilmeshd.gratis/?s="+d)
+	#		match = re.compile('href="([^\"]+)".{1,60}oldtitle="([^\"]+)".{1,30}img src="([^\"]+)".+?IMDb..([^\"].+?)<.+?tag">([^\"].+?)<').findall(link)
+	#		if match:
+	#			for url2, name2, img2, imdb, ano in match:
+	#				name2= name2.replace("Online","").replace("Dublado", "[COLOR blue] (Dublado)[/COLOR]").replace("Legendado", "[COLOR blue] (Legendado)[/COLOR]").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…').replace('&#039;',"'")
+	#				if "tvshows" in url2: False
+	#				else:
+	#					AddDir("[COLOR palevioletred]" +name2+"[/COLOR]", url2, 531, img2, img2, isFolder=True, IsPlayable=True, info="IMDB: "+imdb+"   Ano: "+ano)
+	#except:
+	#	pass
 	progress.update(73, "73%", "QueroFilmesHD", "")        
 	try:
 		p= 1
@@ -1362,7 +1461,7 @@ def Busca(): # 160
 #						AddDir("[COLOR red]" +name2+ "[/COLOR]" , url2, 211, " ", " ", info="", isFolder=True, IsPlayable=True)
 #	except:
 #		pass
-	progress.update(84, "84%", "RedeCanais", "")
+	progress.update(80, "80%", "RedeCanais", "")
 	try:
 		p= 1
 		AddDir("[B][COLOR blue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR blue]|||[/COLOR][COLOR blue] [RedeCanais] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
@@ -1932,7 +2031,15 @@ def GenerosMEG(): #233
 		Addon.setSetting("CatMG", str(d) )
 		Cat = d
 		Addon.setSetting("cPageMEG", "0" )
-		xbmc.executebuiltin("XBMC.Container.Refresh()")               
+		xbmc.executebuiltin("XBMC.Container.Refresh()")
+def GenerosFHD(): #234
+	d = xbmcgui.Dialog().select("Escolha o Genero", ClistaFHD11)
+	if d != -1:
+		global Cat
+		Addon.setSetting("CatHD", str(d) )
+		Cat = d
+		Addon.setSetting("cPageFHD", "0" )
+		xbmc.executebuiltin("XBMC.Container.Refresh()")             
 def ListGO(): #210 Topflix Dublado --------------------------------------------
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaFl1[int(CatFl)] +"[/COLOR]", "url" ,230 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	try:
@@ -2756,6 +2863,15 @@ elif mode == 62:
 elif mode == 71:
 	MoviesNC()
 	setViewM()
+elif mode == 530:
+	FilmesHD()
+	setViewM()
+elif mode == 531:
+	FilmesHDmenu()
+	setViewM()
+elif mode == 532:
+	FilmesHDPlay()
+	setViewM()
 elif mode == 78:
 	ListMoviesNC()
 	setViewS()
@@ -2902,7 +3018,9 @@ elif mode == 231:
 elif mode == 232: 
 	GenerosBIZ()
 elif mode == 233: 
-	GenerosMEG()    
+	GenerosMEG()
+elif mode == 234: 
+	GenerosFHD()       
 elif mode == 220:
 	Filmes96()
 elif mode == 221:
