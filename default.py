@@ -4,7 +4,7 @@ import requests
 import codecs
 
 from bs4 import BeautifulSoup
-Versao = "20.10.00"
+Versao = "20.11.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -218,7 +218,7 @@ def FilmesHDPlay(): #532
                     date = date[0]
                     date2 = re.compile('content="https:\/\/.+?files.\w+.\w+.\w+.\w+.(\w+)').findall(urlx.text)
                     date2 = date2[0]
-                    url1z = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/waaw.tv")
+                    url1z = requests.get("https://pastebin.com/raw/cvuCJsZ2")
                     date3 = re.compile("(\w.+)").findall(url1z.text)
                     date3 = date3[0]
                     project = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=af&url=https://d5g2f6.cfeucdn.com/secip/1988/"+date3+"/hls-vod-"+ hls + "/flv/api/files/videos/" + date
@@ -237,7 +237,7 @@ def FilmesHDPlay(): #532
                     date = date[0]
                     date2 = re.compile('content="https:\/\/.+?files.\w+.\w+.\w+.\w+.(\w+)').findall(urlx.text)
                     date2 = date2[0]
-                    url1z = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/waaw.tv")
+                    url1z = requests.get("https://pastebin.com/raw/cvuCJsZ2")
                     date3 = re.compile("(\w.+)").findall(url1z.text)
                     date3 = date3[0]
                     project = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=af&url=https://d5g2f6.cfeucdn.com/secip/1988/"+date3+"/hls-vod-"+ hls + "/flv/api/files/videos/" + date
@@ -246,7 +246,26 @@ def FilmesHDPlay(): #532
                     arquivo = open(cachefolder + "waaw.m3u8", "w+")
                     arquivo.write(url3)
                     arquivo.close()
-                    PlayUrl(name, cachefolder + "waaw.m3u8", iconimage, info)                      
+                    PlayUrl(name, cachefolder + "waaw.m3u8", iconimage, info)
+
+            if 'waaw1.tv' in url:
+                    urlx = requests.get(url,headers={'Referer': 'https://waaw.tv/', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0'})
+                    hls = re.compile('content="https:\/\/cdn-(\w+)').findall(urlx.text)
+                    hls = hls[0]
+                    date = re.compile('content="https:\/\/.+?files.\w+.(\w+.\w+.\w+.\w+)').findall(urlx.text)
+                    date = date[0]
+                    date2 = re.compile('content="https:\/\/.+?files.\w+.\w+.\w+.\w+.(\w+)').findall(urlx.text)
+                    date2 = date2[0]
+                    url1z = requests.get("https://pastebin.com/raw/cvuCJsZ2")
+                    date3 = re.compile("(\w.+)").findall(url1z.text)
+                    date3 = date3[0]
+                    project = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=af&url=https://d5g2f6.cfeucdn.com/secip/1988/"+date3+"/hls-vod-"+ hls + "/flv/api/files/videos/" + date
+                    url2 = requests.get(project)
+                    url3 = url2.text.replace(date2,project)
+                    arquivo = open(cachefolder + "waaw.m3u8", "w+")
+                    arquivo.write(url3)
+                    arquivo.close()
+                    PlayUrl(name, cachefolder + "waaw.m3u8", iconimage, info)                          
         except (IndexError, ValueError):
 			xbmcgui.Dialog().ok('Play XD', 'Filme não encontrado')
 			sys.exit()
