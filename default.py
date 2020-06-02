@@ -4,7 +4,7 @@ import requests
 import codecs
 
 from bs4 import BeautifulSoup
-Versao = "20.09.00"
+Versao = "20.10.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -218,7 +218,10 @@ def FilmesHDPlay(): #532
                     date = date[0]
                     date2 = re.compile('content="https:\/\/.+?files.\w+.\w+.\w+.\w+.(\w+)').findall(urlx.text)
                     date2 = date2[0]
-                    project = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=af&url=https://d5g2f6.cfeucdn.com/secip/1988/SBqZUbsMhs7tG5ALmis4iw/MTM4LjEyMi4xMC43/1591066800/hls-vod-"+ hls + "/flv/api/files/videos/" + date
+                    url1z = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/waaw.tv")
+                    date3 = re.compile("(\w.+)").findall(url1z.text)
+                    date3 = date3[0]
+                    project = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=af&url=https://d5g2f6.cfeucdn.com/secip/1988/"+date3+"/hls-vod-"+ hls + "/flv/api/files/videos/" + date
                     url2 = requests.get(project)
                     url3 = url2.text.replace(date2,project)
                     arquivo = open(cachefolder + "waaw.m3u8", "w+")
@@ -234,7 +237,10 @@ def FilmesHDPlay(): #532
                     date = date[0]
                     date2 = re.compile('content="https:\/\/.+?files.\w+.\w+.\w+.\w+.(\w+)').findall(urlx.text)
                     date2 = date2[0]
-                    project = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=af&url=https://d5g2f6.cfeucdn.com/secip/1988/SBqZUbsMhs7tG5ALmis4iw/MTM4LjEyMi4xMC43/1591066800/hls-vod-"+ hls + "/flv/api/files/videos/" + date
+                    url1z = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/waaw.tv")
+                    date3 = re.compile("(\w.+)").findall(url1z.text)
+                    date3 = date3[0]
+                    project = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=af&url=https://d5g2f6.cfeucdn.com/secip/1988/"+date3+"/hls-vod-"+ hls + "/flv/api/files/videos/" + date
                     url2 = requests.get(project)
                     url3 = url2.text.replace(date2,project)
                     arquivo = open(cachefolder + "waaw.m3u8", "w+")
