@@ -4,7 +4,7 @@ import requests
 import codecs
 
 from bs4 import BeautifulSoup
-Versao = "20.11.00"
+Versao = "20.12.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -131,7 +131,7 @@ def Categories(): #70
 	AddDir("[B][COLOR white]Filmes[/COLOR][/B]", "" , -2,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	AddDir("[COLOR white][B]Séries[/B][/COLOR]" , "", -3, "https://uploaddeimagens.com.br/images/002/376/145/original/Novo_3.jpg", "https://uploaddeimagens.com.br/images/002/376/145/original/Novo_3.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR green][B]Histórico Filmes[/B][/COLOR]", "" ,305 , "https://cdn2.iconfinder.com/data/icons/business-office-icons/256/To-do_List-512.png", "https://cdn2.iconfinder.com/data/icons/business-office-icons/256/To-do_List-512.png", info='[COLOR][/COLOR]')
-	AddDir("[COLOR pink][B]Busca[/B][/COLOR]" , "", 160, "https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", "https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", "https://azure.microsoft.com/svghandler/search/?width=400&height=315", "https://azure.microsoft.com/svghandler/search/?width=400&height=315", info="Pesquisa em todo o Addon por palavra-chave")
+	AddDir("[COLOR hotpink][B]Pesquisa[/B][/COLOR]" , "", 160, "https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", "https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", "https://azure.microsoft.com/svghandler/search/?width=400&height=315", "https://azure.microsoft.com/svghandler/search/?width=400&height=315", info="Pesquisa em todo o Addon por palavra-chave")
 	AddDir("[B][COLOR orange]Checar Atualizações[/COLOR][/B]", "" , 200,"https://uploaddeimagens.com.br/images/002/376/161/original/Update.jpg", "https://uploaddeimagens.com.br/images/002/376/161/original/Update.jpg", isFolder=False, info="Checar se há atualizações\n\nAs atualizações normalmente são automáticas\nUse esse recurso caso não esteja recebendo automaticamente\r\nVersão atual: "+Versao)
 # --------------  Menu
 def MCanais(): #-1
