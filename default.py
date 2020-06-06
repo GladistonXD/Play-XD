@@ -4,7 +4,7 @@ import requests
 import codecs
 
 from bs4 import BeautifulSoup
-Versao = "20.13.00"
+Versao = "20.14.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -545,7 +545,7 @@ def Series(): #60
 			if name2!="Close":
 				name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'")
 				img2 = re.sub('-120x170.(jpg|png)', r'.\1', img2 )
-				AddDir(name2 ,url2, 61, img2, img2, isFolder=True, info='[COLOR][/COLOR]')
+				AddDir(name2 ,url2.replace("info", "me"), 61, img2, img2, isFolder=True, info='[COLOR][/COLOR]')
 	except:
 		AddDir("Server NETCINE offline, tente novamente em alguns minutos" , "", 0, isFolder=False)
 def ListSNC(x): #61
@@ -627,7 +627,7 @@ def MoviesNC(): #71 Netcine
 		l= int(cPageGOf)*1
 		for x in range(0, 1):
 			l +=1
-			link = common.OpenURL("https://netcine.info/"+ClistaGO0[int(CatGO)]+"/page/"+ str(l)+"/?filmes").replace('\n','').replace('\r','')
+			link = common.OpenURL("https://netcine.me/"+ClistaGO0[int(CatGO)]+"/page/"+ str(l)+"/?filmes").replace('\n','').replace('\r','')
 			m = re.compile("box_movies(.+)").findall(link)
 			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(m[0])
 			if lista:
@@ -637,7 +637,7 @@ def MoviesNC(): #71 Netcine
 				img2 = img2.replace("-120x170","")
 			  if "tvshows" in url2: False
 			  else:
-				AddDir(name2,url2, 78, img2, img2, isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
+				AddDir(name2,url2.replace("info", "me"), 78, img2, img2, isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
 			  p += 1
 			 else:
 				break
