@@ -4,7 +4,7 @@ import requests
 import codecs
 
 from bs4 import BeautifulSoup
-Versao = "20.14.00"
+Versao = "20.15.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -624,8 +624,8 @@ def MoviesNC(): #71 Netcine
 		p= 1
 		if int(cPageGOf) > 0:
 			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageGOf) ) +"][/B][/COLOR]", cPageGOf , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageGOf")
-		l= int(cPageGOf)*1
-		for x in range(0, 1):
+		l= int(cPageGOf)*2
+		for x in range(0, 2):
 			l +=1
 			link = common.OpenURL("https://netcine.me/"+ClistaGO0[int(CatGO)]+"/page/"+ str(l)+"/?filmes").replace('\n','').replace('\r','')
 			m = re.compile("box_movies(.+)").findall(link)
