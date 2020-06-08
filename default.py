@@ -639,8 +639,8 @@ def MoviesNC(): #71 Netcine
 			  else:
 				AddDir(name2,url2.replace("info", "me"), 78, img2, img2, isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
 			  p += 1
-			 else:
-				break
+			 #else:
+			#	break
 		if p >= 56:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageGOf) + 2) +"][/B][/COLOR]", cPageGOf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageGOf")
 	except:
