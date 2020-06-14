@@ -4,7 +4,7 @@ import requests
 import codecs
 
 from bs4 import BeautifulSoup
-Versao = "20.16.00"
+Versao = "20.17.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -42,6 +42,7 @@ cPageBIZ = Addon.getSetting("cPageBIZ")
 cPageMEG = Addon.getSetting("cPageMEG")
 cPageFHD = Addon.getSetting("cPageFHD")
 
+cPageserQF = Addon.getSetting("cPageserQF")
 cPageserSF = Addon.getSetting("cPageserSF")
 cEPG = Addon.getSetting("cEPG")
 cOrdFO = "date" if Addon.getSetting("cOrdFO")=="0" else "title"
@@ -164,6 +165,7 @@ def MSeries(): #-3
 	AddDir("[COLOR blue][B]Desenhos RedeCanais[/B][/COLOR]" , cPageani, 150, "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", background="cPageser", info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR cyan]Séries MMFilmes[/COLOR][/B]", "config" , 190,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR lightgreen]Séries Superflix[/COLOR][/B]", "config" , 401,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True)
+	AddDir("[B][COLOR springgreen]Séries QueroFilmesHD[/COLOR][/B]", "config" , 430,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True)
 	setViewM()
 # --------------  Fim menu
 def FilmesHD(): # 530
@@ -413,15 +415,109 @@ def QuerofilmeshdPlay2(): #513
 			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
 			if d!= -1:
 				url2 = re.sub(' ', '%20', listal[d] )
+				urlx = 'https://player.filmesonlinetv.org' + url2
+				url4 = requests.get(urlx)
+				url5 = url4.text.replace("redirect/","")
+				arquivo = open(cachefolder + "querofilmes.m3u8", "w+")
+				arquivo.write(url5)
+				arquivo.close()
 				global background
 				background=background+";;;"+name+";;;MM"
 				if legenda:
 					legenda = legenda[0]
 					if not "http" in legenda:
 						legenda = "https://sub.streamservice.online/subdata/" + legenda
-					PlayUrl(name,'https://player.filmesonlinetv.org' + url2, iconimage, info, sub=legenda)
+					PlayUrl(name, cachefolder + "querofilmes.m3u8", iconimage, info, sub=legenda)
 				else:
-					PlayUrl(name,'https://player.filmesonlinetv.org' + url2, iconimage, info)
+					PlayUrl(name, cachefolder + "querofilmes.m3u8", iconimage, info)
+			else:
+				sys.exit()
+	except (IndexError, ValueError):
+		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado')
+		sys.exit()
+#########################################################
+def ListSerieQF(): #430:
+	pagina = "0" if not cPageserQF else cPageserQF
+	if int(pagina) > 0:
+		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"[/B]][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserQF")
+	y= int(pagina)*4
+	for x in range(0, 4):
+		try:
+			y +=1
+			l = common.OpenURL("https://querofilmeshd.online/genero/series/page/"+str(y)+"/")
+			match = re.compile('img src=\"([^\"]+)".alt="([^\"]+).{1,135}href="([^\"]+)".+?<span>.+?,.([^\"]+)<\/s').findall(l)
+			if match:
+				for img2,name2,url2,ano in match:
+					img2= img2.replace("w185","original")
+					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
+					AddDir(name2 + " - ("+ano+")" ,url2, 431, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
+		except:
+			pass
+	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"[/B]][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserQF")
+def ListTempQF(): #431
+	l = common.OpenURL(url).replace("\n","").replace("\r","")
+	m = re.compile('Season.(\d+)(.+?)<\/div><\/div>').findall(l)
+	for temp2,cont2 in m:
+		AddDir("Temporada "+ temp2, cont2, 432, iconimage, iconimage, isFolder=True)
+def ListEpiQF(): #432
+	epis = re.compile("numerando'>. - (\d+).+?(http[^\"].+?)'").findall(url)
+	for E,url2 in epis:
+		AddDir("Episódio "+E,url2, 433, iconimage, iconimage, isFolder=False, IsPlayable=True)
+def PlayEpiQF(): #433
+	try:	
+		link2 = requests.get(url)
+		match2 = re.findall("online\/.p=([^\"]+)'", link2.text)
+		match2 = match2[0]
+		url3 = ('https://querofilmeshd.online/wp-admin/admin-ajax.php')
+		headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+		result = {'action': 'doo_player_ajax', 'post': match2, 'nume': '1', 'type': 'tv'}
+		f = requests.post(url3, data=result, headers=headers)
+		url4 = re.compile("(https[^\"]+)' frame").findall(f.text)
+		url4 = url4[0].replace("[u'https", "https")
+		link3 = requests.get(url4)
+		w2 = link3.text
+		match3 = re.findall('idS."([^\"]+)', w2)
+		match3 = match3[0]
+		url5 = ('https://player.querofilmeshd.online//CallEpi')
+		headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+		result = {'idS': match3}
+		f2 = requests.post(url5, data=result, headers=headers)
+		hexd = codecs.decode(f2.text, "hex_codec").decode('utf-8')
+		url6 = re.compile('(id.\w+)').findall(hexd)
+		url6 = url6[0].replace("id=", "http://player.filmesonlinetv.org/playlist/")
+		url7 = "/1588804130818"
+		url8 = url6 + url7
+		m = common.OpenURL(url8)
+		if m:
+			url9 = m
+			m2 = re.compile('x([^\"]..)\s(\/.+?m3u8)').findall(url9)
+			legenda = re.compile('subdata..([^\"]+)').findall(url)
+			listar=[]
+			listal=[]
+			for res, link in m2:
+				listal.append(link)
+				listar.append(res)
+			if len(listal) <1:
+				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
+				sys.exit(int(sys.argv[1]))
+			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+			if d!= -1:
+				url2 = re.sub(' ', '%20', listal[d] )
+				urlx = 'https://player.filmesonlinetv.org' + url2
+				url4 = requests.get(urlx)
+				url5 = url4.text.replace("redirect/","")
+				arquivo = open(cachefolder + "querofilmes.m3u8", "w+")
+				arquivo.write(url5)
+				arquivo.close()
+				global background
+				background=background+";;;"+name+";;;MM"
+				if legenda:
+					legenda = legenda[0]
+					if not "http" in legenda:
+						legenda = "https://sub.streamservice.online/subdata/" + legenda
+					PlayUrl(name, cachefolder + "querofilmes.m3u8", iconimage, info, sub=legenda)
+				else:
+					PlayUrl(name, cachefolder + "querofilmes.m3u8", iconimage, info)
 			else:
 				sys.exit()
 	except (IndexError, ValueError):
@@ -1465,7 +1561,8 @@ def Busca(): # 160
 				for img2,name2,url2 in match:
 					img2= img2.replace("w92","original")
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-					if "tvshows" in url2: False
+					if "tvshows" in url2:
+						AddDir("[COLOR springgreen]" +name2+ "[/COLOR]" ,url2, 431, img2, img2, info="", isFolder=True, IsPlayable=True)
 					else:
 						AddDir("[COLOR springgreen]" +name2+ "[/COLOR]" ,url2, 511, img2, img2, info="", isFolder=True, IsPlayable=True)
 	except:
@@ -3070,6 +3167,18 @@ elif mode == 402:
 	setViewS()
 elif mode == 403:
 	ListEpiSF()
+	setViewS()
+elif mode == 430:
+	ListSerieQF()
+	setViewS()
+elif mode == 431:
+	ListTempQF()
+	setViewS()
+elif mode == 432:
+	ListEpiQF()
+	setViewS()
+elif mode == 433:
+	PlayEpiQF()
 	setViewS()
 elif mode == 510:
 	QuerofilmeshdMENU()
