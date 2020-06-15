@@ -4,7 +4,7 @@ import requests
 import codecs
 
 from bs4 import BeautifulSoup
-Versao = "20.18.00"
+Versao = "20.19.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -366,36 +366,37 @@ def QuerofilmeshdMENU(): # 510
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def QuerofilmeshdLista(): #511
-	try:	
+    i=0
+    try:	
 		link2 = requests.get(url)
 		link = common.OpenURL(url).replace('\n','').replace('\r','')
 		sinopse = re.compile('Sinopse.+?<p>(.+?)<\/p>').findall(link)
 		sinopse= sinopse[0].replace(' &#8211; Online Dublado e Legendado','').replace('Assistir ','').replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-		imagem = re.findall('"poster"> <img src="([^\"]+)"', link2.text)
 		match2 = re.findall("online\/.p=([^\"]+)'", link2.text)
 		url3 = ('https://querofilmeshd.online/wp-admin/admin-ajax.php')
 		headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 		result = {'action': 'doo_player_ajax', 'post': match2, 'nume': '1','type': 'movie'}
 		f = requests.post(url3, data = result, headers=headers)
 		url4 = re.compile("(https[^\"]+)' frame").findall(f.text)
-		url4= url4[0].replace("[u'https","https")
-		link4 = common.OpenURL(url4).replace('\n','').replace('\r','')
-		name4 = re.compile('#1 (.+?)<').findall(link4)
-		name4= name4[0].replace("LEGENDADO", "[COLOR blue] - Legendado[/COLOR]").replace("DUBLADO", "[COLOR blue] - Dublado[/COLOR]")
+		url4 = url4[0]
 		link3 = requests.get(url4)
 		w2 = link3.text
-		match3 = re.findall('idS:."([^\"]+)', w2)
-		url5 = ('https://player.querofilmeshd.online//CallPlayer')
-		headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-		result = {'id': match3}
-		f2 = requests.post(url5, data=result, headers=headers)
-		hexd = codecs.decode(f2.text, "hex_codec").decode('utf-8')
-		AddDir(name + name4, hexd, 513, iconimage, iconimage, isFolder=False, IsPlayable=True, info=sinopse)
-	except:
+		match4 = re.findall('idS:."([^\"]+)', w2)
+		name5 = re.compile('Server.#..(\w+)').findall(w2)
+		if match4:
+			for url2 in match4:
+				AddDir(name5[i].replace("DUBLADO","[COLOR limegreen][B]DUBLADO[/B][/COLOR]").replace("LEGENDADO","[COLOR crimson][B]LEGENDADO[/COLOR][/B]"), url2, 513, iconimage, iconimage, isFolder=False, IsPlayable=True, info=sinopse)
+				i+=1
+    except:
 		pass
 def QuerofilmeshdPlay2(): #513
-	try:	
-		url6 = re.compile('(id.\w+)').findall(url)
+	try:
+		url5 = ('https://player.querofilmeshd.online//CallPlayer')
+		headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+		result = {'id': url}
+		f2 = requests.post(url5, data=result, headers=headers)
+		hexd = codecs.decode(f2.text, "hex_codec").decode('utf-8')
+		url6 = re.compile('(id.\w+)').findall(hexd)
 		url6 = url6[0].replace("id=", "http://player.filmesonlinetv.org/playlist/")
 		url7 = "/1588804130818"
 		url8 = url6 + url7
@@ -2289,6 +2290,8 @@ def ListMovieSF(): #411:
 def PlaySSF(): #405
 	i=0
 	link = common.OpenURL(url).replace("</span><span>","").replace("SuperFlix FBDublado","[COLOR green][B]Dublado[/B][/COLOR]").replace("SuperFlixNacional","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlix FBLegendado","[COLOR green][B]Legendado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]").replace("- SD","[B]- SD[/B]").replace("OK.RULegendado","[B]Offline[/B]").replace("OpenLoadLegendado","[B]Offline[/B]").replace("OK.RUDublado","[B]Offline[/B]").replace("OpenLoadDublado","[B]Offline[/B]").replace("MegaDublado","[B]Offline[/B]").replace("MegaLegendado","[B]Offline[/B]").replace("OkDublado","[B]Offline[/B]").replace("OkLegendado","[B]Offline[/B]").replace("The VidDublado","[B]Offline[/B]").replace("The VidLegendado","[B]Offline[/B]").replace("Alta QualidadeDublado","[B]Offline[/B]").replace("Alta QualidadeLegendado","[B]Offline[/B]").replace("Vid.ToDublado","[B]Offline[/B]").replace("Vid.ToLegendado","[B]Offline[/B]")
+	desc = re.compile('"Description"><p>(.+?)<\/p>').findall(link)
+	desc = desc[0].replace("Assistir","").replace("Online","").replace("Dublado","").replace("Legendado","").replace("  "," ")
 	m = re.compile("id=.Opt.+?href=.+?=(.+?)'").findall(link)
 	m2 = re.compile("nv=.Opt.+?n>(.+?<.+?)<\/").findall(link)
 	if m:
@@ -2296,7 +2299,7 @@ def PlaySSF(): #405
 			hexd = codecs.decode(url2, "hex_codec").decode('utf-8')
 			if "SuperFliX" in m2[i]: False
 			else:
-				AddDir(m2[i].replace("</span>",""), hexd.replace("#038;",""), 407, iconimage, iconimage, isFolder=False, IsPlayable=True)
+				AddDir(m2[i].replace("</span>",""), hexd.replace("#038;",""), 407, iconimage, iconimage, isFolder=False, IsPlayable=True, info = desc)
 			i+=1	
                 i+=1
 def Play2SFS(): #407
