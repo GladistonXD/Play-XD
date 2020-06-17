@@ -12,6 +12,7 @@
 	<setting id="CatBB" label="CatBB" type="text" default="0" visible="false" />
 	<setting id="CatMG" label="CatMG" type="text" default="0" visible="false" />
 	<setting id="CatHD" label="CatHD" type="text" default="0" visible="false" />
+	<setting id="CatVZ" label="CatVZ" type="text" default="0" visible="false" />
 	<setting id="cEPG" label="cEPG" type="text" default="0" visible="false" />
 	<setting label="" type="sep" />
 	<setting id="cPage" label="cPage" type="text" default="0" visible="false" />
@@ -30,6 +31,7 @@
 	<setting id="cPageBIZ" label="cPageBIZ" type="text" default="0" visible="false" />
 	<setting id="cPageMEG" label="cPageMEG" type="text" default="0" visible="false" />
 	<setting id="cPageFHD" label="cPageFHD" type="text" default="0" visible="false" />
+	<setting id="cPageVZ" label="cPageVZ" type="text" default="0" visible="false" />
 	<setting label="" type="sep" />
 	<setting id="actDelHistorico" type="action" label="Limpar o Histórico" action="RunPlugin(plugin://plugin.video.GladistonXD/default.py?mode=40&url=settings)" option="close"/>
 	<setting label="" type="sep" />
