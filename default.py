@@ -4,7 +4,7 @@ import requests
 import codecs
 import urlresolver
 from bs4 import BeautifulSoup
-Versao = "20.21.00"
+Versao = "20.22.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -184,12 +184,15 @@ def SerieMenuBZ(): # 450
 		try:
 			y +=0
 			link = common.OpenURL("https://vizer.tv/includes/ajax/ajaxPagination.php?categoriesListSeries=all&anime=0&search=&page="+ str(y) +"&categoryFilterYear=all&categoryFilterOrderBy=vzViews&categoryFilterOrderWay=desc&categoryFilterQuantity=28")
-			match = re.compile('url"..([^\"]+)".+?title"..([^\"]+)".+?poster"."..([^\"]+)"').findall(link)
+			f = json.loads(link)
+			f2 = json.dumps(f, ensure_ascii=False)
+			arquivo2 = urllib.quote(f2.encode('utf8'))
+			String2 = urllib.unquote(arquivo2)
+			match = re.compile('url".."([^\"]+)".+?poster.+?\/([^\"]+).+?tle".."([^\"]+)').findall(String2)
 			if match:
-				for url2, name2, img2 in match:
+				for url2, img2, name2 in match:
 					img3 = "https://image.tmdb.org/t/p/original/" + img2
 					url3 = "https://vizer.tv/serie/online/" + url2
-					name2 = name2.replace("\u00e3","ã").replace("\u00e9","é").replace("\u00ea","ê").replace("\u00ed","í").replace("\u00fa","ú").replace("\u00e7","ç").replace("\u00e0","à").replace("\u00f3","ó").replace("\u00f5","õ").replace("\u00e1","á").replace("\u00b0","°").replace("\u00e2","â").replace("\u00f4","ô").replace("\u00c0","À").replace("\u00c9","é").replace("\u00d3","ó").replace("\u00f6","ö").replace("\u00fc","ü")
 					AddDir(name2, url3, 451, img3, img3, isFolder=True, IsPlayable=True, info="")
 		except:
 			pass
@@ -205,17 +208,17 @@ def SerieMenuBZ2(): # 451
 		pass
 def SeriePlayBZ(): # 452
 	try:	
-		i=0
+		#i=0
 		url3 = ('https://vizer.tv/includes/ajax/publicFunctions.php')
 		result = {'getEpisodes': url}
 		f = requests.post(url3, data=result)
-		match = re.compile('"id"."(.+?)"."title"."(.+?)"').findall(f.text)
-		numero = re.compile('name"."(.+?)"').findall(f.text)
+		match = re.compile('id"."(.+?)"."title"."(.+?)"img"....(.+?)".+?"name"."(.+?)"').findall(f.text)
         	if match:
-				for url2, name2 in match:
+				for url2, name2, img2, numero in match:
+					img3 = "https://image.tmdb.org/t/p/w500/" + img2
 					#name2 = name2.replace("\u00e3","ã").replace("\u00e9","é").replace("\u00ea","ê").replace("\u00ed","í").replace("\u00fa","ú").replace("\u00e7","ç").replace("\u00e0","à").replace("\u00f3","ó").replace("\u00f5","õ").replace("\u00e1","á").replace("\u00b0","°").replace("\u00e2","â").replace("\u00f4","ô").replace("\u00c0","À").replace("\u00c9","é").replace("\u00d3","ó").replace("\u00f6","ö").replace("\u00fc","ü")
-					AddDir(numero[i]+" - " + name2, url2, 453, iconimage, iconimage, isFolder=False, IsPlayable=True, info="")
-					i+=1
+					AddDir(numero+" - " + name2.replace('",',""), url2, 453, img3, img3, isFolder=False, IsPlayable=True, info="")
+					#i+=1
 	except:
 		pass
 def SeriePlayBZ2(): # 453
@@ -223,11 +226,15 @@ def SeriePlayBZ2(): # 453
 		url3 = ('https://vizer.tv/includes/ajax/publicFunctions.php')
 		result = {'getEpisodeLanguages': url}
 		f = requests.post(url3, data=result)
+		f1 = json.loads(f.text)
+		f2 = json.dumps(f1, ensure_ascii=False)
+		arquivo2 = urllib.quote(f2.encode('utf8'))
+		String2 = urllib.unquote(arquivo2)
 		if f:
-			m2 = re.compile('id"."(\w+).+?lang"."(\w+)').findall(f.text)
+			m2 = re.compile('lang".."(\w+)".+?id".."(.+?)"').findall(String2)
 			listar=[]
 			listal=[]
-			for link, res in m2:
+			for res, link in m2:
 				listal.append(link)
 				listar.append(res.replace("1","[COLOR red][B]Legendado[/B][/COLOR]").replace("2","[COLOR green][B]Dublado[/B][/COLOR]"))
 			if len(listal) <1:
@@ -236,26 +243,43 @@ def SeriePlayBZ2(): # 453
 			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
 			if d!= -1:
 				url2 = re.sub(' ', '%20', listal[d] )
-				urlx = 'https://vizer.tv/embed/getPlay.php?id='+url2+'&sv=mixdrop' 
-				url4 = requests.get(urlx)
-				legenda = re.compile("sub=(.+?srt)").findall(url4.text)
-				link2 = re.compile('href="(.+?)"').findall(url4.text)
-				link2= link2[0]
-				url2Play = urlresolver.resolve(link2)
-				global background
-				background=background+";;;"+name+";;;MM"
-				if legenda:
-					legenda = legenda[0]
-					if not "http" in legenda:
-						legenda = legenda
-					PlayUrl(name, url2Play, iconimage, info, sub=legenda)
+				f2 = 'https://vizer.tv/embed/getPlay.php?id=" fembed" ,https://vizer.tv/embed/getPlay.php?id=" mixdrop"'
+				m22 = re.compile('(http.+?)".(.+?)"').findall(f2)
+				listar2=[]
+				listal2=[]
+				for link2, res2 in m22:
+					listal2.append(link2)
+					listar2.append(res2.replace("fembed","[B][COLOR deepskyblue]Fembed[/B][/COLOR]").replace("mixdrop","[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]"))
+				if len(listal2) <1:
+					xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
+					sys.exit(int(sys.argv[1]))
+				d2 = xbmcgui.Dialog().select("Selecione a resolução", listar2)
+				if d2!= -1:
+					url22 = re.sub(' ', '%20', listal2[d2] )
+					url32 = re.sub(' ', '%20', listar2[d2].replace("[B][COLOR deepskyblue]Fembed[/B][/COLOR]","fembed").replace("[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]","mixdrop") )
+					urlx = url22 + url2 + "&sv=" + url32
+					url4 = requests.get(urlx)
+					legenda = re.compile("(.{1,7}\/wa.+?srt)").findall(url4.text)
+					link2 = re.compile('href="(http.+?\/\/.+?\/\w.\w+)').findall(url4.text)
+					link2= link2[0]
+					url2Play = urlresolver.resolve(link2)
+					global background
+					background=background+";;;"+name+";;;MM"
+					if legenda:
+						legenda = legenda[0]
+						if not "http" in legenda:
+							legenda = legenda
+						PlayUrl(name, url2Play.replace("480p","720p"), iconimage, info, sub=legenda)
+					else:
+						PlayUrl(name, url2Play.replace("480p","720p"), iconimage, info)
 				else:
-					PlayUrl(name, url2Play, iconimage, info)
+					sys.exit()
 			else:
-				sys.exit()
-	except (IndexError, ValueError):
-		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado')
+				sys.exit()        
+	except (IndexError, ValueError, urlresolver.resolver.ResolverError):
+		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado, tente a outra opção')
 		sys.exit()
+		#pass
 #------------------ Vizer.tv SerieMenuBZ
 def MenuVizer(): # 600
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaVZ11[int(CatVZ)] +"[/COLOR]", "url" ,235 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
@@ -267,12 +291,15 @@ def MenuVizer(): # 600
 		for x in range(0, 1):
 			l +=0
 			link = common.OpenURL("https://vizer.tv/includes/ajax/ajaxPagination.php?categoriesListMovies="+ClistaVZ10[int(CatVZ)]+"&search=&page="+ str(l) +"&categoryFilterYear=all&categoryFilterOrderBy=year&categoryFilterOrderWay=desc&categoryFilterQuantity=28")
-			match = re.compile('url"..([^\"]+)".+?title"..([^\"]+).+?year"."([^\"]+)".+?poster"."..([^\"]+)').findall(link)
+			f = json.loads(link)
+			f2 = json.dumps(f, ensure_ascii=False)
+			arquivo2 = urllib.quote(f2.encode('utf8'))
+			String2 = urllib.unquote(arquivo2)
+			match = re.compile('title".."([^\"]+)".+?url".."([^\"]+).+?\/([^\"]+)".+?year".."([^\"]+)"').findall(String2)
 			if match:
-				for url2, name2, ano, img2 in match:
+				for name2, url2, img2, ano in match:
 					img3 = "https://image.tmdb.org/t/p/original/" + img2
 					url3 = "https://vizer.tv/filme/online/" + url2
-					name2 = name2.replace("\u00e3","ã").replace("\u00e9","é").replace("\u00ea","ê").replace("\u00ed","í").replace("\u00fa","ú").replace("\u00e7","ç").replace("\u00e0","à").replace("\u00f3","ó").replace("\u00f5","õ").replace("\u00e1","á").replace("\u00b0","°").replace("\u00e2","â").replace("\u00f4","ô").replace("\u00c0","À").replace("\u00c9","é").replace("\u00d3","ó").replace("\u00f6","ö").replace("\u00fc","ü")
 					AddDir(name2 + " - ("+ano+")", url3, 601, img3, img3, isFolder=True, IsPlayable=True, info="")
 					p += 1
 		if p >= 27:
@@ -289,27 +316,53 @@ def MenuVizer2(): # 601
 		url3 = ('https://vizer.tv/includes/ajax/publicFunctions.php')
 		result = {'watchMovie': hexd}
 		f = requests.post(url3, data=result)
-		match = re.compile('id"."(\w+).+?lang"."(\w+)').findall(f.text)
+		f1 = json.loads(f.text)
+		f2 = json.dumps(f1, ensure_ascii=False)
+		arquivo2 = urllib.quote(f2.encode('utf8'))
+		String2 = urllib.unquote(arquivo2)
+		match = re.compile('lang".."(.+?)".+?id".."(.+?)"').findall(String2)
         	if match:
-				for url2, name2 in match:
-					name2 = name2.replace("Ingl"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Portugu"," [COLOR green][B]Dublado[/B][/COLOR]")
-					url3 = "https://vizer.tv/embed/getPlay.php?id="+url2+"&sv=mixdrop"
-					AddDir(name2, url3, 602, iconimage, iconimage, isFolder=False, IsPlayable=True, info= sinopse)
+				for name2, url2 in match:
+					name2 = name2.replace("Inglês"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Português"," [COLOR green][B]Dublado[/B][/COLOR]")
+					AddDir(name2, url2, 602, iconimage, iconimage, isFolder=False, IsPlayable=True, info= sinopse)
 	except:
 		pass
 def PlayVizer(): # 602
-	link = common.OpenURL(url)
-	link2 = re.compile('href="(.+?)"').findall(link)
-	link2= link2[0]
-	legenda = re.compile("sub=(.+?srt)").findall(link)
-	url2Play = urlresolver.resolve(link2)
-    	if legenda:
-			legenda = legenda[0]
-			if not "http" in legenda:
-				legenda = legenda
-			PlayUrl(name, url2Play, iconimage, info, sub=legenda)
-	else:
-		PlayUrl(name, url2Play, iconimage, info, "", metah) 
+	try:	
+			f = 'https://vizer.tv/embed/getPlay.php?id=" mixdrop" ,https://vizer.tv/embed/getPlay.php?id=" fembed"'
+			m2 = re.compile('(http.+?)".(.+?)"').findall(f)
+			listar=[]
+			listal=[]
+			for link, res in m2:
+				listal.append(link)
+				listar.append(res.replace("fembed","[B][COLOR deepskyblue]Fembed[/B][/COLOR]").replace("mixdrop","[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]"))
+			if len(listal) <1:
+				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
+				sys.exit(int(sys.argv[1]))
+			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+			if d!= -1:
+				url2 = re.sub(' ', '%20', listal[d] )
+				url3 = re.sub(' ', '%20', listar[d].replace("[B][COLOR deepskyblue]Fembed[/B][/COLOR]","fembed").replace("[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]","mixdrop") )
+				urlx = url2 + url + "&sv=" + url3
+				url4 = requests.get(urlx)
+				legenda = re.compile("(.{1,7}\/wa.+?srt)").findall(url4.text)
+				link2 = re.compile('href="(http.+?\/\/.+?\/\w.\w+)').findall(url4.text)
+				link2= link2[0]
+				url2Play = urlresolver.resolve(link2)
+				global background
+				background=background+";;;"+name+";;;MM"
+				if legenda:
+					legenda = legenda[0]
+					if not "http" in legenda:
+						legenda = legenda
+					PlayUrl(name, url2Play.replace("480p","720p"), iconimage, info, sub=legenda)
+				else:
+					PlayUrl(name, url2Play.replace("480p","720p"), iconimage, info)
+			else:
+				sys.exit()
+	except (IndexError, ValueError, urlresolver.resolver.ResolverError):
+		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado, tente a outra opção')
+		sys.exit()
 # --------------  Fim menu
 def FilmesHD(): # 530
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaFHD11[int(CatHD)] +"[/COLOR]", "url" ,234 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
@@ -892,6 +945,46 @@ def MoviesNC(): #71 Netcine
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageGOf) + 2) +"][/B][/COLOR]", cPageGOf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageGOf")
 	except:
 		AddDir('"Fim de páginas, retorne"' , "", 0, "", "", 0,isFolder=False)
+########################opção 2
+#	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+#	try:
+#		p= 1
+#		if int(cPageGOf) > 0:
+#			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageGOf) ) +"][/B][/COLOR]", cPageGOf , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageGOf")
+#		l= int(cPageGOf)*2
+#		for x in range(0, 2):
+#			l +=1
+#			headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+#
+#			tokens, user_agent = cloudscraper2.get_tokens("https://netcine.info/", headers = headers)
+#			pickle.dump(tokens, open(cachefolder + "tokens.txt","wb"))
+#			arquivo2 = open(cachefolder + 'tokens.txt', 'r')
+#			url4 = arquivo2.read()
+#			url5 = re.compile("rance'+\s.+\s.'(.+?)'").findall(url4)
+#			url6 = url5[0]
+#			headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+#			cookies = {'cf_clearance': url6}
+#			link = requests.get("https://netcine.info/"+ClistaGO0[int(CatGO)]+"/page/"+ str(l)+"/?filmes", headers=headers, cookies=cookies)
+#			arquivo = open(cachefolder + "netcine.txt", "w+")
+#			arquivo.write(link.text.encode('utf-8'))
+#			arquivo.close()
+#			arquivo = open(cachefolder + 'netcine.txt', 'r')
+#			url3 = arquivo.read()
+#			lista = re.compile('img src="([^\"]+).+?alt="([^\"]+).+\s+.+?href="([^\"]+)').findall(url3)
+#			if lista:
+#			 for img2,name2,url2 in lista:
+#			  if name2!="Close" and name2!="NetCine":
+#				name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'")
+#				img2 = img2.replace("-120x170","")
+#			  if "tvshows" in url2: False
+#			  else:
+#				AddDir(name2,url2, 78, img2, img2, isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
+#			  p += 1
+#		if p >= 56:
+#			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageGOf) + 2) +"][/B][/COLOR]", cPageGOf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageGOf")
+#	except:
+#		pass
+########################
 #def MoviesNC2(): #71
 #	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 #	try:
@@ -1130,6 +1223,35 @@ def ListMoviesNC(): #78
 			i+=1
 	except urllib2.URLError, e:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)
+################# opção 2
+#	try:
+#		headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+#		tokens, user_agent = cloudscraper2.get_tokens("https://netcine.info/category/acao/", headers = headers)
+#		pickle.dump(tokens, open(cachefolder + "tokens.txt","wb"))
+#		arquivo2 = open(cachefolder + 'tokens.txt', 'r')
+#		url4 = arquivo2.read()
+#		url5 = re.compile("rance'+\s.+\s.'(.+?)'").findall(url4)
+#		url6 = url5[0]
+#		headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+#		cookies = {'cf_clearance': url6}
+#		link = requests.get(url, headers=headers, cookies=cookies)
+#		arquivo = open(cachefolder + "netcine.txt", "w+")
+#		arquivo.write(link.text.encode('utf-8'))
+#		arquivo.close()
+#		arquivo = open(cachefolder + 'netcine.txt', 'r')
+#		url3 = arquivo.read()
+#		m = re.compile("\"play-.\".+?src=\"([^\"]+)").findall(url3)
+#		m2 = re.compile("\#play-.+\s+\s(\w*)").findall(url3)
+#		info2 = re.compile('<h2>Synopsis<\/h2>+\s+.p>(.*?)<\/').findall(url3)
+#		info2 = re.sub('<(.*?)>', '', info2[0] ) if info2 else ""
+#		info2 = info2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”')
+#		i=0
+#		for name2 in m2:
+#			AddDir(name +" [COLOR blue]("+ name2 +")[/COLOR]", m[i], 79, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
+#			i+=1
+#	except urllib2.URLError, e:
+#		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)
+########################
 def PlayMNC(): #79
 	try:
 		i=0
