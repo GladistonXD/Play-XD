@@ -3,8 +3,8 @@ import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, ha
 import requests
 import codecs
 import urlresolver
-from bs4 import BeautifulSoup
-Versao = "20.22.00"
+#from bs4 import BeautifulSoup
+Versao = "20.23.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -243,7 +243,7 @@ def SeriePlayBZ2(): # 453
 			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
 			if d!= -1:
 				url2 = re.sub(' ', '%20', listal[d] )
-				f2 = 'https://vizer.tv/embed/getPlay.php?id=" fembed" ,https://vizer.tv/embed/getPlay.php?id=" mixdrop"'
+				f2 = 'https://vizer.tv/embed/getPlay.php?id=" mixdrop" ,https://vizer.tv/embed/getPlay.php?id=" fembed"'
 				m22 = re.compile('(http.+?)".(.+?)"').findall(f2)
 				listar2=[]
 				listal2=[]
@@ -1795,16 +1795,16 @@ def Busca(): # 160
 		for x in range(0, 1):
 			l +=1
 			link = common.OpenURL("https://vizer.tv/pesquisar/"+d.replace("%2B","%20"))
-			match = re.compile('class="(.+?)".href="(.+?)".+\s.+?="(.+?)" class="lazy"').findall(link)
-			name2 = re.compile('Assistir (.+?) online" class="g').findall(link)
+			match = re.compile('Assistir (.+?) online" class="(.+?)".href="(.+?)".+\s.+?="(.+?)" class="lazy"').findall(link)
+			#name2 = re.compile('Assistir (.+?) online" class="g').findall(link)
 			if match:
-				for tipo,url2, img2 in match:
+				for name2, tipo,url2, img2 in match:
 					url3 = "https://vizer.tv/" + url2
 					img2= img2.replace("w185","original")
 					if "serie" in tipo:
-						AddDir("[COLOR mediumpurple]" +name2[i]+ "[/COLOR]" ,url3, 451, img2, img2, info="", isFolder=True, IsPlayable=True)
+						AddDir("[COLOR mediumpurple]" +name2+ "[/COLOR]" ,url3, 451, img2, img2, info="", isFolder=True, IsPlayable=True)
 					else:
-						AddDir("[COLOR mediumpurple]" +name2[i]+ "[/COLOR]" ,url3, 601, img2, img2, info="", isFolder=True, IsPlayable=True)
+						AddDir("[COLOR mediumpurple]" +name2+ "[/COLOR]" ,url3, 601, img2, img2, info="", isFolder=True, IsPlayable=True)
 						i+=1
 	except:
 		pass    
@@ -1878,8 +1878,34 @@ def Busca(): # 160
 #						AddDir("[COLOR red]" +name2+ "[/COLOR]" , url2, 211, " ", " ", info="", isFolder=True, IsPlayable=True)
 #	except:
 #		pass
+#	progress.update(80, "80%", "RedeCanais", "")
+#	try:
+#		i=0
+#		p= 1
+#		AddDir("[B][COLOR blue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR blue]|||[/COLOR][COLOR blue] [RedeCanais] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
+#		l= 0
+#		for x in range(0, 1):
+#			l +=1
+#			url3 = ('https://redecanais.se/ajax_search.php')
+#			result = {'queryString': d}
+#			f = requests.post(url3, data=result)
+#			arquivo2 = urllib.quote(f.text.encode('utf8'))
+#			String2 = urllib.unquote(arquivo2)
+#			match = re.compile('href="(.+?)">(.+?)<').findall(String2)
+#			img2 = re.compile('href=".+?>(.+?) -').findall(String2.replace(" (Dublado)", "").replace(" (Legendado)", ""))
+#			if match:
+#				for url2, name2 in match:
+#					if "browse" in url2 or "lista" in url2:
+#						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 135, "https://redecanais.se/imgs-videos/Filmes/"+ img2[i].replace(" ","%20")+".jpg", "https://redecanais.se/imgs-videos/Filmes/"+ img2[i].replace(" ","%20")+".jpg", info="", isFolder=True, IsPlayable=False)
+#					#if "lista" in url2:
+#					else:
+#						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 96, "https://redecanais.se/imgs-videos/Filmes/"+ img2[i].replace(" ","%20").replace(":"," -")+".jpg", "https://redecanais.se/imgs-videos/Filmes/"+ img2[i].replace(" ","%20")+".jpg", info="", isFolder=False, IsPlayable=True)
+#					i+=1
+#	except:
+#		pass
 	progress.update(80, "80%", "RedeCanais", "")
 	try:
+		i=0
 		p= 1
 		AddDir("[B][COLOR blue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR blue]|||[/COLOR][COLOR blue] [RedeCanais] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		l= 0
@@ -1887,13 +1913,15 @@ def Busca(): # 160
 			link = common.OpenURL("https://www.google.com/search?q="+d+"+site:redecanais.se&hl=pt-BR&&start="+str(l))
 			l +=2
 			match = re.compile('href\=\"(https?\:.{0,50}redecanais[^\"]+)\".{50,200}\>([^\<]+)').findall(link.replace('\n','').replace('\r',''))
+			img2 = re.compile('href\=\"https?\:.{0,50}redecanais[^\"]+\".{50,200}\>([^\<].+?) -').findall(link.replace('\n','').replace('\r','').replace(" (Dublado)", "").replace(" (Legendado)", ""))
 			if match:
 				for url2, name2 in match:
 					if "browse" in url2 or "lista" in url2:
-						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 135, " ", " ", info="", isFolder=True, IsPlayable=False)
+						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 135, "https://redecanais.se/imgs-videos/Series/"+ img2[i].replace(" ","%20")+"%201.jpg", "https://redecanais.se/imgs-videos/Series/"+ img2[i].replace(" ","%20")+"%201.jpg", info="", isFolder=True, IsPlayable=False)
 					if "lista" in url2 or "Lista" in name2 or "browse-filmes-dublado-videos" in url2 or "topvideos" in url2 or "tags" in url2 or "Filmes em Lançamentos - RedeCanais" in name2: False
 					else:
-						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 96, " ", " ", info="", isFolder=False, IsPlayable=True)
+						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 96, "https://redecanais.se/imgs-videos/Filmes/"+ img2[i].replace(" ","%20").replace(":"," -")+".jpg", "https://redecanais.se/imgs-videos/Filmes/"+ img2[i].replace(" ","%20")+".jpg", info="", isFolder=False, IsPlayable=True)
+					i+=1
 	except:
 		pass
 	progress.update(100, "100%", "SuperFlix", "")        
