@@ -2,9 +2,9 @@
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 import requests
 import codecs
-import urlresolver
+#import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.23.00"
+Versao = "20.24.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -262,16 +262,45 @@ def SeriePlayBZ2(): # 453
 					legenda = re.compile("(.{1,7}\/wa.+?srt)").findall(url4.text)
 					link2 = re.compile('href="(http.+?\/\/.+?\/\w.\w+)').findall(url4.text)
 					link2= link2[0]
-					url2Play = urlresolver.resolve(link2)
-					global background
-					background=background+";;;"+name+";;;MM"
-					if legenda:
-						legenda = legenda[0]
-						if not "http" in legenda:
-							legenda = legenda
-						PlayUrl(name, url2Play.replace("480p","720p"), iconimage, info, sub=legenda)
-					else:
-						PlayUrl(name, url2Play.replace("480p","720p"), iconimage, info)
+					if 'mixdrop' in link2:
+						headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+						html = requests.get(link2, headers=headers)
+						w1 = re.compile("'.MDCore.s.(\w+)").findall(html.text)
+						w2 = re.compile("'.MDCore.s.+?\W(\w+)").findall(html.text)
+						w3 = re.compile("wurl..\w+.(\w+)").findall(html.text)
+						w4 = re.compile("wurl..(\w+)").findall(html.text)
+						contents = "https://s-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
+						if legenda:
+							legenda = legenda[0]
+							if not "http" in legenda:
+								legenda = legenda
+							PlayUrl(name, contents, iconimage, info, sub=legenda)
+						else:
+							PlayUrl(name, contents, iconimage, info)
+                        
+					if 'feurl.com' in link2:
+						link2 = link2.replace("v","api/source")
+						result = {'r': '&', 'd': 'feurl.com'}
+						f = requests.post(link2, data=result)
+						m2 = re.compile('token=(.\w+).+?:"(\w+)').findall(f.text)
+						listar=[]
+						listal=[]
+						for link, res in m2:
+							listal.append(link)
+							listar.append(res)
+						if len(listal) <1:
+							xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
+							sys.exit(int(sys.argv[1]))
+						d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+						if d!= -1:
+							url2 = re.sub(' ', '%20', listal[d] )
+						if legenda:
+							legenda = legenda[0]
+							if not "http" in legenda:
+								legenda = legenda
+							PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info, sub=legenda)
+						else:
+							PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info)
 				else:
 					sys.exit()
 			else:
@@ -348,16 +377,45 @@ def PlayVizer(): # 602
 				legenda = re.compile("(.{1,7}\/wa.+?srt)").findall(url4.text)
 				link2 = re.compile('href="(http.+?\/\/.+?\/\w.\w+)').findall(url4.text)
 				link2= link2[0]
-				url2Play = urlresolver.resolve(link2)
-				global background
-				background=background+";;;"+name+";;;MM"
-				if legenda:
-					legenda = legenda[0]
-					if not "http" in legenda:
-						legenda = legenda
-					PlayUrl(name, url2Play.replace("480p","720p"), iconimage, info, sub=legenda)
-				else:
-					PlayUrl(name, url2Play.replace("480p","720p"), iconimage, info)
+				if 'mixdrop' in link2:
+					headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+					html = requests.get(link2, headers=headers)
+					w1 = re.compile("'.MDCore.s.(\w+)").findall(html.text)
+					w2 = re.compile("'.MDCore.s.+?\W(\w+)").findall(html.text)
+					w3 = re.compile("wurl..\w+.(\w+)").findall(html.text)
+					w4 = re.compile("wurl..(\w+)").findall(html.text)
+					contents = "https://s-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
+					if legenda:
+						legenda = legenda[0]
+						if not "http" in legenda:
+							legenda = legenda
+						PlayUrl(name, contents, iconimage, info, sub=legenda)
+					else:
+						PlayUrl(name, contents, iconimage, info)
+                        
+				if 'feurl.com' in link2:
+					link2 = link2.replace("v","api/source")
+					result = {'r': '&', 'd': 'feurl.com'}
+					f = requests.post(link2, data=result)
+					m2 = re.compile('token=(.\w+).+?:"(\w+)').findall(f.text)
+					listar=[]
+					listal=[]
+					for link, res in m2:
+						listal.append(link)
+						listar.append(res)
+					if len(listal) <1:
+						xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
+						sys.exit(int(sys.argv[1]))
+					d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+					if d!= -1:
+						url2 = re.sub(' ', '%20', listal[d] )
+					if legenda:
+						legenda = legenda[0]
+						if not "http" in legenda:
+							legenda = legenda
+						PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info, sub=legenda)
+					else:
+						PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info)
 			else:
 				sys.exit()
 	except (IndexError, ValueError, urlresolver.resolver.ResolverError):
