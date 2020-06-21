@@ -4,7 +4,7 @@ import requests
 import codecs
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.24.00"
+Versao = "20.25.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -238,9 +238,9 @@ def SeriePlayBZ2(): # 453
 				listal.append(link)
 				listar.append(res.replace("1","[COLOR red][B]Legendado[/B][/COLOR]").replace("2","[COLOR green][B]Dublado[/B][/COLOR]"))
 			if len(listal) <1:
-				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
+				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 				sys.exit(int(sys.argv[1]))
-			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+			d = xbmcgui.Dialog().select("Selecione o idioma", listar)
 			if d!= -1:
 				url2 = re.sub(' ', '%20', listal[d] )
 				f2 = 'https://vizer.tv/embed/getPlay.php?id=" mixdrop" ,https://vizer.tv/embed/getPlay.php?id=" fembed"'
@@ -251,9 +251,9 @@ def SeriePlayBZ2(): # 453
 					listal2.append(link2)
 					listar2.append(res2.replace("fembed","[B][COLOR deepskyblue]Fembed[/B][/COLOR]").replace("mixdrop","[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]"))
 				if len(listal2) <1:
-					xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
+					xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 					sys.exit(int(sys.argv[1]))
-				d2 = xbmcgui.Dialog().select("Selecione a resolução", listar2)
+				d2 = xbmcgui.Dialog().select("Selecione o servidor", listar2)
 				if d2!= -1:
 					url22 = re.sub(' ', '%20', listal2[d2] )
 					url32 = re.sub(' ', '%20', listar2[d2].replace("[B][COLOR deepskyblue]Fembed[/B][/COLOR]","fembed").replace("[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]","mixdrop") )
@@ -283,13 +283,14 @@ def SeriePlayBZ2(): # 453
 						result = {'r': '&', 'd': 'feurl.com'}
 						f = requests.post(link2, data=result)
 						m2 = re.compile('token=(.\w+).+?:"(\w+)').findall(f.text)
+						m2.reverse()
 						listar=[]
 						listal=[]
 						for link, res in m2:
 							listal.append(link)
 							listar.append(res)
 						if len(listal) <1:
-							xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
+							xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 							sys.exit(int(sys.argv[1]))
 						d = xbmcgui.Dialog().select("Selecione a resolução", listar)
 						if d!= -1:
@@ -305,8 +306,8 @@ def SeriePlayBZ2(): # 453
 					sys.exit()
 			else:
 				sys.exit()        
-	except (IndexError, ValueError, urlresolver.resolver.ResolverError):
-		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado, tente a outra opção')
+	except (IndexError, ValueError):
+		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado, tente outro servidor')
 		sys.exit()
 		#pass
 #------------------ Vizer.tv SerieMenuBZ
@@ -366,9 +367,9 @@ def PlayVizer(): # 602
 				listal.append(link)
 				listar.append(res.replace("fembed","[B][COLOR deepskyblue]Fembed[/B][/COLOR]").replace("mixdrop","[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]"))
 			if len(listal) <1:
-				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
+				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 				sys.exit(int(sys.argv[1]))
-			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+			d = xbmcgui.Dialog().select("Selecione o servidor", listar)
 			if d!= -1:
 				url2 = re.sub(' ', '%20', listal[d] )
 				url3 = re.sub(' ', '%20', listar[d].replace("[B][COLOR deepskyblue]Fembed[/B][/COLOR]","fembed").replace("[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]","mixdrop") )
@@ -398,13 +399,14 @@ def PlayVizer(): # 602
 					result = {'r': '&', 'd': 'feurl.com'}
 					f = requests.post(link2, data=result)
 					m2 = re.compile('token=(.\w+).+?:"(\w+)').findall(f.text)
+					m2.reverse()
 					listar=[]
 					listal=[]
 					for link, res in m2:
 						listal.append(link)
 						listar.append(res)
 					if len(listal) <1:
-						xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
+						xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 						sys.exit(int(sys.argv[1]))
 					d = xbmcgui.Dialog().select("Selecione a resolução", listar)
 					if d!= -1:
@@ -418,8 +420,8 @@ def PlayVizer(): # 602
 						PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info)
 			else:
 				sys.exit()
-	except (IndexError, ValueError, urlresolver.resolver.ResolverError):
-		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado, tente a outra opção')
+	except (IndexError, ValueError):
+		xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 		sys.exit()
 # --------------  Fim menu
 def FilmesHD(): # 530
