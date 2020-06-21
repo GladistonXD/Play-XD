@@ -4,7 +4,7 @@ import requests
 import codecs
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.26.00"
+Versao = "20.27.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -265,11 +265,13 @@ def SeriePlayBZ2(): # 453
 					if 'mixdrop' in link2:
 						headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
 						html = requests.get(link2, headers=headers)
-						w1 = re.compile("'.MDCore.s.(\w+)").findall(html.text)
-						w2 = re.compile("'.MDCore.s.+?\W(\w+)").findall(html.text)
-						w3 = re.compile("wurl..\w+.(\w+)").findall(html.text)
-						w4 = re.compile("wurl..(\w+)").findall(html.text)
-						contents = "https://s-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
+						w = re.compile("'.MDCore.(.)").findall(html.text)
+						w = w[0].replace("d","a")
+						w1 = re.compile("(delivery\w+)").findall(html.text)
+						w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
+						w3 = re.compile("(\w+).vfile").findall(html.text)
+						w4 = re.compile("(\w+).\w+.vfile").findall(html.text)
+						contents = "https://"+w+"-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
 						if legenda:
 							legenda = legenda[0]
 							if not "http" in legenda:
@@ -381,11 +383,13 @@ def PlayVizer(): # 602
 				if 'mixdrop' in link2:
 					headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
 					html = requests.get(link2, headers=headers)
-					w1 = re.compile("'.MDCore.s.(\w+)").findall(html.text)
-					w2 = re.compile("'.MDCore.s.+?\W(\w+)").findall(html.text)
-					w3 = re.compile("wurl..\w+.(\w+)").findall(html.text)
-					w4 = re.compile("wurl..(\w+)").findall(html.text)
-					contents = "https://s-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
+					w = re.compile("'.MDCore.(.)").findall(html.text)
+					w = w[0].replace("d","a")
+					w1 = re.compile("(delivery\w+)").findall(html.text)
+					w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
+					w3 = re.compile("(\w+).vfile").findall(html.text)
+					w4 = re.compile("(\w+).\w+.vfile").findall(html.text)
+					contents = "https://"+w+"-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
 					if legenda:
 						legenda = legenda[0]
 						if not "http" in legenda:
