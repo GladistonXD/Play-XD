@@ -4,7 +4,7 @@ import requests
 import codecs
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.25.00"
+Versao = "20.26.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -260,8 +260,8 @@ def SeriePlayBZ2(): # 453
 					urlx = url22 + url2 + "&sv=" + url32
 					url4 = requests.get(urlx)
 					legenda = re.compile("(.{1,7}\/wa.+?srt)").findall(url4.text)
-					link2 = re.compile('href="(http.+?\/\/.+?\/\w.\w+)').findall(url4.text)
-					link2= link2[0]
+					link2 = re.compile('href="(http.+?)"').findall(url4.text)
+					link2= link2[0].replace("?","#")
 					if 'mixdrop' in link2:
 						headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
 						html = requests.get(link2, headers=headers)
@@ -376,8 +376,8 @@ def PlayVizer(): # 602
 				urlx = url2 + url + "&sv=" + url3
 				url4 = requests.get(urlx)
 				legenda = re.compile("(.{1,7}\/wa.+?srt)").findall(url4.text)
-				link2 = re.compile('href="(http.+?\/\/.+?\/\w.\w+)').findall(url4.text)
-				link2= link2[0]
+				link2 = re.compile('href="(http.+?)"').findall(url4.text)
+				link2= link2[0].replace("?","#")
 				if 'mixdrop' in link2:
 					headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
 					html = requests.get(link2, headers=headers)
