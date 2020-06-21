@@ -4,7 +4,7 @@ import requests
 import codecs
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.28.00"
+Versao = "20.29.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -162,7 +162,7 @@ def MFilmes(): #-2
 	AddDir("[COLOR blue][B]Filmes Legendado RedeCanais[/B][/COLOR]" , cPageleg, 91, "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", background="cPageleg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Nacional RedeCanais[/B][/COLOR]" , cPagenac, 92, "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", background="cPagenac", info='[COLOR][/COLOR]')
 	#AddDir("[COLOR purple][B]Filmes FilmesOnline[/B][/COLOR]" , "", 170, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg")
-	AddDir("[COLOR lightgreen][B]Filmes Superflix[/B][/COLOR]" , "", 411, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg")
+	#AddDir("[COLOR lightgreen][B]Filmes Superflix[/B][/COLOR]" , "", 411, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg")
 	setViewM()
 def MSeries(): #-3
 	AddDir("[COLOR yellow][B]Séries NetCine[/B][/COLOR]" , "", 60, "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg", "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg")
@@ -170,7 +170,7 @@ def MSeries(): #-3
 	AddDir("[COLOR blue][B]Animes RedeCanais[/B][/COLOR]" , cPageser, 140, "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", background="cPageser", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Desenhos RedeCanais[/B][/COLOR]" , cPageani, 150, "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", background="cPageser", info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR cyan]Séries MMFilmes[/COLOR][/B]", "config" , 190,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	AddDir("[B][COLOR lightgreen]Séries Superflix[/COLOR][/B]", "config" , 401,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True)
+	#AddDir("[B][COLOR lightgreen]Séries Superflix[/COLOR][/B]", "config" , 401,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True)
 	AddDir("[B][COLOR springgreen]Séries QueroFilmesHD[/COLOR][/B]", "config" , 430,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True)
 	AddDir("[B][COLOR mediumpurple]Séries Vizer.tv[/COLOR][/B]", "config" , 450,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True)
 	setViewM()
@@ -245,6 +245,7 @@ def SeriePlayBZ2(): # 453
 				result = {'showPlayer': url2}
 				fx = requests.post(url2x, data=result)
 				m22 = re.compile('"(\w+)".true').findall(fx.text)
+				m22.reverse()
 				listar2=[]
 				for res2 in m22:
 					if "mystream" in res2: False
@@ -364,6 +365,7 @@ def PlayVizer(): # 602
 			result = {'showPlayer': url}
 			f = requests.post(url2x, data=result)
 			m2 = re.compile('"(\w+)".true').findall(f.text)
+			m2.reverse()
 			listar=[]
 			for res in m2:
 				if "mystream" in res: False
@@ -1967,7 +1969,7 @@ def Busca(): # 160
 #					i+=1
 #	except:
 #		pass
-	progress.update(80, "80%", "RedeCanais", "")
+	progress.update(100, "100%", "RedeCanais", "")
 	try:
 		i=0
 		p= 1
@@ -1988,25 +1990,25 @@ def Busca(): # 160
 					i+=1
 	except:
 		pass
-	progress.update(100, "100%", "SuperFlix", "")        
-	try:
-		p= 1
-		AddDir("[B][COLOR lightgreen]|||[/COLOR][COLOR white]|||[/COLOR][COLOR lightgreen]|||[/COLOR][COLOR lightgreen] [SuperFlix] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
-		l= 0
-		for x in range(0, 1):
-			l +=1
-			link = common.OpenURL("https://www.superflix.net/?s="+d).replace('\n','').replace('\r','')
-			match = re.compile('href="([^\"]+).{1,100}src="([^\"]+).{1,300}Title".([^\<]+).{1,12}class="([^\"]+)').findall(link.replace('\n','').replace('\r',''))
-			if match:
-				for url2,img2,name2,tvmovie in match:
-					img2 = img2.replace("w185", 'original').replace("https:", '').replace("w220_and_h330_face", 'original').replace("-185x278", "")
-					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-					if "Info" in tvmovie:
-						AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 405, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
-					if "TpTv" in tvmovie:
-						AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 402, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False)
-	except:
-		pass        
+	#progress.update(100, "100%", "SuperFlix", "")        
+	#try:
+	#	p= 1
+	#	AddDir("[B][COLOR lightgreen]|||[/COLOR][COLOR white]|||[/COLOR][COLOR lightgreen]|||[/COLOR][COLOR lightgreen] [SuperFlix] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
+	#	l= 0
+	#	for x in range(0, 1):
+	#		l +=1
+	#		link = common.OpenURL("https://www.superflix.net/?s="+d).replace('\n','').replace('\r','')
+	#		match = re.compile('href="([^\"]+).{1,100}src="([^\"]+).{1,300}Title".([^\<]+).{1,12}class="([^\"]+)').findall(link.replace('\n','').replace('\r',''))
+	#		if match:
+	#			for url2,img2,name2,tvmovie in match:
+	#				img2 = img2.replace("w185", 'original').replace("https:", '').replace("w220_and_h330_face", 'original').replace("-185x278", "")
+	#				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
+	#				if "Info" in tvmovie:
+	#					AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 405, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
+	#				if "TpTv" in tvmovie:
+	#					AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 402, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False)
+	#except:
+	#	pass        
 	progress.update(100, "100", "", "")
 	progress.close()
     
