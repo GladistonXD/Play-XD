@@ -4,7 +4,7 @@ import requests
 import codecs
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.27.00"
+Versao = "20.28.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -208,7 +208,6 @@ def SerieMenuBZ2(): # 451
 		pass
 def SeriePlayBZ(): # 452
 	try:	
-		#i=0
 		url3 = ('https://vizer.tv/includes/ajax/publicFunctions.php')
 		result = {'getEpisodes': url}
 		f = requests.post(url3, data=result)
@@ -218,7 +217,6 @@ def SeriePlayBZ(): # 452
 					img3 = "https://image.tmdb.org/t/p/w500/" + img2
 					#name2 = name2.replace("\u00e3","ã").replace("\u00e9","é").replace("\u00ea","ê").replace("\u00ed","í").replace("\u00fa","ú").replace("\u00e7","ç").replace("\u00e0","à").replace("\u00f3","ó").replace("\u00f5","õ").replace("\u00e1","á").replace("\u00b0","°").replace("\u00e2","â").replace("\u00f4","ô").replace("\u00c0","À").replace("\u00c9","é").replace("\u00d3","ó").replace("\u00f6","ö").replace("\u00fc","ü")
 					AddDir(numero+" - " + name2.replace('",',""), url2, 453, img3, img3, isFolder=False, IsPlayable=True, info="")
-					#i+=1
 	except:
 		pass
 def SeriePlayBZ2(): # 453
@@ -243,21 +241,22 @@ def SeriePlayBZ2(): # 453
 			d = xbmcgui.Dialog().select("Selecione o idioma", listar)
 			if d!= -1:
 				url2 = re.sub(' ', '%20', listal[d] )
-				f2 = 'https://vizer.tv/embed/getPlay.php?id=" mixdrop" ,https://vizer.tv/embed/getPlay.php?id=" fembed"'
-				m22 = re.compile('(http.+?)".(.+?)"').findall(f2)
+				url2x = "https://vizer.tv/includes/ajax/publicFunctions.php"
+				result = {'showPlayer': url2}
+				fx = requests.post(url2x, data=result)
+				m22 = re.compile('"(\w+)".true').findall(fx.text)
 				listar2=[]
-				listal2=[]
-				for link2, res2 in m22:
-					listal2.append(link2)
-					listar2.append(res2.replace("fembed","[B][COLOR deepskyblue]Fembed[/B][/COLOR]").replace("mixdrop","[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]"))
-				if len(listal2) <1:
+				for res2 in m22:
+					if "mystream" in res2: False
+					else:
+						listar2.append(res2.replace("fembed","[B][COLOR deepskyblue]Fembed[/B][/COLOR]").replace("mixdrop","[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]"))
+				if len(listar2) <1:
 					xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 					sys.exit(int(sys.argv[1]))
 				d2 = xbmcgui.Dialog().select("Selecione o servidor", listar2)
 				if d2!= -1:
-					url22 = re.sub(' ', '%20', listal2[d2] )
 					url32 = re.sub(' ', '%20', listar2[d2].replace("[B][COLOR deepskyblue]Fembed[/B][/COLOR]","fembed").replace("[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]","mixdrop") )
-					urlx = url22 + url2 + "&sv=" + url32
+					urlx = "https://vizer.tv/embed/getPlay.php?id=" + url2 + "&sv=" + url32
 					url4 = requests.get(urlx)
 					legenda = re.compile("(.{1,7}\/wa.+?srt)").findall(url4.text)
 					link2 = re.compile('href="(http.+?)"').findall(url4.text)
@@ -361,21 +360,22 @@ def MenuVizer2(): # 601
 		pass
 def PlayVizer(): # 602
 	try:	
-			f = 'https://vizer.tv/embed/getPlay.php?id=" mixdrop" ,https://vizer.tv/embed/getPlay.php?id=" fembed"'
-			m2 = re.compile('(http.+?)".(.+?)"').findall(f)
+			url2x = "https://vizer.tv/includes/ajax/publicFunctions.php"
+			result = {'showPlayer': url}
+			f = requests.post(url2x, data=result)
+			m2 = re.compile('"(\w+)".true').findall(f.text)
 			listar=[]
-			listal=[]
-			for link, res in m2:
-				listal.append(link)
-				listar.append(res.replace("fembed","[B][COLOR deepskyblue]Fembed[/B][/COLOR]").replace("mixdrop","[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]"))
-			if len(listal) <1:
+			for res in m2:
+				if "mystream" in res: False
+				else:
+					listar.append(res.replace("fembed","[B][COLOR deepskyblue]Fembed[/B][/COLOR]").replace("mixdrop","[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]"))
+			if len(listar) <1:
 				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 				sys.exit(int(sys.argv[1]))
 			d = xbmcgui.Dialog().select("Selecione o servidor", listar)
 			if d!= -1:
-				url2 = re.sub(' ', '%20', listal[d] )
-				url3 = re.sub(' ', '%20', listar[d].replace("[B][COLOR deepskyblue]Fembed[/B][/COLOR]","fembed").replace("[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]","mixdrop") )
-				urlx = url2 + url + "&sv=" + url3
+				url2 = re.sub(' ', '%20', listar[d].replace("[B][COLOR deepskyblue]Fembed[/B][/COLOR]","fembed").replace("[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]","mixdrop") )
+				urlx = "https://vizer.tv/embed/getPlay.php?id=" + url + "&sv=" + url2
 				url4 = requests.get(urlx)
 				legenda = re.compile("(.{1,7}\/wa.+?srt)").findall(url4.text)
 				link2 = re.compile('href="(http.+?)"').findall(url4.text)
