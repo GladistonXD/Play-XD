@@ -4,7 +4,7 @@ import requests
 import codecs
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.29.00"
+Versao = "20.30.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2450,8 +2450,8 @@ def TVCB3(): #107
 		 AddDir(name2,url3, 212, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')              
 def TVCB4(): #108
 	try:
-		t = common.OpenURL("https://android.rediptvmobile.com/ch.php?usercode=6017538676").replace("\\","//")
-		jq_ = json.loads(t)
+		t = requests.get("https://android.rediptvmobile.com/ch.php?usercode=6017538676", verify=False)
+		jq_ = json.loads(t.text.replace("\\","//"))
 		jq = sorted(jq_, key=lambda jq_: jq_['name'])
 		for jq1 in jq:
 			if "Action 1" in jq1['name']or "Action 2" in jq1['name'] or "Action 3" in jq1['name'] or "Action 4" in jq1['name'] or "Action 5" in jq1['name'] or "Action 6" in jq1['name'] or "Action 7" in jq1['name'] or "Action 8" in jq1['name'] or "Action 9" in jq1['name'] or "Action 10" in jq1['name'] or "Adventure" in jq1['name'] or "Crime" in jq1['name'] or "Documentary" in jq1['name'] or "Drama" in jq1['name'] or "Horror" in jq1['name'] or "Sci-Fi" in jq1['name'] or "Comedy 1" in jq1['name'] or "Comedy 2" in jq1['name'] or "Comedy 3" in jq1['name'] or "Comedy 4" in jq1['name'] or "Comedy 5" in jq1['name'] or "Comedy 6" in jq1['name'] or "Comedy 7" in jq1['name'] or "Comedy 8" in jq1['name'] or "Comedy 9" in jq1['name'] or "Comedy 10" in jq1['name'] or "Kids 1" in jq1['name'] or "Kids 2" in jq1['name'] or "Kids 3" in jq1['name'] or "Kids 4" in jq1['name'] or "Kids 5" in jq1['name'] or "Kids 6" in jq1['name'] or "Kids 7" in jq1['name'] or "Kids 8" in jq1['name'] or "Kids 9" in jq1['name'] or "Kids 10" in jq1['name']: False
@@ -2465,8 +2465,8 @@ def TVCB4(): #108
 	except:
 		pass
 def TVCB4PLAY(): #109
-	t = common.OpenURL("https://android.rediptvmobile.com/ch.php?usercode=6017538676").replace("\\","//")
-	jq_ = json.loads(t)
+	t = requests.get("https://android.rediptvmobile.com/ch.php?usercode=6017538676", verify=False)
+	jq_ = json.loads(t.text.replace("\\","//"))
 	for jq1 in jq_:
 		if jq1['id'] == url:
 			PlayUrl(jq1['name'], jq1['link'],jq1['logo'],"")      
