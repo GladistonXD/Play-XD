@@ -4,7 +4,7 @@ import requests
 import codecs
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.30.00"
+Versao = "20.31.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2429,10 +2429,10 @@ def PlaySMM(): #194
 				PlayUrl(name, url2, iconimage, info)
 # ----------------- Fim MM filmes
 def TVCB2(x): #104
-	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive005").replace("\n","").replace('\r','')
+	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive001").replace("\n","").replace('\r','')
 	m = re.compile('logo="(.+?)".{1,50},(.+?)pl.+?(plugin.+?)#').findall(link)
 	for img2, name2, url2 in m:
-		url3 = "plugin://" + url2
+		url3 = "plugin://" + url2.replace(";","&")
 		if url2!="Close":
 		 url3 = url3.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]").replace('BR-LIVE-SEMPRE 0800',"[COLOR green][B]HD[/B][/COLOR]")
 		 AddDir(name2, url3, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
@@ -2624,16 +2624,13 @@ def ListTop(): #211
 		lista2 = re.compile("(.+)").findall(m1[0]+m12[0]+m13[0]+m14[0]+m15[0])
 		info2 = re.compile('12"><p>(.+?)<\/p>').findall(link)
 		info2= info2[0].replace("%20"," ")
-		lista= lista[0].replace('.php',"/").replace('";var%20_ano',"&url=").replace('",%20"',"&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=3&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11").replace('\n','')
-		lista2= lista2[0].replace('.php',"/").replace('";var%20_ano',"&url=").replace('",%20"5',"&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=5&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11").replace('\n','')
-		for url2 in [lista, lista2]:
-			if "" in url or url2:
-				name2 = re.compile('(\w|-|leg+.+)p4').findall(url2)
-				name2= name2[0].replace("leg.m", "[COLOR blue] - Legendado[/COLOR]").replace("m", "[COLOR blue] - Dublado[/COLOR]")
-				arquivo = open(cachefolder +"lista", "w+")
-				arquivo.write(url2)
-				arquivo.close()
-				AddDir(name + name2, "", 213, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
+		lista= lista[0].replace('.php',"/").replace('";var%20_ano',"&url=").replace('",%20"',"&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=3&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11#Dublado#").replace('\n','')
+		lista2= lista2[0].replace('.php',"/").replace('";var%20_ano',"&url=").replace('",%20"5',"&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=5&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11#Legendado#").replace('\n','')
+		lista3 = lista + lista2
+		arquivo = open(cachefolder +"lista", "w+")
+		arquivo.write(lista3)
+		arquivo.close()
+		AddDir(name + "[COLOR blue] - Dublado e Legendado[/COLOR]", "", 213, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
 	except IndexError as lista2:
 			pass
 	try:     
@@ -2642,7 +2639,7 @@ def ListTop(): #211
             for url2 in lista:
 				name2 = re.compile('(\w|-|leg+.+)p4').findall(url2)
 				name2= name2[0].replace("m", "[COLOR blue] - Dublado[/COLOR]")
-				url2= url2.replace('.php',"/").replace('";var%20_ano',"&url=").replace('",%20"',"&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=3&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11").replace('\n','')
+				url2= url2.replace('.php',"/").replace('";var%20_ano',"&url=").replace('",%20"',"&mediaType=filme&mediaName=").replace('";var%20lnc',"&idfy=3&lnc=s&vid=").replace('";_data',"&out=null&webv=nao&cdn=cdn11#Dublado#").replace('\n','')
 				arquivo = open(cachefolder +"lista", "w+")
 				arquivo.write(url2)
 				arquivo.close()
@@ -2650,14 +2647,39 @@ def ListTop(): #211
 	except:
 			pass     
 def ListPlay(): #213 play =====================================================================
-	arquivo = open(cachefolder + 'lista', 'r')
-	url3 = arquivo.read()
-	link = common.OpenURL(url3).replace("\n","")
-	m = re.compile("video\/mp4..\/(.+?)<\/video>.+var mp4Id = '(.+?)';").findall(link)
-	for legenda, url2 in m:
-		if legenda!="Close":
-		 legenda = legenda.replace("><track kind='captions' src='../../filmes","http://topflix.tv/filmes").replace("' srclang='pt-BR' label='Português' default></track> ","")
-		 PlayUrl(name, url2+"|Referer=https://topflix.tv/&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla%2F5.0+%28compatible%3B+MSIE+10.6%3B+Windows+NT+6.1%3B+Trident%2F6.0%29", iconimage, info, sub=legenda)    
+    try:
+			arquivo = open(cachefolder + 'lista', 'r')
+			url3 = arquivo.read()
+			m2 = re.compile('(https.+?)#(.+?)#').findall(url3)
+			listar=[]
+			listal=[]
+			for link, res in m2:
+				listal.append(link)
+				listar.append(res.replace("Dublado","[COLOR blue][B]Dublado[/B][/COLOR]").replace("Legendado","[COLOR red][B]Legendado[/B][/COLOR]"))
+			if len(listal) <1:
+				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
+				sys.exit(int(sys.argv[1]))
+			d = xbmcgui.Dialog().select("Selecione o idioma", listar)
+			if d!= -1:
+				url2 = re.sub(' ', '%20', listal[d] )
+				link2 = common.OpenURL(url2).replace("\n","")
+				url2x = re.compile("var mp4Id = '(https:.+?.mp4)").findall(link2)
+				url2x = url2x[0]
+				legenda = re.compile('(filmes\/subtitles.+?vtt)').findall(link2)
+				global background
+				background=background+";;;"+name+";;;MM"
+				if legenda:
+					legenda = "https://topflix.tv/" + legenda[0]
+					if not "http" in legenda:
+						legenda = "https://sub.streamservice.online/subdata/" + legenda
+					PlayUrl(name, url2x+"|Referer=https://topflix.tv/&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla%2F5.0+%28compatible%3B+MSIE+10.6%3B+Windows+NT+6.1%3B+Trident%2F6.0%29", iconimage, info, sub=legenda)
+				else:
+					PlayUrl(name, url2x+"|Referer=https://topflix.tv/&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla%2F5.0+%28compatible%3B+MSIE+10.6%3B+Windows+NT+6.1%3B+Trident%2F6.0%29", iconimage, info)
+			else:
+				sys.exit()
+    except (IndexError, ValueError):
+		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado')
+		sys.exit()           
 # ----------------- Inicio Superflix
 def ListMovieSF(): #411:
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaMEG11[int(CatMG)] +"[/COLOR]", "url" ,233 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
