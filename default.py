@@ -4,7 +4,7 @@ import requests
 import codecs
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.32.00"
+Versao = "20.33.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1842,7 +1842,7 @@ def Busca(): # 160
 		l= 0
 		for x in range(0, 1):
 			url = ('https://topflix.tv/landing')
-			result = {'search': d}
+			result = {'search': d.replace("%2B"," ")}
 			f = requests.post(url, data=result)
 			f = f.text.replace("color='white'>", " title='").replace("</font>", "'").replace("><font ", "")
 			arquivo = urllib.quote(f.encode('utf8'))
