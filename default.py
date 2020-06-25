@@ -4,7 +4,7 @@ import requests
 import codecs
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.31.00"
+Versao = "20.32.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -673,6 +673,7 @@ def QuerofilmeshdPlay2(): #513
 		if m:
 			url9 = m
 			m2 = re.compile('x([^\"]..)\s(\/.+?m3u8)').findall(url9)
+			m2.reverse()
 			legenda = re.compile('subdata..([^\"]+)').findall(hex)
 			listar=[]
 			listal=[]
@@ -761,6 +762,7 @@ def PlayEpiQF(): #433
 		if m:
 			url9 = m
 			m2 = re.compile('x([^\"]..)\s(\/.+?m3u8)').findall(url9)
+			m2.reverse()
 			legenda = re.compile('subdata..([^\"]+)').findall(url)
 			listar=[]
 			listal=[]
