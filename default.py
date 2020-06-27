@@ -4,7 +4,7 @@ import requests
 import codecs
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.33.00"
+Versao = "20.34.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2300,9 +2300,9 @@ def PlayLinkMM(): #182
 		listar=[]
 		listal=[]
 		for link,res in m2:
-			listal.append(link.replace("360","720"))
+			listal.append(link)#.replace("360","720"))
 			#listar.append("[COLOR green][B]HD[/COLOR][/B]")
-			listar.append(res.replace("360p","720p"))
+			listar.append(res)#.replace("360p","720p"))
 		if len(listal) <1:
 			xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
 			sys.exit(int(sys.argv[1]))
@@ -2449,7 +2449,7 @@ def TVCB3(): #107
 		if url2!="Close":
 		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]").replace('BR-LIVE-SEMPRE 0800',"[COLOR green][B]HD[/B][/COLOR]")
 		 #AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
-		 AddDir(name2,url3, 212, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')              
+		 AddDir(name2,url3.replace(";","&"), 212, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')              
 def TVCB4(): #108
 	try:
 		t = requests.get("https://android.rediptvmobile.com/ch.php?usercode=6017538676", verify=False)
@@ -2459,10 +2459,10 @@ def TVCB4(): #108
 			if "Action 1" in jq1['name']or "Action 2" in jq1['name'] or "Action 3" in jq1['name'] or "Action 4" in jq1['name'] or "Action 5" in jq1['name'] or "Action 6" in jq1['name'] or "Action 7" in jq1['name'] or "Action 8" in jq1['name'] or "Action 9" in jq1['name'] or "Action 10" in jq1['name'] or "Adventure" in jq1['name'] or "Crime" in jq1['name'] or "Documentary" in jq1['name'] or "Drama" in jq1['name'] or "Horror" in jq1['name'] or "Sci-Fi" in jq1['name'] or "Comedy 1" in jq1['name'] or "Comedy 2" in jq1['name'] or "Comedy 3" in jq1['name'] or "Comedy 4" in jq1['name'] or "Comedy 5" in jq1['name'] or "Comedy 6" in jq1['name'] or "Comedy 7" in jq1['name'] or "Comedy 8" in jq1['name'] or "Comedy 9" in jq1['name'] or "Comedy 10" in jq1['name'] or "Kids 1" in jq1['name'] or "Kids 2" in jq1['name'] or "Kids 3" in jq1['name'] or "Kids 4" in jq1['name'] or "Kids 5" in jq1['name'] or "Kids 6" in jq1['name'] or "Kids 7" in jq1['name'] or "Kids 8" in jq1['name'] or "Kids 9" in jq1['name'] or "Kids 10" in jq1['name']: False
 			else:
 				if jq1['language']== "Brasil":
-					jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]")
+					jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]").replace("A E", "A&E")
 					AddDir( "[B]" + jq1['name'] +  " [COLOR blue][Alter][/COLOR]" + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
 				elif jq1['language'] == "Brazilian":
-					jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]")
+					jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]").replace("A E", "A&E")
 					AddDir( "[B]" + jq1['name'] + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
 	except:
 		pass
