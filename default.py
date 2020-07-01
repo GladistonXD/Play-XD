@@ -4,7 +4,7 @@ import requests
 import codecs
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.35.00"
+Versao = "20.36.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2501,7 +2501,7 @@ def TVCB5PLAY(): #112
 		url4 = re.compile('source: "([^\"]+)"').findall(m2.text)
 		for url2 in url4:
 			if url2!="Close":
-			 PlayUrl(name, url2+"|Referer=https://canaismax.com/", iconimage, info)
+			 PlayUrl(name, url2+"|Referer=https://canaismax.com/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30", iconimage, info)
 	except (IndexError, ValueError):
 		xbmcgui.Dialog().ok('Play XD', 'Canal indisponível no momento.')
 		sys.exit()         
