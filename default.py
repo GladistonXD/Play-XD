@@ -2,9 +2,10 @@
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
 import requests
 import codecs
+from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.38.00"
+Versao = "20.39.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1658,49 +1659,11 @@ def TemporadasRC(x): #135 Episodios
 		AddDir("[B][Todos Episódios][/B]" ,url, 139, iconimage, iconimage, info="")
 	else:
 		temps2 = re.compile('size: x-large;\">.+?<span style\=\"font').findall(link)
-		epi = re.compile('<strong>(E.+?)<\/strong>(.+?)(<br|<\/p)').findall(temps2[int(x)])
+		epi = re.compile('<strong>(E.+?)<a .+?(\/.+?)".+?(<br|<\/p)').findall(temps2[int(x)])
 		for name2,url2,brp in epi:
-			name3 = re.compile('\d+').findall(name2)
-			if name3:
-				name3=name3[0]
-			else:
-				name3=name2
-			urlm = re.compile('href\=\"(.+?)\"(.+?(Dub|Leg))?').findall(url2)
-			url2 = re.sub('(\w)-(\w)', r'\1 \2', url2)
-			try:
-				namem = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), re.compile('([^\-]+)').findall(url2)[0] ).encode('utf-8')
-			except:
-				namem = re.compile('([^\-]+)').findall(url2)[0]
-			namem = re.sub('<[\/]{0,1}strong>', "", namem)
-			if "<" in namem:
-				namem = ""
-			#if urlm:
-				#urlm[0][0] = "http://www." + RC + urlm[0][0] if "http" not in urlm[0][0] else urlm[0][0]
-			#if len(urlm) > 1:
-				#urlm[0][1] = "http://www." + RC + urlm[0][1] if "http" not in urlm[0][1] else urlm[0][1]
-				#AddDir("[COLOR yellow][Dub][/COLOR] "+ name3 +" "+namem ,urlm[0], 133, iconimage, iconimage, info="", isFolder=False, IsPlayable=True)
-				#AddDir("[COLOR blue][Leg][/COLOR] "+ name3 +" "+namem ,urlm[1], 133, iconimage, iconimage, info="", isFolder=False, IsPlayable=True)
-			try:
-				urlm2 = "https://" + RC + urlm[0][0] if "http" not in urlm[0][0] else urlm[0][0]
-				dubleg=""
-				if "Dub" in urlm[0][2]:
-					dubleg = "[COLOR yellow][D][/COLOR] "
-				elif "Leg" in urlm[0][2]:
-					dubleg = "[COLOR blue][L][/COLOR] "
-				AddDir(dubleg + name3 +" "+namem, urlm2, 133, iconimage, iconimage, info="", isFolder=False, IsPlayable=True)
-				#AddDir(urlm2, urlm2, 133, iconimage, iconimage, info="", isFolder=False, IsPlayable=True)
-			except:
-				pass				
-			try:
-				urlm2 = "https://" + RC + urlm[1][0] if "http" not in urlm[1][0] else urlm[1][0]
-				dubleg=""
-				if "Dub" in urlm[1][2]:
-					dubleg = "[COLOR yellow][D][/COLOR] "
-				elif "Leg" in urlm[1][2]:
-					dubleg = "[COLOR blue][L][/COLOR] "
-				AddDir(dubleg + name3 +" "+namem, urlm2, 133, iconimage, iconimage, info="", isFolder=False, IsPlayable=True)
-			except:
-				pass
+			h = HTMLParser()
+			name3 = h.unescape(name2).encode('utf-8')
+			AddDir(name3.replace("</strong>","").replace("-",""), "https://" + RC+url2, 133, iconimage, iconimage, info="", isFolder=False, IsPlayable=True)
 def SeriesRC(urlrc,pagina2): #130 Lista as Series RC
 	try:
 		CategoryOrdem("cOrdRCS")
