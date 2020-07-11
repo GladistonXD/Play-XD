@@ -4,7 +4,7 @@ import requests
 import codecs
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.37.00"
+Versao = "20.38.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2568,7 +2568,7 @@ def ListGO(): #210 Topflix Dublado --------------------------------------------
 		p= 1
 		if int(cPageFlf) > 0:
 			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageFlf) ) +"][/B][/COLOR]", cPageFlf , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageFlf")
-		l= int(cPageFlf)*3
+		l= int(cPageFlf)*4
 		for x in range(0, 4):
 			l +=1
 			link = common.OpenURL("https://topflix.tv/"+ClistaFl0[int(CatFl)]+"/"+ str(l))
@@ -2581,7 +2581,7 @@ def ListGO(): #210 Topflix Dublado --------------------------------------------
 						name2 = name2.replace("</font>","")
 						AddDir(name2 ,RC4 + url2, 211, RC4 +img2, RC4 + img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
 					p += 1
-		if p >= 97:
+		if p >= 96:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageFlf) + 2) +"][/B][/COLOR]", cPageFlf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageFlf")
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
