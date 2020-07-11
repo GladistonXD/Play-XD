@@ -4,7 +4,7 @@ import requests
 import codecs
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.36.00"
+Versao = "20.37.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1640,7 +1640,8 @@ def PlaySRC(): #133 Play series
 		sys.exit()
 def TemporadasRC(x): #135 Episodios
 	url2 = re.sub('redecanais\.[^\/]+', RC, url.replace("http\:","https\:") )
-	url2 = re.sub('^/', "https://"+RC, url2 )
+	if not "redecanais" in url2:
+		url2 = "https://"+RC+ url2
 	link = common.OpenURL(proxy+url2).replace('\n','').replace('\r','').replace('</html>','<span style="font').replace("http\:","https\:")
 	temps = re.compile('(<span style="font-size: x-large;">(.+?)<\/span>)').findall(link)
 	i= 0
@@ -1665,7 +1666,6 @@ def TemporadasRC(x): #135 Episodios
 			else:
 				name3=name2
 			urlm = re.compile('href\=\"(.+?)\"(.+?(Dub|Leg))?').findall(url2)
-			#ST(urlm)
 			url2 = re.sub('(\w)-(\w)', r'\1 \2', url2)
 			try:
 				namem = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), re.compile('([^\-]+)').findall(url2)[0] ).encode('utf-8')
@@ -2440,16 +2440,16 @@ def TVCB2(x): #104
 		 AddDir(name2, url3, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
 
 def TVCB3(): #107
-	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive001").replace("\n","").replace('\r','')
-	m = re.compile('1,(.+?)plugin:\/\/(.+?)#').findall(link)
+	link = common.OpenURL("https://raw.githubusercontent.com/GladistonXD/teste.txt/master/texte").replace("\n","").replace('\r','')
+	m = re.compile('1,(.+?)(http.+?)#').findall(link)
 	#m = re.compile('tvg-name="(.+?)".+?logo="(.+?)".+?plugin:\/\/(.+?)#').findall(link)
     #for name2, url2 in m:
 	for name2, url2 in m:
-		url3 = "plugin://"+url2
-		if url2!="Close":
-		 url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]").replace('BR-LIVE-SEMPRE 0800',"[COLOR green][B]HD[/B][/COLOR]")
+		#url3 = "plugin://"+url2
+		#if url2!="Close":
+		 #url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]").replace('BR-LIVE-SEMPRE 0800',"[COLOR green][B]HD[/B][/COLOR]")
 		 #AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
-		 AddDir(name2,url3.replace(";","&"), 212, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')              
+		AddDir(name2,url2, 212, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')              
 def TVCB4(): #108
 	try:
 		t = requests.get("https://android.rediptvmobile.com/ch.php?usercode=6017538676", verify=False)
@@ -2501,7 +2501,7 @@ def TVCB5PLAY(): #112
 		url4 = re.compile('source: "([^\"]+)"').findall(m2.text)
 		for url2 in url4:
 			if url2!="Close":
-			 PlayUrl(name, url2+"|Referer=https://canaismax.com/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30", iconimage, info)
+			 PlayUrl(name, url2+"|Referer=https://canaismax.com/&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30", iconimage, info)
 	except (IndexError, ValueError):
 		xbmcgui.Dialog().ok('Play XD', 'Canal indisponível no momento.')
 		sys.exit()         
