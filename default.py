@@ -5,7 +5,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.40.00"
+Versao = "20.41.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -143,7 +143,7 @@ def Categories(): #70
 # --------------  Menu
 def MCanais(): #-1
     AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](REDE CANAIS)[/B][/COLOR]" , "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
-    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](CANAISMAX)[/B][/COLOR]"  , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
+    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](MAX)[/B][/COLOR]"  , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
     AddDir("[COLOR yellow][B]Opção 3[/B][/COLOR]" , "", 104, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
     AddDir("[COLOR yellow][B]Opção 4[/B][/COLOR]" , "", 107, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
 def MFilmes(): #-2
