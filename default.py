@@ -5,7 +5,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.39.00"
+Versao = "20.40.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -235,7 +235,7 @@ def SeriePlayBZ2(): # 453
 			listal=[]
 			for res, link in m2:
 				listal.append(link)
-				listar.append(res.replace("1","[COLOR red][B]Legendado[/B][/COLOR]").replace("2","[COLOR green][B]Dublado[/B][/COLOR]"))
+				listar.append(res.replace("1","[COLOR red][B]Legendado[/B][/COLOR]").replace("2","[COLOR springgreen][B]Dublado[/B][/COLOR]"))
 			if len(listal) <1:
 				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 				sys.exit(int(sys.argv[1]))
@@ -356,7 +356,7 @@ def MenuVizer2(): # 601
 		match = re.compile('lang".."(.+?)".+?id".."(.+?)"').findall(String2)
         	if match:
 				for name2, url2 in match:
-					name2 = name2.replace("Inglês"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Português"," [COLOR green][B]Dublado[/B][/COLOR]")
+					name2 = name2.replace("Inglês"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Português"," [COLOR springgreen][B]Dublado[/B][/COLOR]")
 					AddDir(name2, url2, 602, iconimage, iconimage, isFolder=False, IsPlayable=True, info= sinopse)
 	except:
 		pass
@@ -2403,16 +2403,11 @@ def TVCB2(x): #104
 		 AddDir(name2, url3, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
 
 def TVCB3(): #107
-	link = common.OpenURL("https://raw.githubusercontent.com/GladistonXD/teste.txt/master/texte").replace("\n","").replace('\r','')
-	m = re.compile('1,(.+?)(http.+?)#').findall(link)
-	#m = re.compile('tvg-name="(.+?)".+?logo="(.+?)".+?plugin:\/\/(.+?)#').findall(link)
-    #for name2, url2 in m:
+	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive002").replace("\n","").replace('\r','')
+	m = re.compile('1,(.+?)plugin:\/\/(.+?)#').findall(link)
 	for name2, url2 in m:
-		#url3 = "plugin://"+url2
-		#if url2!="Close":
-		 #url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]").replace('BR-LIVE-SEMPRE 0800',"[COLOR green][B]HD[/B][/COLOR]")
-		 #AddDir(name2,"plugin://"+url2, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
-		AddDir(name2,url2, 212, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')              
+		url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]").replace('BR-LIVE-SEMPRE 0800',"[COLOR green][B]HD[/B][/COLOR]")
+		AddDir(name2,"plugin://"+url2.replace(";","&"), 212, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')   
 def TVCB4(): #108
 	try:
 		t = requests.get("https://android.rediptvmobile.com/ch.php?usercode=6017538676", verify=False)
