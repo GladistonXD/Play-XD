@@ -5,7 +5,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.43.00"
+Versao = "20.44.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -274,16 +274,18 @@ def SeriePlayBZ2(): # 453
 						w = w[0].replace("d","a")
 						w1 = re.compile("(delivery\w+)").findall(html.text)
 						w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
-						w3 = re.compile("(\w+).vfile").findall(html.text)
+						w3 = re.compile("wurl...+?(\W.+?[A-Z]+\w.+?\W.+?)\W").findall(html.text)
 						w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
 						contents = "https://"+w+"-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
+						contents1 = contents.replace("|vfile","").replace("|","-")
+						contents2 = re.sub('[0-9]+-', '', contents1)
 						if legenda:
 							legenda = legenda[0]
 							if not "http" in legenda:
 								legenda = legenda
-							PlayUrl(name, contents+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
+							PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=")+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
 						else:
-							PlayUrl(name, contents+"|Referer=https://mixdrop.to/", iconimage, info)
+							PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=")+"|Referer=https://mixdrop.to/", iconimage, info)
                         
 					if 'feurl.com' in link2:
 						link2 = link2.replace("v","api/source")
@@ -398,16 +400,18 @@ def PlayVizer(): # 602
 					w = w[0].replace("d","a")
 					w1 = re.compile("(delivery\w+)").findall(html.text)
 					w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
-					w3 = re.compile("(\w+).vfile").findall(html.text)
+					w3 = re.compile("wurl...+?(\W.+?[A-Z]+\w.+?\W.+?)\W").findall(html.text)
 					w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
 					contents = "https://"+w+"-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
+					contents1 = contents.replace("|vfile","").replace("|","-")
+					contents2 = re.sub('[0-9]+-', '', contents1)
 					if legenda:
 						legenda = legenda[0]
 						if not "http" in legenda:
 							legenda = legenda
-						PlayUrl(name, contents+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
+						PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=")+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
 					else:
-						PlayUrl(name, contents+"|Referer=https://mixdrop.to/", iconimage, info)
+						PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=")+"|Referer=https://mixdrop.to/", iconimage, info)
                         
 				if 'feurl.com' in link2:
 					link2 = link2.replace("v","api/source")
