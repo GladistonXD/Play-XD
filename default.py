@@ -5,7 +5,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.45.00"
+Versao = "20.46.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -278,7 +278,7 @@ def SeriePlayBZ2(): # 453
 						w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
 						contents = "https://"+w+"-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
 						contents1 = contents.replace("|vfile","").replace("|","-")
-						contents2 = re.sub('[0-9]+-', '', contents1)
+						contents2 = re.sub('\W\d+-', '', contents1)
 						if legenda:
 							legenda = legenda[0]
 							if not "http" in legenda:
@@ -404,7 +404,7 @@ def PlayVizer(): # 602
 					w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
 					contents = "https://"+w+"-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
 					contents1 = contents.replace("|vfile","").replace("|","-")
-					contents2 = re.sub('[0-9]+-', '', contents1)
+					contents2 = re.sub('\W\d+-', '', contents1)
 					if legenda:
 						legenda = legenda[0]
 						if not "http" in legenda:
