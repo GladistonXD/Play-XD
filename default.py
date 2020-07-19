@@ -5,7 +5,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.42.00"
+Versao = "20.43.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -246,7 +246,7 @@ def SeriePlayBZ2(): # 453
 				result = {'showPlayer': url2}
 				fx = requests.post(url2x, data=result)
 				m22 = re.compile('"(\w+)".true').findall(fx.text)
-				m22.reverse()
+				#m22.reverse()
 				listar2=[]
 				for res2 in m22:
 					if "mystream" in res2: False
@@ -275,7 +275,7 @@ def SeriePlayBZ2(): # 453
 						w1 = re.compile("(delivery\w+)").findall(html.text)
 						w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
 						w3 = re.compile("(\w+).vfile").findall(html.text)
-						w4 = re.compile("(\w+).\w+.vfile").findall(html.text)
+						w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
 						contents = "https://"+w+"-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
 						if legenda:
 							legenda = legenda[0]
@@ -370,7 +370,7 @@ def PlayVizer(): # 602
 			result = {'showPlayer': url}
 			f = requests.post(url2x, data=result)
 			m2 = re.compile('"(\w+)".true').findall(f.text)
-			m2.reverse()
+			#m2.reverse()
 			listar=[]
 			for res in m2:
 				if "mystream" in res: False
@@ -399,7 +399,7 @@ def PlayVizer(): # 602
 					w1 = re.compile("(delivery\w+)").findall(html.text)
 					w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
 					w3 = re.compile("(\w+).vfile").findall(html.text)
-					w4 = re.compile("(\w+).\w+.vfile").findall(html.text)
+					w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
 					contents = "https://"+w+"-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
 					if legenda:
 						legenda = legenda[0]
