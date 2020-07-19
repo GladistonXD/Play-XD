@@ -5,7 +5,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.44.00"
+Versao = "20.45.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -283,9 +283,9 @@ def SeriePlayBZ2(): # 453
 							legenda = legenda[0]
 							if not "http" in legenda:
 								legenda = legenda
-							PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=")+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
+							PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
 						else:
-							PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=")+"|Referer=https://mixdrop.to/", iconimage, info)
+							PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
                         
 					if 'feurl.com' in link2:
 						link2 = link2.replace("v","api/source")
@@ -409,9 +409,9 @@ def PlayVizer(): # 602
 						legenda = legenda[0]
 						if not "http" in legenda:
 							legenda = legenda
-						PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=")+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
+						PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
 					else:
-						PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=")+"|Referer=https://mixdrop.to/", iconimage, info)
+						PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
                         
 				if 'feurl.com' in link2:
 					link2 = link2.replace("v","api/source")
