@@ -3,9 +3,9 @@ import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, ha
 import requests
 import codecs
 from six.moves.html_parser import HTMLParser
-#import urlresolver
+import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.46.00"
+Versao = "20.47.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -249,15 +249,15 @@ def SeriePlayBZ2(): # 453
 				#m22.reverse()
 				listar2=[]
 				for res2 in m22:
-					if "mystream" in res2: False
+					if "xxxxxxx" in res2: False
 					else:
-						listar2.append(res2.replace("fembed","[B][COLOR deepskyblue]Fembed[/B][/COLOR]").replace("mixdrop","[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]"))
+						listar2.append(res2.replace("fembed","[B][COLOR deepskyblue]Fembed[/B][/COLOR]").replace("mixdrop","[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]").replace("mystream","[B][COLOR mediumseagreen]Mystream[/B][/COLOR]"))
 				if len(listar2) <1:
 					xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 					sys.exit(int(sys.argv[1]))
 				d2 = xbmcgui.Dialog().select("Selecione o servidor", listar2)
 				if d2!= -1:
-					url32 = re.sub(' ', '%20', listar2[d2].replace("[B][COLOR deepskyblue]Fembed[/B][/COLOR]","fembed").replace("[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]","mixdrop") )
+					url32 = re.sub(' ', '%20', listar2[d2].replace("[B][COLOR deepskyblue]Fembed[/B][/COLOR]","fembed").replace("[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]","mixdrop").replace("[B][COLOR mediumseagreen]Mystream[/B][/COLOR]","mystream") )
 					urlx = "https://vizer.tv/embed/getPlay.php?id=" + url2 + "&sv=" + url32
 					url4 = requests.get(urlx)
 					legenda = re.compile("(.{1,7}\/wa.+?srt)").findall(url4.text)
@@ -311,6 +311,16 @@ def SeriePlayBZ2(): # 453
 							PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info, sub=legenda)
 						else:
 							PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info)
+
+					if 'mystream.to' in link2:
+						link = urlresolver.resolve(link2)
+						if legenda:
+							legenda = legenda[0]
+							if not "http" in legenda:
+								legenda = legenda
+							PlayUrl(name, link, iconimage, info, sub=legenda)
+						else:
+							PlayUrl(name, link, iconimage, info)
 				else:
 					sys.exit()
 			else:
@@ -375,15 +385,15 @@ def PlayVizer(): # 602
 			#m2.reverse()
 			listar=[]
 			for res in m2:
-				if "mystream" in res: False
+				if "xxxxxxx" in res: False
 				else:
-					listar.append(res.replace("fembed","[B][COLOR deepskyblue]Fembed[/B][/COLOR]").replace("mixdrop","[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]"))
+					listar.append(res.replace("fembed","[B][COLOR deepskyblue]Fembed[/B][/COLOR]").replace("mixdrop","[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]").replace("mystream","[B][COLOR mediumseagreen]Mystream[/B][/COLOR]"))
 			if len(listar) <1:
 				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 				sys.exit(int(sys.argv[1]))
 			d = xbmcgui.Dialog().select("Selecione o servidor", listar)
 			if d!= -1:
-				url2 = re.sub(' ', '%20', listar[d].replace("[B][COLOR deepskyblue]Fembed[/B][/COLOR]","fembed").replace("[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]","mixdrop") )
+				url2 = re.sub(' ', '%20', listar[d].replace("[B][COLOR deepskyblue]Fembed[/B][/COLOR]","fembed").replace("[B][COLOR lightseagreen]Mixdrop[/B][/COLOR]","mixdrop").replace("[B][COLOR mediumseagreen]Mystream[/B][/COLOR]","mystream") )
 				urlx = "https://vizer.tv/embed/getPlay.php?id=" + url + "&sv=" + url2
 				url4 = requests.get(urlx)
 				legenda = re.compile("(.{1,7}\/wa.+?srt)").findall(url4.text)
@@ -437,6 +447,16 @@ def PlayVizer(): # 602
 						PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info, sub=legenda)
 					else:
 						PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info)
+                         
+				if 'mystream.to' in link2:
+					link = urlresolver.resolve(link2)
+					if legenda:
+						legenda = legenda[0]
+						if not "http" in legenda:
+							legenda = legenda
+						PlayUrl(name, link, iconimage, info, sub=legenda)
+					else:
+						PlayUrl(name, link, iconimage, info)
 			else:
 				sys.exit()
 	except (IndexError, ValueError):
