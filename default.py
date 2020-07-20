@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
+#import re
 import requests
 import codecs
 from six.moves.html_parser import HTMLParser
-import urlresolver
+#import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.48.00"
+Versao = "20.49.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -313,14 +314,54 @@ def SeriePlayBZ2(): # 453
 							PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info)
 
 					if 'mystream.to' in link2:
-						link = urlresolver.resolve(link2)
-						if legenda:
-							legenda = legenda[0]
-							if not "http" in legenda:
-								legenda = legenda
-							PlayUrl(name, link, iconimage, info, sub=legenda)
-						else:
-							PlayUrl(name, link, iconimage, info)
+						media1 = requests.get(link2)
+						match = re.search(r'(\$=.+?;)\s*<', media1.text, re.DOTALL)
+						data = match.group(1)
+						startpos = data.find('"\\""+') + 5
+						endpos = data.find('"\\"")())()')
+						first_group = data[startpos:endpos]
+						pos = re.search(r"(\(!\[\]\+\"\"\)\[.+?\]\+)", first_group)
+						if pos:
+						    first_group = first_group.replace(pos.group(1), 'l').replace('$.__+', 't').replace('$._+', 'u').replace('$._$+','o')
+						    tmplist = []
+						    js = re.search(r'(\$={.+?});', data)
+						    if js:
+						        js_group = js.group(1)[3:][:-1]
+						        second_group = js_group.split(',')
+						        i = -1
+						        for x in second_group:
+						            a, b = x.split(':')
+						            if b == '++$':
+						                i += 1
+						                tmplist.append(("$.{}+".format(a), i))
+						
+						            elif b == '(![]+"")[$]':
+						                tmplist.append(("$.{}+".format(a), 'false'[i]))
+						
+						            elif b == '({}+"")[$]':
+						                tmplist.append(("$.{}+".format(a), '[object Object]'[i]))
+						
+						            elif b == '($[$]+"")[$]':
+						                tmplist.append(("$.{}+".format(a), 'undefined'[i]))
+						
+						            elif b == '(!""+"")[$]':
+						                tmplist.append(("$.{}+".format(a), 'true'[i]))
+
+						        tmplist = sorted(tmplist, key=lambda z: str(z[1]))
+						        for x in tmplist:
+						            first_group = first_group.replace(x[0], str(x[1]))
+
+						        first_group = first_group.replace('\\"', '\\').replace("\"\\\\\\\\\"", "\\\\").replace('\\"', '\\').replace('"', '').replace("+", "")
+						        final_data = first_group.encode('ascii').decode('unicode-escape').encode('ascii').decode('unicode-escape')
+						        media = re.compile("'(http.+?)'").findall(final_data)
+						        mp4 = media[0]
+						        if legenda:
+						        	legenda = legenda[0]
+						        	if not "http" in legenda:
+						        		legenda = legenda
+						        	PlayUrl(name, mp4+"|Referer=https://mstream.press/", iconimage, info, sub=legenda)
+						        else:
+							        PlayUrl(name, mp4+"|Referer=https://mstream.press/", iconimage, info)
 				else:
 					sys.exit()
 			else:
@@ -449,14 +490,54 @@ def PlayVizer(): # 602
 						PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info)
                          
 				if 'mystream.to' in link2:
-					link = urlresolver.resolve(link2)
-					if legenda:
-						legenda = legenda[0]
-						if not "http" in legenda:
-							legenda = legenda
-						PlayUrl(name, link, iconimage, info, sub=legenda)
-					else:
-						PlayUrl(name, link, iconimage, info)
+					media1 = requests.get(link2)
+					match = re.search(r'(\$=.+?;)\s*<', media1.text, re.DOTALL)
+					data = match.group(1)
+					startpos = data.find('"\\""+') + 5
+					endpos = data.find('"\\"")())()')
+					first_group = data[startpos:endpos]
+					pos = re.search(r"(\(!\[\]\+\"\"\)\[.+?\]\+)", first_group)
+					if pos:
+					    first_group = first_group.replace(pos.group(1), 'l').replace('$.__+', 't').replace('$._+', 'u').replace('$._$+','o')
+					    tmplist = []
+					    js = re.search(r'(\$={.+?});', data)
+					    if js:
+					        js_group = js.group(1)[3:][:-1]
+					        second_group = js_group.split(',')
+					        i = -1
+					        for x in second_group:
+					            a, b = x.split(':')
+					            if b == '++$':
+					                i += 1
+					                tmplist.append(("$.{}+".format(a), i))
+					
+					            elif b == '(![]+"")[$]':
+					                tmplist.append(("$.{}+".format(a), 'false'[i]))
+					
+					            elif b == '({}+"")[$]':
+					                tmplist.append(("$.{}+".format(a), '[object Object]'[i]))
+					
+					            elif b == '($[$]+"")[$]':
+					                tmplist.append(("$.{}+".format(a), 'undefined'[i]))
+					
+					            elif b == '(!""+"")[$]':
+					                tmplist.append(("$.{}+".format(a), 'true'[i]))
+
+					        tmplist = sorted(tmplist, key=lambda z: str(z[1]))
+					        for x in tmplist:
+					            first_group = first_group.replace(x[0], str(x[1]))
+
+					        first_group = first_group.replace('\\"', '\\').replace("\"\\\\\\\\\"", "\\\\").replace('\\"', '\\').replace('"', '').replace("+", "")
+					        final_data = first_group.encode('ascii').decode('unicode-escape').encode('ascii').decode('unicode-escape')
+					        media = re.compile("'(http.+?)'").findall(final_data)
+					        mp4 = media[0]
+					        if legenda:
+					        	legenda = legenda[0]
+					        	if not "http" in legenda:
+					        		legenda = legenda
+					        	PlayUrl(name, mp4+"|Referer=https://mstream.press/", iconimage, info, sub=legenda)
+					        else:
+						        PlayUrl(name, mp4+"|Referer=https://mstream.press/", iconimage, info)
 			else:
 				sys.exit()
 	except (IndexError, ValueError):
