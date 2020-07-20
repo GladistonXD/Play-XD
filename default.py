@@ -5,7 +5,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.47.00"
+Versao = "20.48.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2310,9 +2310,9 @@ def PlayLinkMM(): #182
 				legenda = re.sub(' ', '%20', legenda[0][0] )
 				if not "http" in legenda:
 					legenda = "http://player.openload.network/" + legenda
-				PlayUrl(name,'https' + url2, iconimage, info, sub=legenda)
+				PlayUrl(name,'https' + url2+"|Referer=https://player.openload.network/", iconimage, info, sub=legenda)
 			else:
-				PlayUrl(name,'https' + url2, iconimage, info)
+				PlayUrl(name,'https' + url2+"|Referer=https://player.openload.network/", iconimage, info)
 		else:
 			sys.exit()
 # -----------------
@@ -2421,9 +2421,9 @@ def PlaySMM(): #194
 				legenda = re.sub(' ', '%20', legenda[0][0] )
 				if not "http" in legenda:
 					legenda = "http://player.openload.network/" + legenda
-				PlayUrl(name, url2, iconimage, info, sub=legenda)
+				PlayUrl(name, url2+"|Referer=https://player.openload.network/", iconimage, info, sub=legenda)
 			else:
-				PlayUrl(name, url2, iconimage, info)
+				PlayUrl(name, url2+"|Referer=https://player.openload.network/", iconimage, info)
 # ----------------- Fim MM filmes
 def TVCB2(x): #104
 	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive001").replace("\n","").replace('\r','')
