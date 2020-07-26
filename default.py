@@ -6,7 +6,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.49.00"
+Versao = "20.50.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -124,7 +124,7 @@ reference2="|verifypeer=false"
 reference3=""
 RC="redecanais.se/"
 RC2="https://redecanais.se/"
-RC3="https://canaisgratis.eu/"
+RC3="https://redecanaistv.com//"
 RC4="https://topflix.tv/"
 	
 def getLocaleString(id):
@@ -1690,8 +1690,9 @@ def PlayMRC2(): #96 Play filmes direto
 			#m = re.compile(reg, re.IGNORECASE).findall(pb)
 			#url2 = m[0]
 			#file = url2 + mp4[0][1]+".mp4"
-			player = re.sub('^/', "https://bemestarglobal.fun/", player[0])
-			player = re.sub('\.php', "hlb.php", player)
+			player = re.sub('^/', "https://redecanais.ws/", player[0])
+			#player = re.sub('\.php', "hlb.php", player)
+			player = re.sub('\.php', ".php", player)
 			#player = re.sub('redecanais\.[^\/]+', "blog.canaisgratis.org", player)
 			#player = "https://redecanais.se//player3/serverf4hlb.php?vid=TGO"
 			#return
@@ -1739,8 +1740,9 @@ def PlaySRC(): #133 Play series
 			#m = re.compile(reg, re.IGNORECASE).findall(pb)
 			#url2 = m[0]
 			#file = mp4[0][1]+".mp4"
-			player = re.sub('^/', "https://bemestarglobal.fun/", player[0])
-			player = re.sub('\.php', "hlb.php", player)
+			player = re.sub('^/', "https://redecanais.ws/", player[0])
+			#player = re.sub('\.php', "hlb.php", player)
+			player = re.sub('\.php', ".php", player)
 			#player = re.sub('redecanais\.[^\/]+', "blog.canaisgratis.org", player)
 			mp4 = common.OpenURL(player ,headers={'referer': "https://bemestarglobal.fun/"})
 			#file=re.compile('[^"|\']+\.mp4.{1,15}.m3u8').findall(mp4)
@@ -2131,18 +2133,18 @@ def TVCB(x): #102
 	#	AddDir("Servidor offline, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def PlayTVCB(): #103
 	#ST(url)
-	link = common.OpenURL("https://canaisgratis.eu/"+url)
+	link = requests.get("https://redecanaistv.com/"+url)
 	#link = common.OpenURL("https://canaisgratis.top/assistir-max-prime-online-24-horas-ao-vivo_8586fbbe2.html")
-	player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link)
-	player = re.sub('^/', "https://player.ec.cx/" , player[0] )
-	player = re.sub('.php', "hlb.php", player )
-	#if "canal" in url:
+	player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link.text)
+	player = re.sub('^/', "https://redecanaistv.com/", player[0])
+	player = re.sub('.php', ".php", player)
+	# if "canal" in url:
 	#	c = re.compile('canal\=(.+)').findall(url)
 	#	player = re.sub('canal=bbb', "canal="+c[0], player )
-	m3u = common.OpenURL(player,headers={'referer': "https://socialpiri.net/"}).replace("\n","").replace('\r','')
-	m = re.compile('source: "([^"|\']+)').findall(m3u)
-	m[0] = re.sub('https', 'https', m[0] )
-	PlayUrl(name, m[0] + reference3, iconimage, name, "")
+	m3u = requests.get(player, headers={'referer': "https://redecanaistv.com/"})
+	m = re.compile('source src="([^"|\']+)').findall(m3u.text)
+	m2 = re.sub('https', 'https', m[0])
+	PlayUrl(name, m2 + reference3, iconimage, name, "")
 	link3 = common.OpenURL("http://cbplay.000webhostapp.com/rc/_grc.php?u="+m[0])
 	#ST(m[0])
 	#AddDir("play", m[0] + "?play|Referer=https://cometa.top", 3, isFolder=False, IsPlayable=True, info="")
