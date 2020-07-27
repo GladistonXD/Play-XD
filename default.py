@@ -6,7 +6,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.50.00"
+Versao = "20.51.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2526,7 +2526,7 @@ def TVCB3(): #107
 def TVCB4(): #108
 	try:
 		t = requests.get("https://android.rediptvmobile.com/ch.php?usercode=6017538676", verify=False)
-		jq_ = json.loads(t.text.replace("\\","//"))
+		jq_ = json.loads(t.text.replace("\\","//").replace("http://files.rednetcontent.com/chlogo2/Brasil/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/Portuguese/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/english/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/french/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/arabic/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/dutch/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/russian/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/German/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("1280px-SporTV_2017_logo.png","SporTV_2_logo_20167.png").replace("SporTV_2_logo_2016.png","Sportv2.png").replace("TVBAH//u0130A.png","bahia.png"))
 		jq = sorted(jq_, key=lambda jq_: jq_['name'])
 		for jq1 in jq:
 			if "Action 1" in jq1['name']or "Action 2" in jq1['name'] or "Action 3" in jq1['name'] or "Action 4" in jq1['name'] or "Action 5" in jq1['name'] or "Action 6" in jq1['name'] or "Action 7" in jq1['name'] or "Action 8" in jq1['name'] or "Action 9" in jq1['name'] or "Action 10" in jq1['name'] or "Adventure" in jq1['name'] or "Crime" in jq1['name'] or "Documentary" in jq1['name'] or "Drama" in jq1['name'] or "Horror" in jq1['name'] or "Sci-Fi" in jq1['name'] or "Comedy 1" in jq1['name'] or "Comedy 2" in jq1['name'] or "Comedy 3" in jq1['name'] or "Comedy 4" in jq1['name'] or "Comedy 5" in jq1['name'] or "Comedy 6" in jq1['name'] or "Comedy 7" in jq1['name'] or "Comedy 8" in jq1['name'] or "Comedy 9" in jq1['name'] or "Comedy 10" in jq1['name'] or "Kids 1" in jq1['name'] or "Kids 2" in jq1['name'] or "Kids 3" in jq1['name'] or "Kids 4" in jq1['name'] or "Kids 5" in jq1['name'] or "Kids 6" in jq1['name'] or "Kids 7" in jq1['name'] or "Kids 8" in jq1['name'] or "Kids 9" in jq1['name'] or "Kids 10" in jq1['name']: False
