@@ -6,7 +6,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.51.00"
+Versao = "20.52.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -266,11 +266,12 @@ def SeriePlayBZ2(): # 453
 					link2= link2[0].replace("?","#")
 					if 'mixdrop' in link2:
 						headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-						html2 = requests.get(link2, headers=headers)
-						g = re.compile('location.+?"(.+?)"').findall(html2.text)
-						g2 = "https://mixdrop.to" + g[0]
-						headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-						html = requests.get(g2, headers=headers)
+						html = requests.get(link2, headers=headers)
+                        #html2 = requests.get(link2, headers=headers)
+						#g = re.compile('location.+?"(.+?)"').findall(html2.text)
+						#g2 = "https://mixdrop.to" + g[0]
+						#headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+						#html = requests.get(g2, headers=headers)
 						w = re.compile("'.MDCore.(.)").findall(html.text)
 						w = w[0].replace("d","a")
 						w1 = re.compile("(delivery\w+)").findall(html.text)
@@ -442,11 +443,12 @@ def PlayVizer(): # 602
 				link2= link2[0].replace("?","#")
 				if 'mixdrop' in link2:
 					headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-					html2 = requests.get(link2, headers=headers)
-					g = re.compile('location.+?"(.+?)"').findall(html2.text)
-					g2 = "https://mixdrop.to" + g[0]
-					headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-					html = requests.get(g2, headers=headers)
+					html = requests.get(link2, headers=headers)
+					#html2 = requests.get(link2, headers=headers)
+					#g = re.compile('location.+?"(.+?)"').findall(html2.text)
+					#g2 = "https://mixdrop.to" + g[0]
+					#headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+					#html = requests.get(g2, headers=headers)
 					w = re.compile("'.MDCore.(.)").findall(html.text)
 					w = w[0].replace("d","a")
 					w1 = re.compile("(delivery\w+)").findall(html.text)
