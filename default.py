@@ -6,7 +6,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.52.00"
+Versao = "20.53.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -266,12 +266,11 @@ def SeriePlayBZ2(): # 453
 					link2= link2[0].replace("?","#")
 					if 'mixdrop' in link2:
 						headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-						html = requests.get(link2, headers=headers)
-                        #html2 = requests.get(link2, headers=headers)
-						#g = re.compile('location.+?"(.+?)"').findall(html2.text)
-						#g2 = "https://mixdrop.to" + g[0]
-						#headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-						#html = requests.get(g2, headers=headers)
+						#html = requests.get(link2, headers=headers)
+						html2 = requests.get(link2, headers=headers)
+						g = re.compile('location.+?"(.+?)"').findall(html2.text)
+						g2 = "https://mixdrop.to" + g[0]
+						html = requests.get(g2, headers=headers)
 						w = re.compile("'.MDCore.(.)").findall(html.text)
 						w = w[0].replace("d","a")
 						w1 = re.compile("(delivery\w+)").findall(html.text)
@@ -443,12 +442,11 @@ def PlayVizer(): # 602
 				link2= link2[0].replace("?","#")
 				if 'mixdrop' in link2:
 					headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-					html = requests.get(link2, headers=headers)
-					#html2 = requests.get(link2, headers=headers)
-					#g = re.compile('location.+?"(.+?)"').findall(html2.text)
-					#g2 = "https://mixdrop.to" + g[0]
-					#headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-					#html = requests.get(g2, headers=headers)
+					#html = requests.get(link2, headers=headers)
+					html2 = requests.get(link2, headers=headers)
+					g = re.compile('location.+?"(.+?)"').findall(html2.text)
+					g2 = "https://mixdrop.to" + g[0]
+					html = requests.get(g2, headers=headers)
 					w = re.compile("'.MDCore.(.)").findall(html.text)
 					w = w[0].replace("d","a")
 					w1 = re.compile("(delivery\w+)").findall(html.text)
@@ -1128,7 +1126,7 @@ def MoviesNC(): #71 Netcine
 		if p >= 56:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageGOf) + 2) +"][/B][/COLOR]", cPageGOf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageGOf")
 	except:
-		AddDir('"Fim de páginas, retorne"' , "", 0, "", "", 0,isFolder=False)
+		pass
 ########################opção 2
 #	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 #	try:
