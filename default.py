@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, hashlib, re, urllib2, htmlentitydefs
+import ftplib
+from random import randrange
 #import re
 import requests
 import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.53.00"
+Versao = "20.54.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -122,9 +124,9 @@ reference2="|verifypeer=false"
 #reference2=""
 #reference3="|Referer=https://canaisgratis.eu/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
 reference3=""
-RC="redecanais.se/"
-RC2="https://redecanais.se/"
-RC3="https://redecanaistv.com//"
+RC="redecanais.ws/"
+RC2="https://redecanais.ws/"
+RC3="https://redecanaistv.com/"
 RC4="https://topflix.tv/"
 	
 def getLocaleString(id):
@@ -164,7 +166,7 @@ def MFilmes(): #-2
 	AddDir("[COLOR blue][B]Filmes Legendado RedeCanais[/B][/COLOR]" , cPageleg, 91, "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", background="cPageleg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Nacional RedeCanais[/B][/COLOR]" , cPagenac, 92, "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", background="cPagenac", info='[COLOR][/COLOR]')
 	#AddDir("[COLOR purple][B]Filmes FilmesOnline[/B][/COLOR]" , "", 170, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg")
-	#AddDir("[COLOR lightgreen][B]Filmes Superflix[/B][/COLOR]" , "", 411, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg")
+	AddDir("[COLOR lightgreen][B]Filmes Superflix[/B][/COLOR]" , "", 411, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg")
 	setViewM()
 def MSeries(): #-3
 	AddDir("[COLOR yellow][B]Séries NetCine[/B][/COLOR]" , "", 60, "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg", "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg")
@@ -172,7 +174,7 @@ def MSeries(): #-3
 	AddDir("[COLOR blue][B]Animes RedeCanais[/B][/COLOR]" , cPageser, 140, "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", background="cPageser", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Desenhos RedeCanais[/B][/COLOR]" , cPageani, 150, "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", background="cPageser", info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR cyan]Séries MMFilmes[/COLOR][/B]", "config" , 190,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	#AddDir("[B][COLOR lightgreen]Séries Superflix[/COLOR][/B]", "config" , 401,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True)
+	AddDir("[B][COLOR lightgreen]Séries Superflix[/COLOR][/B]", "config" , 401,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True)
 	AddDir("[B][COLOR springgreen]Séries QueroFilmesHD[/COLOR][/B]", "config" , 430,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True)
 	AddDir("[B][COLOR mediumpurple]Séries Vizer.tv[/COLOR][/B]", "config" , 450,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True)
 	setViewM()
@@ -2070,25 +2072,25 @@ def Busca(): # 160
 					i+=1
 	except:
 		pass
-	#progress.update(100, "100%", "SuperFlix", "")        
-	#try:
-	#	p= 1
-	#	AddDir("[B][COLOR lightgreen]|||[/COLOR][COLOR white]|||[/COLOR][COLOR lightgreen]|||[/COLOR][COLOR lightgreen] [SuperFlix] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
-	#	l= 0
-	#	for x in range(0, 1):
-	#		l +=1
-	#		link = common.OpenURL("https://www.superflix.net/?s="+d).replace('\n','').replace('\r','')
-	#		match = re.compile('href="([^\"]+).{1,100}src="([^\"]+).{1,300}Title".([^\<]+).{1,12}class="([^\"]+)').findall(link.replace('\n','').replace('\r',''))
-	#		if match:
-	#			for url2,img2,name2,tvmovie in match:
-	#				img2 = img2.replace("w185", 'original').replace("https:", '').replace("w220_and_h330_face", 'original').replace("-185x278", "")
-	#				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-	#				if "Info" in tvmovie:
-	#					AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 405, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
-	#				if "TpTv" in tvmovie:
-	#					AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 402, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False)
-	#except:
-	#	pass        
+	progress.update(100, "100%", "SuperFlix", "")        
+	try:
+		p= 1
+		AddDir("[B][COLOR lightgreen]|||[/COLOR][COLOR white]|||[/COLOR][COLOR lightgreen]|||[/COLOR][COLOR lightgreen] [SuperFlix] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		l= 0
+		for x in range(0, 1):
+			l +=1
+			link = common.OpenURL("https://www.superflix.net/?s="+d).replace('\n','').replace('\r','')
+			match = re.compile('href="([^\"]+).{1,100}src="([^\"]+).{1,300}Title".([^\<]+).{1,12}class="([^\"]+)').findall(link.replace('\n','').replace('\r',''))
+			if match:
+				for url2,img2,name2,tvmovie in match:
+					img2 = img2.replace("w185", 'original').replace("https:", '').replace("w220_and_h330_face", 'original').replace("-185x278", "")
+					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
+					if "Info" in tvmovie:
+						AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 405, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
+					if "TpTv" in tvmovie:
+						AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 402, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False)
+	except:
+		pass        
 	progress.update(100, "100", "", "")
 	progress.close()
     
@@ -2829,15 +2831,22 @@ def Play2SFS(): #407
                     arquivo = open(cachefolder + "movies.m3u8", "w+")
                     arquivo.write(url8)
                     arquivo.close()
+                    x1 = randrange(300)
+                    x = str(x1)
+                    session = ftplib.FTP('files.000webhost.com','unlikely-terms','gladiston')
+                    file = open(cachefolder + "movies.m3u8",'rb')
+                    session.storbinary('STOR /public_html/Cacheflix/movies'+x+'.m3u8', file)
+                    file.close()                      
+                    session.quit()
                     if legenda:
                         legenda = legenda[0]
                         legenda2 = urllib.quote(legenda.encode('utf8'))
                         if not "http" in legenda:
                             legenda3 = "https://sub.sfplayer.net/subdata/"
                             legenda4 = legenda3 + legenda2
-                        PlayUrl(name, cachefolder + "movies.m3u8", iconimage, info, sub=legenda4)
+                        PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info, sub=legenda4)
                     else:
-                        PlayUrl(name, cachefolder + "movies.m3u8", iconimage, info)
+                        PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info)
 
             elif 'sfplayer' in url4Play:
                     legenda3 = re.compile('vl(.+?)"').findall(url4Play)
@@ -2896,8 +2905,10 @@ def PlaySSFS(): #406
 			listar=[]
 			listal=[]
 			for url3 in m:
-				listal.append(url3)
-				listar.append(m2[i].replace("</span>",""))
+				if "SuperFliX" in m2[i]: False
+				else:
+					listal.append(url3)
+					listar.append(m2[i].replace("</span>",""))
 				i+=1
 			if len(listal) <1:
 				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
@@ -2933,15 +2944,22 @@ def PlaySSFS(): #406
                     arquivo = open(cachefolder + "movies.m3u8", "w+")
                     arquivo.write(url8)
                     arquivo.close()
+                    x1 = randrange(300)
+                    x = str(x1)
+                    session = ftplib.FTP('files.000webhost.com','unlikely-terms','gladiston')
+                    file = open(cachefolder + "movies.m3u8",'rb')
+                    session.storbinary('STOR /public_html/Cacheflix/movies'+x+'.m3u8', file)
+                    file.close()                      
+                    session.quit()
                     if legenda:
                         legenda = legenda[0]
                         legenda2 = urllib.quote(legenda.encode('utf8'))
                         if not "http" in legenda:
                             legenda3 = "https://sub.sfplayer.net/subdata/"
                             legenda4 = legenda3 + legenda2
-                        PlayUrl(name, cachefolder + "movies.m3u8", iconimage, info, sub=legenda4)
+                        PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info, sub=legenda4)
                     else:
-                        PlayUrl(name, cachefolder + "movies.m3u8", iconimage, info)
+                        PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info)
 
                 elif 'sfplayer' in url4Play:
                     legenda3 = re.compile('vl(.+?)"').findall(url4Play)
