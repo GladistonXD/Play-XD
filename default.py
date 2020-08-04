@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.54.00"
+Versao = "20.55.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1459,7 +1459,7 @@ def PlayMNC(): #79
 		for url4 in m4:
 			if not "openload" in url4:
 				listal.append(url4.replace("';",""))
-				dubleg="[COLOR green]HD[/COLOR][/B]" if "ALTO" in url4 else "[COLOR red]SD[/COLOR][/B]"
+				dubleg="[COLOR springgreen]HD[/COLOR][/B]" if "ALTO" in url4 else "[COLOR red]SD[/COLOR][/B]"
 				listaf.append("[B]"+dubleg)
 		d = xbmcgui.Dialog().select("Escolha a resolução:", listaf)
 		if d!= -1:
@@ -2785,7 +2785,7 @@ def ListMovieSF(): #411:
 # -----------------
 def PlaySSF(): #405
 	i=0
-	link = common.OpenURL(url).replace("</span><span>","").replace("SuperFlix FBDublado","[COLOR green][B]Dublado[/B][/COLOR]").replace("SuperFlixNacional","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlix FBLegendado","[COLOR green][B]Legendado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]").replace("- SD","[B]- SD[/B]").replace("OK.RULegendado","[B]Offline[/B]").replace("OpenLoadLegendado","[B]Offline[/B]").replace("OK.RUDublado","[B]Offline[/B]").replace("OpenLoadDublado","[B]Offline[/B]").replace("MegaDublado","[B]Offline[/B]").replace("MegaLegendado","[B]Offline[/B]").replace("OkDublado","[B]Offline[/B]").replace("OkLegendado","[B]Offline[/B]").replace("The VidDublado","[B]Offline[/B]").replace("The VidLegendado","[B]Offline[/B]").replace("Alta QualidadeDublado","[B]Offline[/B]").replace("Alta QualidadeLegendado","[B]Offline[/B]").replace("Vid.ToDublado","[B]Offline[/B]").replace("Vid.ToLegendado","[B]Offline[/B]")
+	link = common.OpenURL(url).replace("</span><span>","").replace("SuperFlixNacional","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]").replace("- SD","[B]- SD[/B]")
 	desc = re.compile('"Description"><p>(.+?)<\/p>').findall(link)
 	desc = desc[0].replace("Assistir","").replace("Online","").replace("Dublado","").replace("Legendado","").replace("  "," ").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”')
 	m = re.compile("id=.Opt.+?href=.+?=(.+?)'").findall(link)
@@ -2793,7 +2793,7 @@ def PlaySSF(): #405
 	if m:
 		for url2 in m:
 			hexd = codecs.decode(url2, "hex_codec").decode('utf-8')
-			if "SuperFliX" in m2[i]: False
+			if "SuperFliX" in m2[i] or "SuperFlix FB" in m2[i] or "OK.RU" in m2[i] or "OpenLoad" in m2[i] or "Mega" in m2[i] or "Ok" in m2[i] or "The Vid" in m2[i] or "Vid.To" in m2[i] or "Alta" in m2[i]: False
 			else:
 				AddDir(m2[i].replace("</span>",""), hexd.replace("#038;",""), 407, iconimage, iconimage, isFolder=False, IsPlayable=True, info = desc)
 			i+=1	
@@ -2897,7 +2897,7 @@ def ListEpiSF(): #403
 def PlaySSFS(): #406
 	try:
 		i=0
-		link = common.OpenURL(url).replace("</span><span>","").replace("SuperFlix FBDublado","[COLOR green][B]Dublado[/B][/COLOR]").replace("SuperFlixNacional","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlix FBLegendado","[COLOR green][B]Legendado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR red][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]").replace("- SD","[B]- SD[/B]").replace("OK.RULegendado","[B]Offline[/B]").replace("OpenLoadLegendado","[B]Offline[/B]").replace("OK.RUDublado","[B]Offline[/B]").replace("OpenLoadDublado","[B]Offline[/B]").replace("MegaDublado","[B]Offline[/B]").replace("MegaLegendado","[B]Offline[/B]").replace("OkDublado","[B]Offline[/B]").replace("OkLegendado","[B]Offline[/B]").replace("The VidDublado","[B]Offline[/B]").replace("The VidLegendado","[B]Offline[/B]").replace("Alta QualidadeDublado","[B]Offline[/B]").replace("Alta QualidadeLegendado","[B]Offline[/B]").replace("Vid.ToDublado","[B]Offline[/B]").replace("Vid.ToLegendado","[B]Offline[/B]")
+		link = common.OpenURL(url).replace("</span><span>","").replace("SuperFlixNacional","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]").replace("- SD","[B]- SD[/B]")
 		m = re.compile("id=.Opt.+?href=.+?=(.+?)'").findall(link)
 		m2 = re.compile("nv=.Opt.+?n>(.+?<.+?)<\/").findall(link)
 		if m:
@@ -2905,7 +2905,7 @@ def PlaySSFS(): #406
 			listar=[]
 			listal=[]
 			for url3 in m:
-				if "SuperFliX" in m2[i]: False
+				if "SuperFliX" in m2[i] or "SuperFlix FB" in m2[i] or "OK.RU" in m2[i] or "OpenLoad" in m2[i] or "Mega" in m2[i] or "Ok" in m2[i] or "The Vid" in m2[i] or "Vid.To" in m2[i] or "Alta" in m2[i]: False
 				else:
 					listal.append(url3)
 					listar.append(m2[i].replace("</span>",""))
