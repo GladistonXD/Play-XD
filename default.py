@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.57.00"
+Versao = "20.58.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -159,7 +159,7 @@ def MFilmes(): #-2
 	#AddDir("[COLOR palevioletred][B]Filmes VerFilmesHD[/B][/COLOR]" , "", 530, "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR deepskyblue][B]Filmes Lançamentos Assistir.biz[/B][/COLOR]" , "", 517, "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR deepskyblue][B]Filmes Assistir.biz[/B][/COLOR]" , "", 514, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='[COLOR][/COLOR]')
-	#AddDir("[COLOR mediumpurple][B]Filmes Vizer.tv[/B][/COLOR]" , "", 600, "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", info='[COLOR][/COLOR]')
+	AddDir("[COLOR mediumpurple][B]Filmes Vizer.tv[/B][/COLOR]" , "", 600, "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR springgreen][B]Filmes QuerofilmesHD[/B][/COLOR]" , "config", 510, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='[COLOR][/COLOR]')
 	#AddDir("[COLOR blue][B]Filmes Lançamentos RedeCanais[/B][/COLOR]" , cPage, 221, "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", background="cPage", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Dublado RedeCanais[/B][/COLOR]" , cPage, 90, "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", background="cPage", info='[COLOR][/COLOR]')
@@ -175,8 +175,8 @@ def MSeries(): #-3
 	AddDir("[COLOR blue][B]Desenhos RedeCanais[/B][/COLOR]" , cPageani, 150, "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", background="cPageser", info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR cyan]Séries MMFilmes[/COLOR][/B]", "config" , 190,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR lightgreen]Séries Superflix[/COLOR][/B]", "config" , 401,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	AddDir("[B][COLOR springgreen]Séries QueroFilmesHD[/COLOR][/B]", "config" , 430,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True)
-	#AddDir("[B][COLOR mediumpurple]Séries Vizer.tv[/COLOR][/B]", "config" , 450,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True)
+	AddDir("[B][COLOR springgreen]Séries QueroFilmesHD[/COLOR][/B]", "config" , 430,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='[COLOR][/COLOR]')
+	AddDir("[B][COLOR mediumpurple]Séries Vizer.tv[/COLOR][/B]", "config" , 450,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='[COLOR][/COLOR]')
 	setViewM()
 ######################
 def SerieMenuBZ(): # 450
@@ -219,58 +219,57 @@ def SeriePlayBZ(): # 452
         	if match:
 				for url2, name2, img2, numero in match:
 					img3 = "https://image.tmdb.org/t/p/w500/" + img2
-					#name2 = name2.replace("\u00e3","ã").replace("\u00e9","é").replace("\u00ea","ê").replace("\u00ed","í").replace("\u00fa","ú").replace("\u00e7","ç").replace("\u00e0","à").replace("\u00f3","ó").replace("\u00f5","õ").replace("\u00e1","á").replace("\u00b0","°").replace("\u00e2","â").replace("\u00f4","ô").replace("\u00c0","À").replace("\u00c9","é").replace("\u00d3","ó").replace("\u00f6","ö").replace("\u00fc","ü")
 					AddDir(numero+" - " + name2.replace('",',""), url2, 453, img3, img3, isFolder=False, IsPlayable=True, info="")
 	except:
 		pass
+#def SeriePlayBZ2(): # 453
+#	try:	
+#		url3 = ('https://vizer.tv/includes/ajax/publicFunctions.php')
+#		result = {'getEpisodeLanguages': url}
+#		f = requests.post(url3, data=result)
+#		f1 = json.loads(f.text)
+#		f2 = json.dumps(f1, ensure_ascii=False)
+#		arquivo2 = urllib.quote(f2.encode('utf8'))
+#		String2 = urllib.unquote(arquivo2)
+#		if f:
+#			m2 = re.compile('lang".."(.+?)".+?:.+?"(.+?)"').findall(String2)
+#			listar=[]
+#			listal=[]
+#			for res, link in m2:
+#				listal.append(link)
+#				listar.append(res.replace("1","[COLOR red][B]Legendado[/B][/COLOR]").replace("2","[COLOR springgreen][B]Dublado[/B][/COLOR]"))
+#			if len(listal) <1:
+#				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
+#				sys.exit(int(sys.argv[1]))
+#			d = xbmcgui.Dialog().select("Selecione o idioma", listar)
+#			if d!= -1:
+#				url2 = re.sub(' ', '%20', listal[d] )
+#				urlx = "https://vizer.tv/embed/getEmbed.php?orvio=" + url2
+#				url4 = requests.get(urlx)
+#				link2 = re.compile('src="(http.+?)"').findall(url4.text)
+#				link2= link2[0].replace("?","#")
+#				if 'orvio' in link2:
+#					url23 = requests.get(link2)
+#					legenda = re.compile('videoId.+?"(.+?)"').findall(url23.text)
+#					legenda2 = "https://subs.orvio.co/"+legenda[0]+"-PTB.vtt"
+#					archive = re.compile('hashLink.+?"(.+?)"').findall(url23.text)
+#					mp4 = "https://redirect.orvio.co/hd/" + archive[0]
+#					if legenda2:
+#						legenda2 = legenda2
+#						if not "http" in legenda2:
+#							legenda = legenda
+#						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info, sub=legenda2)
+#					else:
+#						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info)
+#				else:
+#					sys.exit()
+#			else:
+#				sys.exit()        
+#	except (IndexError, ValueError):
+#		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado, tente outro servidor')
+#		sys.exit()
+#		#pass
 def SeriePlayBZ2(): # 453
-	try:	
-		url3 = ('https://vizer.tv/includes/ajax/publicFunctions.php')
-		result = {'getEpisodeLanguages': url}
-		f = requests.post(url3, data=result)
-		f1 = json.loads(f.text)
-		f2 = json.dumps(f1, ensure_ascii=False)
-		arquivo2 = urllib.quote(f2.encode('utf8'))
-		String2 = urllib.unquote(arquivo2)
-		if f:
-			m2 = re.compile('lang".."(.+?)".+?:.+?"(.+?)"').findall(String2)
-			listar=[]
-			listal=[]
-			for res, link in m2:
-				listal.append(link)
-				listar.append(res.replace("1","[COLOR red][B]Legendado[/B][/COLOR]").replace("2","[COLOR springgreen][B]Dublado[/B][/COLOR]"))
-			if len(listal) <1:
-				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
-				sys.exit(int(sys.argv[1]))
-			d = xbmcgui.Dialog().select("Selecione o idioma", listar)
-			if d!= -1:
-				url2 = re.sub(' ', '%20', listal[d] )
-				urlx = "https://vizer.tv/embed/getEmbed.php?orvio=" + url2
-				url4 = requests.get(urlx)
-				link2 = re.compile('src="(http.+?)"').findall(url4.text)
-				link2= link2[0].replace("?","#")
-				if 'orvio' in link2:
-					url23 = requests.get(link2)
-					legenda = re.compile('videoId.+?"(.+?)"').findall(url23.text)
-					legenda2 = "https://subs.orvio.co/"+legenda[0]+"-PTB.vtt"
-					archive = re.compile('hashLink.+?"(.+?)"').findall(url23.text)
-					mp4 = "https://redirect.orvio.co/hd/" + archive[0]
-					if legenda2:
-						legenda2 = legenda2
-						if not "http" in legenda2:
-							legenda = legenda
-						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info, sub=legenda2)
-					else:
-						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info)
-				else:
-					sys.exit()
-			else:
-				sys.exit()        
-	except (IndexError, ValueError):
-		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado, tente outro servidor')
-		sys.exit()
-		#pass
-def SeriePlayBZ2222(): # 453
 	try:	
 		url3 = ('https://vizer.tv/includes/ajax/publicFunctions.php')
 		result = {'getEpisodeLanguages': url}
@@ -462,38 +461,38 @@ def MenuVizer2(): # 601
 		arquivo = open(cachefolder + "vizer.txt", "w+")
 		arquivo.write(String2)
 		arquivo.close()
-		#match = re.compile('lang".."(.+?)".+?id".."(.+?)"').findall(String2)
-		match = re.compile('lang".."(.+?)".+?:.+?"(.+?)"').findall(String2)
+		match = re.compile('lang".."(.+?)".+?id".."(.+?)"').findall(String2)
+		#match = re.compile('lang".."(.+?)".+?:.+?"(.+?)"').findall(String2)
         	if match:
 				for name2, url2 in match:
-					name2 = name2.replace("Original"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Português"," [COLOR springgreen][B]Dublado[/B][/COLOR]")
+					name2 = name2.replace("Inglês"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Português"," [COLOR springgreen][B]Dublado[/B][/COLOR]")
 					AddDir(name2, url2, 602, iconimage, iconimage, isFolder=False, IsPlayable=True, info= sinopse)
 	except:
 		pass
-def PlayVizer(): # 602
-	try:	
-				urlx = "https://vizer.tv/embed/getEmbed.php?orvio=" + url
-				url4 = requests.get(urlx)
-				link2 = re.compile('src="(http.+?)"').findall(url4.text)
-				link2= link2[0].replace("?","#")
-				if 'orvio' in link2:
-					url23 = requests.get(link2)
-					legenda = re.compile('videoId.+?"(.+?)"').findall(url23.text)
-					legenda2 = "https://subs.orvio.co/"+legenda[0]+"-PTB.vtt"
-					archive = re.compile('hashLink.+?"(.+?)"').findall(url23.text)
-					mp4 = "https://redirect.orvio.co/hd/" + archive[0]
-					if legenda2:
-						legenda2 = legenda2
-						if not "http" in legenda2:
-							legenda = legenda
-						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info, sub=legenda2)
-					else:
-						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info)
-	except:
-		xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
-		sys.exit()
+#def PlayVizer(): # 602
+#	try:	
+#				urlx = "https://vizer.tv/embed/getEmbed.php?orvio=" + url
+#				url4 = requests.get(urlx)
+#				link2 = re.compile('src="(http.+?)"').findall(url4.text)
+#				link2= link2[0].replace("?","#")
+#				if 'orvio' in link2:
+#					url23 = requests.get(link2)
+#					legenda = re.compile('videoId.+?"(.+?)"').findall(url23.text)
+#					legenda2 = "https://subs.orvio.co/"+legenda[0]+"-PTB.vtt"
+#					archive = re.compile('hashLink.+?"(.+?)"').findall(url23.text)
+#					mp4 = "https://redirect.orvio.co/hd/" + archive[0]
+#					if legenda2:
+#						legenda2 = legenda2
+#						if not "http" in legenda2:
+#							legenda = legenda
+#						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info, sub=legenda2)
+#					else:
+#						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info)
+#	except:
+#		xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
+#		sys.exit()
 
-def PlayVizerxxxxxxxx(): # 602
+def PlayVizer(): # 602
 	try:	
 			url2x = "https://vizer.tv/includes/ajax/publicFunctions.php"
 			result = {'showPlayer': url}
@@ -2019,27 +2018,27 @@ def Busca(): # 160
 					AddDir("[COLOR red]" +name2+ "[/COLOR]" , RC4 + url2, 211, RC4 + img2, info="", isFolder=True, IsPlayable=False)
 	except:
 		pass
-	#progress.update(64, "64%", "Vizer.tv", "")
-	#try:
-	#	i=0
-	#	p= 1
-	#	AddDir("[B][COLOR mediumpurple]|||[/COLOR][COLOR white]|||[/COLOR][COLOR mediumpurple]|||[/COLOR][COLOR mediumpurple] [Vizer.tv] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
-	#	l= 0
-	#	for x in range(0, 1):
-	#		l +=1
-	#		link = common.OpenURL("https://vizer.tv/pesquisar/"+d.replace("%2B","%20"))
-	#		match = re.compile('Assistir (.+?) online" class="(.+?)".href="(.+?)".+\s.+?="(.+?)" class="lazy"').findall(link)
-	#		if match:
-	#			for name2, tipo,url2, img2 in match:
-	#				url3 = "https://vizer.tv/" + url2
-	#				img2= img2.replace("w185","original")
-	#				if "serie" in tipo:
-	#					AddDir("[COLOR mediumpurple]" +name2+ "[/COLOR]" ,url3, 451, img2, img2, info="", isFolder=True, IsPlayable=True)
-	#				else:
-	#					AddDir("[COLOR mediumpurple]" +name2+ "[/COLOR]" ,url3, 601, img2, img2, info="", isFolder=True, IsPlayable=True)
-	#					i+=1
-	#except:
-	#	pass    
+	progress.update(64, "64%", "Vizer.tv", "")
+	try:
+		i=0
+		p= 1
+		AddDir("[B][COLOR mediumpurple]|||[/COLOR][COLOR white]|||[/COLOR][COLOR mediumpurple]|||[/COLOR][COLOR mediumpurple] [Vizer.tv] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		l= 0
+		for x in range(0, 1):
+			l +=1
+			link = common.OpenURL("https://vizer.tv/pesquisar/"+d.replace("%2B","%20"))
+			match = re.compile('Assistir (.+?) online" class="(.+?)".href="(.+?)".+\s.+?="(.+?)" class="lazy"').findall(link)
+			if match:
+				for name2, tipo,url2, img2 in match:
+					url3 = "https://vizer.tv/" + url2
+					img2= img2.replace("w185","original")
+					if "serie" in tipo:
+						AddDir("[COLOR mediumpurple]" +name2+ "[/COLOR]" ,url3, 451, img2, img2, info="", isFolder=True, IsPlayable=True)
+					else:
+						AddDir("[COLOR mediumpurple]" +name2+ "[/COLOR]" ,url3, 601, img2, img2, info="", isFolder=True, IsPlayable=True)
+						i+=1
+	except:
+		pass    
 	progress.update(64, "64%", "Assistir.Biz", "")
 	try:
 		p= 1
@@ -2135,7 +2134,7 @@ def Busca(): # 160
 #					i+=1
 #	except:
 #		pass
-	progress.update(99, "99%", "RedeCanais", "")
+	progress.update(82, "82%", "RedeCanais", "")
 	try:
 		i=0
 		p= 1
