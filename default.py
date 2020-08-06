@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.58.00"
+Versao = "20.59.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2868,7 +2868,7 @@ def ListMovieSF(): #411:
 # -----------------
 def PlaySSF(): #405
 	i=0
-	link = common.OpenURL(url).replace("</span><span>","").replace("SuperFlixNacional","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]").replace("- SD","[B]- SD[/B]")
+	link = common.OpenURL(url).replace("</span><span>","").replace("SuperFlixNacional","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("- Full HD","").replace("- HD 720p","").replace("SuperFlixDublado","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","").replace("- SD","")
 	desc = re.compile('"Description"><p>(.+?)<\/p>').findall(link)
 	desc = desc[0].replace("Assistir","").replace("Online","").replace("Dublado","").replace("Legendado","").replace("  "," ").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”')
 	m = re.compile("id=.Opt.+?href=.+?=(.+?)'").findall(link)
@@ -2980,7 +2980,7 @@ def ListEpiSF(): #403
 def PlaySSFS(): #406
 	try:
 		i=0
-		link = common.OpenURL(url).replace("</span><span>","").replace("SuperFlixNacional","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("- Full HD","[B]- Full HD[/B]").replace("- HD 720p","[B]- HD 720p[/B]").replace("SuperFlixDublado","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","[B]- HD[/B]").replace("- SD","[B]- SD[/B]")
+		link = common.OpenURL(url).replace("</span><span>","").replace("SuperFlixNacional","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("- Full HD","").replace("- HD 720p","").replace("SuperFlixDublado","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","").replace("- SD","")
 		m = re.compile("id=.Opt.+?href=.+?=(.+?)'").findall(link)
 		m2 = re.compile("nv=.Opt.+?n>(.+?<.+?)<\/").findall(link)
 		if m:
@@ -3479,6 +3479,8 @@ elif mode == 185:
 	AddFavorites(url, iconimage, name, "181", 'favoritesf.txt')
 elif mode == 195: 
 	AddFavorites(url, iconimage, name, "191", 'favoritess.txt')
+elif mode == 196: 
+	AddFavorites(url, iconimage, name, "602", 'favoritess2.txt')
 elif mode == 333:
 	RemoveFromLists(index, favfilmesFile)
 elif mode == 338:
