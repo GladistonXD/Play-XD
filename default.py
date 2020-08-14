@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.59.00"
+Versao = "20.60.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -314,11 +314,31 @@ def SeriePlayBZ2(): # 453
 					link2= link2[0].replace("?","#")
 					if 'mixdrop' in link2:
 						headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-						#html = requests.get(link2, headers=headers)
 						html2 = requests.get(link2, headers=headers)
 						g = re.compile('location.+?"(.+?)"').findall(html2.text)
-						g2 = "https://mixdrop.to" + g[0]
-						html = requests.get(g2, headers=headers)
+						try:
+							g2 = "https://mixdrop.to" + g[0]
+							html = requests.get(g2, headers=headers)
+							w = re.compile("'.MDCore.(.)").findall(html.text)
+							w = w[0].replace("d","a")
+							w1 = re.compile("(delivery\w+)").findall(html.text)
+							w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
+							w3 = re.compile("wurl...+?(\W.+?[A-Z]+\w.+?\W.+?)\W").findall(html.text)
+							w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
+							contents = "https://"+w+"-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
+							contents1 = contents.replace("|vfile","").replace("|","-")
+							contents2 = re.sub('\W\d+-', '', contents1)
+							if legenda:
+								legenda = legenda[0]
+								if not "http" in legenda:
+									legenda = legenda
+								PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
+							else:
+								PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
+						except IndexError as g2:
+							pass
+						headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+						html = requests.get(link2, headers=headers)
 						w = re.compile("'.MDCore.(.)").findall(html.text)
 						w = w[0].replace("d","a")
 						w1 = re.compile("(delivery\w+)").findall(html.text)
@@ -528,11 +548,31 @@ def PlayVizer(): # 602
 						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info)
 				if 'mixdrop' in link2:
 					headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-					#html = requests.get(link2, headers=headers)
 					html2 = requests.get(link2, headers=headers)
 					g = re.compile('location.+?"(.+?)"').findall(html2.text)
-					g2 = "https://mixdrop.to" + g[0]
-					html = requests.get(g2, headers=headers)
+					try:
+						g2 = "https://mixdrop.to" + g[0]
+						html = requests.get(g2, headers=headers)
+						w = re.compile("'.MDCore.(.)").findall(html.text)
+						w = w[0].replace("d","a")
+						w1 = re.compile("(delivery\w+)").findall(html.text)
+						w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
+						w3 = re.compile("wurl...+?(\W.+?[A-Z]+\w.+?\W.+?)\W").findall(html.text)
+						w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
+						contents = "https://"+w+"-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
+						contents1 = contents.replace("|vfile","").replace("|","-")
+						contents2 = re.sub('\W\d+-', '', contents1)
+						if legenda:
+							legenda = legenda[0]
+							if not "http" in legenda:
+								legenda = legenda
+							PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
+						else:
+							PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
+					except IndexError as g2:
+						pass
+					headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+					html = requests.get(link2, headers=headers)
 					w = re.compile("'.MDCore.(.)").findall(html.text)
 					w = w[0].replace("d","a")
 					w1 = re.compile("(delivery\w+)").findall(html.text)
