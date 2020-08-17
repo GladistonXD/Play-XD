@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.62.00"
+Versao = "20.63.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -222,54 +222,54 @@ def SeriePlayBZ(): # 452
 					AddDir(numero+" - " + name2.replace('",',""), url2, 453, img3, img3, isFolder=False, IsPlayable=True, info="")
 	except:
 		pass
-#def SeriePlayBZ2(): # 453
-#	try:	
-#		url3 = ('https://vizer.tv/includes/ajax/publicFunctions.php')
-#		result = {'getEpisodeLanguages': url}
-#		f = requests.post(url3, data=result)
-#		f1 = json.loads(f.text)
-#		f2 = json.dumps(f1, ensure_ascii=False)
-#		arquivo2 = urllib.quote(f2.encode('utf8'))
-#		String2 = urllib.unquote(arquivo2)
-#		if f:
-#			m2 = re.compile('lang".."(.+?)".+?:.+?"(.+?)"').findall(String2)
-#			listar=[]
-#			listal=[]
-#			for res, link in m2:
-#				listal.append(link)
-#				listar.append(res.replace("1","[COLOR red][B]Legendado[/B][/COLOR]").replace("2","[COLOR springgreen][B]Dublado[/B][/COLOR]"))
-#			if len(listal) <1:
-#				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
-#				sys.exit(int(sys.argv[1]))
-#			d = xbmcgui.Dialog().select("Selecione o idioma", listar)
-#			if d!= -1:
-#				url2 = re.sub(' ', '%20', listal[d] )
-#				urlx = "https://vizer.tv/embed/getEmbed.php?orvio=" + url2
-#				url4 = requests.get(urlx)
-#				link2 = re.compile('src="(http.+?)"').findall(url4.text)
-#				link2= link2[0].replace("?","#")
-#				if 'orvio' in link2:
-#					url23 = requests.get(link2)
-#					legenda = re.compile('videoId.+?"(.+?)"').findall(url23.text)
-#					legenda2 = "https://subs.orvio.co/"+legenda[0]+"-PTB.vtt"
-#					archive = re.compile('hashLink.+?"(.+?)"').findall(url23.text)
-#					mp4 = "https://redirect.orvio.co/hd/" + archive[0]
-#					if legenda2:
-#						legenda2 = legenda2
-#						if not "http" in legenda2:
-#							legenda = legenda
-#						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info, sub=legenda2)
-#					else:
-#						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info)
-#				else:
-#					sys.exit()
-#			else:
-#				sys.exit()        
-#	except (IndexError, ValueError):
-#		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado, tente outro servidor')
-#		sys.exit()
-#		#pass
 def SeriePlayBZ2(): # 453
+	try:	
+		url3 = ('https://vizer.tv/includes/ajax/publicFunctions.php')
+		result = {'getEpisodeLanguages': url}
+		f = requests.post(url3, data=result)
+		f1 = json.loads(f.text)
+		f2 = json.dumps(f1, ensure_ascii=False)
+		arquivo2 = urllib.quote(f2.encode('utf8'))
+		String2 = urllib.unquote(arquivo2)
+		if f:
+			m2 = re.compile('lang".."(.+?)".+?:.+?"(.+?)"').findall(String2)
+			listar=[]
+			listal=[]
+			for res, link in m2:
+				listal.append(link)
+				listar.append(res.replace("1","[COLOR red][B]Legendado[/B][/COLOR]").replace("2","[COLOR springgreen][B]Dublado[/B][/COLOR]"))
+			if len(listal) <1:
+				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
+				sys.exit(int(sys.argv[1]))
+			d = xbmcgui.Dialog().select("Selecione o idioma", listar)
+			if d!= -1:
+				url2 = re.sub(' ', '%20', listal[d] )
+				urlx = "https://vizer.tv/embed/getEmbed.php?orvio=" + url2
+				url4 = requests.get(urlx)
+				link2 = re.compile('src="(http.+?)"').findall(url4.text)
+				link2= link2[0].replace("?","#")
+				if 'orvio' in link2:
+					url23 = requests.get(link2)
+					legenda = re.compile('videoId.+?"(.+?)"').findall(url23.text)
+					id = re.compile('var subsArray.+?"(.+?)"').findall(url23.text)
+					legenda2 = "https://subs.orvio.co/"+legenda[0]+"-"+id[0]+".vtt"
+					archive = re.compile('hashLink.+?"(.+?)"').findall(url23.text)
+					mp4 = "https://redirect.orvio.co/hd/" + archive[0]
+					if legenda2:
+						legenda2 = legenda2
+						if not "http" in legenda2:
+							legenda2 = legenda2
+						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info, sub=legenda2)
+					else:
+						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info)
+				else:
+					sys.exit()
+			else:
+				sys.exit()        
+	except (IndexError, ValueError):
+		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado, tente outro servidor')
+		sys.exit()
+def SeriePlayBZ22(): # 453 #### opção 1
 	try:	
 		url3 = ('https://vizer.tv/includes/ajax/publicFunctions.php')
 		result = {'getEpisodeLanguages': url}
@@ -481,38 +481,40 @@ def MenuVizer2(): # 601
 		arquivo = open(cachefolder + "vizer.txt", "w+")
 		arquivo.write(String2)
 		arquivo.close()
-		match = re.compile('lang".."(.+?)".+?id".."(.+?)"').findall(String2)
-		#match = re.compile('lang".."(.+?)".+?:.+?"(.+?)"').findall(String2)
+		#match = re.compile('lang".."(.+?)".+?id".."(.+?)"').findall(String2)
+		match = re.compile('lang".."(.+?)".+?:.+?"(.+?)"').findall(String2)
         	if match:
 				for name2, url2 in match:
-					name2 = name2.replace("Inglês"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Português"," [COLOR springgreen][B]Dublado[/B][/COLOR]")
+					#name2 = name2.replace("Inglês"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Português"," [COLOR springgreen][B]Dublado[/B][/COLOR]")
+					name2 = name2.replace("Original"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Português"," [COLOR springgreen][B]Dublado[/B][/COLOR]")
 					AddDir(name2, url2, 602, iconimage, iconimage, isFolder=False, IsPlayable=True, info= sinopse)
 	except:
 		pass
-#def PlayVizer(): # 602
-#	try:	
-#				urlx = "https://vizer.tv/embed/getEmbed.php?orvio=" + url
-#				url4 = requests.get(urlx)
-#				link2 = re.compile('src="(http.+?)"').findall(url4.text)
-#				link2= link2[0].replace("?","#")
-#				if 'orvio' in link2:
-#					url23 = requests.get(link2)
-#					legenda = re.compile('videoId.+?"(.+?)"').findall(url23.text)
-#					legenda2 = "https://subs.orvio.co/"+legenda[0]+"-PTB.vtt"
-#					archive = re.compile('hashLink.+?"(.+?)"').findall(url23.text)
-#					mp4 = "https://redirect.orvio.co/hd/" + archive[0]
-#					if legenda2:
-#						legenda2 = legenda2
-#						if not "http" in legenda2:
-#							legenda = legenda
-#						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info, sub=legenda2)
-#					else:
-#						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info)
-#	except:
-#		xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
-#		sys.exit()
-
 def PlayVizer(): # 602
+	try:	
+				urlx = "https://vizer.tv/embed/getEmbed.php?orvio=" + url
+				url4 = requests.get(urlx)
+				link2 = re.compile('src="(http.+?)"').findall(url4.text)
+				link2= link2[0].replace("?","#")
+				if 'orvio' in link2:
+					url23 = requests.get(link2)
+					legenda = re.compile('videoId.+?"(.+?)"').findall(url23.text)
+					id = re.compile('var subsArray.+?"(.+?)"').findall(url23.text)
+					legenda2 = "https://subs.orvio.co/"+legenda[0]+"-"+id[0]+".vtt"
+					archive = re.compile('hashLink.+?"(.+?)"').findall(url23.text)
+					mp4 = "https://redirect.orvio.co/hd/" + archive[0]
+					if legenda2:
+						legenda2 = legenda2
+						if not "http" in legenda2:
+							legenda = legenda
+						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info, sub=legenda2)
+					else:
+						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info)
+	except:
+		xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
+		sys.exit()
+
+def PlayVizer1(): # 602 ###### opção 1
 	try:	
 			url2x = "https://vizer.tv/includes/ajax/publicFunctions.php"
 			result = {'showPlayer': url}
