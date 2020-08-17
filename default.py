@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.63.00"
+Versao = "20.64.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -250,16 +250,14 @@ def SeriePlayBZ2(): # 453
 				link2= link2[0].replace("?","#")
 				if 'orvio' in link2:
 					url23 = requests.get(link2)
-					legenda = re.compile('videoId.+?"(.+?)"').findall(url23.text)
-					id = re.compile('var subsArray.+?"(.+?)"').findall(url23.text)
-					legenda2 = "https://subs.orvio.co/"+legenda[0]+"-"+id[0]+".vtt"
+					legenda = re.compile('videoId.+?"(.+?)".\s+.+\s.+.\s+.\s.+\s.+\s.+?var subsArray.+?"(.+?)"').findall(url23.text)
 					archive = re.compile('hashLink.+?"(.+?)"').findall(url23.text)
 					mp4 = "https://redirect.orvio.co/hd/" + archive[0]
-					if legenda2:
-						legenda2 = legenda2
-						if not "http" in legenda2:
-							legenda2 = legenda2
-						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info, sub=legenda2)
+					if legenda:
+						for legenda2, id in legenda:
+							id2 = id.replace("P","-P")
+							legenda2 = "https://subs.orvio.co/"+legenda2+id2+".vtt"
+							PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info, sub=legenda2)
 					else:
 						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info)
 				else:
@@ -498,16 +496,14 @@ def PlayVizer(): # 602
 				link2= link2[0].replace("?","#")
 				if 'orvio' in link2:
 					url23 = requests.get(link2)
-					legenda = re.compile('videoId.+?"(.+?)"').findall(url23.text)
-					id = re.compile('var subsArray.+?"(.+?)"').findall(url23.text)
-					legenda2 = "https://subs.orvio.co/"+legenda[0]+"-"+id[0]+".vtt"
+					legenda = re.compile('videoId.+?"(.+?)".\s+.+\s.+.\s+.\s.+\s.+\s.+?var subsArray.+?"(.+?)"').findall(url23.text)
 					archive = re.compile('hashLink.+?"(.+?)"').findall(url23.text)
 					mp4 = "https://redirect.orvio.co/hd/" + archive[0]
-					if legenda2:
-						legenda2 = legenda2
-						if not "http" in legenda2:
-							legenda = legenda
-						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info, sub=legenda2)
+					if legenda:
+						for legenda2, id in legenda:
+							id2 = id.replace("P","-P")
+							legenda2 = "https://subs.orvio.co/"+legenda2+id2+".vtt"
+							PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info, sub=legenda2)
 					else:
 						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info)
 	except:
