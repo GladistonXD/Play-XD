@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.61.00"
+Versao = "20.62.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2203,14 +2203,14 @@ def Busca(): # 160
 		for x in range(0, 1):
 			l +=1
 			link = common.OpenURL("https://www.superflix.net/?s="+d).replace('\n','').replace('\r','')
-			match = re.compile('href="([^\"]+).{1,100}src="([^\"]+).{1,300}Title".([^\<]+).{1,12}class="([^\"]+)').findall(link.replace('\n','').replace('\r',''))
+			match = re.compile('"> <art.+?title">([^\"].+?)<.+?src="([^\"].+?)".+?sm">Ver.([^\"].+?)<.+?href="([^\"].+?)"').findall(link.replace('\n','').replace('\r',''))
 			if match:
-				for url2,img2,name2,tvmovie in match:
+				for name2, img2, tvmovie, url2 in match:
 					img2 = img2.replace("w185", 'original').replace("https:", '').replace("w220_and_h330_face", 'original').replace("-185x278", "")
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-					if "Info" in tvmovie:
+					if "Filme" in tvmovie:
 						AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 405, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
-					if "TpTv" in tvmovie:
+					if "Série" in tvmovie:
 						AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 402, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False)
 	except:
 		pass        
@@ -2887,32 +2887,32 @@ def ListMovieSF(): #411:
 		p= 1
 		if int(cPageMEG) > 0:
 			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageMEG) ) +"][/B][/COLOR]", cPageMEG , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageMEG")
-		l= int(cPageMEG)*2
-		for x in range(0, 2):
+		l= int(cPageMEG)*3
+		for x in range(0, 3):
 			l +=1
-			link = common.OpenURL("https://www.superflix.net/categoria/"+ClistaMEG10[int(CatMG)]+"/page/"+str(l)+"/?tr_post_type=1")
-			match = re.compile('href="([^\"]+).{1,100}src="([^\"]+).{1,300}Title".([^\<]+).{1,12}class="([^\"]+).{1,122}range">([^\"]+?)<').findall(link.replace('\n','').replace('\r',''))
+			movie = "https://www.superflix.net/categoria/"+ClistaMEG10[int(CatMG)]+"/page/"+str(l)+"/"
+			link = common.OpenURL(movie.replace("page/1/",""))
+			match = re.compile('"> <art.+?title">([^\"].+?)<.+?src="([^\"].+?)".+?year">([^\"].+?)<.+?sm.+? (.+?)<.+?href="([^\"].+?)"').findall(link.replace('\n','').replace('\r',''))
 			if match:
-				for url2,img2,name2,tvmovie, year2 in match:
+				for name2, img2, year2, tvmovie, url2 in match:
 					img2 = img2.replace("w185", 'original').replace("https:", '').replace("w220_and_h330_face", 'original').replace("-185x278", "")
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-					if "TpTv" in tvmovie: False
+					if "Série" in tvmovie: False
 					else:
-						#name2 = name2.replace("</font>","")
 						AddDir(name2+" ("+year2+")", url2, 405, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=True, info='[COLOR][/COLOR]')
 					p += 1
-		if p >= 30:
+		if p >= 36:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageMEG) + 2) +"][/B][/COLOR]", cPageMEG , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageMEG")
 	except:
 		pass
 # -----------------
 def PlaySSF(): #405
 	i=0
-	link = common.OpenURL(url).replace("</span><span>","").replace("SuperFlixNacional","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("- Full HD","").replace("- HD 720p","").replace("SuperFlixDublado","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","").replace("- SD","")
-	desc = re.compile('"Description"><p>(.+?)<\/p>').findall(link)
+	link = common.OpenURL(url).replace("</span><span>","").replace("                                ","").replace("SuperFlix-Nacional","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("- Full HD","").replace("- HD 720p","").replace("SuperFlix-Dublado","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("SuperFlix-Legendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","").replace("- SD","")
+	desc = re.compile('class="description"><p>(.+?)<').findall(link)
 	desc = desc[0].replace("Assistir","").replace("Online","").replace("Dublado","").replace("Legendado","").replace("  "," ").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”')
-	m = re.compile("id=.Opt.+?href=.+?=(.+?)'").findall(link)
-	m2 = re.compile("nv=.Opt.+?n>(.+?<.+?)<\/").findall(link)
+	m = re.compile("href='\/\/.+?=(.+?)'").findall(link)
+	m2 = re.compile('class="server">(.+?)<').findall(link)
 	if m:
 		for url2 in m:
 			hexd = codecs.decode(url2, "hex_codec").decode('utf-8')
@@ -2999,9 +2999,10 @@ def ListSerieSF(): #401:
 		try:
 			y +=1
 			l = common.OpenURL("http://www.superflix.net/assistir-series-online/page/"+str(y)+"/")
-			match = re.compile('href\=\"([^\"]+).{1,150}src=\"([^\"]+).{1,200}itle\"\>([^\<]+).{1,150}ear\"\>([^\<]+)').findall(l)
+			link = re.compile('}.;<\/script>(.+)custom-html-widget">').findall(l)
+			match = re.compile('<h2 class="entry-title">([^\"].+?)<.+?src="([^\"].+?)".+?class.+?class="\w+">([^\"].+?)<.+?Série.{1,52}h.+?"(.+?)"').findall(link[0])
 			if match:
-				for url2,img2,name2,year2 in match:
+				for name2, img2, year2, url2 in match:
 					img2 = img2.replace("w185", 'original').replace("https:", '').replace("w220_and_h330_face", 'original').replace("-185x278", "")
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 					AddDir(name2+" ("+year2+")", url2, 402, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False)
@@ -3010,19 +3011,20 @@ def ListSerieSF(): #401:
 	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserSF")
 def ListTempSF(): #402
 	l = common.OpenURL(url).replace("\n","").replace("\r","")
-	m = re.compile('Temporada ?.{5,6}(\d+)(.+?)\<\/Season\>').findall(l)
-	for temp2,cont2 in m:
+	m = re.compile('drp choose-season">.+?href="(.+?)".+?ne">(.+?)<').findall(l)
+	for cont2, temp2 in m:
 		AddDir("Temporada "+ temp2, cont2, 403, iconimage, iconimage, isFolder=True)
 def ListEpiSF(): #403
-	epis = re.compile('Num.{1,2}(\d+).+?(http[^\"]+)').findall(url)
+	l = common.OpenURL(url).replace("\n","").replace("\r","")
+	epis = re.compile('"num-epi">(.+?)<.+?href="(.+?)"').findall(l)
 	for E,url2 in epis:
 		AddDir("Episódio "+E,url2, 406, iconimage, iconimage, isFolder=False, IsPlayable=True)
 def PlaySSFS(): #406
 	try:
 		i=0
-		link = common.OpenURL(url).replace("</span><span>","").replace("SuperFlixNacional","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("- Full HD","").replace("- HD 720p","").replace("SuperFlixDublado","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("SuperFlixLegendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","").replace("- SD","")
-		m = re.compile("id=.Opt.+?href=.+?=(.+?)'").findall(link)
-		m2 = re.compile("nv=.Opt.+?n>(.+?<.+?)<\/").findall(link)
+		link = common.OpenURL(url).replace("</span><span>","").replace("SuperFlix - Nacional","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("- Full HD","").replace("- HD 720p","").replace("SuperFlix - Dublado","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("SuperFlix - Legendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","").replace("- SD","")
+		m = re.compile("href='\/\/.+?=(.+?)'").findall(link)
+		m2 = re.compile('class="server">(.+?)<').findall(link)
 		if m:
 			legenda = re.compile('subdata..([^\"]+)').findall(url)
 			listar=[]
