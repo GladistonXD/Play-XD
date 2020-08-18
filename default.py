@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.64.00"
+Versao = "20.65.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2924,12 +2924,63 @@ def Play2SFS(): #407
                 url3Play = common.OpenURL(url)
                 url4Play = re.compile('(https.+?")').findall(url3Play)
                 url4Play= url4Play[0]
+                arquivo = open(cachefolder + "TOPUTO.txt", "w+")
+                arquivo.write(url)
+                arquivo.close()
         except IndexError as url4Play:
 			sys.exit()
         
         try:
 
-            if 'www.superflix.net' in url4Play:
+            if 'sfplayer.net' in url4Play:
+                    urlxx = re.compile('x.html.(.+?)"').findall(url4Play)
+                    urlxx = urlxx[0]
+                    legenda = re.compile('sub=(.+?srt)').findall(url4Play)
+                    url1 = re.compile('(id=.+?\w+)').findall(urlxx)
+                    inver = re.compile('id=(\w+)').findall(urlxx)
+                    url1 = url1[0].replace("id=", "https://lbsuper.sfplayer.net/playlist/") + "/1590191456752"
+                    url2 = requests.get(url1)
+                    url3x = re.compile('x([^\"]\w+)\s(\/.+?m3u8)').findall(url2.text)
+                    url3x.reverse()
+                    listar=[]
+                    listal=[]
+                    for res, link in url3x:
+                    	listal.append(link)
+                    	listar.append(res+"p")
+                    if len(listal) <1:
+                    	xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
+                    	sys.exit(int(sys.argv[1]))
+                    d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+                    if d!= -1:
+                    	url2x = re.sub(' ', '%20', listal[d] )
+                    	url3 = url2x.replace("/hls/", "https://lbsuper.sfplayer.net/hls/").replace(".m3u8", "")
+                    	url4 = requests.get(url3)
+                    	url4 = url4.text
+                    	inverter = inver[0]
+                    	invertida = ''.join(palavra[::-1] for palavra in inverter.split())
+                    	url7 = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=" + invertida + "&url=https"
+                    	url8 = url4.replace('://', '%3A%2F%2F').replace('/', '%2F').replace('.png', '').replace('?', '%3F').replace('=','%3D').replace('https', url7)
+                    	arquivo = open(cachefolder + "movies.m3u8", "w+")
+                    	arquivo.write(url8)
+                    	arquivo.close()
+                    	x1 = randrange(300)
+                    	x = str(x1)
+                    	session = ftplib.FTP('files.000webhost.com','unlikely-terms','gladiston')
+                    	file = open(cachefolder + "movies.m3u8",'rb')
+                    	session.storbinary('STOR /public_html/Cacheflix/movies'+x+'.m3u8', file)
+                    	file.close()                      
+                    	session.quit()
+                    	if legenda:
+                    	    for legenda2 in legenda:
+                    	        legenda3 = urllib.quote(legenda2)
+                    	        legenda4 = "https://sub.sfplayer.net/subdata/" + legenda3
+                    	        PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info, sub=legenda4)
+                    	else:
+                    	    PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info)
+                    else:
+                        sys.exit()
+                        
+            if 'xxxxxxxx' in url4Play:
                     urlxx = re.compile('tid=(.+?)&"').findall(url4Play)
                     urlxx = urlxx[0]
                     inverter1 = urlxx
@@ -2961,15 +3012,15 @@ def Play2SFS(): #407
                     session.quit()
                     if legenda:
                         legenda = legenda[0]
-                        legenda2 = urllib.quote(legenda.encode('utf8'))
-                        if not "http" in legenda:
-                            legenda3 = "https://sub.sfplayer.net/subdata/"
-                            legenda4 = legenda3 + legenda2
-                        PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info, sub=legenda4)
+                        #legenda2 = urllib.quote(legenda.encode('utf8'))
+                        #if not "http" in legenda:
+                        #   legenda3 = "https://sub.sfplayer.net/subdata/"
+                        #    legenda4 = legenda3 + legenda2
+                        PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info, sub=legenda)
                     else:
                         PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info)
 
-            elif 'sfplayer' in url4Play:
+            elif 'xxxxxxxxx' in url4Play:
                     legenda3 = re.compile('vl(.+?)"').findall(url4Play)
                     url12 = re.compile('net\/(.+?\w+.\w+)').findall(url4Play)
                     url12= url12[0].replace("embedplay","https://fb.sfplayer.net/getLinkStreamMd5")
@@ -3042,10 +3093,57 @@ def PlaySSFS(): #406
 				hexd = codecs.decode(url2, "hex_codec").decode('utf-8')
                 url3Play = common.OpenURL(hexd.replace("#038;",""))
                 url4Play = re.compile('(https.+?")').findall(url3Play)
-                url4Play= url4Play[0]        
-
+                url4Play= url4Play[0]
+                
+                if 'sfplayer.net' in url4Play:
+                    urlxx = re.compile('x.html.(.+?)"').findall(url4Play)
+                    urlxx = urlxx[0]
+                    legenda = re.compile('sub=(.+?srt)').findall(url4Play)
+                    url1 = re.compile('(id=.+?\w+)').findall(urlxx)
+                    inver = re.compile('id=(\w+)').findall(urlxx)
+                    url1 = url1[0].replace("id=", "https://lbsuper.sfplayer.net/playlist/") + "/1590191456752"
+                    url2 = requests.get(url1)
+                    url3x = re.compile('x([^\"]\w+)\s(\/.+?m3u8)').findall(url2.text)
+                    url3x.reverse()
+                    listar=[]
+                    listal=[]
+                    for res, link in url3x:
+                    	listal.append(link)
+                    	listar.append(res+"p")
+                    if len(listal) <1:
+                    	xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
+                    	sys.exit(int(sys.argv[1]))
+                    d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+                    if d!= -1:
+                    	url2x = re.sub(' ', '%20', listal[d] )
+                    	url3 = url2x.replace("/hls/", "https://lbsuper.sfplayer.net/hls/").replace(".m3u8", "")
+                    	url4 = requests.get(url3)
+                    	url4 = url4.text
+                    	inverter = inver[0]
+                    	invertida = ''.join(palavra[::-1] for palavra in inverter.split())
+                    	url7 = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=" + invertida + "&url=https"
+                    	url8 = url4.replace('://', '%3A%2F%2F').replace('/', '%2F').replace('.png', '').replace('?', '%3F').replace('=','%3D').replace('https', url7)
+                    	arquivo = open(cachefolder + "movies.m3u8", "w+")
+                    	arquivo.write(url8)
+                    	arquivo.close()
+                    	x1 = randrange(300)
+                    	x = str(x1)
+                    	session = ftplib.FTP('files.000webhost.com','unlikely-terms','gladiston')
+                    	file = open(cachefolder + "movies.m3u8",'rb')
+                    	session.storbinary('STOR /public_html/Cacheflix/movies'+x+'.m3u8', file)
+                    	file.close()                      
+                    	session.quit()
+                    	if legenda:
+                    	    for legenda2 in legenda:
+                    	        legenda3 = urllib.quote(legenda2)
+                    	        legenda4 = "https://sub.sfplayer.net/subdata/" + legenda3
+                    	        PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info, sub=legenda4)
+                    	else:
+                    	    PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info)
+                    else:
+                        sys.exit()
                 if 'www.superflix.net' in url4Play:
-                    urlxx = re.compile('tid=(.+?)&"').findall(url4Play)
+                    urlxx = re.compile('html.(.+?)"').findall(url4Play)
                     urlxx = urlxx[0]
                     inverter1 = urlxx
                     invertida1 = ''.join(palavra[::-1] for palavra in inverter1.split())
@@ -3057,7 +3155,6 @@ def PlaySSFS(): #406
                     url3 = re.compile('EXTM3U\s.+\s.+\s.+\s(.+?m3u8)').findall(url2)
                     url3= url3[0].replace("/hls/","https://lbsuper.sfplayer.net/hls/").replace(".m3u8","")
                     url4 = common.OpenURL(url3)
-                    url4x = common.OpenURL(url3)
                     url6 = re.compile('playlist.(\w+)').findall(url1)
                     url6 = url6[0]
                     inverter = url6
@@ -3084,7 +3181,7 @@ def PlaySSFS(): #406
                     else:
                         PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info)
 
-                elif 'sfplayer' in url4Play:
+                elif 'xxxxxxxxx' in url4Play:
                     legenda3 = re.compile('vl(.+?)"').findall(url4Play)
                     url12 = re.compile('net\/(.+?\w+.\w+)').findall(url4Play)
                     url12= url12[0].replace("embedplay","https://fb.sfplayer.net/getLinkStreamMd5")
