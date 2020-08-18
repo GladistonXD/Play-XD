@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.69.00"
+Versao = "20.70.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2922,8 +2922,8 @@ def ListMovieSF(): #411:
 def PlaySSF(): #405
 	i=0
 	link = common.OpenURL(url).replace("</span><span>","").replace("                                ","").replace("SuperFlix-Nacional","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("- Full HD","").replace("- HD 720p","").replace("SuperFlix-Dublado","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("SuperFlix-Legendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("- HD","").replace("- SD","")
-	desc = re.compile('>Assistir (.+?)<\/p').findall(link)
-	desc = desc[0].replace("Assistir","").replace("Filme ","").replace("Online","").replace("Dublado","").replace("Legendado","").replace("  "," ").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”')
+	desc = re.compile('(<p>Filme.+?<\/p>|>Assistir.+?<\/p|"><p>.+?<\/p>)').findall(link)
+	desc = desc[0].replace("Assistir","").replace(">","").replace("</p","").replace('"',"").replace("<p","").replace("Filme ","").replace("Online","").replace("Dublado","").replace("Legendado","").replace("  "," ").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”')
 	m = re.compile("href='\/\/.+?=(.+?)'").findall(link)
 	m2 = re.compile('class="server">(.+?)<').findall(link)
 	if m:
