@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.65.00"
+Versao = "20.66.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2899,7 +2899,7 @@ def ListMovieSF(): #411:
 					else:
 						AddDir(name2+" ("+year2+")", url2, 405, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=True, info='[COLOR][/COLOR]')
 					p += 1
-		if p >= 36:
+		if p >= 33:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageMEG) + 2) +"][/B][/COLOR]", cPageMEG , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageMEG")
 	except:
 		pass
