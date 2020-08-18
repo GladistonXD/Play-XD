@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.68.00"
+Versao = "20.69.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -82,18 +82,18 @@ ClistaMM0=["ultimos","category/lancamentos","category/acao","category/animacao",
 ClistaMM1=["[COLOR red][B]Ultimos Adicionados[/COLOR][/B]","[COLOR red][B]Lançamentos[/COLOR][/B]","[COLOR red][B]Ação[/COLOR][/B]","[COLOR red][B]Animação[/COLOR][/B]","[COLOR red][B]Aventura[/COLOR][/B]","[COLOR red][B]Comédia[/COLOR][/B]","[COLOR red][B]Drama[/COLOR][/B]","[COLOR red][B]Fantasia[/COLOR][/B]","[COLOR red][B]F. Científica[/COLOR][/B]","[COLOR red][B]Guerra[/COLOR][/B]","[COLOR red][B]Policial[/COLOR][/B]","[COLOR red][B]Romance[/COLOR][/B]","[COLOR red][B]Suspense[/COLOR][/B]","[COLOR red][B]Terror[/COLOR][/B]"]
 ClistaGO0=["",                                                                  "ano-lancamento/2020",                    "ano-lancamento/2019",            "category/acao",                      "category/animacao",                "category/aventura",                                        "category/comedia",              "category/drama",                                     "category/fantasia",           "category/ficcao-cientifica",                                       "category/documentario",                        "category/faroeste",                               "category/romance",                              "category/suspense",                                        "category/terror", ]
 ClistaGO1=["[COLOR deepskyblue][B]Mostrar Todos[/COLOR][/B]",    "[COLOR yellow][B]Lançamentos 2020[/COLOR][/B]", "[COLOR slategray][B]2019[/COLOR][/B]",      "[COLOR red][B]Ação[/COLOR][/B]", "[COLOR lime][B]Animação[/COLOR][/B]", "[COLOR darkorchid][B]Aventura[/COLOR][/B]", "[COLOR hotpink][B]Comédia[/COLOR][/B]",       "[COLOR springgreen][B]Drama[/COLOR][/B]", "[COLOR salmon][B]Fantasia[/COLOR][/B]", "[COLOR paleturquoise][B]Ficção-Científica[/COLOR][/B]","[COLOR crimson][B]Documentário[/COLOR][/B]","[COLOR darkorange][B]Faroeste[/COLOR][/B]","[COLOR deepskyblue][B]Romance[/COLOR][/B]", "[COLOR darkorchid][B]Suspense[/COLOR][/B]",             "[COLOR lightgreen][B]Terror[/COLOR][/B]"]
-ClistaFl0=["filmes", "genero/acao", "genero/animacao", "genero/aventura", "genero/comedia", "genero/drama", "genero/ficcao", "genero/romance", "genero/suspense", "genero/terror"]
-ClistaFl1=["[COLOR yellow][B]Mostrar Todos[/COLOR][/B]", "[COLOR yellow][B]Ação[/COLOR][/B]", "[COLOR yellow][B]Animação[/COLOR][/B]", "[COLOR yellow][B]Aventura[/COLOR][/B]", "[COLOR yellow][B]Comedia[/COLOR][/B]", "[COLOR yellow][B]Drama[/COLOR][/B]", "[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]", "[COLOR yellow][B]Romance[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]", "[COLOR yellow][B]Terror[/COLOR][/B]"]
+ClistaFl0=["filmes", "0", "genero/acao", "genero/animacao", "genero/aventura", "genero/comedia", "genero/drama", "genero/ficcao", "genero/romance", "genero/suspense", "genero/terror"]
+ClistaFl1=["[COLOR yellow][B]Mostrar Todos[/COLOR][/B]", "[COLOR yellow][B]Lançamentos[/COLOR][/B]", "[COLOR yellow][B]Ação[/COLOR][/B]", "[COLOR yellow][B]Animação[/COLOR][/B]", "[COLOR yellow][B]Aventura[/COLOR][/B]", "[COLOR yellow][B]Comedia[/COLOR][/B]", "[COLOR yellow][B]Drama[/COLOR][/B]", "[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]", "[COLOR yellow][B]Romance[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]", "[COLOR yellow][B]Terror[/COLOR][/B]"]
 ClistaQUE10=["lancamentoss",                                               "acao",                            "animacao",                                "aventura",                             "comedia",                               "faroeste",                           "documentario",                       "fantasia",                       "drama",                                "ficcao-cientifica",                           "romance",                                                 "historia",                               "misterio",                           "suspense",                                "musica",                                 "terror",                             "thriller"]
 ClistaQUE11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]", "[COLOR yellow][B]Ação[/COLOR][/B]", "[COLOR yellow][B]Animação[/COLOR][/B]", "[COLOR yellow][B]Aventura[/COLOR][/B]",  "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]","[COLOR yellow][B]Documentário[/COLOR][/B]", "[COLOR yellow][B]Fantasia[/COLOR][/B]", "[COLOR yellow][B]Drama[/COLOR][/B]","[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]", "[COLOR yellow][B]Romance[/COLOR][/B]",    "[COLOR yellow][B]História[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]", "[COLOR yellow][B]Música[/COLOR][/B]",    "[COLOR yellow][B]Terror[/COLOR][/B]", "[COLOR yellow][B]Thriller[/COLOR][/B]"]
-ClistaBIZ10=["acao",                                               "animacao",                                  "comedia",                               "faroeste",                           "policial",                        "fantasia",                                     "drama",                                "ficcao-cientifica",                           "romance",                                                 "documentario",                               "misterio",                           "suspense",                                     "nacionais",                                     "terror"]
-ClistaBIZ11=["[COLOR yellow][B]Ação[/COLOR][/B]", "[COLOR yellow][B]Animação[/COLOR][/B]",     "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]","[COLOR yellow][B]Policial[/COLOR][/B]", "[COLOR yellow][B]Fantasia[/COLOR][/B]", "[COLOR yellow][B]Drama[/COLOR][/B]","[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]", "[COLOR yellow][B]Romance[/COLOR][/B]",                       "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]","[COLOR yellow][B]Nacionais[/COLOR][/B]",       "[COLOR yellow][B]Terror[/COLOR][/B]"]
+ClistaBIZ10=["0", "acao",                                               "animacao",                                  "comedia",                               "faroeste",                           "policial",                        "fantasia",                                     "drama",                                "ficcao-cientifica",                           "romance",                                                 "documentario",                               "misterio",                           "suspense",                                     "nacionais",                                     "terror"]
+ClistaBIZ11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]" , "[COLOR yellow][B]Ação[/COLOR][/B]", "[COLOR yellow][B]Animação[/COLOR][/B]",     "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]","[COLOR yellow][B]Policial[/COLOR][/B]", "[COLOR yellow][B]Fantasia[/COLOR][/B]", "[COLOR yellow][B]Drama[/COLOR][/B]","[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]", "[COLOR yellow][B]Romance[/COLOR][/B]",                       "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]","[COLOR yellow][B]Nacionais[/COLOR][/B]",       "[COLOR yellow][B]Terror[/COLOR][/B]"]
 ClistaMEG10=["assistir-filmes-lancamentos-2020-online",                    "assistir-filmes-de-acao-online",             "assistir-filmes-de-animacao",                 "assistir-filmes-de-comedia-online",                      "faroeste",                                   "fantasia",                        "assistir-filmes-drama-online-dublado-legendado",                        "assistir-filmes-ficcao-cientifica-online",                           "assistir-filmes-de-romance-online-dublado-legendado",                                                 "documentario",                               "misterio",                           "suspense",                                     "assistir-filmes-de-terror-online-dublado-legendado"]
 ClistaMEG11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]",                   "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]",    "[COLOR yellow][B]Terror[/COLOR][/B]"]
 ClistaFHD10=["release-year/2020",                                                        "genero/acao",                       "genero/animacao",                           "genero/comedia",                      "genero/faroeste",                                   "genero/fantasia",                                    "genero/drama",                                                         "genero/ficcao",                                                                 "genero/romance",                                                                "genero/documentario",                               "genero/musical",                           "genero/suspense",                                     "genero/terror"]
 ClistaFHD11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]",                   "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]",          "[COLOR yellow][B]Suspense[/COLOR][/B]",                       "[COLOR yellow][B]Terror[/COLOR][/B]"]
-ClistaVZ10=["all",                                                        "acao",                       "animacao",                           "comedia",                      "faroeste",                                   "fantasia",                                    "drama",                                                         "romance",                                                                "documentario",                               "musical",                           "suspense",                                     "terror"]
-ClistaVZ11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]",                   "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]",          "[COLOR yellow][B]Suspense[/COLOR][/B]",                       "[COLOR yellow][B]Terror[/COLOR][/B]"]
+ClistaVZ10=["0",   "all",                                                        "acao",                       "animacao",                           "comedia",                      "faroeste",                                   "fantasia",                                    "drama",                                                         "romance",                                                                "documentario",                               "musical",                           "suspense",                                     "terror"]
+ClistaVZ11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]", "[COLOR yellow][B]2020[/COLOR][/B]",                   "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]",          "[COLOR yellow][B]Suspense[/COLOR][/B]",                       "[COLOR yellow][B]Terror[/COLOR][/B]"]
 def setViewS():
 	xbmcplugin.setContent(int(sys.argv[1]), 'tvshows')
 	xbmc.executebuiltin("Container.SetViewMode(50)")
@@ -153,11 +153,11 @@ def MFilmes(): #-2
 	#AddDir("[COLOR white][B][Filmes Dublado/Legendado][/B][/COLOR]" , cPage, 220, "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", background="cPage")
 	AddDir("[B][COLOR cyan]Filmes Lançamentos MMFilmes[/COLOR][/B]", "config" , 184,"https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", "https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR cyan]Filmes MMFilmes[/COLOR][/B]", "config" , 180,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	AddDir("[COLOR maroon][B]Filmes Lançamentos Topflix.tv[/B][/COLOR]" , "config", 310, "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", info='[COLOR][/COLOR]')
+	#AddDir("[COLOR maroon][B]Filmes Lançamentos Topflix.tv[/B][/COLOR]" , "config", 310, "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR maroon][B]Filmes Topflix.tv[/B][/COLOR]" , "config", 210, "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR yellow][B]Filmes NetCine[/B][/COLOR]" , "", 71, "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", info='[COLOR][/COLOR]')
 	#AddDir("[COLOR palevioletred][B]Filmes VerFilmesHD[/B][/COLOR]" , "", 530, "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", info='[COLOR][/COLOR]')
-	AddDir("[COLOR deepskyblue][B]Filmes Lançamentos Assistir.biz[/B][/COLOR]" , "", 517, "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", info='[COLOR][/COLOR]')
+	#AddDir("[COLOR deepskyblue][B]Filmes Lançamentos Assistir.biz[/B][/COLOR]" , "", 517, "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR deepskyblue][B]Filmes Assistir.biz[/B][/COLOR]" , "", 514, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='[COLOR][/COLOR]')
 	AddDir("[COLOR mediumpurple][B]Filmes Vizer.tv[/B][/COLOR]" , "", 600, "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR springgreen][B]Filmes QuerofilmesHD[/B][/COLOR]" , "config", 510, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='[COLOR][/COLOR]')
@@ -446,7 +446,12 @@ def MenuVizer(): # 600
 		l= int(cPageVZ)*1
 		for x in range(0, 1):
 			l +=0
-			link = common.OpenURL("https://vizer.tv/includes/ajax/ajaxPagination.php?categoriesListMovies="+ClistaVZ10[int(CatVZ)]+"&search=&page="+ str(l) +"&categoryFilterYear=all&categoryFilterOrderBy=year&categoryFilterOrderWay=desc&categoryFilterQuantity=28")
+			url3 = ('https://vizer.tv/includes/ajax/publicFunctions.php')
+			result = {'getHomeSliderMovies': '1'}
+			f = requests.post(url3, data=result)
+			link = f.text
+			if ClistaVZ10[int(CatVZ)] != "0":
+				link = common.OpenURL("https://vizer.tv/includes/ajax/ajaxPagination.php?categoriesListMovies="+ClistaVZ10[int(CatVZ)]+"&search=&page="+ str(l) +"&categoryFilterYear=all&categoryFilterOrderBy=year&categoryFilterOrderWay=desc&categoryFilterQuantity=28")
 			f = json.loads(link)
 			f2 = json.dumps(f, ensure_ascii=False)
 			arquivo2 = urllib.quote(f2.encode('utf8'))
@@ -790,8 +795,13 @@ def AssistirbizMENU2(): # 514
 def AssistirbizMENU(): # 514
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaBIZ11[int(CatBB)] +"[/COLOR]", "url" ,232 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	try:
-			link = common.OpenURL("https://assistir.biz/categoria/"+ClistaBIZ10[int(CatBB)])
-			match = re.compile('data-src="([^\"]+)".+\s.+.\s.+.\s.+.\s.+?">([^\"]+)<\/span>\s.+.\s.+.\s.+?a href="([^\"]+)".alt="([^\"]+)".+\s.+\s.+?">([^\"]+)<\/a').findall(link)
+			link = common.OpenURL("https://assistir.biz/home").replace('\n','').replace('\r','')
+			hex2 = re.compile('<div class="tab-content" id="myTabContent">(.+?)<div class="tab-pane fade"').findall(link)
+			hex2 = hex2[0]
+			match = re.compile('data-src="([^\"]+)".+?rate">([^\"]+)<\/span.+?a href="([^\"]+)">([^\"]+)<\/a.+?,.([^\"]+)<\/a').findall(hex2)
+			if ClistaBIZ10[int(CatBB)] != "0":
+				link = common.OpenURL("https://assistir.biz/categoria/"+ClistaBIZ10[int(CatBB)])
+				match = re.compile('data-src="([^\"]+)".+\s.+.\s.+.\s.+.\s.+?">([^\"]+)<\/span>\s.+.\s.+.\s.+?a href="([^\"]+)".alt="([^\"]+)".+\s.+\s.+?">([^\"]+)<\/a').findall(link)
 			if match:
 				for img2, imdb, url2,name2, ano in match:
 					url2= url2.replace("/filme","https://assistir.biz/filme")
@@ -2767,14 +2777,19 @@ def ListGO(): #210 Topflix Dublado --------------------------------------------
 		l= int(cPageFlf)*4
 		for x in range(0, 4):
 			l +=1
-			link = common.OpenURL("https://topflix.tv/"+ClistaFl0[int(CatFl)]+"/"+ str(l))
-			match = re.compile("'(.{5,30}[^\']jpg).{4,41}<a href=\'([^\']+).{4,300}'>([^\']+)<\/a").findall(link.replace('\n','').replace('\r',''))
+			link = common.OpenURL("https://topflix.tv/lancamentos/"+ str(l))
+			match = re.compile("'(.{5,30}[^\']jpg).{4,41}<a href=\'([^\']+).'>([^\']+)<\/span>").findall(link.replace('\n','').replace('\r',''))
+			if ClistaFl0[int(CatFl)] != "0":
+				link = common.OpenURL("https://topflix.tv/"+ClistaFl0[int(CatFl)]+"/"+ str(l))
+				match = re.compile("'(.{5,30}[^\']jpg).{4,41}<a href=\'([^\']+).{4,300}'>([^\']+)<\/a").findall(link.replace('\n','').replace('\r',''))
 			if match:
 				for img2,url2,name2, in match:
 					img2 = img2.replace('170255',"330490")
 					url2 = re.sub('^\.', RC4, url2 )
 					if name2!="Close":
-						name2 = name2.replace("</font>","")
+						name2 = name2.replace("</font>","").replace("<span>","- ").replace("</span>","")
+					if "series" in url2: False
+					else:                        
 						AddDir(name2 ,RC4 + url2, 211, RC4 +img2, RC4 + img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
 					p += 1
 		if p >= 96:
