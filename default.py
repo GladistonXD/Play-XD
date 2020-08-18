@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.66.00"
+Versao = "20.67.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2946,7 +2946,7 @@ def Play2SFS(): #407
                     listal=[]
                     for res, link in url3x:
                     	listal.append(link)
-                    	listar.append(res+"p")
+                    	listar.append(res.replace("1080","[COLOR springgreen][B]HD[/B][/COLOR]").replace("360","[COLOR crimson][B]SD[/B][/COLOR]").replace("720","[COLOR springgreen][B]HD[/B][/COLOR]").replace("480","[COLOR crimson][B]SD[/B][/COLOR]"))
                     if len(listal) <1:
                     	xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
                     	sys.exit(int(sys.argv[1]))
@@ -3109,7 +3109,7 @@ def PlaySSFS(): #406
                     listal=[]
                     for res, link in url3x:
                     	listal.append(link)
-                    	listar.append(res+"p")
+                    	listar.append(res.replace("1080","[COLOR springgreen][B]HD[/B][/COLOR]").replace("360","[COLOR crimson][B]SD[/B][/COLOR]").replace("720","[COLOR springgreen][B]HD[/B][/COLOR]").replace("480","[COLOR crimson][B]SD[/B][/COLOR]"))
                     if len(listal) <1:
                     	xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
                     	sys.exit(int(sys.argv[1]))
