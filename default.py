@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.71.00"
+Versao = "20.72.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -860,7 +860,7 @@ def QuerofilmeshdMENU(): # 510
 		for x in range(0, 1):
 			l +=1
 			link = common.OpenURL("https://querofilmeshd.online/genero/"+ClistaQUE10[int(CatQ1)]+"/page/"+ str(l))
-			match = re.compile('img src=\".+?url=([^\"]+)".alt="([^\"]+).{1,135}href="([^\"]+)".+?rounded".+?,(.+?)<').findall(link.replace('\n','').replace('\r',''))
+			match = re.compile('img src="([^\"]+)".+?alt="([^\"]+)".+?href="([^\"]+).+?rounded".+?,(.+?)<').findall(link.replace('\n','').replace('\r',''))
 			if match:
 				for img2,name2,url2,ano in match:
 					img2= img2.replace("w185","original")
@@ -964,7 +964,7 @@ def ListSerieQF(): #430:
 		try:
 			y +=1
 			l = common.OpenURL("https://querofilmeshd.online/genero/series/page/"+str(y)+"/")
-			match = re.compile('img src=\".+?url=([^\"]+)".alt="([^\"]+).{1,135}href="([^\"]+)".+?rounded".+?,(.+?)<').findall(l)
+			match = re.compile('img src="([^\"]+)".+?alt="([^\"]+)".+?href="([^\"]+).+?rounded".+?,(.+?)<').findall(l)
 			if match:
 				for img2,name2,url2,ano in match:
 					img2= img2.replace("w185","original")
