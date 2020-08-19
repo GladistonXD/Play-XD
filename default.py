@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.72.00"
+Versao = "20.73.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1826,7 +1826,7 @@ def PlayMRC2(): #96 Play filmes direto
 			#file = url2 + mp4[0][1]+".mp4"
 			player = re.sub('^/', "https://redecanais.ws/", player[0])
 			#player = re.sub('\.php', "hlb.php", player)
-			player = re.sub('\.php', ".php", player)
+			player = re.sub('\.php', "hlb.php", player)
 			#player = re.sub('redecanais\.[^\/]+', "blog.canaisgratis.org", player)
 			#player = "https://redecanais.se//player3/serverf4hlb.php?vid=TGO"
 			#return
@@ -1876,7 +1876,7 @@ def PlaySRC(): #133 Play series
 			#file = mp4[0][1]+".mp4"
 			player = re.sub('^/', "https://redecanais.ws/", player[0])
 			#player = re.sub('\.php', "hlb.php", player)
-			player = re.sub('\.php', ".php", player)
+			player = re.sub('\.php', "hlb.php", player)
 			#player = re.sub('redecanais\.[^\/]+', "blog.canaisgratis.org", player)
 			mp4 = common.OpenURL(player ,headers={'referer': "https://bemestarglobal.fun/"})
 			#file=re.compile('[^"|\']+\.mp4.{1,15}.m3u8').findall(mp4)
@@ -2268,7 +2268,7 @@ def PlayTVCB(): #103
 	#link = common.OpenURL("https://canaisgratis.top/assistir-max-prime-online-24-horas-ao-vivo_8586fbbe2.html")
 	player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link.text)
 	player = re.sub('^/', "https://redecanaistv.com/", player[0])
-	player = re.sub('.php', ".php", player)
+	player = re.sub('.php', "hlb.php", player)
 	# if "canal" in url:
 	#	c = re.compile('canal\=(.+)').findall(url)
 	#	player = re.sub('canal=bbb', "canal="+c[0], player )
