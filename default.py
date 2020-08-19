@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.70.00"
+Versao = "20.71.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -151,7 +151,7 @@ def MCanais(): #-1
     AddDir("[COLOR yellow][B]Opção 4[/B][/COLOR]" , "", 107, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
 def MFilmes(): #-2
 	#AddDir("[COLOR white][B][Filmes Dublado/Legendado][/B][/COLOR]" , cPage, 220, "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", background="cPage")
-	AddDir("[B][COLOR cyan]Filmes Lançamentos MMFilmes[/COLOR][/B]", "config" , 184,"https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", "https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", isFolder=True, info='[COLOR][/COLOR]')
+	#AddDir("[B][COLOR cyan]Filmes Lançamentos MMFilmes[/COLOR][/B]", "config" , 184,"https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", "https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR cyan]Filmes MMFilmes[/COLOR][/B]", "config" , 180,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	#AddDir("[COLOR maroon][B]Filmes Lançamentos Topflix.tv[/B][/COLOR]" , "config", 310, "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR maroon][B]Filmes Topflix.tv[/B][/COLOR]" , "config", 210, "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", info='[COLOR][/COLOR]')
@@ -2031,18 +2031,16 @@ def Busca(): # 160
 		ms = re.compile('href\=\"(.+www.mmfilmes.tv.+)\" rel\=\"bookmark\"').findall(links)
 		for x in range(0, 3):
 			l+=1
-			link = common.OpenURL("http://www.mmfilmes.tv/page/"+str(l)+"/?s="+d)
-			m = re.compile('id\=\"post\-\d+\".+?\=.([^\"]+)\h*(?s)(.+?)(http[^\"]+)').findall(link)
-			res = re.compile('audioy..([^\<]*)').findall(link)
-			jpg = re.compile('src=\"(http.+?www.mmfilmes.tv\/wp-content\/uploads[^\"]+)').findall(link)
-			dubleg = re.compile('boxxer.+\s.+boxxer..([^\<]*)').findall(link)
+			link = common.OpenURL("http://www.mmfilmes.tv/page/"+str(l)+"/?s="+d).replace('\n','').replace('\r','')
+			m = re.compile('<li id=.+?" title="(.+?)".+?href="(.+?)".+?boxxer.+?boxxer">(.+?)<.+?src="(.+?)".+?audioy..(.+?)<').findall(link)
 			if m:
-				for name2,b,url2 in m:
+				for name2, url2, dubleg, jpg, res in m:
 					name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'")
+					dubleg = dubleg.replace("</div>","")
 					if not url2 in ms:
-						AddDir("[COLOR cyan]" +name2+ "[/COLOR] [COLOR yellow]"+res[i]+"[/COLOR] [COLOR green]"+dubleg[i]+"[/COLOR]", url2, 181, jpg[i], jpg[i],isFolder=True,IsPlayable=False)
+						AddDir("[COLOR cyan]" +name2+ "[/COLOR] [COLOR yellow]"+res+"[/COLOR] [COLOR green]"+dubleg+"[/COLOR]", url2, 181, jpg, jpg,isFolder=True,IsPlayable=False)
 					else:
-						AddDir("[COLOR red]" +name2+ "[/COLOR]", url2, 191, jpg[i], jpg[i], isFolder=True,IsPlayable=False)
+						AddDir("[COLOR cyan]" +name2+ "[/COLOR]", url2, 191, jpg, jpg, isFolder=True,IsPlayable=False)
 					i+=1
 			i=0
 	except:
@@ -2458,30 +2456,25 @@ def ListFilmeLancMM(): #184
 def ListFilmeMM(pagina2): #180
 	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + ClistaMM1[int(CatMM)] +"[/COLOR]", "url" ,189 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	pagina=eval(pagina2)
-	l= int(pagina)*5
+	l= int(pagina)*4
 	p=1
-	i=0
 	if int(pagina) > 0:
 		AddDir("[COLOR lime][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background=pagina2, info='[COLOR][/COLOR]')
 	try:
 		links = common.OpenURL("http://www.mmfilmes.tv/series/")
 		ms = re.compile('href\=\"(.+www.mmfilmes.tv.+)\" rel\=\"bookmark\"').findall(links)
-		for x in range(0, 5):
+		for x in range(0, 4):
 			l+=1
-			link = common.OpenURL("http://www.mmfilmes.tv/"+ ClistaMM0[int(CatMM)] +"/page/"+str(l)+"/")
-			m = re.compile('id\=\"post\-\d+\".+?\=.([^\"]+)\h*(?s)(.+?)(http[^\"]+)').findall(link)
-			res = re.compile('audioy..([^\<]*)').findall(link)
-			jpg = re.compile('src=\"(http.+?www.mmfilmes.tv\/wp-content\/uploads[^\"]+)').findall(link)
-			dubleg = re.compile('boxxer.+\s.+boxxer..([^\<]*)').findall(link)
+			link = common.OpenURL("http://www.mmfilmes.tv/"+ ClistaMM0[int(CatMM)] +"/page/"+str(l)+"/").replace('\n','').replace('\r','')
+			m = re.compile('<li id=.+?" title="(.+?)".+?href="(.+?)".+?boxxer.+?boxxer">(.+?)<.+?src="(.+?)".+?audioy..(.+?)<').findall(link)
 			if m:
-				for name2,b,url2 in m:
+				for name2, url2, dubleg, jpg, res in m:
 					name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'").replace("&#8230;","")
+					dubleg = dubleg.replace("</div>","")
 					if not url2 in ms:
-						AddDir(name2+ " [B][COLOR yellow]"+res[i]+"[/COLOR][/B] [B][COLOR cyan]"+dubleg[i]+"[/COLOR][/B]", url2, 181, jpg[i], jpg[i],isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
-					i+=1
+						AddDir(name2+ " [B][COLOR yellow]"+res+"[/COLOR][/B] [B][COLOR cyan]"+dubleg+"[/COLOR][/B]", url2, 181, jpg, jpg,isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
 					p+=1
-			i=0
-			if p >= 50:
+			if p >= 40:
 				AddDir("[COLOR lime][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background=pagina2)
 	except:
 		pass
