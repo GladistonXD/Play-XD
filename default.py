@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.73.00"
+Versao = "20.74.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1826,7 +1826,7 @@ def PlayMRC2(): #96 Play filmes direto
 			#file = url2 + mp4[0][1]+".mp4"
 			player = re.sub('^/', "https://redecanais.ws/", player[0])
 			#player = re.sub('\.php', "hlb.php", player)
-			player = re.sub('\.php', "hlb.php", player)
+			player = re.sub('\.php', ".php", player)
 			#player = re.sub('redecanais\.[^\/]+', "blog.canaisgratis.org", player)
 			#player = "https://redecanais.se//player3/serverf4hlb.php?vid=TGO"
 			#return
@@ -1840,11 +1840,18 @@ def PlayMRC2(): #96 Play filmes direto
 			#mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://redecanais.se/"})
 			global background
 			background=url+";;;"+name+";;;RC"
+			try:
+				file[0] = re.sub('\n', '', file[0])
+				file[0] = re.sub('https', 'https', file[0])
+				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2 , iconimage, desc) #aqui
+			except IndexError as file:
+				pass
+			player = re.sub('\.php', "hlb.php", player)
+			mp4 = common.OpenURL(player ,headers={'referer': "https://bemestarglobal.fun/"})
+			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
 			file[0] = re.sub('\n', '', file[0])
 			file[0] = re.sub('https', 'https', file[0])
 			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2 , iconimage, desc) #aqui
-		else:
-			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
 	except:
 		xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
 		sys.exit()
@@ -1876,13 +1883,22 @@ def PlaySRC(): #133 Play series
 			#file = mp4[0][1]+".mp4"
 			player = re.sub('^/', "https://redecanais.ws/", player[0])
 			#player = re.sub('\.php', "hlb.php", player)
-			player = re.sub('\.php', "hlb.php", player)
+			player = re.sub('\.php', ".php", player)
 			#player = re.sub('redecanais\.[^\/]+', "blog.canaisgratis.org", player)
 			mp4 = common.OpenURL(player ,headers={'referer': "https://bemestarglobal.fun/"})
 			#file=re.compile('[^"|\']+\.mp4.{1,15}.m3u8').findall(mp4)
 			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
+			try:
+				file[0] = re.sub('\n', '', file[0])
+				file[0] = re.sub('https', 'https', file[0])
+				PlayUrl(name, file[0] + reference2,"", iconimage, name)
+			except IndexError as file:
+				pass
+			player = re.sub('\.php', "hlb.php", player)
+			mp4 = common.OpenURL(player ,headers={'referer': "https://bemestarglobal.fun/"})
+			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
 			file[0] = re.sub('\n', '', file[0])
 			file[0] = re.sub('https', 'https', file[0])
 			PlayUrl(name, file[0] + reference2,"", iconimage, name)
@@ -2263,28 +2279,25 @@ def TVCB(x): #102
 	#except:
 	#	AddDir("Servidor offline, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def PlayTVCB(): #103
-	#ST(url)
 	link = requests.get("https://redecanaistv.com/"+url)
-	#link = common.OpenURL("https://canaisgratis.top/assistir-max-prime-online-24-horas-ao-vivo_8586fbbe2.html")
 	player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link.text)
 	player = re.sub('^/', "https://redecanaistv.com/", player[0])
+	player = re.sub('.php', ".php", player)
+	m3u = requests.get(player, headers={'referer': "https://redecanaistv.com/"})
+	m = re.compile('source src="([^"|\']+)').findall(m3u.text)
+	try:
+		m2 = re.sub('https', 'https', m[0])
+		PlayUrl(name, m2 + reference3, iconimage, name, "")
+	except IndexError as m2:
+		pass
 	player = re.sub('.php', "hlb.php", player)
-	# if "canal" in url:
-	#	c = re.compile('canal\=(.+)').findall(url)
-	#	player = re.sub('canal=bbb', "canal="+c[0], player )
 	m3u = requests.get(player, headers={'referer': "https://redecanaistv.com/"})
 	m = re.compile('source src="([^"|\']+)').findall(m3u.text)
 	m2 = re.sub('https', 'https', m[0])
 	PlayUrl(name, m2 + reference3, iconimage, name, "")
-	link3 = common.OpenURL("http://cbplay.000webhostapp.com/rc/_grc.php?u="+m[0])
-	#ST(m[0])
-	#AddDir("play", m[0] + "?play|Referer=https://cometa.top", 3, isFolder=False, IsPlayable=True, info="")
-	
-	#AddDir("Play", m[0], 50, "", "", isFolder=False, IsPlayable=True, info="")
-	#try:
-	#	PlayUrl(name, getmd5(url), "", "", "")
-	#except urllib2.URLError, e:
-	#	xbmcgui.Dialog().ok('PlayXD', "Servidor offline, tente novamente em alguns minutos")
+        
+##########################################################################################
+###########################################################################################
 # ----------------- Fim TV Cubeplay
 # ----------------- REDECANAIS TV
 def Acento(x):
