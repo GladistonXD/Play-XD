@@ -2691,7 +2691,7 @@ def TVCB4PLAY(): #109
 				url4x = re.compile('restantes(.+)').findall(url2)
 				program = re.compile('class="(time">.+?)<.+?\/>(.+?<\/h2).+?title">(.+?)<.+?progress-(container">.+?<div)').findall(url4[0])
 				program2 = re.compile('lass="(time">.+?)<.+?\/>(.+?<\/h2).+?title">(.+?<\/span)').findall(url4x[0])
-				ir1 = str(program).replace('<div','\n').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','[COLOR red]AO VIVO:[/COLOR] ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace("container - >","[COLOR yellow]Tempo:[/COLOR] ")
+				ir1 = str(program).replace('<div','\n').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','[COLOR red]AO VIVO:[/COLOR] ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace("container - >","[COLOR yellow]Tempo:[/COLOR] ").replace('</span>','')
 				ir2 = str(program2).replace('</span','\n').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','Horário: ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace('><p class= - title - >','').replace(']','')
 				url5 = "[B]"+ir1+"[/B]" + ir2
 				url6 = url5.decode('string_escape')
