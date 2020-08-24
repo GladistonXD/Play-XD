@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.77.00"
+Versao = "20.78.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2692,7 +2692,7 @@ def TVCB4PLAY(): #109
 				title = re.compile('"ongoing">.+?class="time">.+?<.+?\/>(.+?)<\/h2.+?title">.+?<.+?progress-container">.+?<div').findall(url4[0])
 				program = re.compile('"ongoing">.+?class="(time">.+?)<.+?\/>(.+?<\/h2).+?title">(.+?)<.+?progress-(container">.+?<div)').findall(url4[0])
 				program2 = re.compile('lass="(time">.+?)<.+?\/>(.+?<\/h2).+?title">(.+?<\/span)').findall(url4x[0])
-				ir1 = str(program).replace('<div','\n').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','[COLOR red]AO VIVO:[/COLOR] ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace("container - >","[COLOR yellow]Tempo:[/COLOR] ").replace('</span>','')
+				ir1 = str(program).replace('<div','\n').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','[COLOR red]AO VIVO:[/COLOR] ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace("container - >","Tempo:").replace('</span>','').replace(' - Tempo:','\n[COLOR yellow]Tempo:[/COLOR] ')
 				ir2 = str(program2).replace('</span','\n').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','Horário: ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace('><p class= - title - >','').replace(']','')
 				title = " - "+title[0]
 				url5 = "[B]"+'\n\n\n'+ir1+"[/B]" + ir2
