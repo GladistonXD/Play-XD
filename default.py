@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.76.00"
+Versao = "20.77.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2689,16 +2689,18 @@ def TVCB4PLAY(): #109
 				url2 = common.OpenURL(contents[0]).replace('\n','').replace('\t','').replace('<h2>','"/>').replace('/><img','').replace('synopsis">','title">').replace('.</p>','</span')
 				url4 = re.compile('<li class=("ongoing">.+)').findall(url2)
 				url4x = re.compile('restantes(.+)').findall(url2)
+				title = re.compile('"ongoing">.+?class="time">.+?<.+?\/>(.+?)<\/h2.+?title">.+?<.+?progress-container">.+?<div').findall(url4[0])
 				program = re.compile('"ongoing">.+?class="(time">.+?)<.+?\/>(.+?<\/h2).+?title">(.+?)<.+?progress-(container">.+?<div)').findall(url4[0])
 				program2 = re.compile('lass="(time">.+?)<.+?\/>(.+?<\/h2).+?title">(.+?<\/span)').findall(url4x[0])
 				ir1 = str(program).replace('<div','\n').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','[COLOR red]AO VIVO:[/COLOR] ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace("container - >","[COLOR yellow]Tempo:[/COLOR] ").replace('</span>','')
 				ir2 = str(program2).replace('</span','\n').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','Horário: ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace('><p class= - title - >','').replace(']','')
+				title = " - "+title[0]
 				url5 = "[B]"+'\n\n\n'+ir1+"[/B]" + ir2
 				url6 = url5.decode('string_escape')
-				PlayUrl(jq1['name'], jq1['link'],jq1['logo'], url6)
+				PlayUrl(name + title, jq1['link'],iconimage, url6)
 			except IndexError as url2:
 				pass
-				PlayUrl(jq1['name'], jq1['link'],jq1['logo'],"") 
+				PlayUrl(name, jq1['link'],iconimage,"") 
 def PlayTVCB2(): #212
 	PlayUrl(name, url, iconimage, info, "", metah)   
 def RadioTV(x): #106
