@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.75.00"
+Versao = "20.76.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2687,9 +2687,9 @@ def TVCB4PLAY(): #109
 			contents = re.compile(jq1['name']+' = "(.+?)"').findall(EPG)
 			try:
 				url2 = common.OpenURL(contents[0]).replace('\n','').replace('\t','').replace('<h2>','"/>').replace('/><img','').replace('synopsis">','title">').replace('.</p>','</span')
-				url4 = re.compile('<li class="ongoing">(.+)').findall(url2)
+				url4 = re.compile('<li class=("ongoing">.+)').findall(url2)
 				url4x = re.compile('restantes(.+)').findall(url2)
-				program = re.compile('class="(time">.+?)<.+?\/>(.+?<\/h2).+?title">(.+?)<.+?progress-(container">.+?<div)').findall(url4[0])
+				program = re.compile('"ongoing">.+?class="(time">.+?)<.+?\/>(.+?<\/h2).+?title">(.+?)<.+?progress-(container">.+?<div)').findall(url4[0])
 				program2 = re.compile('lass="(time">.+?)<.+?\/>(.+?<\/h2).+?title">(.+?<\/span)').findall(url4x[0])
 				ir1 = str(program).replace('<div','\n').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','[COLOR red]AO VIVO:[/COLOR] ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace("container - >","[COLOR yellow]Tempo:[/COLOR] ").replace('</span>','')
 				ir2 = str(program2).replace('</span','\n').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','Horário: ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace('><p class= - title - >','').replace(']','')
