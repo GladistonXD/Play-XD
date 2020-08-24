@@ -2693,7 +2693,7 @@ def TVCB4PLAY(): #109
 				program2 = re.compile('lass="(time">.+?)<.+?\/>(.+?<\/h2).+?title">(.+?<\/span)').findall(url4x[0])
 				ir1 = str(program).replace('<div','\n').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','[COLOR red]AO VIVO:[/COLOR] ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace("container - >","[COLOR yellow]Tempo:[/COLOR] ").replace('</span>','')
 				ir2 = str(program2).replace('</span','\n').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','Horário: ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace('><p class= - title - >','').replace(']','')
-				url5 = "[B]"+ir1+"[/B]" + ir2
+				url5 = "[B]"+'\n\n\n'+ir1+"[/B]" + ir2
 				url6 = url5.decode('string_escape')
 				PlayUrl(jq1['name'], jq1['link'],jq1['logo'], url6)
 			except IndexError as url2:
