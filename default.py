@@ -2962,15 +2962,15 @@ def Play2SFS(): #407
                 url3Play = common.OpenURL(url)
                 url4Play = re.compile('(https.+?")').findall(url3Play)
                 url4Play= url4Play[0]
-                arquivo = open(cachefolder + "TOPUTO.txt", "w+")
-                arquivo.write(url)
-                arquivo.close()
+                #arquivo = open(cachefolder + "TOPUTO.txt", "w+")
+                #arquivo.write(url)
+                #arquivo.close()
         except IndexError as url4Play:
 			sys.exit()
         
         try:
 
-            if 'sfplayer.net' in url4Play:
+            if 'http' in url4Play:
                     urlxx = re.compile('x.html.(.+?)"').findall(url4Play)
                     urlxx = urlxx[0]
                     legenda = re.compile('sub=(.+?srt)').findall(url4Play)
@@ -3134,7 +3134,7 @@ def PlaySSFS(): #406
                 url4Play = re.compile('(https.+?")').findall(url3Play)
                 url4Play= url4Play[0]
                 
-                if 'sfplayer.net' in url4Play:
+                if 'http' in url4Play:
                     urlxx = re.compile('x.html.(.+?)"').findall(url4Play)
                     urlxx = urlxx[0]
                     legenda = re.compile('sub=(.+?srt)').findall(url4Play)
