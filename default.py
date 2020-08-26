@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.80.00"
+Versao = "20.81.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2997,7 +2997,8 @@ def Play2SFS(): #407
                     	inverter = inver[0]
                     	invertida = ''.join(palavra[::-1] for palavra in inverter.split())
                     	url7 = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=" + invertida + "&url=https"
-                    	url8 = url4.replace('://', '%3A%2F%2F').replace('/', '%2F').replace('.png', '').replace('?', '%3F').replace('=','%3D').replace('https', url7)
+                    	server = re.compile('-0.html.msKey=m(\w+)').findall(url4)
+                    	url8 = url4.replace('://', '%3A%2F%2F').replace('/', '%2F').replace('.png', '').replace('?', '%3F').replace('=','%3D').replace('https', url7).replace('lbsuper.sfplayer.net','s'+server[0]+'.sfslave.com')
                     	arquivo = open(cachefolder + "movies.m3u8", "w+")
                     	arquivo.write(url8)
                     	arquivo.close()
@@ -3160,7 +3161,8 @@ def PlaySSFS(): #406
                     	inverter = inver[0]
                     	invertida = ''.join(palavra[::-1] for palavra in inverter.split())
                     	url7 = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=" + invertida + "&url=https"
-                    	url8 = url4.replace('://', '%3A%2F%2F').replace('/', '%2F').replace('.png', '').replace('?', '%3F').replace('=','%3D').replace('https', url7)
+                    	server = re.compile('-0.html.msKey=m(\w+)').findall(url4)
+                    	url8 = url4.replace('://', '%3A%2F%2F').replace('/', '%2F').replace('.png', '').replace('?', '%3F').replace('=','%3D').replace('https', url7).replace('lbsuper.sfplayer.net','s'+server[0]+'.sfslave.com')
                     	arquivo = open(cachefolder + "movies.m3u8", "w+")
                     	arquivo.write(url8)
                     	arquivo.close()
