@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.83.00"
+Versao = "20.84.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1227,7 +1227,7 @@ def PlayS(): #62
 			i+=1
 		d = xbmcgui.Dialog().select("Escolha a resolução:", listaf)
 		if d!= -1:
-			PlayUrl(name, listal[d]+"|Referer=http://.netcine.me&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla%2F5.0+%28compatible%3B+MSIE+10.6%3B+Windows+NT+6.1%3B+Trident%2F6.0%29", iconimage, info)
+			PlayUrl(name, listal[d]+"|Referer=http://netcine.info&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0", iconimage, info)
 		else:
 			sys.exit()
 	except(IndexError, ValueError):
@@ -1597,7 +1597,7 @@ def PlayMNC(): #79
 		if d!= -1:
 			global background
 			background=background+";;;"+name+";;;NC"
-			PlayUrl(name, listal[d]+"|Referer=http://.netcine.me&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla%2F5.0+%28compatible%3B+MSIE+10.6%3B+Windows+NT+6.1%3B+Trident%2F6.0%29", iconimage, info)
+			PlayUrl(name, listal[d]+"|Referer=http://netcine.info&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0", iconimage, info)
 		else:
 			sys.exit()
 	except urllib2.URLError, e:
