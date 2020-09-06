@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.84.00"
+Versao = "20.85.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -147,8 +147,8 @@ def Categories(): #70
 def MCanais(): #-1
     AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](REDE CANAIS)[/B][/COLOR]" , "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
     AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](MAX)[/B][/COLOR]"  , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
-    AddDir("[COLOR yellow][B]Opção 3[/B][/COLOR]" , "", 104, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
-    AddDir("[COLOR yellow][B]Opção 4[/B][/COLOR]" , "", 107, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
+    #AddDir("[COLOR yellow][B]Opção 3[/B][/COLOR]" , "", 104, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
+    #AddDir("[COLOR yellow][B]Opção 4[/B][/COLOR]" , "", 107, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
 def MFilmes(): #-2
 	#AddDir("[COLOR white][B][Filmes Dublado/Legendado][/B][/COLOR]" , cPage, 220, "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", background="cPage")
 	#AddDir("[B][COLOR cyan]Filmes Lançamentos MMFilmes[/COLOR][/B]", "config" , 184,"https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", "https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", isFolder=True, info='[COLOR][/COLOR]')
@@ -804,11 +804,11 @@ def AssistirbizMENU(): # 514
 				match = re.compile('data-src="([^\"]+)".+\s.+.\s.+.\s.+.\s.+?">([^\"]+)<\/span>\s.+.\s.+.\s.+?a href="([^\"]+)".alt="([^\"]+)".+\s.+\s.+?">([^\"]+)<\/a').findall(link)
 			if match:
 				for img2, imdb, url2,name2, ano in match:
-					url2= url2.replace("/filme","https://assistir.biz/filme")
+					url2= url2.replace("/filme","https://assistir.biz/iframe")
 					img2= img2.replace("//image","https://image").replace("w185","original")
 					if "tvshows" in url2: False
 					else:
-						AddDir(name2+ " - ("+ano+")", url2, 515, img2, img2, info="[COLOR yellow][B]IMDb *[COLOR green]"+imdb+"[/B][/COLOR]", isFolder=True, IsPlayable=True)
+						AddDir(name2+ " - ("+ano+")", url2+"?player=1", 515, img2, img2, info="[COLOR yellow][B]IMDb *[COLOR green]"+imdb+"[/B][/COLOR]", isFolder=True, IsPlayable=True)
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def AssistirbizLista(): #515
@@ -2112,11 +2112,11 @@ def Busca(): # 160
 			match = re.compile('data-src="([^\"]+)".+\s.+.\s.+.\s.+.\s.+.\s.+.\s.+.\s.+?a href="([^\"]+)".alt="([^\"]+)".+\s.+\s.+?">([^\"]+)<\/a').findall(link)
 			if match:
 				for img2,url2,name2, ano in match:
-					url2= url2.replace("/filme","https://assistir.biz/filme")
+					url2= url2.replace("/filme","https://assistir.biz/iframe")
 					img2= img2.replace("//image","https://image").replace("w185","original")
 					if "tvshows" in url2: False
 					else:
-						AddDir("[COLOR deepskyblue]" +name2+ " - ("+ano+")[/COLOR]", url2, 515, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
+						AddDir("[COLOR deepskyblue]" +name2+ " - ("+ano+")[/COLOR]", url2+"?player=1", 515, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
 	except:
 		pass
 	#progress.update(73, "73%", "VerFilmesHD", "")
