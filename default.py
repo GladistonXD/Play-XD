@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.85.00"
+Versao = "20.86.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -804,17 +804,18 @@ def AssistirbizMENU(): # 514
 				match = re.compile('data-src="([^\"]+)".+\s.+.\s.+.\s.+.\s.+?">([^\"]+)<\/span>\s.+.\s.+.\s.+?a href="([^\"]+)".alt="([^\"]+)".+\s.+\s.+?">([^\"]+)<\/a').findall(link)
 			if match:
 				for img2, imdb, url2,name2, ano in match:
-					url2= url2.replace("/filme","https://assistir.biz/iframe")
+					url2= url2.replace("/filme","https://assistir.biz/filme")
 					img2= img2.replace("//image","https://image").replace("w185","original")
 					if "tvshows" in url2: False
 					else:
-						AddDir(name2+ " - ("+ano+")", url2+"?player=1", 515, img2, img2, info="[COLOR yellow][B]IMDb *[COLOR green]"+imdb+"[/B][/COLOR]", isFolder=True, IsPlayable=True)
+						AddDir(name2+ " - ("+ano+")", url2, 515, img2, img2, info="[COLOR yellow][B]IMDb *[COLOR green]"+imdb+"[/B][/COLOR]", isFolder=True, IsPlayable=True)
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def AssistirbizLista(): #515
 	try:	
 		link = common.OpenURL(url)
-		hexd = re.compile('<source src="([^\"].+)').findall(link)
+		hexd = re.compile('content="(.+?filme.+?)"').findall(link)
+		hexd = hexd[0].replace("filme","iframe")+'?player=1'
 		sinopse = re.compile('<i>([^\"]+)<\/i>').findall(link)
 		sinopse= sinopse[0]
 		AddDir(name + "[COLOR blue] - Dublado[/COLOR]", hexd, 516, iconimage, iconimage, isFolder=False, IsPlayable=True, info=sinopse)
@@ -822,7 +823,9 @@ def AssistirbizLista(): #515
 		pass
 def AssistirbizPlay(): #516
 	try:	
-			m2 = re.compile('(assistir.biz\/direct[^\"]+)".+?mp4".\w+="([^\"]+)"').findall(url)
+			linkx = requests.get(url)
+			m2 = re.compile('(assistir.biz\/direct[^\"]+)".+?mp4".\w+="([^\"]+)"').findall(linkx.text)
+			m2.reverse()
 			legenda = re.compile('subdata..([^\"]+)').findall(url)
 			listar=[]
 			listal=[]
@@ -2112,11 +2115,11 @@ def Busca(): # 160
 			match = re.compile('data-src="([^\"]+)".+\s.+.\s.+.\s.+.\s.+.\s.+.\s.+.\s.+?a href="([^\"]+)".alt="([^\"]+)".+\s.+\s.+?">([^\"]+)<\/a').findall(link)
 			if match:
 				for img2,url2,name2, ano in match:
-					url2= url2.replace("/filme","https://assistir.biz/iframe")
+					url2= url2.replace("/filme","https://assistir.biz/filme")
 					img2= img2.replace("//image","https://image").replace("w185","original")
 					if "tvshows" in url2: False
 					else:
-						AddDir("[COLOR deepskyblue]" +name2+ " - ("+ano+")[/COLOR]", url2+"?player=1", 515, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
+						AddDir("[COLOR deepskyblue]" +name2+ " - ("+ano+")[/COLOR]", url2, 515, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
 	except:
 		pass
 	#progress.update(73, "73%", "VerFilmesHD", "")
