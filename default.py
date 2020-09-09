@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.86.00"
+Versao = "20.87.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2667,7 +2667,7 @@ def TVCB3(): #107
 		AddDir(name2,"plugin://"+url2.replace(";","&"), 212, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')   
 def TVCB4(): #108
 	try:
-		t = requests.get("https://android.rediptvmobile.com/ch.php?usercode=6017538676", verify=False)
+		t = requests.get("https://cutt.ly/canalR", verify=False)
 		jq_ = json.loads(t.text.replace("\\","//").replace("http://files.rednetcontent.com/chlogo2/Brasil/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/Portuguese/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/english/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/french/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/arabic/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/dutch/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/russian/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/German/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("1280px-SporTV_2017_logo.png","SporTV_2_logo_20167.png").replace("SporTV_2_logo_2016.png","Sportv2.png").replace("TVBAH//u0130A.png","bahia.png"))
 		jq = sorted(jq_, key=lambda jq_: jq_['name'])
 		for jq1 in jq:
@@ -2682,7 +2682,7 @@ def TVCB4(): #108
 	except:
 		pass
 def TVCB4PLAY(): #109
-	t = requests.get("https://android.rediptvmobile.com/ch.php?usercode=6017538676", verify=False)
+	t = requests.get("https://cutt.ly/canalR", verify=False)
 	jq_ = json.loads(t.text.replace("\\","//"))
 	for jq1 in jq_:
 		if jq1['id'] == url:
@@ -2700,10 +2700,10 @@ def TVCB4PLAY(): #109
 				title = " - "+title[0]
 				url5 = "[B]"+'\n\n\n'+ir1+"[/B]" + ir2
 				url6 = url5.decode('string_escape')
-				PlayUrl(name + title, jq1['link'],iconimage, url6)
+				PlayUrl(name + title, jq1['link']+"&t=0&s=12&p=1&c=BR&r=65|Referer=https://android.rediptvmobile.com/",iconimage, url6)
 			except IndexError as url2:
 				pass
-				PlayUrl(name, jq1['link'],iconimage,"") 
+				PlayUrl(name, jq1['link']+"&t=0&s=12&p=1&c=BR&r=65|Referer=https://android.rediptvmobile.com/",iconimage,"") 
 def PlayTVCB2(): #212
 	PlayUrl(name, url, iconimage, info, "", metah)   
 def RadioTV(x): #106
