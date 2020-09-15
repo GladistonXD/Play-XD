@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.90.00"
+Versao = "20.91.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -879,81 +879,88 @@ def QuerofilmeshdMENU(): # 510
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def QuerofilmeshdLista(): #511
-    i=0
-    try:	
-		link2 = requests.get(url)
-		link = common.OpenURL(url).replace('\n','').replace('\r','')
-		sinopse = re.compile('wp-content">.+?<p>(.+?)<\/p>').findall(link)
-		sinopse= sinopse[0].replace(' &#8211; Online Dublado e Legendado','').replace('Assistir ','').replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-		match2 = re.findall("online\/.p=([^\"]+)'", link2.text)
-		url3 = ('https://querofilmeshd.online/wp-admin/admin-ajax.php')
-		headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-		result = {'action': 'doo_player_ajax', 'post': match2, 'nume': '1','type': 'movie'}
-		f = requests.post(url3, data = result, headers=headers)
-		url4 = re.compile("src='(.+?)'").findall(f.text)
-		url4 = url4[0]
-		link3 = requests.get(url4)
-		w2 = link3.text
-		match4 = re.findall('idS:."([^\"]+)', w2)
-		name5 = re.compile('">\w+.#..(\w+)').findall(w2)
-		if match4:
-			for url2 in match4:
-				arquivo = open(cachefolder + "querofilmeshex", "w+")
-				arquivo.write(url2)
-				arquivo.close()
-				AddDir(name5[i].replace("DUBLADO","[COLOR limegreen][B]DUBLADO[/B][/COLOR]").replace("LEGENDADO","[COLOR crimson][B]LEGENDADO[/COLOR][/B]"), "", 513, iconimage, iconimage, isFolder=False, IsPlayable=True, info=sinopse)
-				i+=1
-    except:
-		pass
+	i=0
+	link2 = requests.get(url)
+	link = common.OpenURL(url).replace('\n','').replace('\r','')
+	sinopse = re.compile('wp-content">.+?<p>(.+?)<\/p>').findall(link)
+	sinopse= sinopse[0].replace(' &#8211; Online Dublado e Legendado','').replace('Assistir ','').replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
+	match2 = re.findall("online\/.p=([^\"]+)'", link2.text)
+	url3 = ('https://querofilmeshd.online/wp-admin/admin-ajax.php')
+	headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+	result = {'action': 'doo_player_ajax', 'post': match2, 'nume': '1','type': 'movie'}
+	f = requests.post(url3, data = result, headers=headers)
+	url4 = re.compile("src='(.+?)'").findall(f.text)
+	url4 = url4[0]
+	link3 = requests.get(url4)
+	w2 = link3.text
+	match4 = re.compile('idS:."(\w+)').findall(w2)
+	name5 = re.compile('">\w+.#..(\w+)').findall(w2)
+	for url2 in match4:
+		AddDir(name5[i].replace("DUBLADO","[COLOR limegreen][B]DUBLADO[/B][/COLOR]").replace("LEGENDADO","[COLOR crimson][B]LEGENDADO[/COLOR][/B]"), match4[i], 513, iconimage, iconimage, isFolder=False, IsPlayable=True, info=sinopse)
+		i+=1
 def QuerofilmeshdPlay2(): #513 
     try:
-		arquivo2 = open(cachefolder + 'querofilmeshex', 'r')
-		url3 = arquivo2.read()
-		hex = re.compile("(\w+)").findall(url3)
-		hex = hex[0]   
 		url5 = ('https://player.querofilmeshd.online//CallPlayer')
 		headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-		result = {'id': hex}
+		result = {'id': url}
 		f2 = requests.post(url5, data=result, headers=headers)
 		hexd = codecs.decode(f2.text, "hex_codec").decode('utf-8')
-		url6 = re.compile('(id.\w+)').findall(hexd)
-		url6 = url6[0].replace("id=", "http://player.filmesonlinetv.org/playlist/")
-		url7 = "/1588804130818"
-		url8 = url6 + url7
-		m = common.OpenURL(url8)
-		if m:
-			url9 = m
-			m2 = re.compile('x([^\"]..)\s(\/.+?m3u8)').findall(url9)
-			m2.reverse()
-			legenda = re.compile('subdata..([^\"]+)').findall(hex)
-			listar=[]
-			listal=[]
-			for res, link in m2:
-				listal.append(link)
-				listar.append(res)
-			if len(listal) <1:
-				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
-				sys.exit(int(sys.argv[1]))
-			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
-			if d!= -1:
-				url2 = re.sub(' ', '%20', listal[d] )
-				urlx = 'https://player.filmesonlinetv.org' + url2
-				url4 = requests.get(urlx)
-				url5 = url4.text.replace("redirect/","")
-				arquivo = open(cachefolder + "querofilmes.m3u8", "w+")
-				arquivo.write(url5)
-				arquivo.close()
-				global background
-				background=background+";;;"+name+";;;MM"
-				if legenda:
-					legenda = legenda[0]
-					if not "http" in legenda:
-						legenda = "https://sub.streamservice.online/subdata/" + legenda
-					PlayUrl(name, cachefolder + "querofilmes.m3u8", iconimage, info, sub=legenda)
-				else:
-					PlayUrl(name, cachefolder + "querofilmes.m3u8", iconimage, info)
-			else:
-				sys.exit()
+		url6 = re.compile('(id=.\w+)|url.+?(https.+?)"|(files.+?)[?]').findall(hexd)
+		url7 = str(url6).replace("'', '","").replace("'","").replace("\\","").replace("[(","").replace(")]","").replace(",","").replace("uhttps","https").replace(" u","").replace("u u","").replace(" ","").replace(", ","").replace("https://player.filmesonlinetv.org/public/dist/index.html?id=", "http://player.filmesonlinetv.org/playlist/")
+        
+		if 'http://player.filmesonlinetv.org' in url7:
+			url7x = "/1588804130818"
+			url8 = url7 + url7x
+			m = common.OpenURL(url8.replace("uhttp","http"))
+			if m:
+				url9 = m
+				m2 = re.compile('x([^\"]..)\s(\/.+?m3u8)').findall(url9)
+				m2.reverse()
+				legenda = re.compile('subdata..([^\"]+)').findall(url)
+				listar=[]
+				listal=[]
+				for res, link in m2:
+					listal.append(link)
+					listar.append(res)
+				if len(listal) <1:
+					xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
+					sys.exit(int(sys.argv[1]))
+				d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+				if d!= -1:
+					url2 = re.sub(' ', '%20', listal[d] )
+					urlx = 'https://player.filmesonlinetv.org' + url2
+					url4 = requests.get(urlx)
+					url5 = url4.text.replace("redirect/","")
+					arquivo = open(cachefolder + "movies.m3u8", "w+")
+					arquivo.write(url5)
+					arquivo.close()
+					x1 = randrange(300)
+					x = str(x1)
+					session = ftplib.FTP('files.000webhost.com','unlikely-terms','gladiston')
+					file = open(cachefolder + "movies.m3u8",'rb')
+					session.storbinary('STOR /public_html/Cacheflix/movies'+x+'.m3u8', file)
+					file.close()                      
+					session.quit()
+					global background
+					background=background+";;;"+name+";;;MM"
+					if legenda:
+						legenda = legenda[0]
+						if not "http" in legenda:
+							legenda = "https://sub.streamservice.online/subdata/" + legenda
+						PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://slave3.queroserieshd.com/", iconimage, info, sub=legenda)
+					else:
+						PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://slave3.queroserieshd.com/", iconimage, info)
+
+		if 'drive.google.com' in url7:
+			PlayUrl(name, 'plugin://plugin.video.gdrive?mode=streamURL&amp;url='+url7.replace('uhttps','https').replace('preview','view'), iconimage, info)
+            
+		if 'files' in url7:
+			contents = url7.replace('files','https://drive.google.com/file/d')
+			contents2 = contents + '/view'
+			PlayUrl(name, 'plugin://plugin.video.gdrive?mode=streamURL&amp;url='+contents2.replace('uhttps','https').replace('preview','view'), iconimage, info)
+            
+		else:
+			sys.exit()
     except (IndexError, ValueError):
 		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado')
 		sys.exit()
@@ -1029,18 +1036,26 @@ def PlayEpiQF(): #433
 				urlx = 'https://player.filmesonlinetv.org' + url2
 				url4 = requests.get(urlx)
 				url5 = url4.text.replace("redirect/","")
-				arquivo = open(cachefolder + "querofilmes.m3u8", "w+")
+				arquivo = open(cachefolder + "movies.m3u8", "w+")
 				arquivo.write(url5)
 				arquivo.close()
+				x1 = randrange(300)
+				x = str(x1)
+				session = ftplib.FTP('files.000webhost.com','unlikely-terms','gladiston')
+				file = open(cachefolder + "movies.m3u8",'rb')
+				session.storbinary('STOR /public_html/Cacheflix/movies'+x+'.m3u8', file)
+				file.close()                      
+				session.quit()
 				global background
 				background=background+";;;"+name+";;;MM"
 				if legenda:
 					legenda = legenda[0]
 					if not "http" in legenda:
 						legenda = "https://sub.streamservice.online/subdata/" + legenda
-					PlayUrl(name, cachefolder + "querofilmes.m3u8", iconimage, info, sub=legenda)
+					PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://slave3.queroserieshd.com/", iconimage, info, sub=legenda)
 				else:
-					PlayUrl(name, cachefolder + "querofilmes.m3u8", iconimage, info)
+					PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://slave3.queroserieshd.com/", iconimage, info)
+
 			else:
 				sys.exit()
 	except (IndexError, ValueError):
