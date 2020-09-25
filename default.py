@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.91.00"
+Versao = "20.92.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -222,7 +222,7 @@ def SeriePlayBZ(): # 452
 					AddDir(numero+" - " + name2.replace('",',""), url2, 453, img3, img3, isFolder=False, IsPlayable=True, info="")
 	except:
 		pass
-def SeriePlayBZ22(): # 453
+def SeriePlayBZ2(): # 453
 	try:	
 		url3 = ('https://vizer.tv/includes/ajax/publicFunctions.php')
 		result = {'getEpisodeLanguages': url}
@@ -267,7 +267,7 @@ def SeriePlayBZ22(): # 453
 	except (IndexError, ValueError):
 		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado, tente outro servidor')
 		sys.exit()
-def SeriePlayBZ2(): # 453 #### opção 1
+def SeriePlayBZ22(): # 453 #### opção 1
 	try:	
 		url3 = ('https://vizer.tv/includes/ajax/publicFunctions.php')
 		result = {'getEpisodeLanguages': url}
@@ -484,16 +484,16 @@ def MenuVizer2(): # 601
 		arquivo = open(cachefolder + "vizer.txt", "w+")
 		arquivo.write(String2)
 		arquivo.close()
-		match = re.compile('lang".."(.+?)".+?id".."(.+?)"').findall(String2)
-		#match = re.compile('lang".."(.+?)".+?:.+?"(.+?)"').findall(String2)
+		#match = re.compile('lang".."(.+?)".+?id".."(.+?)"').findall(String2)
+		match = re.compile('lang".."(.+?)".+?:.+?"(.+?)"').findall(String2)
         	if match:
 				for name2, url2 in match:
-					name2 = name2.replace("Inglês"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Português"," [COLOR springgreen][B]Dublado[/B][/COLOR]")
-					#name2 = name2.replace("Original"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Português"," [COLOR springgreen][B]Dublado[/B][/COLOR]")
+					#name2 = name2.replace("Inglês"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Português"," [COLOR springgreen][B]Dublado[/B][/COLOR]")
+					name2 = name2.replace("Original"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Português"," [COLOR springgreen][B]Dublado[/B][/COLOR]")
 					AddDir(name2, url2, 602, iconimage, iconimage, isFolder=False, IsPlayable=True, info= sinopse)
 	except:
 		pass
-def PlayVizer1(): # 602
+def PlayVizer(): # 602
 	try:	
 				urlx = "https://vizer.tv/embed/getEmbed.php?orvio=" + url
 				url4 = requests.get(urlx)
@@ -515,7 +515,7 @@ def PlayVizer1(): # 602
 		xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 		sys.exit()
 
-def PlayVizer(): # 602 ###### opção 1
+def PlayVizer1(): # 602 ###### opção 1
 	try:	
 			url2x = "https://vizer.tv/includes/ajax/publicFunctions.php"
 			result = {'showPlayer': url}
