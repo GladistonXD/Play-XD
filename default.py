@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.92.00"
+Versao = "20.93.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -863,7 +863,7 @@ def QuerofilmeshdMENU(): # 510
 		for x in range(0, 1):
 			l +=1
 			link = common.OpenURL("https://querofilmeshd.online/genero/"+ClistaQUE10[int(CatQ1)]+"/page/"+ str(l))
-			match = re.compile('img src="([^\"]+)".+?alt="([^\"]+)".+?href="([^\"]+).+?rounded".+?,(.+?)<').findall(link.replace('\n','').replace('\r',''))
+			match = re.compile('img src="([^\"]+)".+?alt="([^\"]+)".+?href="([^\"]+).+?<span>.+?,.(\w+)').findall(link.replace('\n','').replace('\r',''))
 			if match:
 				for img2,name2,url2,ano in match:
 					img2= img2.replace("w185","original")
@@ -889,8 +889,8 @@ def QuerofilmeshdLista(): #511
 	headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 	result = {'action': 'doo_player_ajax', 'post': match2, 'nume': '1','type': 'movie'}
 	f = requests.post(url3, data = result, headers=headers)
-	url4 = re.compile("src='(.+?)'").findall(f.text)
-	url4 = url4[0]
+	url4 = re.compile('(http.+?)"').findall(f.text)
+	url4 = url4[0].replace('\/','/')
 	link3 = requests.get(url4)
 	w2 = link3.text
 	match4 = re.compile('idS:."(\w+)').findall(w2)
@@ -974,7 +974,7 @@ def ListSerieQF(): #430:
 		try:
 			y +=1
 			l = common.OpenURL("https://querofilmeshd.online/genero/series/page/"+str(y)+"/")
-			match = re.compile('img src="([^\"]+)".+?alt="([^\"]+)".+?href="([^\"]+).+?rounded".+?,(.+?)<').findall(l)
+			match = re.compile('img src="([^\"]+)".+?alt="([^\"]+)".+?href="([^\"]+).+?<span>.+?,.(\w+)').findall(l)
 			if match:
 				for img2,name2,url2,ano in match:
 					img2= img2.replace("w185","original")
@@ -1001,8 +1001,8 @@ def PlayEpiQF(): #433
 		headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 		result = {'action': 'doo_player_ajax', 'post': match2, 'nume': '1', 'type': 'tv'}
 		f = requests.post(url3, data=result, headers=headers)
-		url4 = re.compile("src='(.+?)'").findall(f.text)
-		url4 = url4[0]
+		url4 = re.compile('(http.+?)"').findall(f.text)
+		url4 = url4[0].replace('\/','/')
 		link3 = requests.get(url4)
 		w2 = link3.text
 		match3 = re.findall('idS."([^\"]+)', w2)
@@ -2162,15 +2162,15 @@ def Busca(): # 160
 		for x in range(0, 1):
 			l +=1
 			link = common.OpenURL("https://querofilmeshd.online/?s="+d).replace('\n','').replace('\r','')
-			match = re.compile('img src=\".+?url=([^\"]+)".alt="([^\"]+).{1,135}href="([^\"]+)"').findall(link.replace('\n','').replace('\r',''))
+			match = re.compile('<img src="([^\"]+)".+?alt="([^\"]+)".+?href="([^\"]+).+?"year">(\w+)').findall(link.replace('\n','').replace('\r',''))
 			if match:
-				for img2,name2,url2 in match:
+				for img2,name2,url2,ano in match:
 					img2= img2.replace("w92","original")
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 					if "tvshows" in url2:
-						AddDir("[COLOR springgreen]" +name2+ "[/COLOR]" ,url2, 431, img2, img2, info="", isFolder=True, IsPlayable=True)
+						AddDir("[COLOR springgreen]" +name2+ " - ("+ano+")"+"[/COLOR]" ,url2, 431, img2, img2, info="", isFolder=True, IsPlayable=True)#.replace('original','w92')
 					else:
-						AddDir("[COLOR springgreen]" +name2+ "[/COLOR]" ,url2, 511, img2, img2, info="", isFolder=True, IsPlayable=True)
+						AddDir("[COLOR springgreen]" +name2+ " - ("+ano+")"+"[/COLOR]" ,url2, 511, img2, img2, info="", isFolder=True, IsPlayable=True)
 	except:
 		pass        
 #	try:
