@@ -1860,7 +1860,7 @@ def PlayMRC2(): #96 Play filmes direto
 			background=url+";;;"+name+";;;RC"
 			try:
 				file[0] = re.sub('\n', '', file[0])
-				file[0] = re.sub('https', 'https', file[0])
+				#file[0] = re.sub('https', 'https', file[0])
 				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2 , iconimage, desc) #aqui
 			except IndexError as file:
 				pass
@@ -1868,7 +1868,7 @@ def PlayMRC2(): #96 Play filmes direto
 			mp4 = common.OpenURL(player ,headers={'referer': "https://bemestarglobal.fun/"})
 			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
 			file[0] = re.sub('\n', '', file[0])
-			file[0] = re.sub('https', 'https', file[0])
+			#file[0] = re.sub('https', 'https', file[0])
 			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2 , iconimage, desc) #aqui
 	except:
 		xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
@@ -1905,20 +1905,20 @@ def PlaySRC(): #133 Play series
 			#player = re.sub('redecanais\.[^\/]+', "blog.canaisgratis.org", player)
 			mp4 = common.OpenURL(player ,headers={'referer': "https://bemestarglobal.fun/"})
 			#file=re.compile('[^"|\']+\.mp4.{1,15}.m3u8').findall(mp4)
-			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
+			file=re.compile('[^"|\']+\.mp4[^"|\']+').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
 			try:
 				file[0] = re.sub('\n', '', file[0])
-				file[0] = re.sub('https', 'https', file[0])
+				#file[0] = re.sub('https', 'https', file[0])
 				PlayUrl(name, file[0] + reference2,"", iconimage, name)
 			except IndexError as file:
 				pass
 			player = re.sub('\.php', "hlb.php", player)
 			mp4 = common.OpenURL(player ,headers={'referer': "https://bemestarglobal.fun/"})
-			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
+			file=re.compile('[^"|\']+\.mp4[^"|\']+').findall(mp4)
 			file[0] = re.sub('\n', '', file[0])
-			file[0] = re.sub('https', 'https', file[0])
+			#file[0] = re.sub('https', 'https', file[0])
 			PlayUrl(name, file[0] + reference2,"", iconimage, name)
 	except:
 		sys.exit()
