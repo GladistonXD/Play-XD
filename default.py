@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.94.00"
+Versao = "20.95.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -160,7 +160,7 @@ def MFilmes(): #-2
 	#AddDir("[COLOR deepskyblue][B]Filmes Lançamentos Assistir.biz[/B][/COLOR]" , "", 517, "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR deepskyblue][B]Filmes Assistir.biz[/B][/COLOR]" , "", 514, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='[COLOR][/COLOR]')
 	AddDir("[COLOR mediumpurple][B]Filmes Vizer.tv[/B][/COLOR]" , "", 600, "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", info='[COLOR][/COLOR]')
-	AddDir("[COLOR springgreen][B]Filmes QuerofilmesHD[/B][/COLOR]" , "config", 510, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='[COLOR][/COLOR]')
+	#AddDir("[COLOR springgreen][B]Filmes QuerofilmesHD[/B][/COLOR]" , "config", 510, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='[COLOR][/COLOR]')
 	#AddDir("[COLOR blue][B]Filmes Lançamentos RedeCanais[/B][/COLOR]" , cPage, 221, "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", background="cPage", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Dublado RedeCanais[/B][/COLOR]" , cPage, 90, "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", background="cPage", info='[COLOR][/COLOR]')
 	AddDir("[COLOR blue][B]Filmes Legendado RedeCanais[/B][/COLOR]" , cPageleg, 91, "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", background="cPageleg", info='[COLOR][/COLOR]')
@@ -175,7 +175,7 @@ def MSeries(): #-3
 	AddDir("[COLOR blue][B]Desenhos RedeCanais[/B][/COLOR]" , cPageani, 150, "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", background="cPageser", info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR cyan]Séries MMFilmes[/COLOR][/B]", "config" , 190,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR lightgreen]Séries Superflix[/COLOR][/B]", "config" , 401,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	AddDir("[B][COLOR springgreen]Séries QueroFilmesHD[/COLOR][/B]", "config" , 430,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='[COLOR][/COLOR]')
+	#AddDir("[B][COLOR springgreen]Séries QueroFilmesHD[/COLOR][/B]", "config" , 430,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR mediumpurple]Séries Vizer.tv[/COLOR][/B]", "config" , 450,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='[COLOR][/COLOR]')
 	setViewM()
 ######################
@@ -2119,7 +2119,7 @@ def Busca(): # 160
 						i+=1
 	except:
 		pass    
-	progress.update(78, "78%", "Assistir.Biz", "")
+	progress.update(75, "75%", "Assistir.Biz", "")
 	try:
 		p= 1
 		AddDir("[B][COLOR deepskyblue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR deepskyblue]|||[/COLOR][COLOR deepskyblue] [Assistir.Biz] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
@@ -2154,25 +2154,25 @@ def Busca(): # 160
 	#					AddDir("[COLOR palevioletred]" +name2+"[/COLOR]", url2, 531, img2, img2, isFolder=True, IsPlayable=True, info="IMDB: "+imdb+"   Ano: "+ano)
 	#except:
 	#	pass
-	progress.update(80, "80%", "QueroFilmesHD", "")        
-	try:
-		p= 1
-		AddDir("[B][COLOR springgreen]|||[/COLOR][COLOR white]|||[/COLOR][COLOR springgreen]|||[/COLOR][COLOR springgreen] [QueroFilmesHD] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
-		l= 0
-		for x in range(0, 1):
-			l +=1
-			link = common.OpenURL("https://querofilmeshd.online/?s="+d).replace('\n','').replace('\r','')
-			match = re.compile('<img src="([^\"]+)".+?alt="([^\"]+)".+?href="([^\"]+).+?"year">(\w+)').findall(link.replace('\n','').replace('\r',''))
-			if match:
-				for img2,name2,url2,ano in match:
-					img2= img2.replace("w92","original")
-					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-					if "tvshows" in url2:
-						AddDir("[COLOR springgreen]" +name2+ " - ("+ano+")"+"[/COLOR]" ,url2, 431, img2, img2, info="", isFolder=True, IsPlayable=True)#.replace('original','w92')
-					else:
-						AddDir("[COLOR springgreen]" +name2+ " - ("+ano+")"+"[/COLOR]" ,url2, 511, img2, img2, info="", isFolder=True, IsPlayable=True)
-	except:
-		pass        
+	#progress.update(80, "80%", "QueroFilmesHD", "")        
+	#try:
+	#	p= 1
+#		AddDir("[B][COLOR springgreen]|||[/COLOR][COLOR white]|||[/COLOR][COLOR springgreen]|||[/COLOR][COLOR springgreen] [QueroFilmesHD] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
+#		l= 0
+#		for x in range(0, 1):
+#			l +=1
+#			link = common.OpenURL("https://querofilmeshd.online/?s="+d).replace('\n','').replace('\r','')
+#			match = re.compile('<img src="([^\"]+)".+?alt="([^\"]+)".+?href="([^\"]+).+?"year">(\w+)').findall(link.replace('\n','').replace('\r',''))
+#			if match:
+#				for img2,name2,url2,ano in match:
+#					img2= img2.replace("w92","original")
+#					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
+#					if "tvshows" in url2:
+#						AddDir("[COLOR springgreen]" +name2+ " - ("+ano+")"+"[/COLOR]" ,url2, 431, img2, img2, info="", isFolder=True, IsPlayable=True)#.replace('original','w92')
+#					else:
+#						AddDir("[COLOR springgreen]" +name2+ " - ("+ano+")"+"[/COLOR]" ,url2, 511, img2, img2, info="", isFolder=True, IsPlayable=True)
+#	except:
+#		pass        
 #	try:
 #		p= 1
 #		AddDir("[COLOR red][B][TopFlix][/B][/COLOR]", "" , 0 ,"", isFolder=False)
