@@ -8,7 +8,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.95.00"
+Versao = "20.96.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1842,7 +1842,7 @@ def PlayMRC2(): #96 Play filmes direto
 			#m = re.compile(reg, re.IGNORECASE).findall(pb)
 			#url2 = m[0]
 			#file = url2 + mp4[0][1]+".mp4"
-			player = re.sub('^/', "https://bemestarglobal.fun/", player[0])
+			player = re.sub('^/', "https://redecanais.ws/", player[0])
 			#player = re.sub('\.php', "hlb.php", player)
 			player = re.sub('\.php', ".php", player)
 			#player = re.sub('redecanais\.[^\/]+', "blog.canaisgratis.org", player)
@@ -1899,7 +1899,7 @@ def PlaySRC(): #133 Play series
 			#m = re.compile(reg, re.IGNORECASE).findall(pb)
 			#url2 = m[0]
 			#file = mp4[0][1]+".mp4"
-			player = re.sub('^/', "https://bemestarglobal.fun/", player[0])
+			player = re.sub('^/', "https://redecanais.ws/", player[0])
 			#player = re.sub('\.php', "hlb.php", player)
 			player = re.sub('\.php', ".php", player)
 			#player = re.sub('redecanais\.[^\/]+', "blog.canaisgratis.org", player)
