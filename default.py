@@ -3,12 +3,13 @@ import urllib, urlparse, sys, xbmcplugin ,xbmcgui, xbmcaddon, xbmc, os, json, ha
 import ftplib
 from random import randrange
 #import re
+#import ssl
 import requests
 import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.96.00"
+Versao = "20.97.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -147,7 +148,7 @@ def Categories(): #70
 def MCanais(): #-1
     AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](REDE CANAIS)[/B][/COLOR]" , "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
     AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](MAX)[/B][/COLOR]"  , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
-    #AddDir("[COLOR yellow][B]Opção 3[/B][/COLOR]" , "", 104, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
+    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](TOP2)[/B][/COLOR]", "", 104, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
     #AddDir("[COLOR yellow][B]Opção 4[/B][/COLOR]" , "", 107, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
 def MFilmes(): #-2
 	#AddDir("[COLOR white][B][Filmes Dublado/Legendado][/B][/COLOR]" , cPage, 220, "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", background="cPage")
@@ -2666,14 +2667,22 @@ def PlaySMM(): #194
 				PlayUrl(name, url2+"|Referer=https://player.openload.network/", iconimage, info)
 # ----------------- Fim MM filmes
 def TVCB2(x): #104
-	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive001").replace("\n","").replace('\r','')
-	m = re.compile('logo="(.+?)".{1,50},(.+?)pl.+?(plugin.+?)#').findall(link)
-	for img2, name2, url2 in m:
-		url3 = "plugin://" + url2.replace(";","&")
-		if url2!="Close":
-		 url3 = url3.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]").replace('BR-LIVE-SEMPRE 0800',"[COLOR green][B]HD[/B][/COLOR]")
-		 AddDir(name2, url3, 212,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
-
+	AddDir("[COLOR yellow]Atualizar Lista[/COLOR]" , "", 50, isFolder=False)
+	t = requests.get("https://cutt.ly/canalTop", verify=False)
+	jq_ = json.loads(t.text)
+	jq = sorted(jq_, key=lambda jq_: jq_['name'])
+	for jq1 in jq:
+		if "FILMES" in jq1['category'] or "LEGENDADO EN" in jq1['category'] or "ENTRETENIMENTO" in jq1['category'] or "DOCUMENTARIOS" in jq1['category'] or "NOTICIAS" in jq1['category'] or "TV ABERTA" in jq1['category'] or "INFANTIS" in jq1['category'] or "MUSICA" in jq1['category'] or "PAY PER VIEW" in jq1['category'] :
+			try:
+				AddDir( "[COLOR white]" + jq1['name'] + "[/COLOR]", jq1['id'] , 1212, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
+			except:
+				pass
+def PlayTVB3(): #1212
+	t = requests.get("https://cutt.ly/canalTop", verify=False)
+	jq_ = json.loads(t.text.replace("\\","//"))
+	for jq1 in jq_:
+		if jq1['id'] == url:
+			PlayUrl(jq1['name'], jq1['link'],jq1['logo'],"")
 def TVCB3(): #107
 	link = common.OpenURL("http://nordestv.gabserv.com.br/Sertao/Brasil/LISTA-IPTV/brlive002").replace("\n","").replace('\r','')
 	m = re.compile('1,(.+?)plugin:\/\/(.+?)#').findall(link)
@@ -2719,8 +2728,9 @@ def TVCB4PLAY(): #109
 			except IndexError as url2:
 				pass
 				PlayUrl(name, jq1['link']+"&t=0&s=12&p=1&c=BR&r=65|Referer=https://android.rediptvmobile.com/",iconimage,"") 
+
 def PlayTVCB2(): #212
-	PlayUrl(name, url, iconimage, info, "", metah)   
+	PlayUrl(name, url, iconimage, info, "", metah)       
 def RadioTV(x): #106
 	link = common.OpenURL("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/Radios-tv").replace("\n","").replace('\r','')
 	m = re.compile('<title>(.+?)<\/title><link>(.+?)<\/link><thumbnail>(.+?)<\/thumbnail>').findall(link)
@@ -3869,7 +3879,9 @@ elif mode == 311:
 	ListTopL()
 	setViewS()    
 elif mode == 212:
-	PlayTVCB2()    
+	PlayTVCB2()  
+elif mode == 1212:
+	PlayTVB3()      
 elif mode == 219:
 	GenerosGO()
 elif mode == 230:
