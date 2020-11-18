@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.98.00"
+Versao = "20.99.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -125,8 +125,8 @@ reference2="|verifypeer=false"
 #reference2=""
 #reference3="|Referer=https://canaisgratis.eu/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
 reference3=""
-RC="redecanais.ws/"
-RC2="https://redecanais.ws/"
+RC="redecanais.cloud/"
+RC2="https://redecanais.cloud/"
 RC3="https://redecanaistv.com/"
 RC4="https://topflix.tv/"
 	
@@ -1828,35 +1828,17 @@ def PlayMRC2(): #96 Play filmes direto
 	if not "redecanais" in url2:
 		url2 = "https://"+RC+ url2
 	try:
-		link = common.OpenURL(proxy+url2.replace("http\:","https\:"))
-		desc = re.compile('itemprop=\"?description\"?>\s.{0,10}?<p>(.+)<\/p>').findall(link)
+		link = requests.get(url2)
+		desc = re.compile('itemprop=\"?description\"?>\s.{0,10}?<p>(.+)<\/p>').findall(link.text)
+		player = re.compile('<iframe name.+?src=.(.+?)"').findall(link.text)
+		player2 = player[0]
 		if desc:
 			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
-		player = re.compile('<iframe.{1,50}src=\"(\/?p[^\"]+)\"').findall(link)
-		if player:
-			#mp4 = re.compile('server(f?\d*).+vid\=(\w+)').findall(player[0])
-			#reg = "(.+)\\$rc"+mp4[0][0]
-			#pb = common.OpenURL("https://pastebin.com/raw/FwSnnr65")
-			#ss = re.compile('(.{1,65})RCFServer.{1,35}\.mp4').findall(pb)
-			#pb = re.sub('\$s1\/', ss[0], pb )
-			#pb = re.sub('\$s2\/', ss[1], pb )
-			#m = re.compile(reg, re.IGNORECASE).findall(pb)
-			#url2 = m[0]
-			#file = url2 + mp4[0][1]+".mp4"
-			player = re.sub('^/', "https://redecanais.ws/", player[0])
-			#player = re.sub('\.php', "hlb.php", player)
-			player = re.sub('\.php', ".php", player)
-			#player = re.sub('redecanais\.[^\/]+', "blog.canaisgratis.org", player)
-			#player = "https://redecanais.se//player3/serverf4hlb.php?vid=TGO"
-			#return
-			mp4 = common.OpenURL(player ,headers={'referer': "https://bemestarglobal.fun/"})
-			#ST(mp4)
-			#exp = re.compile('expires\=([^\'|\"]+)').findall(auth)
-			#player = re.sub('\.php', "hlb.php", player)
-			#file=re.compile('[^"|\']+\.mp4.{1,15}.m3u8').findall(mp4)
+		if player2:
+			player2 = re.sub('\.php', "hlb.php", player2)
+			player3 = "https://bemestarglobal.fun" + player2
+			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/"})
 			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
-			#return
-			#mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://redecanais.se/"})
 			global background
 			background=url+";;;"+name+";;;RC"
 			try:
@@ -1865,25 +1847,26 @@ def PlayMRC2(): #96 Play filmes direto
 				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2 , iconimage, desc) #aqui
 			except IndexError as file:
 				pass
-			player = re.sub('\.php', "hlb.php", player)
+			player = re.sub('.php', "hlb.php", player)
 			mp4 = common.OpenURL(player ,headers={'referer': "https://bemestarglobal.fun/"})
 			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
 			file[0] = re.sub('\n', '', file[0])
 			#file[0] = re.sub('https', 'https', file[0])
 			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2 , iconimage, desc) #aqui
 	except:
-		xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
+		#xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
 		sys.exit()
 # ----------------- FIM REDECANAIS
 # --------------  REDECANAIS SERIES,ANIMES,DESENHOS
 def PlaySRC(): #133 Play series
 	try:
 		url2 = re.sub('redecanais\.[^\/]+', RC, url.replace("http\:","https\:") )
-		link = common.OpenURL(proxy+url2)
-		desc = re.compile('itemprop=\"?description\"?>\s<p>(.+)<\/p>').findall(link)
+		link = requests.get(url2)
+		desc = re.compile('itemprop=\"?description\"?>\s<p>(.+)<\/p>').findall(link.text)
 		if desc:
 			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
-		player = re.compile('<iframe.{1,50}src=\"(\/?p[^\"]+)\"').findall(link)
+		player = re.compile('<iframe name.+?src=.(.+?)"').findall(link.text)
+		player2 = player[0]
 		if player:
 			#mp4 = re.compile('server(f?\d*).+vid\=(\w+)').findall(player[0])
 			#reg = "(.+)\\$rc"+mp4[0][0]
@@ -1900,11 +1883,9 @@ def PlaySRC(): #133 Play series
 			#m = re.compile(reg, re.IGNORECASE).findall(pb)
 			#url2 = m[0]
 			#file = mp4[0][1]+".mp4"
-			player = re.sub('^/', "https://redecanais.ws/", player[0])
-			#player = re.sub('\.php', "hlb.php", player)
-			player = re.sub('\.php', ".php", player)
-			#player = re.sub('redecanais\.[^\/]+', "blog.canaisgratis.org", player)
-			mp4 = common.OpenURL(player ,headers={'referer': "https://bemestarglobal.fun/"})
+			player2 = re.sub('\.php', "hlb.php", player2)
+			player3 = "https://bemestarglobal.fun" + player2
+			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/"})
 			#file=re.compile('[^"|\']+\.mp4.{1,15}.m3u8').findall(mp4)
 			file=re.compile('[^"|\']+\.mp4[^"|\']+').findall(mp4)
 			global background
@@ -2217,25 +2198,49 @@ def Busca(): # 160
 #		pass
 	progress.update(90, "90%", "RedeCanais", "")
 	try:
-		i=0
 		p= 1
-		AddDir("[B][COLOR blue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR blue]|||[/COLOR][COLOR blue] [RedeCanais] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		AddDir("[COLOR blue][B]RedeCanais[/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		l= 0
-		for x in range(0, 2):
-			link = common.OpenURL("https://www.google.com/search?q="+d+"+site:redecanais.se&hl=pt-BR&&start="+str(l))
-			l +=2
-			match = re.compile('href\=\"(https?\:.{0,50}redecanais[^\"]+)\".{50,200}\>([^\<]+)').findall(link.replace('\n','').replace('\r',''))
-			img2 = re.compile('href\=\"https?\:.{0,50}redecanais[^\"]+\".{50,200}\>([^\<].+?) -').findall(link.replace('\n','').replace('\r','').replace(" (Dublado)", "").replace(" (Legendado)", ""))
+		for x in range(0, 10):
+			l +=1
+			link = common.OpenURL(proxy+"https://" + RC +"search.php?keywords="+d+"&page="+str(l))
+			match = re.compile('data\-echo\=\"([^\"]+).{10,150}href=\"([^\"]+).{0,10}title=\"([^\"]+)\"').findall(link.replace('\n','').replace('\r',''))
 			if match:
-				for url2, name2 in match:
-					if "browse" in url2 or "lista" in url2:
-						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 135, "https://redecanais.se/imgs-videos/Series/"+ img2[i].replace(" ","%20")+"%201.jpg", "https://redecanais.se/imgs-videos/Series/"+ img2[i].replace(" ","%20")+"%201.jpg", info="", isFolder=True, IsPlayable=False)
-					if "lista" in url2 or "Lista" in name2 or "browse-filmes-dublado-videos" in url2 or "topvideos" in url2 or "tags" in url2 or "Filmes em Lançamentos - RedeCanais" in name2: False
-					else:
-						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 96, "https://redecanais.se/imgs-videos/Filmes/"+ img2[i].replace(" ","%20").replace(":"," -")+".jpg", "https://redecanais.se/imgs-videos/Filmes/"+ img2[i].replace(" ","%20")+".jpg", info="", isFolder=False, IsPlayable=True)
-					i+=1
+				for img2,url2,name2 in match:
+					#url2 = re.sub('^\.', "http://www." + RC, url2 )
+					url2 = re.sub('^\.', "https://"+RC, url2 )
+					img2 = re.sub('^/', "https://"+RC, img2 )
+					if re.compile('\d+p').findall(name2):
+						if cPlayD == "true":
+							AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 96, img2, img2, info="", isFolder=False, IsPlayable=True)
+						else:
+							AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 95, img2, img2)
+					elif "Lista" in name2:
+						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 135, img2, img2)
+			else:
+				break
 	except:
 		pass
+#	try:
+#		i=0
+#		p= 1
+#		AddDir("[B][COLOR blue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR blue]|||[/COLOR][COLOR blue] [RedeCanais] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
+#		l= 0
+#		for x in range(0, 2):
+#			link = common.OpenURL("https://www.google.com/search?q="+d+"+site:redecanais.se&hl=pt-BR&&start="+str(l))
+#			l +=2
+#			match = re.compile('href\=\"(https?\:.{0,50}redecanais[^\"]+)\".{50,200}\>([^\<]+)').findall(link.replace('\n','').replace('\r',''))
+#			img2 = re.compile('href\=\"https?\:.{0,50}redecanais[^\"]+\".{50,200}\>([^\<].+?) -').findall(link.replace('\n','').replace('\r','').replace(" (Dublado)", "").replace(" (Legendado)", ""))
+#			if match:
+#				for url2, name2 in match:
+#					if "browse" in url2 or "lista" in url2:
+#						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 135, "https://redecanais.se/imgs-videos/Series/"+ img2[i].replace(" ","%20")+"%201.jpg", "https://redecanais.se/imgs-videos/Series/"+ img2[i].replace(" ","%20")+"%201.jpg", info="", isFolder=True, IsPlayable=False)
+#					if "lista" in url2 or "Lista" in name2 or "browse-filmes-dublado-videos" in url2 or "topvideos" in url2 or "tags" in url2 or "Filmes em Lançamentos - RedeCanais" in name2: False
+#					else:
+#						AddDir("[COLOR blue]" +name2+ "[/COLOR]" ,url2, 96, "https://redecanais.se/imgs-videos/Filmes/"+ img2[i].replace(" ","%20").replace(":"," -")+".jpg", "https://redecanais.se/imgs-videos/Filmes/"+ img2[i].replace(" ","%20")+".jpg", info="", isFolder=False, IsPlayable=True)
+#					i+=1
+#	except:
+#		pass
 	progress.update(100, "100%", "SuperFlix", "")        
 	try:
 		p= 1
