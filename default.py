@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "20.99.00"
+Versao = "21.00.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1835,7 +1835,7 @@ def PlayMRC2(): #96 Play filmes direto
 		if desc:
 			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
 		if player2:
-			player2 = re.sub('\.php', "hlb.php", player2)
+			player2 = re.sub('.php', "hlb.php", player2)
 			player3 = "https://bemestarglobal.fun" + player2
 			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/"})
 			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
@@ -1847,8 +1847,9 @@ def PlayMRC2(): #96 Play filmes direto
 				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2 , iconimage, desc) #aqui
 			except IndexError as file:
 				pass
-			player = re.sub('.php', "hlb.php", player)
-			mp4 = common.OpenURL(player ,headers={'referer': "https://bemestarglobal.fun/"})
+			player2 = re.sub('.php', ".php", player2)
+			player3 = "https://bemestarglobal.fun" + player2
+			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/"})
 			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
 			file[0] = re.sub('\n', '', file[0])
 			#file[0] = re.sub('https', 'https', file[0])
@@ -1896,8 +1897,9 @@ def PlaySRC(): #133 Play series
 				PlayUrl(name, file[0] + reference2,"", iconimage, name)
 			except IndexError as file:
 				pass
-			player = re.sub('\.php', "hlb.php", player)
-			mp4 = common.OpenURL(player ,headers={'referer': "https://bemestarglobal.fun/"})
+			player2 = re.sub('.php', ".php", player2)
+			player3 = "https://bemestarglobal.fun" + player2
+			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/"})
 			file=re.compile('[^"|\']+\.mp4[^"|\']+').findall(mp4)
 			file[0] = re.sub('\n', '', file[0])
 			#file[0] = re.sub('https', 'https', file[0])
@@ -2077,7 +2079,9 @@ def Busca(): # 160
 			if match:
 				for img2, url2, name2 in match:
 					img2 = img2.replace('170255',"330490")
-					AddDir("[COLOR red]" +name2+ "[/COLOR]" , RC4 + url2, 211, RC4 + img2, info="", isFolder=True, IsPlayable=False)
+ 					if "series" in url2: False
+					else:
+						AddDir("[COLOR red]" +name2+ "[/COLOR]" , RC4 + url2, 211, RC4 + img2, info="", isFolder=True, IsPlayable=False)
 	except:
 		pass
 	progress.update(64, "64%", "Vizer.tv", "")
