@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.00.00"
+Versao = "21.01.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2712,6 +2712,9 @@ def TVCB4(): #108
 				elif jq1['language'] == "Brazilian":
 					jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]").replace("A E", "A&E")
 					AddDir( "[B]" + jq1['name'] + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
+				elif jq1['name'] == "MTV Live HD":
+					jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]").replace("A E", "A&E")
+					AddDir( "[B]" + jq1['name'] + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
 	except:
 		pass
 def TVCB4PLAY(): #109
@@ -2736,7 +2739,7 @@ def TVCB4PLAY(): #109
 				PlayUrl(name + title, jq1['link']+"&t=0&s=12&p=1&c=BR&r=65|Referer=https://android.rediptvmobile.com/",iconimage, url6)
 			except IndexError as url2:
 				pass
-				PlayUrl(name, jq1['link']+"&t=0&s=12&p=1&c=BR&r=65|Referer=https://android.rediptvmobile.com/",iconimage,"") 
+				PlayUrl(name, jq1['link']+"|Referer=https://android.rediptvmobile.com/",iconimage,"") 
 
 def PlayTVCB2(): #212
 	PlayUrl(name, url, iconimage, info, "", metah)       
