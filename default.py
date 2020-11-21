@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.01.00"
+Versao = "21.02.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3125,7 +3125,7 @@ def ListSerieSF(): #401:
 		try:
 			y +=1
 			l = common.OpenURL("http://www.superflix.net/assistir-series-online/page/"+str(y)+"/")
-			link = re.compile('}.;<\/script>(.+)custom-html-widget">').findall(l)
+			link = re.compile('<section class="section movies">(.+?)class="page-link current').findall(l)
 			match = re.compile('<h2 class="entry-title">([^\"].+?)<.+?src="([^\"].+?)".+?class.+?class="\w+">([^\"].+?)<.+?Série.{1,52}h.+?"(.+?)"').findall(link[0])
 			if match:
 				for name2, img2, year2, url2 in match:
