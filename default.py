@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.03.00"
+Versao = "21.04.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2299,9 +2299,9 @@ def TVCB(x): #102
 def PlayTVCB(): #103
 	link = requests.get("https://redecanaistv.com/"+url)
 	player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link.text)
-	player = re.sub('^/', "https://redecanaistv.com/", player[0])
+	player = re.sub('^/', "https://lojadebicicleta.com.br/", player[0])
 	player = re.sub('.php', ".php", player)
-	m3u = requests.get(player, headers={'referer': "https://redecanaistv.com/"})
+	m3u = requests.get(player, headers={'referer': "https://lojadebicicleta.com.br/"})
 	m = re.compile('http.{10,250}?m3u8[^"|\n|\']{0,100}').findall(m3u.text)
 	try:
 		m2 = re.sub('https', 'https', m[0])
@@ -2309,7 +2309,7 @@ def PlayTVCB(): #103
 	except IndexError as m2:
 		pass
 	player = re.sub('.php', "hlb.php", player)
-	m3u = requests.get(player, headers={'referer': "https://redecanaistv.com/"})
+	m3u = requests.get(player, headers={'referer': "https://lojadebicicleta.com.br/"})
 	m = re.compile('http.{10,250}?m3u8[^"|\n|\']{0,100}').findall(m3u.text)
 	m2 = re.sub('https', 'https', m[0])
 	PlayUrl(name, m2 + reference3, iconimage, name, "")
