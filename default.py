@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.02.00"
+Versao = "21.03.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1831,79 +1831,69 @@ def PlayMRC2(): #96 Play filmes direto
 		link = requests.get(url2)
 		desc = re.compile('itemprop=\"?description\"?>\s.{0,10}?<p>(.+)<\/p>').findall(link.text)
 		player = re.compile('<iframe name.+?src=.(.+?)"').findall(link.text)
+		complement = re.compile('<iframe name.+?src=.(.+?)\/').findall(link.text)
 		player2 = player[0]
+		complement = complement[0]
 		if desc:
 			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
 		if player2:
 			player2 = re.sub('.php', "hlb.php", player2)
 			player3 = "https://bemestarglobal.fun" + player2
 			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/"})
-			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
+			file=re.compile('<source src=".([^"|\']+)" type=').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
 			try:
 				file[0] = re.sub('\n', '', file[0])
 				#file[0] = re.sub('https', 'https', file[0])
-				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2 , iconimage, desc) #aqui
+				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc) #aqui
 			except IndexError as file:
 				pass
 			player2 = re.sub('.php', ".php", player2)
 			player3 = "https://bemestarglobal.fun" + player2
 			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/"})
-			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
+			file=re.compile('<source src=".([^"|\']+)" type=').findall(mp4)
 			file[0] = re.sub('\n', '', file[0])
 			#file[0] = re.sub('https', 'https', file[0])
-			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2 , iconimage, desc) #aqui
+			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/" , iconimage, desc) #aqui
 	except:
 		#xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
 		sys.exit()
 # ----------------- FIM REDECANAIS
 # --------------  REDECANAIS SERIES,ANIMES,DESENHOS
 def PlaySRC(): #133 Play series
+	url2 = re.sub('redecanais\.[^\/]+', RC, url.replace("http\:","https\:") )
+	if not "redecanais" in url2:
+		url2 = "https://"+RC+ url2
 	try:
-		url2 = re.sub('redecanais\.[^\/]+', RC, url.replace("http\:","https\:") )
 		link = requests.get(url2)
-		desc = re.compile('itemprop=\"?description\"?>\s<p>(.+)<\/p>').findall(link.text)
+		desc = re.compile('itemprop=\"?description\"?>\s.{0,10}?<p>(.+)<\/p>').findall(link.text)
+		player = re.compile('<iframe name.+?src=.(.+?)"').findall(link.text)
+		complement = re.compile('<iframe name.+?src=.(.+?)\/').findall(link.text)
+		player2 = player[0]
+		complement = complement[0]
 		if desc:
 			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
-		player = re.compile('<iframe name.+?src=.(.+?)"').findall(link.text)
-		player2 = player[0]
-		if player:
-			#mp4 = re.compile('server(f?\d*).+vid\=(\w+)').findall(player[0])
-			#reg = "(.+)\\$rc"+mp4[0][0]
-			#pb = common.OpenURL("https://pastebin.com/raw/FwSnnr65")
-			#ss = re.compile('(.{1,65})RCF?Server.{1,35}\.mp4').findall(pb)
-			#try:
-			#	pb = re.sub('\$s1\/', ss[2], pb )
-			#except:
-			#	pb = re.sub('\$s1\/', ss[0], pb )
-			#try:
-			#	pb = re.sub('\$s2\/', ss[3], pb )
-			#except:
-			#	pb = re.sub('\$s2\/', ss[1], pb )
-			#m = re.compile(reg, re.IGNORECASE).findall(pb)
-			#url2 = m[0]
-			#file = mp4[0][1]+".mp4"
-			player2 = re.sub('\.php', "hlb.php", player2)
+		if player2:
+			player2 = re.sub('.php', "hlb.php", player2)
 			player3 = "https://bemestarglobal.fun" + player2
 			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/"})
-			#file=re.compile('[^"|\']+\.mp4.{1,15}.m3u8').findall(mp4)
-			file=re.compile('[^"|\']+\.mp4[^"|\']+').findall(mp4)
+			file=re.compile('<source src=".([^"|\']+)" type=').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
 			try:
 				file[0] = re.sub('\n', '', file[0])
 				#file[0] = re.sub('https', 'https', file[0])
-				PlayUrl(name, file[0] + reference2,"", iconimage, name)
+				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc) #aqui
 			except IndexError as file:
 				pass
 			player2 = re.sub('.php', ".php", player2)
 			player3 = "https://bemestarglobal.fun" + player2
 			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/"})
-			file=re.compile('[^"|\']+\.mp4[^"|\']+').findall(mp4)
+			file=re.compile('<source src=".([^"|\']+)" type=').findall(mp4)
 			file[0] = re.sub('\n', '', file[0])
 			#file[0] = re.sub('https', 'https', file[0])
-			PlayUrl(name, file[0] + reference2,"", iconimage, name)
+			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/" , iconimage, desc) #aqui
 	except:
 		sys.exit()
 def TemporadasRC(x): #135 Episodios
