@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.04.00"
+Versao = "21.05.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -485,16 +485,16 @@ def MenuVizer2(): # 601
 		arquivo = open(cachefolder + "vizer.txt", "w+")
 		arquivo.write(String2)
 		arquivo.close()
-		#match = re.compile('lang".."(.+?)".+?id".."(.+?)"').findall(String2)
-		match = re.compile('lang".."(.+?)".+?:.+?"(.+?)"').findall(String2)
+		match = re.compile('lang".."(.+?)".+?id".."(.+?)"').findall(String2)
+		#match = re.compile('lang".."(.+?)".+?:.+?"(.+?)"').findall(String2)
         	if match:
 				for name2, url2 in match:
-					#name2 = name2.replace("Inglês"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Português"," [COLOR springgreen][B]Dublado[/B][/COLOR]")
-					name2 = name2.replace("Original"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Português"," [COLOR springgreen][B]Dublado[/B][/COLOR]")
+					name2 = name2.replace("Original"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Dublado"," [COLOR springgreen][B]Dublado[/B][/COLOR]")
+					#name2 = name2.replace("Original"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Português"," [COLOR springgreen][B]Dublado[/B][/COLOR]")
 					AddDir(name2, url2, 602, iconimage, iconimage, isFolder=False, IsPlayable=True, info= sinopse)
 	except:
 		pass
-def PlayVizer(): # 602
+def PlayVizer1(): # 602
 	try:	
 				urlx = "https://vizer.tv/embed/getEmbed.php?orvio=" + url
 				url4 = requests.get(urlx)
@@ -516,7 +516,7 @@ def PlayVizer(): # 602
 		xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 		sys.exit()
 
-def PlayVizer1(): # 602 ###### opção 1
+def PlayVizer(): # 602 ###### opção 1
 	try:	
 			url2x = "https://vizer.tv/includes/ajax/publicFunctions.php"
 			result = {'showPlayer': url}
@@ -561,10 +561,11 @@ def PlayVizer1(): # 602 ###### opção 1
 						w = w[0].replace("d","a")
 						w1 = re.compile("(delivery\w+)").findall(html.text)
 						w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
-						w3 = re.compile("wurl...+?(\W.+?[A-Z]+\w.+?\W.+?)\W").findall(html.text)
+						w3 = re.compile("referrer.(.+?)[|]").findall(html.text)
 						w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
-						contents = "https://"+w+"-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
-						contents1 = contents.replace("|vfile","").replace("|","-")
+						w5 = re.compile("_t.+?\W(.+?)\W").findall(html.text)
+						contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
+						contents1 = contents.replace("|vfile", "").replace("|", "-")
 						contents2 = re.sub('\W\d+-', '', contents1)
 						if legenda:
 							legenda = legenda[0]
@@ -581,10 +582,11 @@ def PlayVizer1(): # 602 ###### opção 1
 					w = w[0].replace("d","a")
 					w1 = re.compile("(delivery\w+)").findall(html.text)
 					w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
-					w3 = re.compile("wurl...+?(\W.+?[A-Z]+\w.+?\W.+?)\W").findall(html.text)
+					w3 = re.compile("referrer.(.+?)[|]").findall(html.text)
 					w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
-					contents = "https://"+w+"-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
-					contents1 = contents.replace("|vfile","").replace("|","-")
+					w5 = re.compile("_t.+?\W(.+?)\W").findall(html.text)
+					contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
+					contents1 = contents.replace("|vfile", "").replace("|", "-")
 					contents2 = re.sub('\W\d+-', '', contents1)
 					if legenda:
 						legenda = legenda[0]
@@ -1846,7 +1848,8 @@ def PlayMRC2(): #96 Play filmes direto
 			try:
 				file[0] = re.sub('\n', '', file[0])
 				#file[0] = re.sub('https', 'https', file[0])
-				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc) #aqui
+				#PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc) #aqui
+				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "h" + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc)
 			except IndexError as file:
 				pass
 			player2 = re.sub('.php', ".php", player2)
@@ -1855,7 +1858,8 @@ def PlayMRC2(): #96 Play filmes direto
 			file=re.compile('<source src=".([^"|\']+)" type=').findall(mp4)
 			file[0] = re.sub('\n', '', file[0])
 			#file[0] = re.sub('https', 'https', file[0])
-			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/" , iconimage, desc) #aqui
+			#PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/" , iconimage, desc) #aqui
+			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "h" + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc)
 	except:
 		#xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
 		sys.exit()
@@ -1884,7 +1888,8 @@ def PlaySRC(): #133 Play series
 			try:
 				file[0] = re.sub('\n', '', file[0])
 				#file[0] = re.sub('https', 'https', file[0])
-				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc) #aqui
+				#PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc) #aqui
+				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "h" + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc)
 			except IndexError as file:
 				pass
 			player2 = re.sub('.php', ".php", player2)
@@ -1893,7 +1898,8 @@ def PlaySRC(): #133 Play series
 			file=re.compile('<source src=".([^"|\']+)" type=').findall(mp4)
 			file[0] = re.sub('\n', '', file[0])
 			#file[0] = re.sub('https', 'https', file[0])
-			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/" , iconimage, desc) #aqui
+			#PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/" , iconimage, desc) #aqui
+			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "h" + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc)
 	except:
 		sys.exit()
 def TemporadasRC(x): #135 Episodios
