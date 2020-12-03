@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.05.00"
+Versao = "21.06.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -223,7 +223,7 @@ def SeriePlayBZ(): # 452
 					AddDir(numero+" - " + name2.replace('",',""), url2, 453, img3, img3, isFolder=False, IsPlayable=True, info="")
 	except:
 		pass
-def SeriePlayBZ2(): # 453
+def SeriePlayBZ22(): # 453
 	try:	
 		url3 = ('https://vizer.tv/includes/ajax/publicFunctions.php')
 		result = {'getEpisodeLanguages': url}
@@ -268,7 +268,7 @@ def SeriePlayBZ2(): # 453
 	except (IndexError, ValueError):
 		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado, tente outro servidor')
 		sys.exit()
-def SeriePlayBZ22(): # 453 #### opção 1
+def SeriePlayBZ2(): # 453 #### opção 1
 	try:	
 		url3 = ('https://vizer.tv/includes/ajax/publicFunctions.php')
 		result = {'getEpisodeLanguages': url}
@@ -322,10 +322,11 @@ def SeriePlayBZ22(): # 453 #### opção 1
 							w = w[0].replace("d","a")
 							w1 = re.compile("(delivery\w+)").findall(html.text)
 							w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
-							w3 = re.compile("wurl...+?(\W.+?[A-Z]+\w.+?\W.+?)\W").findall(html.text)
+							w3 = re.compile("referrer.(.+?)[|]").findall(html.text)
 							w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
-							contents = "https://"+w+"-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
-							contents1 = contents.replace("|vfile","").replace("|","-")
+							w5 = re.compile("_t.+?\W(.+?)\W").findall(html.text)
+							contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
+							contents1 = contents.replace("|vfile", "").replace("|", "-")
 							contents2 = re.sub('\W\d+-', '', contents1)
 							if legenda:
 								legenda = legenda[0]
@@ -342,10 +343,11 @@ def SeriePlayBZ22(): # 453 #### opção 1
 						w = w[0].replace("d","a")
 						w1 = re.compile("(delivery\w+)").findall(html.text)
 						w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
-						w3 = re.compile("wurl...+?(\W.+?[A-Z]+\w.+?\W.+?)\W").findall(html.text)
+						w3 = re.compile("referrer.(.+?)[|]").findall(html.text)
 						w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
-						contents = "https://"+w+"-"+w1[0]+".mxdcontent.net/v/"+w2[0]+".mp4?s="+w3[0]+"&e="+w4[0]
-						contents1 = contents.replace("|vfile","").replace("|","-")
+						w5 = re.compile("_t.+?\W(.+?)\W").findall(html.text)
+						contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
+						contents1 = contents.replace("|vfile", "").replace("|", "-")
 						contents2 = re.sub('\W\d+-', '', contents1)
 						if legenda:
 							legenda = legenda[0]
