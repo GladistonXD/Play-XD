@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.06.00"
+Versao = "21.07.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2697,24 +2697,18 @@ def TVCB3(): #107
 		url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]").replace('BR-LIVE-SEMPRE 0800',"[COLOR green][B]HD[/B][/COLOR]")
 		AddDir(name2,"plugin://"+url2.replace(";","&"), 212, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')   
 def TVCB4(): #108
-	try:
-		t = requests.get("https://cutt.ly/canalR", verify=False)
-		jq_ = json.loads(t.text.replace("\\","//").replace("http://files.rednetcontent.com/chlogo2/Brasil/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/Portuguese/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/english/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/french/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/arabic/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/dutch/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/russian/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/German/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("1280px-SporTV_2017_logo.png","SporTV_2_logo_20167.png").replace("SporTV_2_logo_2016.png","Sportv2.png").replace("TVBAH//u0130A.png","bahia.png"))
-		jq = sorted(jq_, key=lambda jq_: jq_['name'])
-		for jq1 in jq:
-			if "Action 1" in jq1['name']or "Action 2" in jq1['name'] or "Action 3" in jq1['name'] or "Action 4" in jq1['name'] or "Action 5" in jq1['name'] or "Action 6" in jq1['name'] or "Action 7" in jq1['name'] or "Action 8" in jq1['name'] or "Action 9" in jq1['name'] or "Action 10" in jq1['name'] or "Adventure" in jq1['name'] or "Crime" in jq1['name'] or "Documentary" in jq1['name'] or "Drama" in jq1['name'] or "Horror" in jq1['name'] or "Sci-Fi" in jq1['name'] or "Comedy 1" in jq1['name'] or "Comedy 2" in jq1['name'] or "Comedy 3" in jq1['name'] or "Comedy 4" in jq1['name'] or "Comedy 5" in jq1['name'] or "Comedy 6" in jq1['name'] or "Comedy 7" in jq1['name'] or "Comedy 8" in jq1['name'] or "Comedy 9" in jq1['name'] or "Comedy 10" in jq1['name'] or "Kids 1" in jq1['name'] or "Kids 2" in jq1['name'] or "Kids 3" in jq1['name'] or "Kids 4" in jq1['name'] or "Kids 5" in jq1['name'] or "Kids 6" in jq1['name'] or "Kids 7" in jq1['name'] or "Kids 8" in jq1['name'] or "Kids 9" in jq1['name'] or "Kids 10" in jq1['name']: False
-			else:
-				if jq1['language']== "Brasil":
-					jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]").replace("A E", "A&E")
-					AddDir( "[B]" + jq1['name'] +  " [COLOR blue][Alter][/COLOR]" + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
-				elif jq1['language'] == "Brazilian":
+	t = requests.get("https://cutt.ly/canalR", verify=False)
+	jq_ = json.loads(t.text.replace("\\","//").replace("http://files.rednetcontent.com/chlogo2/Brasil/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/Portuguese/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/english/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/french/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/arabic/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/dutch/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/russian/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/German/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("1280px-SporTV_2017_logo.png","SporTV_2_logo_20167.png").replace("SporTV_2_logo_2016.png","Sportv2.png").replace("TVBAH//u0130A.png","bahia.png"))
+	jq = sorted(jq_, key=lambda jq_: jq_['name'])
+	for jq1 in jq:
+		if "Action 1" in jq1['name']or "Action 2" in jq1['name'] or "Action 3" in jq1['name'] or "Action 4" in jq1['name'] or "Action 5" in jq1['name'] or "Action 6" in jq1['name'] or "Action 7" in jq1['name'] or "Action 8" in jq1['name'] or "Action 9" in jq1['name'] or "Action 10" in jq1['name'] or "Adventure" in jq1['name'] or "Crime" in jq1['name'] or "Documentary" in jq1['name'] or "Drama" in jq1['name'] or "Horror" in jq1['name'] or "Sci-Fi" in jq1['name'] or "Comedy 1" in jq1['name'] or "Comedy 2" in jq1['name'] or "Comedy 3" in jq1['name'] or "Comedy 4" in jq1['name'] or "Comedy 5" in jq1['name'] or "Comedy 6" in jq1['name'] or "Comedy 7" in jq1['name'] or "Comedy 8" in jq1['name'] or "Comedy 9" in jq1['name'] or "Comedy 10" in jq1['name'] or "Kids 1" in jq1['name'] or "Kids 2" in jq1['name'] or "Kids 3" in jq1['name'] or "Kids 4" in jq1['name'] or "Kids 5" in jq1['name'] or "Kids 6" in jq1['name'] or "Kids 7" in jq1['name'] or "Kids 8" in jq1['name'] or "Kids 9" in jq1['name'] or "Kids 10" in jq1['name']: False
+		else:
+			if jq1['language']== "Brasil" or jq1['language'] == "Brazilian" or jq1['name'] == "MTV Live HD":
+				try:
 					jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]").replace("A E", "A&E")
 					AddDir( "[B]" + jq1['name'] + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
-				elif jq1['name'] == "MTV Live HD":
-					jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]").replace("A E", "A&E")
-					AddDir( "[B]" + jq1['name'] + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
-	except:
-		pass
+				except:
+					pass
 def TVCB4PLAY(): #109
 	t = requests.get("https://cutt.ly/canalR", verify=False)
 	jq_ = json.loads(t.text.replace("\\","//"))
