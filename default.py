@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.07.00"
+Versao = "21.08.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -124,7 +124,7 @@ reference2="|verifypeer=false"
 #reference2="|referer=https://redecanais.se/"
 #reference2=""
 #reference3="|Referer=https://canaisgratis.eu/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
-reference3=""
+reference3="|User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"
 RC="redecanais.cloud/"
 RC2="https://redecanais.cloud/"
 RC3="https://redecanaistv.com/"
@@ -2305,11 +2305,11 @@ def TVCB(x): #102
 	#except:
 	#	AddDir("Servidor offline, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def PlayTVCB(): #103
-	link = requests.get("https://redecanaistv.com/"+url)
+	link = requests.get("https://redecanaistv.com/"+url, headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"})
 	player = re.compile('<iframe.{1,50}src=\"([^\"]+)\"').findall(link.text)
 	player = re.sub('^/', "https://lojadebicicleta.com.br/", player[0])
 	player = re.sub('.php', ".php", player)
-	m3u = requests.get(player, headers={'referer': "https://lojadebicicleta.com.br/"})
+	m3u = requests.get(player, headers={'referer': "https://lojadebicicleta.com.br/", 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0'})
 	m = re.compile('http.{10,250}?m3u8[^"|\n|\']{0,100}').findall(m3u.text)
 	try:
 		m2 = re.sub('https', 'https', m[0])
@@ -2317,7 +2317,7 @@ def PlayTVCB(): #103
 	except IndexError as m2:
 		pass
 	player = re.sub('.php', "hlb.php", player)
-	m3u = requests.get(player, headers={'referer': "https://lojadebicicleta.com.br/"})
+	m3u = requests.get(player, headers={'referer': "https://lojadebicicleta.com.br/", 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0'})
 	m = re.compile('http.{10,250}?m3u8[^"|\n|\']{0,100}').findall(m3u.text)
 	m2 = re.sub('https', 'https', m[0])
 	PlayUrl(name, m2 + reference3, iconimage, name, "")
@@ -2723,8 +2723,8 @@ def TVCB4PLAY(): #109
 				title = re.compile('"ongoing">.+?class="time">.+?<.+?\/>(.+?)<\/h2.+?title">.+?<.+?progress-container">.+?<div').findall(url4[0])
 				program = re.compile('"ongoing">.+?class="(time">.+?)<.+?\/>(.+?<\/h2).+?title">(.+?)<.+?progress-(container">.+?<div).+?(:.+?)"').findall(url4[0])
 				program2 = re.compile('lass="(time">.+?)<.+?\/>(.+?<\/h2).+?title">(.+?<\/span)').findall(url4x[0])
-				ir1 = str(program).replace('<div','').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','[COLOR red]AO VIVO:[/COLOR] ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace("<span class='rating good'>"," IMDB: ").replace("container - >","Tempo:").replace('</span>','').replace(' - Tempo:','\n[COLOR yellow]TEMPO:[/COLOR] ').replace('- :',' : ').replace('%',"% concluído\n\n")
-				ir2 = str(program2).replace('</span','\n\n').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','Horário: ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace("<span class='rating good'>"," IMDB: ").replace('><p class= - title - >','').replace(']','')
+				ir1 = str(program).replace('<div','').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','[COLOR red]AO VIVO:[/COLOR] ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace("<span class='rating good'>"," IMDB: ").replace("container - >","Tempo:").replace('</span>','').replace(' - Tempo:','\n[COLOR yellow]TEMPO:[/COLOR] ').replace('- :',' : ').replace('%',"% concluído\n\n").replace("'Tempo:",'\n[COLOR yellow]TEMPO:[/COLOR] ')
+				ir2 = str(program2).replace('</span','\n\n').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','Horário: ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace("<span class='rating good'>"," IMDB: ").replace('><p class= - title - >','').replace(']','').replace('- )','').replace("-,'",'')
 				title = " - "+title[0]
 				url5 = "[B]"+'\n\n\n'+ir1+"[/B]" + ir2
 				url6 = url5.decode('string_escape')
