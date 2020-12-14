@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.09.00"
+Versao = "21.10.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1257,7 +1257,7 @@ def PlayS(): #62
 		xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
 		sys.exit()
 # --------------------------------------
-def MoviesNC(): #71 Netcine
+def MoviesNC1(): #71 Netcine
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	try:
 		p= 1
@@ -1284,6 +1284,136 @@ def MoviesNC(): #71 Netcine
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageGOf) + 2) +"][/B][/COLOR]", cPageGOf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageGOf")
 	except:
 		pass
+def ListMoviesNC1(): #78
+	try:
+		link = common.OpenURL(url).replace('\n','').replace('\r','')
+		m = re.compile("\"play-.\".+?src=\"([^\"]+)").findall(link)
+		m2 = re.compile("\#play-...(\w*)").findall(link)
+		info2 = re.compile('<h2>Synopsis<\/h2>(.*?)<\/').findall(link)
+		info2 = re.sub('<(.*?)>', '', info2[0] ) if info2 else ""
+		info2 = info2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”')
+		i=0
+		for name2 in m2:
+			AddDir(name +" [COLOR blue]("+ name2 +")[/COLOR]", m[i], 79, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
+			i+=1
+	except urllib2.URLError, e:
+		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)
+def PlayMNC1(): #79
+	try:
+		i=0
+		listaf=[]
+		listal=[]
+		link = common.OpenURL(url)
+		#red = re.compile('redirecionar\.php\?data=([^"]+)').findall(link)
+		#ST(red)
+		#if not red:
+		red2 = re.compile('http[^"]+').findall(link)
+		link2 = common.OpenURL(red2[0])
+		red = re.compile('redirecionar\.php\?data=([^"]+)').findall(link2)
+		if not "desktop" in red[0]:
+			link2 = common.OpenURL(red[0])
+			red = re.compile('location.href=\'([^\']+p\=[^\']+)').findall(link2)
+		link3 = common.OpenURL(red[0],headers={'Cookie': "autorizado=teste; "})
+		link3 = re.sub('window.location.+', '', link3)
+		link3 = link3.replace("'",'"')
+		m4= re.compile("http.+?mp4[^\"]{0,150}").findall(link3) 
+		m4 = list(reversed(m4))
+		for url4 in m4:
+			if not "openload" in url4:
+				listal.append(url4.replace("';",""))
+				dubleg="[COLOR springgreen]HD[/COLOR][/B]" if "ALTO" in url4 else "[COLOR red]SD[/COLOR][/B]"
+				listaf.append("[B]"+dubleg)
+		d = xbmcgui.Dialog().select("Escolha a resolução:", listaf)
+		if d!= -1:
+			global background
+			background=background+";;;"+name+";;;NC"
+			PlayUrl(name, listal[d]+"|Referer=http://netcine.biz&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0", iconimage, info)
+		else:
+			sys.exit()
+	except urllib2.URLError, e:
+		xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
+		sys.exit()
+############################################ Opção Proxy
+def MoviesNC(): #71 Netcine
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	try:
+		p= 1
+		if int(cPageGOf) > 0:
+			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageGOf) ) +"][/B][/COLOR]", cPageGOf , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageGOf")
+		l= int(cPageGOf)*2
+		for x in range(0, 2):
+			l +=1
+			headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0",'Cache-Control': 'no-cache','Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7#','Referer': 'https://netcine.biz/','Keep-Alive': '','Connection': 'keep-alive'}
+			proxies = {"http": "http://61.7.138.168:8080", "https": "http://61.7.138.168:8080"}
+			link = requests.get("https://netcine.biz/"+ClistaGO0[int(CatGO)]+"/page/"+ str(l)+"/?filmes", headers=headers, proxies=proxies)
+			m = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
+			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(m[0])
+			if lista:
+			 for img2,name2,url2 in lista:
+			  if name2!="Close" and name2!="NetCine":
+				name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'")
+				img2 = img2.replace("-120x170","")
+			  if "tvshows" in url2: False
+			  else:
+				AddDir(name2,url2, 78, img2, img2, isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
+			  p += 1
+		if p >= 56:
+			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageGOf) + 2) +"][/B][/COLOR]", cPageGOf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageGOf")
+	except:
+		pass
+def ListMoviesNC(): #78
+	try:
+		headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0",'Cache-Control': 'no-cache','Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7#','Referer': 'https://netcine.biz/','Keep-Alive': '','Connection': 'keep-alive'}
+		proxies = {"http": "http://61.7.138.168:8080", "https": "http://61.7.138.168:8080"}
+		link = requests.get(url, headers=headers, proxies=proxies)
+		arquivo = open(cachefolder + "netcine.txt", "w+")
+		arquivo.write(link.text.encode('utf-8'))
+		arquivo.close()
+		m = re.compile("\"play-.\".+?src=\"([^\"]+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
+		m2 = re.compile("\#play-...(\w*)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
+		info2 = re.compile('<h2>Synopsis<\/h2>(.*?)<\/').findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
+		info2 = re.sub('<(.*?)>', '', info2[0] ) if info2 else ""
+		info2 = info2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”')
+		i=0
+		for name2 in m2:
+			AddDir(name +" [COLOR blue]("+ name2 +")[/COLOR]", m[i], 79, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
+			i+=1
+	except urllib2.URLError, e:
+		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)
+def PlayMNC(): #79
+	try:
+		i=0
+		listaf=[]
+		listal=[]
+		headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0",'Cache-Control': 'no-cache','Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7#','Referer': 'https://netcine.biz/','Keep-Alive': '','Connection': 'keep-alive'}
+		proxies = {"http": "http://61.7.138.168:8080", "https": "http://61.7.138.168:8080"}
+		link = requests.get(url,headers=headers, proxies=proxies)
+		red2 = re.compile('http[^"]+').findall(link.text.encode('utf-8'))
+		link2 = requests.get(red2[0],headers=headers, proxies=proxies)
+		red = re.compile('redirecionar\.php\?data=([^"]+)').findall(link2.text.encode('utf-8'))
+		if not "desktop" in red[0]:
+			link2 = requests.get(red[0],headers=headers, proxies=proxies)
+			red = re.compile('location.href=\'([^\']+p\=[^\']+)').findall(link2.text.encode('utf-8'))
+		link3 = requests.get(red[0],proxies=proxies, headers={'Cookie': "autorizado=teste; "})
+		link3 = re.sub('window.location.+', '', link3.text.encode('utf-8'))
+		link3 = link3.replace("'",'"')
+		m4= re.compile("http.+?mp4[^\"]{0,150}").findall(link3) 
+		m4 = list(reversed(m4))
+		for url4 in m4:
+			if not "openload" in url4:
+				listal.append(url4.replace("';",""))
+				dubleg="[COLOR springgreen]HD[/COLOR][/B]" if "ALTO" in url4 else "[COLOR red]SD[/COLOR][/B]"
+				listaf.append("[B]"+dubleg)
+		d = xbmcgui.Dialog().select("Escolha a resolução:", listaf)
+		if d!= -1:
+			global background
+			background=background+";;;"+name+";;;NC"
+			PlayUrl(name, listal[d]+"|Referer=http://netcine.biz&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0", iconimage, info)
+		else:
+			sys.exit()
+	except urllib2.URLError, e:
+		xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
+		sys.exit()
 ########################opção 2
 #	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 #	try:
@@ -1324,244 +1454,6 @@ def MoviesNC(): #71 Netcine
 #	except:
 #		pass
 ########################
-#def MoviesNC2(): #71
-#	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
-#	try:
-#		if CatGO=="0":
-#			link = common.OpenURL("http://netcine.biz/page/1/?mt").replace('\n','').replace('\r','')
-#			l1 = re.compile("box_movies(.+)").findall(link)
-#			l2 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/3/?mt").replace('\n','').replace('\r','')
-#			l3 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/4/?mt").replace('\n','').replace('\r','')
-#			l4 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/5/?mt").replace('\n','').replace('\r','')
-#			l5 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/6/?mt").replace('\n','').replace('\r','')
-#			l6 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/7/?mt").replace('\n','').replace('\r','')
-#			l7 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/8/?mt").replace('\n','').replace('\r','')
-#			l8 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/9/?mt").replace('\n','').replace('\r','')
-#			l9 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/10/?mt").replace('\n','').replace('\r','')
-#			l10 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/11/?mt").replace('\n','').replace('\r','')
-#			l11 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/12/?mt").replace('\n','').replace('\r','')
-#			l12 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/13/?mt").replace('\n','').replace('\r','')
-#			l13 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/14/?mt").replace('\n','').replace('\r','')
-#			l14 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/15/?mt").replace('\n','').replace('\r','')
-#			l15 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/16/?mt").replace('\n','').replace('\r','')
-#			l16 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/17/?mt").replace('\n','').replace('\r','')
-#			l17 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/18/?mt").replace('\n','').replace('\r','')
-#			l18 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/19/?mt").replace('\n','').replace('\r','')
-#			l19 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/20/?mt").replace('\n','').replace('\r','')
-#			l20 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/21/?mt").replace('\n','').replace('\r','')
-#			l21 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/22/?mt").replace('\n','').replace('\r','')
-#			l22 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/23/?mt").replace('\n','').replace('\r','')
-#			l23 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/24/?mt").replace('\n','').replace('\r','')
-#			l24 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/25/?mt").replace('\n','').replace('\r','')
-#			l25 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/26/?mt").replace('\n','').replace('\r','')
-#			l26 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/27/?mt").replace('\n','').replace('\r','')
-#			l27 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/28/?mt").replace('\n','').replace('\r','')
-#			l28 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/29/?mt").replace('\n','').replace('\r','')
-#			l29 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/30/?mt").replace('\n','').replace('\r','')
-#			l30 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/page/31/?mt").replace('\n','').replace('\r','')
-#			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l1[0]+l2[0]+l3[0]+l4[0]+l5[0]+l6[0]+l7[0]+l8[0]+l9[0]+l10[0]+l11[0]+l12[0]+l13[0]+l14[0]+l15[0]+l16[0]+l17[0]+l18[0]+l19[0]+l20[0]+l21[0]+l22[0]+l23[0]+l24[0]+l25[0]+l26[0]+l27[0]+l28[0]+l29[0]+l30[0])
-#		if CatGO=="1":        
-#			link = common.OpenURL("https://netcine.biz/ano-lancamento/2020/").replace('\n','').replace('\r','')
-##			l60 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("https://netcine.biz/ano-lancamento/2019/").replace('\n','').replace('\r','')
-	#		l61 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("https://netcine.biz/ano-lancamento/2019/page/2/").replace('\n','').replace('\r','')
-	#		l62 = re.compile("box_movies(.+)").findall(link)
-	#		lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l60[0]+l61[0]+l62[0])            
-	#	if CatGO=="2":        
-	#		link = common.OpenURL("http://netcine.biz/category/acao/?mt").replace('\n','').replace('\r','')
-	#		l100 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("http://netcine.biz/category/acao/page/2/?mt").replace('\n','').replace('\r','')
-	#		l101 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("http://netcine.biz/category/acao/page/3/?mt").replace('\n','').replace('\r','')
-	#		l102 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("http://netcine.biz/category/acao/page/4/?mt").replace('\n','').replace('\r','')
-	#		l103 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("http://netcine.biz/category/acao/page/5/?mt").replace('\n','').replace('\r','')
-	#		l104 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("http://netcine.biz/category/acao/page/6/?mt").replace('\n','').replace('\r','')
-	#		l105 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("http://netcine.biz/category/acao/page/7/?mt").replace('\n','').replace('\r','')
-	#		l106 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("http://netcine.biz/category/acao/page/8/?mt").replace('\n','').replace('\r','')
-	#		l107 = re.compile("box_movies(.+)").findall(link)
-#	#		link = common.OpenURL("http://netcine.biz/category/acao/page/9/?mt").replace('\n','').replace('\r','')
-#			l108 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/acao/page/10/?mt").replace('\n','').replace('\r','')
-#			l109 = re.compile("box_movies(.+)").findall(link)
-#			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l100[0]+l101[0]+l102[0]+l103[0]+l104[0]+l105[0]+l106[0]+l107[0]+l108[0]+l109[0])
-#		if CatGO=="3":        
-#			link = common.OpenURL("https://netcine.biz/category/animacao/").replace('\n','').replace('\r','')
-#			l200 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("https://netcine.biz/category/animacao/page/2/?mt").replace('\n','').replace('\r','')
-#			l201 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("https://netcine.biz/category/animacao/page/3/?mt").replace('\n','').replace('\r','')
-#			l202 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("https://netcine.biz/category/animacao/page/4/?mt").replace('\n','').replace('\r','')
-#			l203 = re.compile("box_movies(.+)").findall(link)
-#			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l200[0]+l201[0]+l202[0]+l203[0])
-#		if CatGO=="4":        
-#			link = common.OpenURL("https://netcine.biz/category/aventura/").replace('\n','').replace('\r','')
-#			l300 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("https://netcine.biz/category/aventura/page/2/?mt").replace('\n','').replace('\r','')
-#			l301 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("https://netcine.biz/category/aventura/page/3/?mt").replace('\n','').replace('\r','')
-#			l302 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("https://netcine.biz/category/aventura/page/4/?mt").replace('\n','').replace('\r','')
-#			l303 = re.compile("box_movies(.+)").findall(link)
-#			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l300[0]+l301[0]+l302[0]+l303[0])
-#		if CatGO=="5":        
-#			link = common.OpenURL("https://netcine.biz/category/comedia/").replace('\n','').replace('\r','')
-#			l400 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/comedia/page/2/?mt").replace('\n','').replace('\r','')
-#			l401 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/comedia/page/3/?mt").replace('\n','').replace('\r','')
-#			l402 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/comedia/page/4/?mt").replace('\n','').replace('\r','')
-#			l403 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/comedia/page/5/?mt").replace('\n','').replace('\r','')
-#			l404 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/comedia/page/6/?mt").replace('\n','').replace('\r','')
-#			l405 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/comedia/page/7/?mt").replace('\n','').replace('\r','')
-#			l406 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/comedia/page/8/?mt").replace('\n','').replace('\r','')
-#			l407 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/comedia/page/9/?mt").replace('\n','').replace('\r','')
-#			l408 = re.compile("box_movies(.+)").findall(link)
-#			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l400[0]+l401[0]+l402[0]+l403[0]+l404[0]+l405[0]+l406[0]+l407[0]+l408[0])            
-#		if CatGO=="6":        
-#			link = common.OpenURL("http://netcine.biz/category/drama/?mt").replace('\n','').replace('\r','')
-#			l500 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/drama/page/2/?mt").replace('\n','').replace('\r','')
-#			l501 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/drama/page/3/?mt").replace('\n','').replace('\r','')
-#			l502 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/drama/page/4/?mt").replace('\n','').replace('\r','')
-#			l503 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/drama/page/5/?mt").replace('\n','').replace('\r','')
-#			l504 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/drama/page/6/?mt").replace('\n','').replace('\r','')
-#			l505 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/drama/page/7/?mt").replace('\n','').replace('\r','')
-#			l506 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/drama/page/8/?mt").replace('\n','').replace('\r','')
-#			l507 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/drama/page/9/?mt").replace('\n','').replace('\r','')
-#			l508 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/drama/page/10/?mt").replace('\n','').replace('\r','')
-#			l509 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/drama/page/11/?mt").replace('\n','').replace('\r','')
-#			l510 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("http://netcine.biz/category/drama/page/12/?mt").replace('\n','').replace('\r','')
-#			l511 = re.compile("box_movies(.+)").findall(link)
-#			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l500[0]+l501[0]+l502[0]+l503[0]+l504[0]+l505[0]+l506[0]+l507[0]+l508[0]+l509[0]+l510[0]+l511[0])
-#		if CatGO=="7":        
-#			link = common.OpenURL("https://netcine.biz/category/fantasia/").replace('\n','').replace('\r','')
-#			l600 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("https://netcine.biz/category/fantasia/page/2/?mt").replace('\n','').replace('\r','')
-#			l601 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("https://netcine.biz/category/fantasia/page/3/?mt").replace('\n','').replace('\r','')
-#			l602 = re.compile("box_movies(.+)").findall(link)
-#			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l600[0]+l601[0]+l602[0])
-#		if CatGO=="8":        
-#			link = common.OpenURL("https://netcine.biz/category/ficcao-cientifica/").replace('\n','').replace('\r','')
-###			l700 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("https://netcine.biz/category/ficcao-cientifica/page/2/?mt").replace('\n','').replace('\r','')
-#			l701 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("https://netcine.biz/category/ficcao-cientifica/page/3/?mt").replace('\n','').replace('\r','')
-#			l702 = re.compile("box_movies(.+)").findall(link)
-#			link = common.OpenURL("https://netcine.biz/category/ficcao-cientifica/page/4/?mt").replace('\n','').replace('\r','')
-#			l703 = re.compile("box_movies(.+)").findall(link)
-#			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l700[0]+l701[0]+l702[0]+l703[0])
-#		if CatGO=="9":        
-##			link = common.OpenURL("https://netcine.biz/category/faroeste/").replace('\n','').replace('\r','')
-	#		l800 = re.compile("box_movies(.+)").findall(link)
-	#		lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l800[0])
-	#	if CatGO=="10":        
-#			link = common.OpenURL("https://netcine.biz/category/romance/").replace('\n','').replace('\r','')
-##			l900 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("https://netcine.biz/category/romance/page/2/?mt").replace('\n','').replace('\r','')
-	#		l901 = re.compile("box_movies(.+)").findall(link)
-	##		link = common.OpenURL("https://netcine.biz/category/romance/page/3/?mt").replace('\n','').replace('\r','')
-	#		l902 = re.compile("box_movies(.+)").findall(link)
-	#		lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l900[0]+l901[0]+l902[0])
-	#	if CatGO=="11":        
-	#		link = common.OpenURL("http://netcine.biz/category/suspense/?mt").replace('\n','').replace('\r','')
-	#		l1000 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("http://netcine.biz/category/suspense/page/2/?mt").replace('\n','').replace('\r','')
-	#		l1001 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("http://netcine.biz/category/suspense/page/3/?mt").replace('\n','').replace('\r','')
-	#		l1002 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("http://netcine.biz/category/suspense/page/4/?mt").replace('\n','').replace('\r','')
-	#		l1003 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("http://netcine.biz/category/suspense/page/5/?mt").replace('\n','').replace('\r','')
-	#		l1004 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("http://netcine.biz/category/suspense/page/6/?mt").replace('\n','').replace('\r','')
-	#		l1005 = re.compile("box_movies(.+)").findall(link)
-	#		lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l1000[0]+l1001[0]+l1002[0]+l1003[0]+l1004[0]+l1005[0])
-	#	if CatGO=="12":        
-	#		link = common.OpenURL("https://netcine.biz/category/terror/").replace('\n','').replace('\r','')
-	##		l2000 = re.compile("box_movies(.+)").findall(link)
-		#	link = common.OpenURL("https://netcine.biz/category/terror/page/2/?mt").replace('\n','').replace('\r','')
-	#		l2001 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("https://netcine.biz/category/terror/page/3/?mt").replace('\n','').replace('\r','')
-	#		l2002 = re.compile("box_movies(.+)").findall(link)
-	#		link = common.OpenURL("https://netcine.biz/category/terror/page/4/?mt").replace('\n','').replace('\r','')
-	###		l2003 = re.compile("box_movies(.+)").findall(link)
-	#		lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l2000[0]+l2001[0]+l2002[0]+l2003[0])
-	#	for img2,name2,url2 in lista:
-	#		if name2!="Close" and name2!="NetCine":
-	#			name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'")
-	#			img2 = re.sub('-120x170.(jpg|png)', r'.\1', img2 )
-	##		if "tvshows" in url2: False
-		#	else:
-		#		AddDir(name2,url2, 78, img2, img2, isFolder=True, info='[COLOR][/COLOR]')
-#	except urllib2.URLError, e:
-#		AddDir("Server NETCINE offline, tente novamente em alguns minutos" , "", 0, isFolder=False)
-def ListMoviesNC(): #78
-	try:
-		link = common.OpenURL(url).replace('\n','').replace('\r','')
-		m = re.compile("\"play-.\".+?src=\"([^\"]+)").findall(link)
-		m2 = re.compile("\#play-...(\w*)").findall(link)
-		info2 = re.compile('<h2>Synopsis<\/h2>(.*?)<\/').findall(link)
-		info2 = re.sub('<(.*?)>', '', info2[0] ) if info2 else ""
-		info2 = info2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”')
-		i=0
-		for name2 in m2:
-			AddDir(name +" [COLOR blue]("+ name2 +")[/COLOR]", m[i], 79, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
-			i+=1
-	except urllib2.URLError, e:
-		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)
 ################# opção 2
 #	try:
 #		headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
@@ -1591,41 +1483,6 @@ def ListMoviesNC(): #78
 #	except urllib2.URLError, e:
 #		AddDir("Server error, tente novamente em alguns minutos" , "", 0, isFolder=False)
 ########################
-def PlayMNC(): #79
-	try:
-		i=0
-		listaf=[]
-		listal=[]
-		link = common.OpenURL(url)
-		#red = re.compile('redirecionar\.php\?data=([^"]+)').findall(link)
-		#ST(red)
-		#if not red:
-		red2 = re.compile('http[^"]+').findall(link)
-		link2 = common.OpenURL(red2[0])
-		red = re.compile('redirecionar\.php\?data=([^"]+)').findall(link2)
-		if not "desktop" in red[0]:
-			link2 = common.OpenURL(red[0])
-			red = re.compile('location.href=\'([^\']+p\=[^\']+)').findall(link2)
-		link3 = common.OpenURL(red[0],headers={'Cookie': "autorizado=teste; "})
-		link3 = re.sub('window.location.+', '', link3)
-		link3 = link3.replace("'",'"')
-		m4= re.compile("http.+?mp4[^\"]{0,150}").findall(link3) 
-		m4 = list(reversed(m4))
-		for url4 in m4:
-			if not "openload" in url4:
-				listal.append(url4.replace("';",""))
-				dubleg="[COLOR springgreen]HD[/COLOR][/B]" if "ALTO" in url4 else "[COLOR red]SD[/COLOR][/B]"
-				listaf.append("[B]"+dubleg)
-		d = xbmcgui.Dialog().select("Escolha a resolução:", listaf)
-		if d!= -1:
-			global background
-			background=background+";;;"+name+";;;NC"
-			PlayUrl(name, listal[d]+"|Referer=http://netcine.biz&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0", iconimage, info)
-		else:
-			sys.exit()
-	except urllib2.URLError, e:
-		xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
-		sys.exit()
 def Generos(): #80
 	d = xbmcgui.Dialog().select("Escolha o Genero", Clista1)
 	if d != -1:
