@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.16.00"
+Versao = "21.17.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1163,23 +1163,24 @@ def CategoryOrdem2(url):
 	Addon.setSetting(url, x )
 	xbmc.executebuiltin("XBMC.Container.Refresh()")
 def Series(): #60
+	AddDir("[COLOR mediumturquoise][B]Atualizar Seleção[/B][/COLOR]" , "", 50, isFolder=False,info='Em caso de não carregamento atualize a sessão')
 	try:
 		CategoryOrdem("cOrdNCS")
-		#proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
-		#proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
 		#headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0",'Cache-Control': 'no-cache','Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7#','Referer': 'https://netcine.biz/','Keep-Alive': '','Connection': 'keep-alive'}
 		#proxies = {"http": proxy2[0], "https": proxy2[0]}
-		link = requests.get("http://192.168.0.150:443/?url=http://netcine.biz/tvshows/page/1/")#,headers=headers, proxies=proxies)
+		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/1/")#,headers=headers, proxies=proxies)
 		l2 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://192.168.0.150:443/?url=http://netcine.biz/tvshows/page/2/")#, headers=headers, proxies=proxies)
+		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/2/")#, headers=headers, proxies=proxies)
 		l3 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://192.168.0.150:443/?url=http://netcine.biz/tvshows/page/3/")#, headers=headers, proxies=proxies)
+		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/3/")#, headers=headers, proxies=proxies)
 		l4 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://192.168.0.150:443/?url=http://netcine.biz/tvshows/page/4/")#, headers=headers, proxies=proxies)
+		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/4/")#, headers=headers, proxies=proxies)
 		l5 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://192.168.0.150:443/?url=http://netcine.biz/tvshows/page/5/")#, headers=headers, proxies=proxies)
+		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/5/")#, headers=headers, proxies=proxies)
 		l6 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://192.168.0.150:443/?url=http://netcine.biz/tvshows/page/6/")#, headers=headers, proxies=proxies)
+		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/6/")#, headers=headers, proxies=proxies)
 		l7 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
 		lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l2[0]+l3[0]+l4[0]+l5[0]+l6[0]+l7[0])
 		if cOrdNCS=="1":
@@ -1193,11 +1194,11 @@ def Series(): #60
 		AddDir("Server NETCINE offline, tente novamente em alguns minutos" , "", 0, isFolder=False)
 def ListSNC(x): #61
 	try:
-		#proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
-		#proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
 		#headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0",'Cache-Control': 'no-cache','Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7#','Referer': 'https://netcine.biz/','Keep-Alive': '','Connection': 'keep-alive'}
 		#proxies = {"http": proxy2[0], "https": proxy2[0]}
-		link = requests.get("http://192.168.0.150:443/?url="+url)#,headers=headers, proxies=proxies)
+		link = requests.get("http://"+proxy2[0]+":443/?url="+url)#,headers=headers, proxies=proxies)
 		m = re.compile("(.emporada \w+)(.+?class\=\'has-sub\')").findall(link.text.encode('utf-8').replace('\n','').replace('\r','').replace('<div class="soci">',"class='has-sub'").replace('\t',""))
 		info2 = re.compile("<h2>Synopsis<\/h2>+.+?[div|p].{0,15}?.+?(.+?)<\/").findall(link.text.encode('utf-8'))
 		info2 = re.sub('style\=.+?\>', '', info2[0] ) if info2 else " "
@@ -1216,23 +1217,23 @@ def ListSNC(x): #61
 		AddDir("Server NETCINE offline, tente novamente em alguns minutos" , "", 0, isFolder=False)
 def PlayS(): #62
 	try:
-		#proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
-		#proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
 		#headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0",'Cache-Control': 'no-cache','Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7#','Referer': 'https://netcine.biz/','Keep-Alive': '','Connection': 'keep-alive'}
 		#proxies = {"http": proxy2[0], "https": proxy2[0]}
-		link = requests.get("http://192.168.0.150:443/?url="+url)#,headers=headers, proxies=proxies)
+		link = requests.get("http://"+proxy2[0]+":443/?url="+url)#,headers=headers, proxies=proxies)
 		m = re.compile("\"play-.\".+?src=\"([^\"]+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
 		listan = re.compile("\#play-...(\w*)").findall(link.text.encode('utf-8'))
 		i=0
 		listaf=[]
 		listal=[]
 		for url2 in m:
-			link3 = requests.get("http://192.168.0.150:443/?url="+url2)#,headers=headers, proxies=proxies)
+			link3 = requests.get("http://"+proxy2[0]+":443/?url="+url2)#,headers=headers, proxies=proxies)
 			m3 = re.compile("src\=\"(.+campanha[^\"]+)").findall(link3.text.encode('utf-8'))
 			if m3:
-				red = requests.get("http://192.168.0.150:443/?url="+m3[0])#,headers=headers, proxies=proxies)
+				red = requests.get("http://"+proxy2[0]+":443/?url="+m3[0])#,headers=headers, proxies=proxies)
 				red2 = re.compile('redirecionar\.php\?data=([^"]+)').findall(red.text.encode('utf-8'))
-				link4 = requests.get("http://192.168.0.150:443/?url="+red2[0])#,headers=headers, proxies=proxies)
+				link4 = requests.get("http://"+proxy2[0]+":443/?url="+red2[0])#,headers=headers, proxies=proxies)
 				link4 = re.sub('window.location.href.+', '', link4.text.encode('utf-8'))
 				link4 = link4.replace("'",'"')
 				m4= re.compile("http.+?mp4[^\"]+").findall(link4.text.encode('utf-8')) 
@@ -1242,15 +1243,15 @@ def PlayS(): #62
 					dubleg="[COLOR green]HD[/COLOR][/B]" if "ALTO" in url4 else "[COLOR red]SD[/COLOR][/B]"
 					listaf.append("[B][COLOR blue]"+listan[i] +"[/COLOR] "+dubleg)
 			else:
-				red = requests.get("http://192.168.0.150:443/?url="+url2)#,headers=headers, proxies=proxies)
+				red = requests.get("http://"+proxy2[0]+":443/?url="+url2)#,headers=headers, proxies=proxies)
 				m3 = re.compile("src\=\"([^\"]+)").findall(red.text)
-				red1 = requests.get("http://192.168.0.150:443/?url="+m3[0])#,headers=headers, proxies=proxies)
+				red1 = requests.get("http://"+proxy2[0]+":443/?url="+m3[0])#,headers=headers, proxies=proxies)
 				red2 = re.compile('redirecionar\.php\?data=([^"]+)').findall(red1.text.encode('utf-8'))
-				link4 = requests.get("http://192.168.0.150:443/?url="+red2[0],headers={'Cookie': "autorizado=teste; "})
+				link4 = requests.get("http://"+proxy2[0]+":443/?url="+red2[0],headers={'Cookie': "autorizado=teste; "})
 				m5 = re.compile("location.href=\'([^\']+p\=[^\']+)").findall(link4.text.encode('utf-8'))
 				for x in m5:
 					if not "openload" in x:
-						link5 = requests.get("http://192.168.0.150:443/?url="+x)#,headers=headers)#, proxies=proxies)
+						link5 = requests.get("http://"+proxy2[0]+":443/?url="+x)#,headers=headers)#, proxies=proxies)
 				link5 = re.sub('window.location.href.+', '', link5.text)
 				link5 = link5.replace("'",'"')
 				m4= re.compile("http.+?mp4[^\"]+").findall(link5)
@@ -1271,6 +1272,7 @@ def PlayS(): #62
 # --------------------------------------
 def MoviesNC(): #71 Netcine
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR mediumturquoise][B]Atualizar Seleção[/B][/COLOR]" , "", 50, isFolder=False,info='Em caso de não carregamento atualize a sessão')
 	try:
 		p= 1
 		if int(cPageGOf) > 0:
@@ -1278,7 +1280,9 @@ def MoviesNC(): #71 Netcine
 		l= int(cPageGOf)*2
 		for x in range(0, 2):
 			l +=1
-			link = common.OpenURL("http://192.168.0.150:443/?url=https://netcine.biz/"+ClistaGO0[int(CatGO)]+"/page/"+ str(l)+"/?filmes").replace('\n','').replace('\r','')
+			proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+			proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+			link = common.OpenURL("http://"+proxy2[0]+":443/?url=https://netcine.biz/"+ClistaGO0[int(CatGO)]+"/page/"+ str(l)+"/?filmes").replace('\n','').replace('\r','')
 			m = re.compile("box_movies(.+)").findall(link)
 			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(m[0])
 			if lista:
@@ -1298,7 +1302,9 @@ def MoviesNC(): #71 Netcine
 		pass
 def ListMoviesNC(): #78
 	try:
-		link = common.OpenURL("http://192.168.0.150:443/?url="+url).replace('\n','').replace('\r','')
+		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+		link = common.OpenURL("http://"+proxy2[0]+":443/?url="+url).replace('\n','').replace('\r','')
 		m = re.compile("\"play-.\".+?src=\"([^\"]+)").findall(link)
 		m2 = re.compile("\#play-...(\w*)").findall(link)
 		info2 = re.compile('<h2>Synopsis<\/h2>(.*?)<\/').findall(link)
@@ -1315,17 +1321,19 @@ def PlayMNC(): #79
 		i=0
 		listaf=[]
 		listal=[]
-		link = common.OpenURL("http://192.168.0.150:443/?url="+url)
+		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+		link = common.OpenURL("http://"+proxy2[0]+":443/?url="+url)
 		#red = re.compile('redirecionar\.php\?data=([^"]+)').findall(link)
 		#ST(red)
 		#if not red:
 		red2 = re.compile('http[^"]+').findall(link)
-		link2 = common.OpenURL("http://192.168.0.150:443/?url="+red2[0])
+		link2 = common.OpenURL("http://"+proxy2[0]+":443/?url="+red2[0])
 		red = re.compile('redirecionar\.php\?data=([^"]+)').findall(link2)
 		if not "desktop" in red[0]:
-			link2 = common.OpenURL("http://192.168.0.150:443/?url="+red[0])
+			link2 = common.OpenURL("http://"+proxy2[0]+":443/?url="+red[0])
 			red = re.compile('location.href=\'([^\']+p\=[^\']+)').findall(link2)
-		link3 = common.OpenURL("http://192.168.0.150:443/?url="+red[0],headers={'Cookie': "autorizado=teste; "})
+		link3 = common.OpenURL("http://"+proxy2[0]+":443/?url="+red[0],headers={'Cookie': "autorizado=teste; "})
 		link3 = re.sub('window.location.+', '', link3)
 		link3 = link3.replace("'",'"')
 		m4= re.compile("http.+?mp4[^\"]{0,150}").findall(link3) 
@@ -1906,7 +1914,7 @@ def Busca(): # 160
 		AddDir("[B][COLOR yellow]|||[/COLOR][COLOR white]|||[/COLOR][COLOR yellow]|||[/COLOR][COLOR yellow] [NetCine] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		#headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0",'Cache-Control': 'no-cache','Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7#','Referer': 'https://netcine.biz/','Keep-Alive': '','Connection': 'keep-alive'}
 		#proxies = {"http": proxy2[0], "https": proxy2[0]}
-		link2 = requests.get("http://192.168.0.150:443/?url=http://netcine.biz/?s="+d)#,headers=headers, proxies=proxies)
+		link2 = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/?s="+d)#,headers=headers, proxies=proxies)
 		lista = re.compile("\s.{1,12}<img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(link2.text.encode('utf-8').replace('\n','').replace('\r',''))
 		for img2,name2,url2 in lista:
 			if name2!="Close" and name2!="NetCine":
