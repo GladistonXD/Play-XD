@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.19.00"
+Versao = "21.20.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1947,8 +1947,27 @@ def Busca(): # 160
 						AddDir("[COLOR cyan]" +name2+ "[/COLOR]", url2, 191, jpg, jpg, isFolder=True,IsPlayable=False)
 					i+=1
 			i=0
-	except:
+	except urllib2.URLError as links:
 		pass
+		AddDir("[B][COLOR cyan]|||[/COLOR][COLOR white]|||[/COLOR][COLOR cyan]|||[/COLOR][COLOR cyan] [MMfilmes] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+		links = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmes.tv/series/")
+		ms = re.compile('href\=\"(.+www.mmfilmes.tv.+)\" rel\=\"bookmark\"').findall(links)
+		for x in range(0, 3):
+			l+=1
+			link = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmes.tv/page/"+str(l)+"/?s="+d).replace('\n','').replace('\r','')
+			m = re.compile('<li id=.+?" title="(.+?)".+?href="(.+?)".+?boxxer.+?boxxer">(.+?)<.+?src="(.+?)".+?audioy..(.+?)<').findall(link)
+			if m:
+				for name2, url2, dubleg, jpg, res in m:
+					name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'")
+					dubleg = dubleg.replace("</div>","")
+					if not url2 in ms:
+						AddDir("[COLOR cyan]" +name2+ "[/COLOR] [COLOR yellow]"+res+"[/COLOR] [COLOR green]"+dubleg+"[/COLOR]", url2, 181, jpg, jpg,isFolder=True,IsPlayable=False)
+					else:
+						AddDir("[COLOR cyan]" +name2+ "[/COLOR]", url2, 191, jpg, jpg, isFolder=True,IsPlayable=False)
+					i+=1
+			i=0
 	progress.update(48, "48%", "TopFlix", "")
 	try:
 		p= 1
@@ -2441,51 +2460,105 @@ def ListFilmeMM(pagina2): #180
 			if p >= 40:
 				AddDir("[COLOR lime][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background=pagina2)
 def OpenLinkMM(): #181
-	link = common.OpenURL(url)
-	m = re.compile('boxp\(.([^\']+)').findall(link) #princi
-	info2 = re.compile('mCSB_container..\s(\h*(?s)(.+?))\<\/div').findall(link)
-	info2= info2[0][0].replace("\t","") if info2 else ""
-	if m:
-		link2 = common.OpenURL(m[0],headers={'referer': "http://www.mmfilmes.tv/"})
-		m2 = re.compile('opb\(.([^\']+).+?.{3}.+?[^\\>]+.([^\<]+)').findall(link2)
-		if m2:
-			name2 = re.sub(' \[.+', '', name )
-			for link,dubleg in m2:
-				AddDir( name2 +" [B][COLOR lime]("+dubleg+")[/COLOR][/B]" ,link, 182, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
+	try:
+		link = common.OpenURL(url)
+		m = re.compile('boxp\(.([^\']+)').findall(link) #princi
+		info2 = re.compile('mCSB_container..\s(\h*(?s)(.+?))\<\/div').findall(link)
+		info2= info2[0][0].replace("\t","") if info2 else ""
+		if m:
+			link2 = common.OpenURL(m[0],headers={'referer': "http://www.mmfilmes.tv/"})
+			m2 = re.compile('opb\(.([^\']+).+?.{3}.+?[^\\>]+.([^\<]+)').findall(link2)
+			if m2:
+				name2 = re.sub(' \[.+', '', name )
+				for link,dubleg in m2:
+					AddDir( name2 +" [B][COLOR lime]("+dubleg+")[/COLOR][/B]" ,link, 182, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
+	except urllib2.URLError as link:
+		pass
+		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+		link = common.OpenURL("http://"+proxy2[0]+":443/?url="+url)
+		m = re.compile('boxp\(.([^\']+)').findall(link) #princi
+		info2 = re.compile('mCSB_container..\s(\h*(?s)(.+?))\<\/div').findall(link)
+		info2= info2[0][0].replace("\t","") if info2 else ""
+		if m:
+			link2 = common.OpenURL("http://"+proxy2[0]+":443/?url="+m[0],headers={'referer': "http://www.mmfilmes.tv/"})
+			m2 = re.compile('opb\(.([^\']+).+?.{3}.+?[^\\>]+.([^\<]+)').findall(link2)
+			if m2:
+				name2 = re.sub(' \[.+', '', name )
+				for link,dubleg in m2:
+					AddDir( name2 +" [B][COLOR lime]("+dubleg+")[/COLOR][/B]" ,link, 182, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
 def PlayLinkMM(): #182
-	link = requests.get(url, headers={'referer': "http://www.mmfilmes.tv/"})
-	m = re.compile("addiframe.'https:\/\/player.openload.network\/qweowqie.php.([^\']+)").findall(link.text)
-	#result = {'mm': '1', 'url': m2, 'auth': 'benefits-and-risks-of-credit-cards'}
-	#r = requests.post('https://noticiasemfoco.online/benefits-and-risks-of-credit-cards/', cookies=result)
-	if m:
-		m[0] = "https://player.openload.network/abcde.php?" + m[0] if not "http" in m[0] else m[0]
-		link2 = common.OpenURL(re.sub('(\/.{1,25}\/).{1,10}\/', r'\1', m[0]),headers={'referer': "http://player.openload.network"}).replace("file","\nfile")
-		#m2 = re.compile("file.+?(h[^\']+).+?(\,)").findall(link2)
-		m2 = re.compile('(:\/\/[^\']+).+?(\d+p)\'').findall(link2)  #player mp4
-		legenda = re.compile('([^\']+\.(vtt|srt|sub|ssa|txt|ass))').findall(link2)
-		listar=[]
-		listal=[]
-		for link,res in m2:
-			listal.append(link)#.replace("360","720"))
-			#listar.append("[COLOR green][B]HD[/COLOR][/B]")
-			listar.append(res)#.replace("360p","720p"))
-		if len(listal) <1:
-			xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
-			sys.exit(int(sys.argv[1]))
-		d = xbmcgui.Dialog().select("Selecione a resolução", listar)
-		if d!= -1:
-			url2 = re.sub(' ', '%20', listal[d] )
-			global background
-			background=background+";;;"+name+";;;MM"
-			if legenda:
-				legenda = re.sub(' ', '%20', legenda[0][0] )
-				if not "http" in legenda:
-					legenda = "http://player.openload.network/" + legenda
-				PlayUrl(name,'https' + url2+"|Referer=https://player.openload.network/", iconimage, info, sub=legenda)
+	try:
+		link = requests.get(url, headers={'referer': "http://www.mmfilmes.tv/"})
+		m = re.compile("addiframe.'https:\/\/player.openload.network\/qweowqie.php.([^\']+)").findall(link.text)
+		#result = {'mm': '1', 'url': m2, 'auth': 'benefits-and-risks-of-credit-cards'}
+		#r = requests.post('https://noticiasemfoco.online/benefits-and-risks-of-credit-cards/', cookies=result)
+		if m:
+			m[0] = "https://player.openload.network/abcde.php?" + m[0] if not "http" in m[0] else m[0]
+			link2 = common.OpenURL(re.sub('(\/.{1,25}\/).{1,10}\/', r'\1', m[0]),headers={'referer': "http://player.openload.network"}).replace("file","\nfile")
+			#m2 = re.compile("file.+?(h[^\']+).+?(\,)").findall(link2)
+			m2 = re.compile('(:\/\/[^\']+).+?(\d+p)\'').findall(link2)  #player mp4
+			legenda = re.compile('([^\']+\.(vtt|srt|sub|ssa|txt|ass))').findall(link2)
+			listar=[]
+			listal=[]
+			for link,res in m2:
+				listal.append(link)#.replace("360","720"))
+				#listar.append("[COLOR green][B]HD[/COLOR][/B]")
+				listar.append(res)#.replace("360p","720p"))
+			if len(listal) <1:
+				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
+				sys.exit(int(sys.argv[1]))
+			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+			if d!= -1:
+				url2 = re.sub(' ', '%20', listal[d] )
+				global background
+				background=background+";;;"+name+";;;MM"
+				if legenda:
+					legenda = re.sub(' ', '%20', legenda[0][0] )
+					if not "http" in legenda:
+						legenda = "http://player.openload.network/" + legenda
+					PlayUrl(name,'https' + url2+"|Referer=https://player.openload.network/", iconimage, info, sub=legenda)
+				else:
+					PlayUrl(name,'https' + url2+"|Referer=https://player.openload.network/", iconimage, info)
 			else:
-				PlayUrl(name,'https' + url2+"|Referer=https://player.openload.network/", iconimage, info)
-		else:
-			sys.exit()
+				sys.exit()
+	except urllib2.URLError as link:
+		pass
+		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+		link = requests.get("http://"+proxy2[0]+":443/?url="+url, headers={'referer': "http://www.mmfilmes.tv/"})
+		m = re.compile("addiframe.'https:\/\/player.openload.network\/qweowqie.php.([^\']+)").findall(link.text.encode('utf-8'))
+		#result = {'mm': '1', 'url': m2, 'auth': 'benefits-and-risks-of-credit-cards'}
+		#r = requests.post('https://noticiasemfoco.online/benefits-and-risks-of-credit-cards/', cookies=result)
+		if m:
+			m[0] = "https://player.openload.network/abcde.php?" + m[0] if not "http" in m[0] else m[0]
+			link2 = common.OpenURL(re.sub('(\/.{1,25}\/).{1,10}\/', r'\1', m[0]),headers={'referer': "http://player.openload.network"}).replace("file","\nfile")
+			#m2 = re.compile("file.+?(h[^\']+).+?(\,)").findall(link2)
+			m2 = re.compile('(:\/\/[^\']+).+?(\d+p)\'').findall(link2)  #player mp4
+			legenda = re.compile('([^\']+\.(vtt|srt|sub|ssa|txt|ass))').findall(link2)
+			listar=[]
+			listal=[]
+			for link,res in m2:
+				listal.append(link)#.replace("360","720"))
+				#listar.append("[COLOR green][B]HD[/COLOR][/B]")
+				listar.append(res)#.replace("360p","720p"))
+			if len(listal) <1:
+				xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado')
+				sys.exit(int(sys.argv[1]))
+			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+			if d!= -1:
+				url2 = re.sub(' ', '%20', listal[d] )
+				global background
+				background=background+";;;"+name+";;;MM"
+				if legenda:
+					legenda = re.sub(' ', '%20', legenda[0][0] )
+					if not "http" in legenda:
+						legenda = "http://player.openload.network/" + legenda
+					PlayUrl(name,'https' + url2+"|Referer=https://player.openload.network/", iconimage, info, sub=legenda)
+				else:
+					PlayUrl(name,'https' + url2+"|Referer=https://player.openload.network/", iconimage, info)
+			else:
+				sys.exit()
 # -----------------
 def ListSerieMM(): #190
 	try:
@@ -2502,99 +2575,216 @@ def ListSerieMM(): #190
 			for name2,url2,jpg2 in m2:
 				name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'").replace("&#8230;","")
 				AddDir(name2, url2, 191, jpg2, jpg2, isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
-	except:
-		AddDir( "Server offline" ,"", 0, "", "", isFolder=False)
+	except urllib2.URLError as link:
+		pass
+		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+		link = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmes.tv/series/")
+		m = re.compile('id\=\"post\-\d+\".+?\=.([^\"]+)\h*(?s)(.+?)(http[^\"]+)').findall(link)
+		jpg = re.compile('src=\"(http.+?www.mmfilmes.tv\/wp-content\/uploads[^\"]+)').findall(link)
+		i=0
+		m2=[]
+		if m:
+			for name2,b,url2 in m:
+				m2.append([name2,url2,jpg[i]])
+				i+=1
+			m2 = sorted(m2, key=lambda m2: m2[0])
+			for name2,url2,jpg2 in m2:
+				name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'").replace("&#8230;","")
+				AddDir(name2, url2, 191, jpg2, jpg2, isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
 def ListSMM(x): #191
-	link = common.OpenURL(url)
-	m = re.compile('boxp\(.([^\']+)').findall(link)
-	info2= re.compile('mCSB_container..\s(\h*(?s)(.+?))\<\/div').findall(link)
-	info2= info2[0][0].replace("\t","") if info2 else ""
-	i=0
-	if m:
-		if x=="None":
-			link2 = common.OpenURL(m[0],headers={'referer': "http://www.mmfilmes.tv/"})
-			m2 = re.compile('opb\(.([^\']+).+?.{3}.+?[^\\>]+.([^\<]+)').findall(link2)
+	try:
+		link = common.OpenURL(url)
+		m = re.compile('boxp\(.([^\']+)').findall(link)
+		info2= re.compile('mCSB_container..\s(\h*(?s)(.+?))\<\/div').findall(link)
+		info2= info2[0][0].replace("\t","") if info2 else ""
+		i=0
+		if m:
+			if x=="None":
+				link2 = common.OpenURL(m[0],headers={'referer': "http://www.mmfilmes.tv/"})
+				m2 = re.compile('opb\(.([^\']+).+?.{3}.+?[^\\>]+.([^\<]+)').findall(link2)
+				listar=[]
+				listal=[]
+				for link,res in m2:
+					listal.append(link)
+					listar.append(res)
+				if len(listar)==1:
+					d=0
+				else:
+					d = xbmcgui.Dialog().select("Selecione o server:", listar)
+				if d== -1:
+					d= 0
+				if m2:
+					link3 = common.OpenURL(m2[0][0],headers={'referer': "http://www.mmfilmes.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
+					link3 = re.sub('(\(s \=\= \d+\))', r'<end>\1', link3 )
+					m3 = re.compile('s \=\= (\d+)(.+?\<end\>)').findall(link3)
+					for temp in m3:
+						AddDir("[B][Temporada "+ temp[0] +"][/B]" ,listal[d], 192, iconimage, iconimage, isFolder=True, info=info2, background=i)
+						i+=1
+	except urllib2.URLError as link:
+		pass
+		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+		link = common.OpenURL("http://"+proxy2[0]+":443/?url="+url)
+		m = re.compile('boxp\(.([^\']+)').findall(link)
+		info2= re.compile('mCSB_container..\s(\h*(?s)(.+?))\<\/div').findall(link)
+		info2= info2[0][0].replace("\t","") if info2 else ""
+		i=0
+		if m:
+			if x=="None":
+				link2 = common.OpenURL("http://"+proxy2[0]+":443/?url="+m[0],headers={'referer': "http://www.mmfilmes.tv/"})
+				m2 = re.compile('opb\(.([^\']+).+?.{3}.+?[^\\>]+.([^\<]+)').findall(link2)
+				listar=[]
+				listal=[]
+				for link,res in m2:
+					listal.append(link)
+					listar.append(res)
+				if len(listar)==1:
+					d=0
+				else:
+					d = xbmcgui.Dialog().select("Selecione o server:", listar)
+				if d== -1:
+					d= 0
+				if m2:
+					link3 = common.OpenURL("http://"+proxy2[0]+":443/?url="+m2[0][0],headers={'referer': "http://www.mmfilmes.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
+					link3 = re.sub('(\(s \=\= \d+\))', r'<end>\1', link3 )
+					m3 = re.compile('s \=\= (\d+)(.+?\<end\>)').findall(link3)
+					for temp in m3:
+						AddDir("[B][Temporada "+ temp[0] +"][/B]" ,listal[d], 192, iconimage, iconimage, isFolder=True, info=info2, background=i)
+						i+=1
+def ListEpiMM(x): #192
+	try:
+		link3 = common.OpenURL("http://"+proxy2[0]+":443/?url="+url,headers={'referer': "http://www.mmfilmes.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
+		link3 = re.sub('(\(s \=\= \d+\))', r'<end>\1', link3 )
+		m3 = re.compile('s \=\= (\d+)(.+?\<end\>)').findall(link3)
+		r=-1
+		p=1
+		dubleg = re.compile("t \=\= \'([^\']+)(.+?\})").findall( m3[int(x)][1] )
+		epi = re.compile("e \=\= (\d+).+?addiframe\(\'([^\']+)").findall( m3[int(x)][1] )
+		for e,url2 in epi:
+			url2 = "http://player.openload.network" + url2 if not "http" in url2 else url2
+			if p == int(e) :
+				r+=1
+			if len(dubleg[r][1]) < 30:
+				r+=1
+			name2 = "[COLOR yellow](Dub)[/COLOR]" if "dub" in dubleg[r][0] else "[COLOR blue](Leg)[/COLOR]"
+			AddDir("Episódio "+ e + " [COLOR blue]" + name2 ,url2, 194, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info)
+	except urllib2.URLError as link3:
+		pass
+		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+		link3 = common.OpenURL(url,headers={'referer': "http://www.mmfilmes.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
+		link3 = re.sub('(\(s \=\= \d+\))', r'<end>\1', link3 )
+		m3 = re.compile('s \=\= (\d+)(.+?\<end\>)').findall(link3)
+		r=-1
+		p=1
+		dubleg = re.compile("t \=\= \'([^\']+)(.+?\})").findall( m3[int(x)][1] )
+		epi = re.compile("e \=\= (\d+).+?addiframe\(\'([^\']+)").findall( m3[int(x)][1] )
+		for e,url2 in epi:
+			url2 = "http://player.openload.network" + url2 if not "http" in url2 else url2
+			if p == int(e) :
+				r+=1
+			if len(dubleg[r][1]) < 30:
+				r+=1
+			name2 = "[COLOR yellow](Dub)[/COLOR]" if "dub" in dubleg[r][0] else "[COLOR blue](Leg)[/COLOR]"
+			AddDir("Episódio "+ e + " [COLOR blue]" + name2 ,url2, 194, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info)
+#172
+def PlaySMM(): #194
+	try:
+		if "drive.google" in url:
+			#xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, drive')
+			PlayUrl(name, "plugin://plugin.video.gdrive?mode=streamURL&amp;url="+url.encode('utf-8'), iconimage, info)
+			sys.exit()
+		cdn = re.compile('(\d+)\=(.+?.mp4)|\&l\=(.+)').findall(url)
+		if cdn:
+			cdn = list(reversed(cdn))
+			listar=[]
+			listal=[]
+			legenda=""
+			for res,link,leg in cdn:
+				if link <> "":
+					listal.append(link)
+					listar.append(res)
+				if leg:
+					legenda = leg
+					if not "http" in legenda:
+						legenda = "http://player.openload.network/" + legenda
+					legenda = re.sub(' ', '%20', legenda )
+			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+			if d!= -1:
+				url2 = re.sub(' ', '%20', listal[d] )
+				PlayUrl(name, url2, iconimage, info, sub=legenda)
+		else:
+			proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+			proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+			link2 = common.OpenURL( re.sub('(\/.{1,25}\/).{1,10}\/', r'\1', url) ,headers={'referer': "http://player.openload.network"}).replace('"',"'")
+			m2 = re.compile('(h[^\']+).+?label...(\w+)').findall(link2)
+			legenda = re.compile('([^\']+\.(vtt|srt|sub|ssa|txt|ass))').findall(link2)
 			listar=[]
 			listal=[]
 			for link,res in m2:
 				listal.append(link)
 				listar.append(res)
-			if len(listar)==1:
-				d=0
-			else:
-				d = xbmcgui.Dialog().select("Selecione o server:", listar)
-			if d== -1:
-				d= 0
-			if m2:
-				link3 = common.OpenURL(m2[0][0],headers={'referer': "http://www.mmfilmes.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
-				link3 = re.sub('(\(s \=\= \d+\))', r'<end>\1', link3 )
-				m3 = re.compile('s \=\= (\d+)(.+?\<end\>)').findall(link3)
-				for temp in m3:
-					AddDir("[B][Temporada "+ temp[0] +"][/B]" ,listal[d], 192, iconimage, iconimage, isFolder=True, info=info2, background=i)
-					i+=1
-def ListEpiMM(x): #192
-	link3 = common.OpenURL(url,headers={'referer': "http://www.mmfilmes.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
-	link3 = re.sub('(\(s \=\= \d+\))', r'<end>\1', link3 )
-	m3 = re.compile('s \=\= (\d+)(.+?\<end\>)').findall(link3)
-	r=-1
-	p=1
-	dubleg = re.compile("t \=\= \'([^\']+)(.+?\})").findall( m3[int(x)][1] )
-	epi = re.compile("e \=\= (\d+).+?addiframe\(\'([^\']+)").findall( m3[int(x)][1] )
-	for e,url2 in epi:
-		url2 = "http://player.openload.network" + url2 if not "http" in url2 else url2
-		if p == int(e) :
-			r+=1
-		if len(dubleg[r][1]) < 30:
-			r+=1
-		name2 = "[COLOR yellow](Dub)[/COLOR]" if "dub" in dubleg[r][0] else "[COLOR blue](Leg)[/COLOR]"
-		AddDir("Episódio "+ e + " [COLOR blue]" + name2 ,url2, 194, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info)
-#172
-def PlaySMM(): #194
-	if "drive.google" in url:
-		#xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, drive')
-		PlayUrl(name, "plugin://plugin.video.gdrive?mode=streamURL&amp;url="+url.encode('utf-8'), iconimage, info)
-		sys.exit()
-	cdn = re.compile('(\d+)\=(.+?.mp4)|\&l\=(.+)').findall(url)
-	if cdn:
-		cdn = list(reversed(cdn))
-		listar=[]
-		listal=[]
-		legenda=""
-		for res,link,leg in cdn:
-			if link <> "":
+			if len(listal) < 1:
+				xbmcgui.Dialog().ok('Play XD', 'Erro!')
+				sys.exit(int(sys.argv[1]))
+			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+			if d!= -1:
+				url2 = re.sub(' ', '%20', listal[d] )
+				if legenda:
+					legenda = re.sub(' ', '%20', legenda[0][0] )
+					if not "http" in legenda:
+						legenda = "http://player.openload.network/" + legenda
+					PlayUrl(name, url2+"|Referer=https://player.openload.network/", iconimage, info, sub=legenda)
+				else:
+					PlayUrl(name, url2+"|Referer=https://player.openload.network/", iconimage, info)
+	except urllib2.URLError as link2:
+		pass
+		if "drive.google" in url:
+			#xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, drive')
+			PlayUrl(name, "plugin://plugin.video.gdrive?mode=streamURL&amp;url="+url.encode('utf-8'), iconimage, info)
+			sys.exit()
+		cdn = re.compile('(\d+)\=(.+?.mp4)|\&l\=(.+)').findall(url)
+		if cdn:
+			cdn = list(reversed(cdn))
+			listar=[]
+			listal=[]
+			legenda=""
+			for res,link,leg in cdn:
+				if link <> "":
+					listal.append(link)
+					listar.append(res)
+				if leg:
+					legenda = leg
+					if not "http" in legenda:
+						legenda = "http://player.openload.network/" + legenda
+					legenda = re.sub(' ', '%20', legenda )
+			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+			if d!= -1:
+				url2 = re.sub(' ', '%20', listal[d] )
+				PlayUrl(name, url2, iconimage, info, sub=legenda)
+		else:
+			link2 = common.OpenURL( re.sub('(\/.{1,25}\/).{1,10}\/', r'\1', "http://"+proxy2[0]+":443/?url="+url) ,headers={'referer': "http://player.openload.network"}).replace('"',"'")
+			m2 = re.compile('(h[^\']+).+?label...(\w+)').findall(link2)
+			legenda = re.compile('([^\']+\.(vtt|srt|sub|ssa|txt|ass))').findall(link2)
+			listar=[]
+			listal=[]
+			for link,res in m2:
 				listal.append(link)
 				listar.append(res)
-			if leg:
-				legenda = leg
-				if not "http" in legenda:
-					legenda = "http://player.openload.network/" + legenda
-				legenda = re.sub(' ', '%20', legenda )
-		d = xbmcgui.Dialog().select("Selecione a resolução", listar)
-		if d!= -1:
-			url2 = re.sub(' ', '%20', listal[d] )
-			PlayUrl(name, url2, iconimage, info, sub=legenda)
-	else:
-		link2 = common.OpenURL( re.sub('(\/.{1,25}\/).{1,10}\/', r'\1', url) ,headers={'referer': "http://player.openload.network"}).replace('"',"'")
-		m2 = re.compile('(h[^\']+).+?label...(\w+)').findall(link2)
-		legenda = re.compile('([^\']+\.(vtt|srt|sub|ssa|txt|ass))').findall(link2)
-		listar=[]
-		listal=[]
-		for link,res in m2:
-			listal.append(link)
-			listar.append(res)
-		if len(listal) < 1:
-			xbmcgui.Dialog().ok('Play XD', 'Erro!')
-			sys.exit(int(sys.argv[1]))
-		d = xbmcgui.Dialog().select("Selecione a resolução", listar)
-		if d!= -1:
-			url2 = re.sub(' ', '%20', listal[d] )
-			if legenda:
-				legenda = re.sub(' ', '%20', legenda[0][0] )
-				if not "http" in legenda:
-					legenda = "http://player.openload.network/" + legenda
-				PlayUrl(name, url2+"|Referer=https://player.openload.network/", iconimage, info, sub=legenda)
-			else:
-				PlayUrl(name, url2+"|Referer=https://player.openload.network/", iconimage, info)
+			if len(listal) < 1:
+				xbmcgui.Dialog().ok('Play XD', 'Erro!')
+				sys.exit(int(sys.argv[1]))
+			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+			if d!= -1:
+				url2 = re.sub(' ', '%20', listal[d] )
+				if legenda:
+					legenda = re.sub(' ', '%20', legenda[0][0] )
+					if not "http" in legenda:
+						legenda = "http://player.openload.network/" + legenda
+					PlayUrl(name, url2+"|Referer=https://player.openload.network/", iconimage, info, sub=legenda)
+				else:
+					PlayUrl(name, url2+"|Referer=https://player.openload.network/", iconimage, info)
 # ----------------- Fim MM filmes
 def TVCB2(x): #104
 	AddDir("[COLOR yellow]Atualizar Lista[/COLOR]" , "", 50, isFolder=False)
@@ -2952,23 +3142,78 @@ def Play2SFS(): #407
                     	server = re.compile('-0.html.msKey=m(\w+)').findall(url4)
                     	#url8 = url4.replace('://', '%3A%2F%2F').replace('/', '%2F').replace('.png', '').replace('?', '%3F').replace('=','%3D').replace('https', url7).replace('lbsuper.sfplayer.net','s'+server[0]+'.sfslave.com')
                         url8 = url4.replace('://', '%3A%2F%2F').replace('/', '%2F').replace('.png', '').replace('?', '%3F').replace('=','%3D').replace('https', url7).replace('lbsuper.sfplayer.net','s1.sfslave.com')
-                    	arquivo = open(cachefolder + "movies.m3u8", "w+")
-                    	arquivo.write(url8)
-                    	arquivo.close()
-                    	x1 = randrange(300)
-                    	x = str(x1)
-                    	session = ftplib.FTP('files.000webhost.com','unlikely-terms','gladiston')
-                    	file = open(cachefolder + "movies.m3u8",'rb')
-                    	session.storbinary('STOR /public_html/Cacheflix/movies'+x+'.m3u8', file)
-                    	file.close()                      
-                    	session.quit()
-                    	if legenda:
-                    	    for legenda2 in legenda:
-                    	        legenda3 = urllib.quote(legenda2)
-                    	        legenda4 = "https://sub.sfplayer.net/subdata/" + legenda3
-                    	        PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info, sub=legenda4)
-                    	else:
-                    	    PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info)
+                    	try:
+                            arquivo = open(cachefolder + "movies.m3u8", "w+")
+                    	    arquivo.write(url8)
+                    	    arquivo.close()
+                    	    x1 = randrange(300)
+                    	    x = str(x1)
+                    	    session = ftplib.FTP('files.000webhost.com','unlikely-terms','gladiston')
+                    	    file = open(cachefolder + "movies.m3u8",'rb')
+                    	    session.storbinary('STOR /public_html/Cacheflix/movies'+x+'.m3u8', file)
+                    	    file.close()                      
+                    	    session.quit()
+                    	    if legenda:
+                    	        for legenda2 in legenda:
+                    	            legenda3 = urllib.quote(legenda2)
+                    	            legenda4 = "https://sub.sfplayer.net/subdata/" + legenda3
+                    	        #try:
+                    	            PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info, sub=legenda4)
+                    	    else:
+                    	        PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info)
+                    	except urllib2.URLError as m2:
+                    		pass
+                    		urlxx = re.compile('x.html.(.+?)"').findall(url4Play)
+                    		urlxx = urlxx[0]
+                    		legenda = re.compile('sub=(.+?srt)').findall(url4Play)
+                    		url1 = re.compile('(id=.+?\w+)').findall(urlxx)
+                    		inver = re.compile('id=(\w+)').findall(urlxx)
+                    		url1 = url1[0].replace("id=", "https://lbsuper.sfplayer.net/playlist/") + "/1590191456752"
+                    		url2 = requests.get(url1)
+                    		url3x = re.compile('x([^\"]\w+)\s(\/.+?m3u8)').findall(url2.text)
+                    		url3x.reverse()
+                    		listar=[]
+                    		listal=[]
+                    		for res, link in url3x:
+                    			listal.append(link)
+                    			listar.append(res.replace("1080","[COLOR springgreen][B]HD[/B][/COLOR]").replace("360","[COLOR crimson][B]SD[/B][/COLOR]").replace("720","[COLOR springgreen][B]HD[/B][/COLOR]").replace("480","[COLOR crimson][B]SD[/B][/COLOR]"))
+                    		if len(listal) <1:
+                    			xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
+                    			sys.exit(int(sys.argv[1]))
+                    		d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+                    		if d!= -1:
+                    			url2x = re.sub(' ', '%20', listal[d] )
+                    			url3 = url2x.replace("/hls/", "https://lbsuper.sfplayer.net/hls/").replace(".m3u8", "")
+                    			url4 = requests.get(url3)
+                    			url4 = url4.text
+                    			inverter = inver[0]
+                    			invertida = ''.join(palavra[::-1] for palavra in inverter.split())
+                    			url7 = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=" + invertida + "&url=https"
+                    			server = re.compile('-0.html.msKey=m(\w+)').findall(url4)
+                    			#url8 = url4.replace('://', '%3A%2F%2F').replace('/', '%2F').replace('.png', '').replace('?', '%3F').replace('=','%3D').replace('https', url7).replace('lbsuper.sfplayer.net','s'+server[0]+'.sfslave.com')
+                    			url8 = url4.replace('://', '%3A%2F%2F').replace('/', '%2F').replace('.png', '').replace('?', '%3F').replace('=','%3D').replace('https', url7).replace('lbsuper.sfplayer.net','s1.sfslave.com')
+                    			arquivo = open(cachefolder + "movies.m3u8", "w+")
+                    			arquivo.write(url8)
+                    			arquivo.close()
+                    			x1 = randrange(300)
+                    			x = str(x1)
+                    			session = ftplib.FTP('files.000webhost.com','unlikely-terms','gladiston')
+                    			file = open(cachefolder + "movies.m3u8",'rb')
+                    			session.storbinary('STOR /public_html/Cacheflix/movies'+x+'.m3u8', file)
+                    			file.close()                      
+                    			session.quit()
+                    			proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+                    			proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+                    			if legenda:
+                    				for legenda2 in legenda:
+                    					legenda3 = urllib.quote(legenda2)
+                    					legenda4 = "https://sub.sfplayer.net/subdata/" + legenda3
+                    					PlayUrl(name, "http://"+proxy2[0]+":443/?url=https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info, sub=legenda4)
+                    			else:
+                    				PlayUrl(name, "http://"+proxy2[0]+":443/?url=https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info)
+                    		else:
+                    			sys.exit()
+                                
                     else:
                         sys.exit()
                         
