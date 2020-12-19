@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.17.00"
+Versao = "21.18.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2378,8 +2378,26 @@ def ListFilmeLancMM(): #184
 						AddDir(name2+ " [COLOR yellow]"+res[i]+"[/COLOR] [COLOR green]"+dubleg[i]+"[/COLOR]", url2, 181, jpg[i], jpg[i],isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
 					i+=1
 			i=0
-	except:
+	except IndexError as links:
 		pass
+		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+		links = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmes.tv/series/")
+		ms = re.compile('href\=\"(.+www.mmfilmes.tv.+)\" rel\=\"bookmark\"').findall(links)
+		for x in range(0, 5):
+			l+=1
+			link = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmes.tv/ultimos/page/"+str(l)+"/")
+			m = re.compile('id\=\"post\-\d+\".+?\=.([^\"]+)\h*(?s)(.+?)(http[^\"]+)').findall(link)
+			res = re.compile('audioy..([^\<]*)').findall(link)
+			jpg = re.compile('src=\"(http.+?www.mmfilmes.tv\/wp-content\/uploads[^\"]+)').findall(link)
+			dubleg = re.compile('boxxer.+\s.+boxxer..([^\<]*)').findall(link)
+			if m:
+				for name2,b,url2 in m:
+					name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'").replace("&#8230;","")
+					if not url2 in ms:
+						AddDir(name2+ " [COLOR yellow]"+res[i]+"[/COLOR] [COLOR green]"+dubleg[i]+"[/COLOR]", url2, 181, jpg[i], jpg[i],isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
+					i+=1
+			i=0
 def ListFilmeMM(pagina2): #180
 	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + ClistaMM1[int(CatMM)] +"[/COLOR]", "url" ,189 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	pagina=eval(pagina2)
