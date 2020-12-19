@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.18.00"
+Versao = "21.19.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2421,8 +2421,25 @@ def ListFilmeMM(pagina2): #180
 					p+=1
 			if p >= 40:
 				AddDir("[COLOR lime][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background=pagina2)
-	except:
+	except urllib2.URLError as links:
 		pass
+		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+		links = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmes.tv/series/")
+		ms = re.compile('href\=\"(.+www.mmfilmes.tv.+)\" rel\=\"bookmark\"').findall(links)
+		for x in range(0, 4):
+			l+=1
+			link = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmes.tv/"+ ClistaMM0[int(CatMM)] +"/page/"+str(l)+"/").replace('\n','').replace('\r','')
+			m = re.compile('<li id=.+?" title="(.+?)".+?href="(.+?)".+?boxxer.+?boxxer">(.+?)<.+?src="(.+?)".+?audioy..(.+?)<').findall(link)
+			if m:
+				for name2, url2, dubleg, jpg, res in m:
+					name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'").replace("&#8230;","")
+					dubleg = dubleg.replace("</div>","")
+					if not url2 in ms:
+						AddDir(name2+ " [B][COLOR yellow]"+res+"[/COLOR][/B] [B][COLOR cyan]"+dubleg+"[/COLOR][/B]", url2, 181, jpg, jpg,isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
+					p+=1
+			if p >= 40:
+				AddDir("[COLOR lime][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background=pagina2)
 def OpenLinkMM(): #181
 	link = common.OpenURL(url)
 	m = re.compile('boxp\(.([^\']+)').findall(link) #princi
