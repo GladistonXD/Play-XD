@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.20.00"
+Versao = "21.21.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1909,11 +1909,9 @@ def Busca(): # 160
 #	except:
 #		pass
 	try:
-		#proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
-		#proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
 		AddDir("[B][COLOR yellow]|||[/COLOR][COLOR white]|||[/COLOR][COLOR yellow]|||[/COLOR][COLOR yellow] [NetCine] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
-		#headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0",'Cache-Control': 'no-cache','Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7#','Referer': 'https://netcine.biz/','Keep-Alive': '','Connection': 'keep-alive'}
-		#proxies = {"http": proxy2[0], "https": proxy2[0]}
 		link2 = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/?s="+d)#,headers=headers, proxies=proxies)
 		lista = re.compile("\s.{1,12}<img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(link2.text.encode('utf-8').replace('\n','').replace('\r',''))
 		for img2,name2,url2 in lista:
@@ -1949,7 +1947,6 @@ def Busca(): # 160
 			i=0
 	except urllib2.URLError as links:
 		pass
-		AddDir("[B][COLOR cyan]|||[/COLOR][COLOR white]|||[/COLOR][COLOR cyan]|||[/COLOR][COLOR cyan] [MMfilmes] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
 		links = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmes.tv/series/")
@@ -3142,78 +3139,24 @@ def Play2SFS(): #407
                     	server = re.compile('-0.html.msKey=m(\w+)').findall(url4)
                     	#url8 = url4.replace('://', '%3A%2F%2F').replace('/', '%2F').replace('.png', '').replace('?', '%3F').replace('=','%3D').replace('https', url7).replace('lbsuper.sfplayer.net','s'+server[0]+'.sfslave.com')
                         url8 = url4.replace('://', '%3A%2F%2F').replace('/', '%2F').replace('.png', '').replace('?', '%3F').replace('=','%3D').replace('https', url7).replace('lbsuper.sfplayer.net','s1.sfslave.com')
-                    	try:
-                            arquivo = open(cachefolder + "movies.m3u8", "w+")
-                    	    arquivo.write(url8)
-                    	    arquivo.close()
-                    	    x1 = randrange(300)
-                    	    x = str(x1)
-                    	    session = ftplib.FTP('files.000webhost.com','unlikely-terms','gladiston')
-                    	    file = open(cachefolder + "movies.m3u8",'rb')
-                    	    session.storbinary('STOR /public_html/Cacheflix/movies'+x+'.m3u8', file)
-                    	    file.close()                      
-                    	    session.quit()
-                    	    if legenda:
-                    	        for legenda2 in legenda:
-                    	            legenda3 = urllib.quote(legenda2)
-                    	            legenda4 = "https://sub.sfplayer.net/subdata/" + legenda3
+                        arquivo = open(cachefolder + "movies.m3u8", "w+")
+                        arquivo.write(url8)
+                        arquivo.close()
+                        x1 = randrange(300)
+                        x = str(x1)
+                        session = ftplib.FTP('files.000webhost.com','unlikely-terms','gladiston')
+                        file = open(cachefolder + "movies.m3u8",'rb')
+                        session.storbinary('STOR /public_html/Cacheflix/movies'+x+'.m3u8', file)
+                        file.close()                      
+                        session.quit()
+                        if legenda:
+                            for legenda2 in legenda:
+                                legenda3 = urllib.quote(legenda2)
+                                legenda4 = "https://sub.sfplayer.net/subdata/" + legenda3
                     	        #try:
-                    	            PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info, sub=legenda4)
-                    	    else:
-                    	        PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info)
-                    	except urllib2.URLError as m2:
-                    		pass
-                    		urlxx = re.compile('x.html.(.+?)"').findall(url4Play)
-                    		urlxx = urlxx[0]
-                    		legenda = re.compile('sub=(.+?srt)').findall(url4Play)
-                    		url1 = re.compile('(id=.+?\w+)').findall(urlxx)
-                    		inver = re.compile('id=(\w+)').findall(urlxx)
-                    		url1 = url1[0].replace("id=", "https://lbsuper.sfplayer.net/playlist/") + "/1590191456752"
-                    		url2 = requests.get(url1)
-                    		url3x = re.compile('x([^\"]\w+)\s(\/.+?m3u8)').findall(url2.text)
-                    		url3x.reverse()
-                    		listar=[]
-                    		listal=[]
-                    		for res, link in url3x:
-                    			listal.append(link)
-                    			listar.append(res.replace("1080","[COLOR springgreen][B]HD[/B][/COLOR]").replace("360","[COLOR crimson][B]SD[/B][/COLOR]").replace("720","[COLOR springgreen][B]HD[/B][/COLOR]").replace("480","[COLOR crimson][B]SD[/B][/COLOR]"))
-                    		if len(listal) <1:
-                    			xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
-                    			sys.exit(int(sys.argv[1]))
-                    		d = xbmcgui.Dialog().select("Selecione a resolução", listar)
-                    		if d!= -1:
-                    			url2x = re.sub(' ', '%20', listal[d] )
-                    			url3 = url2x.replace("/hls/", "https://lbsuper.sfplayer.net/hls/").replace(".m3u8", "")
-                    			url4 = requests.get(url3)
-                    			url4 = url4.text
-                    			inverter = inver[0]
-                    			invertida = ''.join(palavra[::-1] for palavra in inverter.split())
-                    			url7 = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=" + invertida + "&url=https"
-                    			server = re.compile('-0.html.msKey=m(\w+)').findall(url4)
-                    			#url8 = url4.replace('://', '%3A%2F%2F').replace('/', '%2F').replace('.png', '').replace('?', '%3F').replace('=','%3D').replace('https', url7).replace('lbsuper.sfplayer.net','s'+server[0]+'.sfslave.com')
-                    			url8 = url4.replace('://', '%3A%2F%2F').replace('/', '%2F').replace('.png', '').replace('?', '%3F').replace('=','%3D').replace('https', url7).replace('lbsuper.sfplayer.net','s1.sfslave.com')
-                    			arquivo = open(cachefolder + "movies.m3u8", "w+")
-                    			arquivo.write(url8)
-                    			arquivo.close()
-                    			x1 = randrange(300)
-                    			x = str(x1)
-                    			session = ftplib.FTP('files.000webhost.com','unlikely-terms','gladiston')
-                    			file = open(cachefolder + "movies.m3u8",'rb')
-                    			session.storbinary('STOR /public_html/Cacheflix/movies'+x+'.m3u8', file)
-                    			file.close()                      
-                    			session.quit()
-                    			proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
-                    			proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-                    			if legenda:
-                    				for legenda2 in legenda:
-                    					legenda3 = urllib.quote(legenda2)
-                    					legenda4 = "https://sub.sfplayer.net/subdata/" + legenda3
-                    					PlayUrl(name, "http://"+proxy2[0]+":443/?url=https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info, sub=legenda4)
-                    			else:
-                    				PlayUrl(name, "http://"+proxy2[0]+":443/?url=https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info)
-                    		else:
-                    			sys.exit()
-                                
+                                PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info, sub=legenda4)
+                        else:
+                            PlayUrl(name, "https://unlikely-terms.000webhostapp.com/Cacheflix/movies"+x+".m3u8|Referer=https://s5.sfslave.com/", iconimage, info)                                
                     else:
                         sys.exit()
                         
