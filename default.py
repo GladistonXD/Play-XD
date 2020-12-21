@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.21.00"
+Versao = "21.22.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2107,14 +2107,16 @@ def Busca(): # 160
 		p= 1
 		AddDir("[COLOR blue][B]RedeCanais[/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		l= 0
-		for x in range(0, 10):
+		for x in range(0, 20):
 			l +=1
-			link = common.OpenURL(proxy+"https://" + RC +"search.php?keywords="+d+"&page="+str(l))
+			#progress.update(l*10/2, str(l*10/2)+"%", "Redecanais", "")
+			#AddDir("[COLOR blue]" +str(l)+ "[/COLOR]" ,"", 135, "", "")
+			link = common.OpenURL("https://" + RC +"search.php?keywords="+d+"&page="+str(l))
 			match = re.compile('data\-echo\=\"([^\"]+).{10,150}href=\"([^\"]+).{0,10}title=\"([^\"]+)\"').findall(link.replace('\n','').replace('\r',''))
 			if match:
 				for img2,url2,name2 in match:
 					#url2 = re.sub('^\.', "http://www." + RC, url2 )
-					url2 = re.sub('^\.', "https://"+RC, url2 )
+					url2 = "https://" + RC + url2
 					img2 = re.sub('^/', "https://"+RC, img2 )
 					if re.compile('\d+p').findall(name2):
 						if cPlayD == "true":
