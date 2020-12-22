@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.24.00"
+Versao = "21.25.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -74,9 +74,9 @@ CatVZ = Addon.getSetting("CatVZ")
 
 cSIPTV = Addon.getSetting("cSIPTV")
 
-Clista0=[ "Lançamentos",  "Acao", "Faroeste", "Animacao", "Aventura", "Comedia", "Drama", "Fantasia", "Ficcao-cientifica", "Romance", "Suspense", "Terror"]
+Clista0=[ "Lançamentos",  "acao", "faroeste", "animacao", "aventura", "comedia", "drama", "fantasia", "ficcao-cientifica", "romance", "suspense", "terror"]
 Clista1=["[COLOR blue][B]Lançamentos[/COLOR][/B]",  "[COLOR blue][B]Ação[/COLOR][/B]", "[COLOR blue][B]Faroeste[/COLOR][/B]", "[COLOR blue][B]Animação[/COLOR][/B]", "[COLOR blue][B]Aventura[/COLOR][/B]", "[COLOR blue][B]Comedia[/COLOR][/B]", "[COLOR blue][B]Drama[/COLOR][/B]", "[COLOR blue][B]Fantasia[/COLOR][/B]", "[COLOR blue][B]Ficção-ciêntifica[/COLOR][/B]", "[COLOR blue][B]Romance[/COLOR][/B]", "[COLOR blue][B]Suspense[/COLOR][/B]", "[COLOR blue][B]Terror[/COLOR][/B]"]
-Clista2=["Sem filtro (Mostrar Todos)",  "Acao", "Faroeste", "Animacao", "Aventura", "Comedia", "Drama", "Fantasia", "Ficcao-cientifica", "Romance", "Suspense", "Terror"]
+Clista2=["Sem filtro (Mostrar Todos)",  "acao", "faroeste", "animacao", "aventura", "comedia", "drama", "fantasia", "ficcao-cientifica", "romance", "suspense", "terror"]
 Clistafo0=[ "0",                        "48",         "3",    "7",        "8",        "5",       "4",      "14",                "16",      "15",       "11"]
 Clistafo1=["Sem filtro (Mostrar Todos)","Lançamentos","Ação", "Animação", "Aventura", "Comédia", "Drama",  "Ficção-Científica", "Romance", "Suspense", "Terror"]
 ClistaMM0=["ultimos","category/lancamentos","category/acao","category/animacao","category/aventura","category/comedia","category/drama","category/fantasia","category/ficcao-cientifica","category/guerra","category/policial","category/romance","category/suspense","category/terror"]
@@ -125,8 +125,8 @@ reference2="|verifypeer=false"
 #reference2=""
 #reference3="|Referer=https://canaisgratis.eu/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.45 Safari/537.36 Edg/79.0.309.30"
 reference3="|User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"
-RC="redecanais.cloud/"
-RC2="https://redecanais.cloud/"
+RC="redecanais.app/"
+RC2="https://redecanais.app/"
 RC3="https://redecanaistv.com/"
 RC4="https://topflix.tv/"
 	
@@ -1548,7 +1548,7 @@ def MoviesRCD(): #90 Filme dublado
 			l +=1
 			link = common.OpenURL(proxy+"https://"+RC+"browse-filmes-lancamentos-videos-"+str(l)+"-"+cOrdRCF+".html")
 			if Clista0[int(Cat)] != "Lançamentos":
-				link = common.OpenURL(proxy+"https://"+RC+"browse-"+Clista0[int(Cat)]+"-Filmes-videos-"+str(l)+"-"+cOrdRCF+".html")
+				link = common.OpenURL("https://"+RC+"browse-"+Clista0[int(Cat)]+"-filmes-videos-"+str(l)+"-"+cOrdRCF+".html")
 			match = re.compile('href=\"([^\"]+).{0,10}title=\"([^\"]+)\".{20,350}echo=\"([^\"]+)').findall(link.replace('\n','').replace('\r',''))
             #match = re.compile('href=\"([^\"]+).{0,10}title=\"([^\"]+)\".{20,350}echo=\"([^\"]+)').findall(link.replace('\n','').replace('\r',''))
 			if match:
@@ -1578,7 +1578,7 @@ def MoviesRCL(): #91 Filme Legendado
 			l +=1
 			link = common.OpenURL(proxy+"https://"+RC+"browse-filmes-legendado-videos-"+str(l)+"-"+cOrdRCF+".html")
 			if Clista2[int(Cat)] != "Sem filtro (Mostrar Todos)":
-				link = common.OpenURL(proxy+"https://"+RC+"browse-"+Clista2[int(Cat)]+"-Filmes-Legendado-videos-"+str(l)+"-"+cOrdRCF+".html")
+				link = common.OpenURL(proxy+"https://"+RC+"browse-"+Clista2[int(Cat)]+"-filmes-legendado-videos-"+str(l)+"-"+cOrdRCF+".html")
 			match = re.compile('href=\"([^\"]+).{0,10}title=\"([^\"]+)\".{20,350}echo=\"([^\"]+)').findall(link.replace('\n','').replace('\r',''))
 			if match:
 				for url2,name2,img2 in match:
@@ -1727,24 +1727,24 @@ def PlayMRC2(): #96 Play filmes direto
 			player2 = re.sub('.php', "hlb.php", player2)
 			player3 = "https://bemestarglobal.fun" + player2
 			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/"})
-			file=re.compile('<source src=".([^"|\']+)" type=').findall(mp4)
+			file=re.compile('baixar="(.+?expires=.+)').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
 			try:
 				file[0] = re.sub('\n', '', file[0])
 				#file[0] = re.sub('https', 'https', file[0])
 				#PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc) #aqui
-				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "h" + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc)
+				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc)
 			except IndexError as file:
 				pass
 			player2 = re.sub('.php', ".php", player2)
 			player3 = "https://bemestarglobal.fun" + player2
 			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/"})
-			file=re.compile('<source src=".([^"|\']+)" type=').findall(mp4)
+			file=re.compile('baixar="(.+?expires=.+)').findall(mp4)
 			file[0] = re.sub('\n', '', file[0])
 			#file[0] = re.sub('https', 'https', file[0])
 			#PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/" , iconimage, desc) #aqui
-			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "h" + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc)
+			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc)
 	except:
 		#xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
 		sys.exit()
@@ -1767,7 +1767,7 @@ def PlaySRC(): #133 Play series
 			player2 = re.sub('.php', "hlb.php", player2)
 			player3 = "https://bemestarglobal.fun" + player2
 			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/"})
-			file=re.compile('<source src=".([^"|\']+)" type=').findall(mp4)
+			file=re.compile('baixar="(.+?expires=.+)').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
 			try:
@@ -1780,7 +1780,7 @@ def PlaySRC(): #133 Play series
 			player2 = re.sub('.php', ".php", player2)
 			player3 = "https://bemestarglobal.fun" + player2
 			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/"})
-			file=re.compile('<source src=".([^"|\']+)" type=').findall(mp4)
+			file=re.compile('baixar="(.+?expires=.+)').findall(mp4)
 			file[0] = re.sub('\n', '', file[0])
 			#file[0] = re.sub('https', 'https', file[0])
 			#PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/" , iconimage, desc) #aqui
