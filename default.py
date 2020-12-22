@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.22.00"
+Versao = "21.23.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1163,7 +1163,7 @@ def CategoryOrdem2(url):
 	Addon.setSetting(url, x )
 	xbmc.executebuiltin("XBMC.Container.Refresh()")
 def Series(): #60
-	AddDir("[COLOR mediumturquoise][B]Atualizar Seleção[/B][/COLOR]" , "", 50, isFolder=False,info='Em caso de não carregamento atualize a sessão')
+	AddDir("[COLOR mediumturquoise][B]||| Atualizar Lista |||[/B][/COLOR]" , "", 50, isFolder=False,info='Em caso de falha no carregamento clique aqui para atualizar')
 	try:
 		CategoryOrdem("cOrdNCS")
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
@@ -1272,7 +1272,7 @@ def PlayS(): #62
 # --------------------------------------
 def MoviesNC(): #71 Netcine
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
-	AddDir("[COLOR mediumturquoise][B]Atualizar Seleção[/B][/COLOR]" , "", 50, isFolder=False,info='Em caso de não carregamento atualize a sessão')
+	AddDir("[COLOR mediumturquoise][B]||| Atualizar Lista |||[/B][/COLOR]" , "", 50, isFolder=False,info='Em caso de falha no carregamento clique aqui para atualizar')
 	try:
 		p= 1
 		if int(cPageGOf) > 0:
@@ -1929,11 +1929,11 @@ def Busca(): # 160
 	i=0
 	try:
 		AddDir("[B][COLOR cyan]|||[/COLOR][COLOR white]|||[/COLOR][COLOR cyan]|||[/COLOR][COLOR cyan] [MMfilmes] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
-		links = common.OpenURL("http://www.mmfilmes.tv/series/")
-		ms = re.compile('href\=\"(.+www.mmfilmes.tv.+)\" rel\=\"bookmark\"').findall(links)
+		links = common.OpenURL("http://www.mmfilmeshd.tv/series/")
+		ms = re.compile('href\=\"(.+www.mmfilmeshd.tv.+)\" rel\=\"bookmark\"').findall(links)
 		for x in range(0, 3):
 			l+=1
-			link = common.OpenURL("http://www.mmfilmes.tv/page/"+str(l)+"/?s="+d).replace('\n','').replace('\r','')
+			link = common.OpenURL("http://www.mmfilmeshd.tv/page/"+str(l)+"/?s="+d).replace('\n','').replace('\r','')
 			m = re.compile('<li id=.+?" title="(.+?)".+?href="(.+?)".+?boxxer.+?boxxer">(.+?)<.+?src="(.+?)".+?audioy..(.+?)<').findall(link)
 			if m:
 				for name2, url2, dubleg, jpg, res in m:
@@ -1949,11 +1949,11 @@ def Busca(): # 160
 		pass
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		links = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmes.tv/series/")
-		ms = re.compile('href\=\"(.+www.mmfilmes.tv.+)\" rel\=\"bookmark\"').findall(links)
+		links = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmeshd.tv/series/")
+		ms = re.compile('href\=\"(.+www.mmfilmeshd.tv.+)\" rel\=\"bookmark\"').findall(links)
 		for x in range(0, 3):
 			l+=1
-			link = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmes.tv/page/"+str(l)+"/?s="+d).replace('\n','').replace('\r','')
+			link = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmeshd.tv/page/"+str(l)+"/?s="+d).replace('\n','').replace('\r','')
 			m = re.compile('<li id=.+?" title="(.+?)".+?href="(.+?)".+?boxxer.+?boxxer">(.+?)<.+?src="(.+?)".+?audioy..(.+?)<').findall(link)
 			if m:
 				for name2, url2, dubleg, jpg, res in m:
@@ -2380,14 +2380,14 @@ def ListFilmeLancMM(): #184
 	l=0
 	i=0
 	try:
-		links = common.OpenURL("http://www.mmfilmes.tv/series/")
-		ms = re.compile('href\=\"(.+www.mmfilmes.tv.+)\" rel\=\"bookmark\"').findall(links)
+		links = common.OpenURL("http://www.mmfilmeshd.tv/series/")
+		ms = re.compile('href\=\"(.+www.mmfilmeshd.tv.+)\" rel\=\"bookmark\"').findall(links)
 		for x in range(0, 5):
 			l+=1
-			link = common.OpenURL("http://www.mmfilmes.tv/ultimos/page/"+str(l)+"/")
+			link = common.OpenURL("http://www.mmfilmeshd.tv/ultimos/page/"+str(l)+"/")
 			m = re.compile('id\=\"post\-\d+\".+?\=.([^\"]+)\h*(?s)(.+?)(http[^\"]+)').findall(link)
 			res = re.compile('audioy..([^\<]*)').findall(link)
-			jpg = re.compile('src=\"(http.+?www.mmfilmes.tv\/wp-content\/uploads[^\"]+)').findall(link)
+			jpg = re.compile('src=\"(http.+?www.mmfilmeshd.tv\/wp-content\/uploads[^\"]+)').findall(link)
 			dubleg = re.compile('boxxer.+\s.+boxxer..([^\<]*)').findall(link)
 			if m:
 				for name2,b,url2 in m:
@@ -2400,14 +2400,14 @@ def ListFilmeLancMM(): #184
 		pass
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		links = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmes.tv/series/")
-		ms = re.compile('href\=\"(.+www.mmfilmes.tv.+)\" rel\=\"bookmark\"').findall(links)
+		links = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmeshd.tv/series/")
+		ms = re.compile('href\=\"(.+www.mmfilmeshd.tv.+)\" rel\=\"bookmark\"').findall(links)
 		for x in range(0, 5):
 			l+=1
-			link = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmes.tv/ultimos/page/"+str(l)+"/")
+			link = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmeshd.tv/ultimos/page/"+str(l)+"/")
 			m = re.compile('id\=\"post\-\d+\".+?\=.([^\"]+)\h*(?s)(.+?)(http[^\"]+)').findall(link)
 			res = re.compile('audioy..([^\<]*)').findall(link)
-			jpg = re.compile('src=\"(http.+?www.mmfilmes.tv\/wp-content\/uploads[^\"]+)').findall(link)
+			jpg = re.compile('src=\"(http.+?www.mmfilmeshd.tv\/wp-content\/uploads[^\"]+)').findall(link)
 			dubleg = re.compile('boxxer.+\s.+boxxer..([^\<]*)').findall(link)
 			if m:
 				for name2,b,url2 in m:
@@ -2424,11 +2424,11 @@ def ListFilmeMM(pagina2): #180
 	if int(pagina) > 0:
 		AddDir("[COLOR lime][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background=pagina2, info='[COLOR][/COLOR]')
 	try:
-		links = common.OpenURL("http://www.mmfilmes.tv/series/")
-		ms = re.compile('href\=\"(.+www.mmfilmes.tv.+)\" rel\=\"bookmark\"').findall(links)
+		links = common.OpenURL("http://www.mmfilmeshd.tv/series/")
+		ms = re.compile('href\=\"(.+www.mmfilmeshd.tv.+)\" rel\=\"bookmark\"').findall(links)
 		for x in range(0, 4):
 			l+=1
-			link = common.OpenURL("http://www.mmfilmes.tv/"+ ClistaMM0[int(CatMM)] +"/page/"+str(l)+"/").replace('\n','').replace('\r','')
+			link = common.OpenURL("http://www.mmfilmeshd.tv/"+ ClistaMM0[int(CatMM)] +"/page/"+str(l)+"/").replace('\n','').replace('\r','')
 			m = re.compile('<li id=.+?" title="(.+?)".+?href="(.+?)".+?boxxer.+?boxxer">(.+?)<.+?src="(.+?)".+?audioy..(.+?)<').findall(link)
 			if m:
 				for name2, url2, dubleg, jpg, res in m:
@@ -2443,11 +2443,11 @@ def ListFilmeMM(pagina2): #180
 		pass
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		links = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmes.tv/series/")
-		ms = re.compile('href\=\"(.+www.mmfilmes.tv.+)\" rel\=\"bookmark\"').findall(links)
+		links = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmeshd.tv/series/")
+		ms = re.compile('href\=\"(.+www.mmfilmeshd.tv.+)\" rel\=\"bookmark\"').findall(links)
 		for x in range(0, 4):
 			l+=1
-			link = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmes.tv/"+ ClistaMM0[int(CatMM)] +"/page/"+str(l)+"/").replace('\n','').replace('\r','')
+			link = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmeshd.tv/"+ ClistaMM0[int(CatMM)] +"/page/"+str(l)+"/").replace('\n','').replace('\r','')
 			m = re.compile('<li id=.+?" title="(.+?)".+?href="(.+?)".+?boxxer.+?boxxer">(.+?)<.+?src="(.+?)".+?audioy..(.+?)<').findall(link)
 			if m:
 				for name2, url2, dubleg, jpg, res in m:
@@ -2465,7 +2465,7 @@ def OpenLinkMM(): #181
 		info2 = re.compile('mCSB_container..\s(\h*(?s)(.+?))\<\/div').findall(link)
 		info2= info2[0][0].replace("\t","") if info2 else ""
 		if m:
-			link2 = common.OpenURL(m[0],headers={'referer': "http://www.mmfilmes.tv/"})
+			link2 = common.OpenURL(m[0],headers={'referer': "http://www.mmfilmeshd.tv/"})
 			m2 = re.compile('opb\(.([^\']+).+?.{3}.+?[^\\>]+.([^\<]+)').findall(link2)
 			if m2:
 				name2 = re.sub(' \[.+', '', name )
@@ -2480,7 +2480,7 @@ def OpenLinkMM(): #181
 		info2 = re.compile('mCSB_container..\s(\h*(?s)(.+?))\<\/div').findall(link)
 		info2= info2[0][0].replace("\t","") if info2 else ""
 		if m:
-			link2 = common.OpenURL("http://"+proxy2[0]+":443/?url="+m[0],headers={'referer': "http://www.mmfilmes.tv/"})
+			link2 = common.OpenURL("http://"+proxy2[0]+":443/?url="+m[0],headers={'referer': "http://www.mmfilmeshd.tv/"})
 			m2 = re.compile('opb\(.([^\']+).+?.{3}.+?[^\\>]+.([^\<]+)').findall(link2)
 			if m2:
 				name2 = re.sub(' \[.+', '', name )
@@ -2488,7 +2488,7 @@ def OpenLinkMM(): #181
 					AddDir( name2 +" [B][COLOR lime]("+dubleg+")[/COLOR][/B]" ,link, 182, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info2, background=url)
 def PlayLinkMM(): #182
 	try:
-		link = requests.get(url, headers={'referer': "http://www.mmfilmes.tv/"})
+		link = requests.get(url, headers={'referer': "http://www.mmfilmeshd.tv/"})
 		m = re.compile("addiframe.'https:\/\/player.openload.network\/qweowqie.php.([^\']+)").findall(link.text)
 		#result = {'mm': '1', 'url': m2, 'auth': 'benefits-and-risks-of-credit-cards'}
 		#r = requests.post('https://noticiasemfoco.online/benefits-and-risks-of-credit-cards/', cookies=result)
@@ -2525,7 +2525,7 @@ def PlayLinkMM(): #182
 		pass
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		link = requests.get("http://"+proxy2[0]+":443/?url="+url, headers={'referer': "http://www.mmfilmes.tv/"})
+		link = requests.get("http://"+proxy2[0]+":443/?url="+url, headers={'referer': "http://www.mmfilmeshd.tv/"})
 		m = re.compile("addiframe.'https:\/\/player.openload.network\/qweowqie.php.([^\']+)").findall(link.text.encode('utf-8'))
 		#result = {'mm': '1', 'url': m2, 'auth': 'benefits-and-risks-of-credit-cards'}
 		#r = requests.post('https://noticiasemfoco.online/benefits-and-risks-of-credit-cards/', cookies=result)
@@ -2561,9 +2561,9 @@ def PlayLinkMM(): #182
 # -----------------
 def ListSerieMM(): #190
 	try:
-		link = common.OpenURL("http://www.mmfilmes.tv/series/")
+		link = common.OpenURL("http://www.mmfilmeshd.tv/series/")
 		m = re.compile('id\=\"post\-\d+\".+?\=.([^\"]+)\h*(?s)(.+?)(http[^\"]+)').findall(link)
-		jpg = re.compile('src=\"(http.+?www.mmfilmes.tv\/wp-content\/uploads[^\"]+)').findall(link)
+		jpg = re.compile('src=\"(http.+?www.mmfilmeshd.tv\/wp-content\/uploads[^\"]+)').findall(link)
 		i=0
 		m2=[]
 		if m:
@@ -2578,9 +2578,9 @@ def ListSerieMM(): #190
 		pass
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		link = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmes.tv/series/")
+		link = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmeshd.tv/series/")
 		m = re.compile('id\=\"post\-\d+\".+?\=.([^\"]+)\h*(?s)(.+?)(http[^\"]+)').findall(link)
-		jpg = re.compile('src=\"(http.+?www.mmfilmes.tv\/wp-content\/uploads[^\"]+)').findall(link)
+		jpg = re.compile('src=\"(http.+?www.mmfilmeshd.tv\/wp-content\/uploads[^\"]+)').findall(link)
 		i=0
 		m2=[]
 		if m:
@@ -2600,7 +2600,7 @@ def ListSMM(x): #191
 		i=0
 		if m:
 			if x=="None":
-				link2 = common.OpenURL(m[0],headers={'referer': "http://www.mmfilmes.tv/"})
+				link2 = common.OpenURL(m[0],headers={'referer': "http://www.mmfilmeshd.tv/"})
 				m2 = re.compile('opb\(.([^\']+).+?.{3}.+?[^\\>]+.([^\<]+)').findall(link2)
 				listar=[]
 				listal=[]
@@ -2614,7 +2614,7 @@ def ListSMM(x): #191
 				if d== -1:
 					d= 0
 				if m2:
-					link3 = common.OpenURL(m2[0][0],headers={'referer': "http://www.mmfilmes.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
+					link3 = common.OpenURL(m2[0][0],headers={'referer': "http://www.mmfilmeshd.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
 					link3 = re.sub('(\(s \=\= \d+\))', r'<end>\1', link3 )
 					m3 = re.compile('s \=\= (\d+)(.+?\<end\>)').findall(link3)
 					for temp in m3:
@@ -2631,7 +2631,7 @@ def ListSMM(x): #191
 		i=0
 		if m:
 			if x=="None":
-				link2 = common.OpenURL("http://"+proxy2[0]+":443/?url="+m[0],headers={'referer': "http://www.mmfilmes.tv/"})
+				link2 = common.OpenURL("http://"+proxy2[0]+":443/?url="+m[0],headers={'referer': "http://www.mmfilmeshd.tv/"})
 				m2 = re.compile('opb\(.([^\']+).+?.{3}.+?[^\\>]+.([^\<]+)').findall(link2)
 				listar=[]
 				listal=[]
@@ -2645,7 +2645,7 @@ def ListSMM(x): #191
 				if d== -1:
 					d= 0
 				if m2:
-					link3 = common.OpenURL("http://"+proxy2[0]+":443/?url="+m2[0][0],headers={'referer': "http://www.mmfilmes.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
+					link3 = common.OpenURL("http://"+proxy2[0]+":443/?url="+m2[0][0],headers={'referer': "http://www.mmfilmeshd.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
 					link3 = re.sub('(\(s \=\= \d+\))', r'<end>\1', link3 )
 					m3 = re.compile('s \=\= (\d+)(.+?\<end\>)').findall(link3)
 					for temp in m3:
@@ -2653,7 +2653,7 @@ def ListSMM(x): #191
 						i+=1
 def ListEpiMM(x): #192
 	try:
-		link3 = common.OpenURL("http://"+proxy2[0]+":443/?url="+url,headers={'referer': "http://www.mmfilmes.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
+		link3 = common.OpenURL("http://"+proxy2[0]+":443/?url="+url,headers={'referer': "http://www.mmfilmeshd.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
 		link3 = re.sub('(\(s \=\= \d+\))', r'<end>\1', link3 )
 		m3 = re.compile('s \=\= (\d+)(.+?\<end\>)').findall(link3)
 		r=-1
@@ -2672,7 +2672,7 @@ def ListEpiMM(x): #192
 		pass
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		link3 = common.OpenURL(url,headers={'referer': "http://www.mmfilmes.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
+		link3 = common.OpenURL(url,headers={'referer': "http://www.mmfilmeshd.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
 		link3 = re.sub('(\(s \=\= \d+\))', r'<end>\1', link3 )
 		m3 = re.compile('s \=\= (\d+)(.+?\<end\>)').findall(link3)
 		r=-1
