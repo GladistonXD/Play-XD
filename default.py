@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.26.00"
+Versao = "21.27.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2652,7 +2652,7 @@ def ListSMM(x): #191
 						i+=1
 def ListEpiMM(x): #192
 	try:
-		link3 = common.OpenURL("http://"+proxy2[0]+":443/?url="+url,headers={'referer': "http://www.mmfilmeshd.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
+		link3 = common.OpenURL(url,headers={'referer': "http://www.mmfilmeshd.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
 		link3 = re.sub('(\(s \=\= \d+\))', r'<end>\1', link3 )
 		m3 = re.compile('s \=\= (\d+)(.+?\<end\>)').findall(link3)
 		r=-1
