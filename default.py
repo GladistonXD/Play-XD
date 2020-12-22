@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.25.00"
+Versao = "21.26.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1774,7 +1774,7 @@ def PlaySRC(): #133 Play series
 				file[0] = re.sub('\n', '', file[0])
 				#file[0] = re.sub('https', 'https', file[0])
 				#PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc) #aqui
-				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "h" + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc)
+				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc)
 			except IndexError as file:
 				pass
 			player2 = re.sub('.php', ".php", player2)
@@ -1784,7 +1784,7 @@ def PlaySRC(): #133 Play series
 			file[0] = re.sub('\n', '', file[0])
 			#file[0] = re.sub('https', 'https', file[0])
 			#PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/" , iconimage, desc) #aqui
-			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "h" + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc)
+			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc)
 	except:
 		sys.exit()
 def TemporadasRC(x): #135 Episodios
