@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.23.00"
+Versao = "21.24.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -817,19 +817,18 @@ def AssistirbizMENU(): # 514
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def AssistirbizLista(): #515
-	try:	
-		link = common.OpenURL(url)
-		hexd = re.compile('content="(.+?filme.+?)"').findall(link)
-		hexd = hexd[0].replace("filme","iframe")+'?player=1'
-		sinopse = re.compile('<i>([^\"]+)<\/i>').findall(link)
-		sinopse= sinopse[0]
-		AddDir(name + "[COLOR blue] - Dublado[/COLOR]", hexd, 516, iconimage, iconimage, isFolder=False, IsPlayable=True, info=sinopse)
-	except:
-		pass
+	link = requests.get(url)
+	hexd = re.compile('"tab-pane.+? id="(.+?)".+?(assistir.biz\/iframe\/.+?)"').findall(link.text.encode('utf-8').replace("\r","").replace("\n",""))
+	sinopse = re.compile('<i>([^\"]+)<\/i>').findall(link.text.encode('utf-8'))
+	sinopse = sinopse[0]
+	if hexd:
+		for name2, url2 in hexd:
+			name2 = name2.replace("player-1","[B][COLOR lightseagreen](Mediafire)[/B][/COLOR]").replace("player-3","[B][COLOR deepskyblue](Astr)[/B][/COLOR]")
+			AddDir(name2 + "[COLOR blue] - Dublado[/COLOR]", "https://"+url2, 516, iconimage, iconimage, isFolder=False, IsPlayable=True, info=sinopse)
 def AssistirbizPlay(): #516
 	try:	
 			linkx = requests.get(url)
-			m2 = re.compile('(assistir.biz\/direct[^\"]+)".+?mp4".\w+="([^\"]+)"').findall(linkx.text)
+			m2 = re.compile('(assistir.biz.+?)".+?mp4".\w+="([^\"]+)"').findall(linkx.text)
 			m2.reverse()
 			legenda = re.compile('subdata..([^\"]+)').findall(url)
 			listar=[]
