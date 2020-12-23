@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.27.00"
+Versao = "21.28.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1179,9 +1179,25 @@ def Series(): #60
 		l5 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
 		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/5/")#, headers=headers, proxies=proxies)
 		l6 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/6/")#, headers=headers, proxies=proxies)
+		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/6/")
 		l7 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l2[0]+l3[0]+l4[0]+l5[0]+l6[0]+l7[0])
+		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/7/")
+		l8 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
+		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/8/")
+		l9 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
+		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/9/")
+		l10 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
+		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/10/")
+		l11 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
+		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/11/")
+		l12 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
+		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/12/")
+		l13 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
+		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/13/")
+		l14 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
+		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/14/")
+		l15 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))        
+		lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l2[0]+l3[0]+l4[0]+l5[0]+l6[0]+l7[0]+l8[0]+l9[0]+l10[0]+l11[0]+l12[0]+l13[0]+l14[0]+l15[0])
 		if cOrdNCS=="1":
 			lista = sorted(lista, key=lambda lista: lista[1])
 		for img2,name2,url2 in lista:
@@ -1715,7 +1731,7 @@ def PlayMRC2(): #96 Play filmes direto
 	if not "redecanais" in url2:
 		url2 = "https://"+RC+ url2
 	try:
-		link = requests.get(url2)
+		link = requests.get(url2,headers={'referer': "https://bemestarglobal.fun/", 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0'})
 		desc = re.compile('itemprop=\"?description\"?>\s.{0,10}?<p>(.+)<\/p>').findall(link.text)
 		player = re.compile('<iframe name.+?src=.(.+?)"').findall(link.text)
 		complement = re.compile('<iframe name.+?src=.(.+?)\/').findall(link.text)
@@ -1726,7 +1742,7 @@ def PlayMRC2(): #96 Play filmes direto
 		if player2:
 			player2 = re.sub('.php', "hlb.php", player2)
 			player3 = "https://bemestarglobal.fun" + player2
-			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/"})
+			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/", 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0'})
 			file=re.compile('baixar="(.+?expires=.+)').findall(mp4)
 			global background
 			background=url+";;;"+name+";;;RC"
@@ -1734,17 +1750,17 @@ def PlayMRC2(): #96 Play filmes direto
 				file[0] = re.sub('\n', '', file[0])
 				#file[0] = re.sub('https', 'https', file[0])
 				#PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc) #aqui
-				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc)
+				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + "|referer=https://bemestarglobal.fun/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0", iconimage, desc)
 			except IndexError as file:
 				pass
 			player2 = re.sub('.php', ".php", player2)
 			player3 = "https://bemestarglobal.fun" + player2
-			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/"})
+			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/", 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0'})
 			file=re.compile('baixar="(.+?expires=.+)').findall(mp4)
 			file[0] = re.sub('\n', '', file[0])
 			#file[0] = re.sub('https', 'https', file[0])
 			#PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/" , iconimage, desc) #aqui
-			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc)
+			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + "|referer=https://bemestarglobal.fun/&verifypeer=false&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0", iconimage, desc)
 	except:
 		#xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
 		sys.exit()
