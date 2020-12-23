@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.28.00"
+Versao = "21.29.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -178,8 +178,45 @@ def MSeries(): #-3
 	AddDir("[B][COLOR lightgreen]Séries Superflix[/COLOR][/B]", "config" , 401,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	#AddDir("[B][COLOR springgreen]Séries QueroFilmesHD[/COLOR][/B]", "config" , 430,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR mediumpurple]Séries Vizer.tv[/COLOR][/B]", "config" , 450,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='[COLOR][/COLOR]')
+	AddDir("[B][COLOR mediumvioletred]Séries TuaSerie[/COLOR][/B]", "config" , 454,"https://tconline.com.br/wp-content/uploads/2020/02/8.1-VS250220A.jpg", "https://tconline.com.br/wp-content/uploads/2020/02/8.1-VS250220A.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	setViewM()
 ######################
+def TuaSerieMenu(): # 454
+	try:
+		link = common.OpenURL("https://tuaserie.online/").replace("\n","").replace("\r","")
+		link2 = re.compile('63i6L6C.jpg" \/><\/a><\/div>(.+)').findall(link)
+		match = re.compile('<a href="(.+?)".+?alt="(.+?)".+?src="(.+?)"').findall(link2[0])
+		if match:
+			for url2,name2,img2 in match:
+				img2 = img2.replace("w185","original")
+				url3 = "https://tuaserie.online/" + url2
+				AddDir(name2, url3, 455, img2, img2, isFolder=True, IsPlayable=True, info="")
+	except:
+		pass
+def TuaSerieMenu2(): #455
+	l = common.OpenURL(url).replace("\n","").replace("\r","").replace("</a><br /><br />			<h2>","</a><br /><br /><h2>").replace("</a><br /><br />				<","</a><br /><br /><h2>").replace('">DUBLADO','" rel="nofollow">DUBLADO"').replace('">LEGENDADO','" rel="nofollow">LEGENDADO"')
+	m = re.compile('h2>.+?([0-9].+?)<.+?(E.+?)<\/a><br \/><br \/><').findall(l)
+	for temp2, cont2 in m:
+		AddDir(temp2, cont2, 456, iconimage, iconimage, isFolder=True)
+def TuaSerieMenu3(): #456
+	#l = common.OpenURL(url).replace("\n","").replace("\r","")
+	m = re.compile('(Episódio.+?)<.+?href="(.+?)".+?>(.+?)<').findall(url)
+	for episo, url2, name2 in m:
+		name2 = name2.replace("DUBLADO","[COLOR lightseagreen][B]Dublado[/B][/COLOR]").replace("LEGENDADO","[COLOR yellow][B]Legendado[/B][/COLOR]")
+		AddDir(episo+name2.replace('"',""), "https://tuaserie.online/"+url2, 457, iconimage, iconimage, isFolder=False, IsPlayable=True)
+def TuaSeriePlayer(): #457
+	urlx = requests.get(url)
+	urlx2 = re.compile(".com.(.+?)'").findall(urlx.text)
+	urlx3 = "https://1i1.in/face/" + urlx2[0]
+	session = requests.Session()
+	response = session.get(urlx3)
+	cookie = session.cookies.get_dict()
+	cookie = str(cookie)
+	url2 = re.compile("'cod':.+?'(.+?)'").findall(cookie)
+	url2 = "https://tuaserie.casa/l/l/"+ url2[0]
+	url3 = requests.get(url2)
+	url4 = re.compile('file":"(.+?)"').findall(url3.text)
+	PlayUrl(name, url4[0], iconimage, info)
 def SerieMenuBZ(): # 450
 	pagina = "0" if not cPageserVZ else cPageserVZ
 	if int(pagina) > 0:
@@ -2164,7 +2201,7 @@ def Busca(): # 160
 #					i+=1
 #	except:
 #		pass
-	progress.update(100, "100%", "SuperFlix", "")        
+	progress.update(90, "90%", "SuperFlix", "")        
 	try:
 		p= 1
 		AddDir("[B][COLOR lightgreen]|||[/COLOR][COLOR white]|||[/COLOR][COLOR lightgreen]|||[/COLOR][COLOR lightgreen] [SuperFlix] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
@@ -2182,7 +2219,23 @@ def Busca(): # 160
 					if "Série" in tvmovie:
 						AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 402, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False)
 	except:
-		pass        
+		pass
+	progress.update(100, "100%", "TuaSerie", "")        
+	try:
+		p= 1
+		AddDir("[B][COLOR mediumvioletred]|||[/COLOR][COLOR white]|||[/COLOR][COLOR mediumvioletred]|||[/COLOR][COLOR mediumvioletred] [TuaSerie] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
+		l= 0
+		for x in range(0, 1):
+			l +=1
+			link = requests.get("https://tuaserie.online/pesquisa.php?q="+d.replace("%2B","%20"))
+			match = re.compile("<a href='(.+?)'>(.+?)<").findall(link.text.replace('\n','').replace('\r',''))
+			if match:
+				for url2,name2 in match:
+					#img2 = img2.replace("w185","original")
+					url3 = "https://tuaserie.online/" + url2
+					AddDir("[COLOR mediumvioletred]"+name2+"[/COLOR]", url3, 455, '', '', isFolder=True, IsPlayable=True, info="")
+	except:
+		pass                
 	progress.update(100, "100%", "", "")
 	progress.close()
     
@@ -4079,7 +4132,19 @@ elif mode == 452:
 	setViewS()   
 elif mode == 453:
 	SeriePlayBZ2()
-	setViewS()      
+	setViewS()
+elif mode == 454:
+	TuaSerieMenu()
+	setViewS()
+elif mode == 455:
+	TuaSerieMenu2()
+	setViewS()
+elif mode == 456:
+	TuaSerieMenu3()
+	setViewS()
+elif mode == 457:
+	TuaSeriePlayer()
+	setViewS()     
 elif mode == 510:
 	QuerofilmeshdMENU()
 	setViewM()    
