@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.29.00"
+Versao = "21.30.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1288,7 +1288,7 @@ def PlayS(): #62
 				link4 = requests.get("http://"+proxy2[0]+":443/?url="+red2[0])#,headers=headers, proxies=proxies)
 				link4 = re.sub('window.location.href.+', '', link4.text.encode('utf-8'))
 				link4 = link4.replace("'",'"')
-				m4= re.compile("http.+?mp4[^\"]+").findall(link4.text.encode('utf-8')) 
+				m4= re.compile("http.+?mp4[^\"]+").findall(link4.encode('utf-8')) 
 				m4 = list(reversed(m4))
 				for url4 in m4:
 					listal.append(url4.replace("';",""))
