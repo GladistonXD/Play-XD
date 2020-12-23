@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.30.00"
+Versao = "21.31.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -199,24 +199,39 @@ def TuaSerieMenu2(): #455
 	for temp2, cont2 in m:
 		AddDir(temp2, cont2, 456, iconimage, iconimage, isFolder=True)
 def TuaSerieMenu3(): #456
-	#l = common.OpenURL(url).replace("\n","").replace("\r","")
+	#arquivo = open(cachefolder + "TuaSerie.txt", "w+")
+	#arquivo.write(url)
+	#arquivo.close()
 	m = re.compile('(Episódio.+?)<.+?href="(.+?)".+?>(.+?)<').findall(url)
 	for episo, url2, name2 in m:
 		name2 = name2.replace("DUBLADO","[COLOR lightseagreen][B]Dublado[/B][/COLOR]").replace("LEGENDADO","[COLOR yellow][B]Legendado[/B][/COLOR]")
 		AddDir(episo+name2.replace('"',""), "https://tuaserie.online/"+url2, 457, iconimage, iconimage, isFolder=False, IsPlayable=True)
 def TuaSeriePlayer(): #457
-	urlx = requests.get(url)
-	urlx2 = re.compile(".com.(.+?)'").findall(urlx.text)
-	urlx3 = "https://1i1.in/face/" + urlx2[0]
-	session = requests.Session()
-	response = session.get(urlx3)
-	cookie = session.cookies.get_dict()
-	cookie = str(cookie)
-	url2 = re.compile("'cod':.+?'(.+?)'").findall(cookie)
-	url2 = "https://tuaserie.casa/l/l/"+ url2[0]
-	url3 = requests.get(url2)
-	url4 = re.compile('file":"(.+?)"').findall(url3.text)
-	PlayUrl(name, url4[0], iconimage, info)
+	try:
+		urlx = requests.get(url)
+		arquivo = open(cachefolder + "TuaSerie.txt", "w+")
+		arquivo.write(urlx.text)
+		arquivo.close()
+		urlx2 = re.compile(".com.(.+?)'").findall(urlx.text)
+		urlx3 = "https://1i1.in/face/" + urlx2[0]
+		session = requests.Session()
+		response = session.get(urlx3)
+		cookie = session.cookies.get_dict()
+		cookie = str(cookie)
+		url2 = re.compile("'cod':.+?'(.+?)'").findall(cookie)
+		url2 = "https://tuaserie.casa/l/"+ url2[0]
+		url2x = requests.get(url2)
+		url3x = re.compile('<a href="(.+?)".+?Principal').findall(url2x.text)
+		result = {'r': '&','d': 't6k6.xyz'}
+		f = requests.post(url3x[0].replace("v","api/source"), data=result)
+		url4 = re.compile('"file":"(.+?)"').findall(f.text.replace("\/","/"))
+		PlayUrl(name, url4[0], iconimage, info)
+	except IndexError as g2:
+		pass
+		f = requests.get(url3x[0])
+		url4 = re.compile('"file":"(.+?)"').findall(f.text.replace("\/","/"))
+		PlayUrl(name, url4[0], iconimage, info)
+        
 def SerieMenuBZ(): # 450
 	pagina = "0" if not cPageserVZ else cPageserVZ
 	if int(pagina) > 0:
