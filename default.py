@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.32.00"
+Versao = "21.33.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -99,7 +99,7 @@ ClistaFHD11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]",                   "[CO
 ClistaVZ10=["0",   "all",                                                        "acao",                       "animacao",                           "comedia",                      "faroeste",                                   "fantasia",                                    "drama",                                                         "romance",                                                                "documentario",                               "musical",                           "suspense",                                     "terror"]
 ClistaVZ11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]", "[COLOR yellow][B]2020[/COLOR][/B]",                   "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]",          "[COLOR yellow][B]Suspense[/COLOR][/B]",                       "[COLOR yellow][B]Terror[/COLOR][/B]"]
 ClistaAS10=["0", "acao",                       "animacao",                           "comedia",                      "faroeste",                                   "fantasia",                                    "drama",                                                         "romance",                                                                "documentario",                               "musical",                           "suspense",                                     "terror"]
-ClistaAS11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]", "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]",          "[COLOR yellow][B]Suspense[/COLOR][/B]",                       "[COLOR yellow][B]Terror[/COLOR][/B]"]
+ClistaAS11=["[COLOR yellow][B]Lançamentos (Filmes|Séries)[/COLOR][/B]", "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]",          "[COLOR yellow][B]Suspense[/COLOR][/B]",                       "[COLOR yellow][B]Terror[/COLOR][/B]"]
 def setViewS():
 	xbmcplugin.setContent(int(sys.argv[1]), 'tvshows')
 	xbmc.executebuiltin("Container.SetViewMode(50)")
@@ -215,13 +215,22 @@ def AssistirMenu(): # 458
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def AssistirMenu2(): # 459
-	link = requests.get(url)
-	Desc = re.compile('og.+?ption".+?"(.+?)"').findall(link.text.encode('utf8'))
-	Desc = Desc[0]
-	url2x = re.compile("filme'.'(.+?)'.'(.+?)'").findall(link.text)
-	if url2x:
-		for name2, url2 in url2x:
-			AddDir(name2.replace("legendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("dublado","[COLOR springgreen][B]Dublado[/B][/COLOR]"), "https://"+url2, 460, iconimage, iconimage, isFolder=False, IsPlayable=True, info=Desc)
+	try:
+		link = requests.get(url)
+		Desc = re.compile('og.+?ption".+?"(.+?)"').findall(link.text.encode('utf8'))
+		Desc = Desc[0]
+		url2x = re.compile("filme'.'(.+?)'.'(.+?)'").findall(link.text)
+		url2x2 = re.compile("assistir.'(filme)'").findall(link.text)
+		url2x2 = url2x2[0]
+		if url2x:
+			for name2, url2 in url2x:
+				AddDir(name2.replace("legendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("dublado","[COLOR springgreen][B]Dublado[/B][/COLOR]"), "https://"+url2, 460, iconimage, iconimage, isFolder=False, IsPlayable=True, info=Desc)
+	except:
+		link = common.OpenURL(url)
+		match = re.compile("serie','.+?'(.+?)'.'(.+)'").findall(link)
+		if match:
+			for url2, name2 in match:
+				AddDir(name2 + " - Temporada", "https://"+url2+"-"+name2, 463, iconimage, iconimage, isFolder=True, IsPlayable=True, info="")
 def AssistirMenu3(): # 460
 	try:	
 		result = {'idf': 'filme', 'idl': name, 'id': url.replace("https://",""), 'player': '1'}
