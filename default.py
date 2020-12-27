@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.35.00"
+Versao = "21.36.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -339,7 +339,7 @@ def AssistirSeries3(): # 463
 	url4 = re.compile("ver.'(.+?)'..'(.+?)'.+?>(.+?)<").findall(url3.text.encode('utf8'))
 	if url4:
 		for url2,idioma,name2 in url4:
-			AddDir(name2+": "+idioma.replace("dublado","[COLOR lightseagreen][B]Dublado[/B][/COLOR]").replace("legendado","[COLOR yellow][B]Legendado[/B][/COLOR]"), "https://"+url2+"-"+idioma+"#"+id[0], 464, "", "", isFolder=False, IsPlayable=True, info="")
+			AddDir(name2+": "+idioma.replace("dublado","[COLOR lightseagreen][B]Dublado[/B][/COLOR]").replace("legendado","[COLOR yellow][B]Legendado[/B][/COLOR]"), "https://"+url2+"-"+idioma+"#"+id[0], 464, iconimage, iconimage, isFolder=False, IsPlayable=True, info="")
 def AssistirSeriesPlay (): # 464
 	try:	
 		id = re.compile('https:..(.+?)-').findall(url.encode('utf8'))
