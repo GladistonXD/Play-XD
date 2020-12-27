@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.34.00"
+Versao = "21.35.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -245,15 +245,15 @@ def AssistirMenu3(): # 460
 			listar=[]
 			listal=[]
 			for url2, name2 in url4:
-				if name2 == 'Player 1' or name2 == 'Player 3' or name2 == 'Player 4':
+				if name2 == 'Player 1' or name2 == 'Player 3' or name2 == 'Player 4' or name2 == 'Player 6':
 					listal.append(id[0] + "-" + idioma[0])
-					listar.append(name2.replace("Player 1","[COLOR springgreen][B]Principal[/B][/COLOR]").replace("Player 3","[COLOR yellow][B]Externo 1[/B][/COLOR]").replace("Player 4","[COLOR yellow][B]Externo 2[/B][/COLOR]"))
+					listar.append(name2.replace("Player 1","[COLOR springgreen][B]Principal[/B][/COLOR]").replace("Player 3","[COLOR yellow][B]Externo 1[/B][/COLOR]").replace("Player 4","[COLOR yellow][B]Externo 2[/B][/COLOR]").replace("Player 6","[COLOR yellow][B]Externo 3[/B][/COLOR]"))
 			if len(listal) <1:
 					xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 					sys.exit(int(sys.argv[1]))
 			d = xbmcgui.Dialog().select("Selecione o servidor", listar)
 			if d!= -1:
-					Player = re.compile("Player.(.+)").findall(listar[d].replace("[COLOR springgreen][B]Principal[/B][/COLOR]","Player 1").replace("Principal","Player 1").replace("[COLOR yellow][B]Externo 1[/B][/COLOR]", "Player 3").replace("[COLOR yellow][B]Externo 2[/B][/COLOR]", "Player 4"))
+					Player = re.compile("Player.(.+)").findall(listar[d].replace("[COLOR springgreen][B]Principal[/B][/COLOR]","Player 1").replace("Principal","Player 1").replace("[COLOR yellow][B]Externo 1[/B][/COLOR]", "Player 3").replace("[COLOR yellow][B]Externo 2[/B][/COLOR]", "Player 4").replace("[COLOR yellow][B]Externo 3[/B][/COLOR]", "Player 6"))
 					idl = re.compile("-(.+)").findall(listal[d].replace("[COLOR red][B]Legendado[/B][/COLOR]","legendado").replace("[COLOR springgreen][B]Dublado[/B][/COLOR]","dublado"))
 					idx = re.compile("(.+)-").findall(listal[d].replace("[COLOR red][B]Legendado[/B][/COLOR]","legendado").replace("[COLOR springgreen][B]Dublado[/B][/COLOR]","dublado"))
 					result = {'idf': 'filme', 'idl': idl[0], 'id': idx[0], 'player': Player[0]}
@@ -296,10 +296,10 @@ def AssistirMenu3(): # 460
 						contents = "https://" + ini[0] + delivery[0] + ".mxdcontent.net/v/" + id[0] + ".mp4?s=" + seg[0].replace("v|","").replace("v||","").replace("|","-") + "&e=" + e[0] + "&_t=" + t[0]
 						PlayUrl(name, contents.replace("|","-").replace("=-","=")+"|Referer=https://mixdrop.to/", iconimage, info)
 
-					if 'streamta' in url4x:
+					if 'streamtape' in url4x:
 						arquivo = requests.get(url4x)
-						id = re.compile("elem.'.+?='(.+?)'").findall(arquivo.text)
-						PlayUrl(name,'http:'+id[0], iconimage, info)
+						id = re.compile("getElement.+?=..(\/\/.+?)..<").findall(arquivo.text)
+						PlayUrl(name,'http:'+id[0]+"|Referer=https://streamtape.com/", iconimage, info)
 			else:
 					sys.exit()
 		else:
@@ -352,9 +352,9 @@ def AssistirSeriesPlay (): # 464
 			listar=[]
 			listal=[]
 			for url2x, name2 in url4:
-				if name2 == 'Player 1' or name2 == 'Player 3' or name2 == 'Player 4':
+				if name2 == 'Player 1' or name2 == 'Player 3' or name2 == 'Player 4' or name2 == 'Player 6':
 					listal.append(url2x)
-					listar.append(name2.replace("Player 1","[COLOR springgreen][B]Principal[/B][/COLOR]").replace("Player 3","[COLOR yellow][B]Externo 1[/B][/COLOR]").replace("Player 4","[COLOR yellow][B]Externo 2[/B][/COLOR]"))
+					listar.append(name2.replace("Player 1","[COLOR springgreen][B]Principal[/B][/COLOR]").replace("Player 3","[COLOR yellow][B]Externo 1[/B][/COLOR]").replace("Player 4","[COLOR yellow][B]Externo 2[/B][/COLOR]").replace("Player 6","[COLOR yellow][B]Externo 3[/B][/COLOR]"))
 			if len(listal) <1:
 					xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 					sys.exit(int(sys.argv[1]))
@@ -363,9 +363,6 @@ def AssistirSeriesPlay (): # 464
 					result = {'id': id[0], 'idl': idl[0], 'ep': '', 'item': item[0], 'temp': '', 'auto': '0', 'player': listal[d]}
 					url3 = requests.post("https://assistir.one/ls.php?p=assistir&pag=playerS", data=result)
 					url4 = re.compile('src="(.+?)"').findall(url3.text)
-					#arquivo = open(cachefolder + "TuaSerie.txt", "w+")
-					#arquivo.write(url4)
-					#arquivo.close()
 					url4x = url4[0]
 					if 'play' in url4x:
 						url5 = requests.get(url4x)
@@ -403,10 +400,10 @@ def AssistirSeriesPlay (): # 464
 						contents = "https://" + ini[0] + delivery[0] + ".mxdcontent.net/v/" + id[0] + ".mp4?s=" + seg[0].replace("v|","").replace("v||","").replace("|","-") + "&e=" + e[0] + "&_t=" + t[0]
 						PlayUrl(name, contents.replace("|","-").replace("=-","=")+"|Referer=https://mixdrop.to/", iconimage, info)
 
-					if 'streamta' in url4x:
+					if 'streamtape' in url4x:
 						arquivo = requests.get(url4x)
-						id = re.compile("elem.'.+?='(.+?)'").findall(arquivo.text)
-						PlayUrl(name,'http:'+id[0], iconimage, info)
+						id = re.compile("getElement.+?=..(\/\/.+?)..<").findall(arquivo.text)
+						PlayUrl(name,'http:'+id[0]+"|Referer=https://streamtape.com/", iconimage, info)
 			else:
 					sys.exit()
 		else:
