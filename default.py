@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.39.00"
+Versao = "21.40.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -259,7 +259,7 @@ def AssistirMenu3(): # 460
 					url3 = requests.post("https://assistir.one/ls.php?p=assistir&pag=player", data=result)
 					url41 = re.compile('src="(.+?)" ').findall(url3.text)
 					url4x = url41[0]
-					if 'play' in url4x:
+					if 'play.assistir' in url4x:
 						url5 = requests.get(url4x)
 						url6 = re.compile('src="(.+?)" type').findall(url5.text)
 						PlayUrl(name, url6[0], iconimage, info)
@@ -438,7 +438,7 @@ def AssistirSeriesPlay (): # 464
 					url3 = requests.post("https://assistir.one/ls.php?p=assistir&pag=playerS", data=result)
 					url4 = re.compile('src="(.+?)" ').findall(url3.text)
 					url4x = url4[0]
-					if 'play' in url4x:
+					if 'play.assistir' in url4x:
 						url5 = requests.get(url4x)
 						url6 = re.compile('src="(.+?)" type').findall(url5.text)
 						PlayUrl(name, url6[0], iconimage, info)
@@ -1598,33 +1598,33 @@ def Series(): #60
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
 		#headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0",'Cache-Control': 'no-cache','Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7#','Referer': 'https://netcine.biz/','Keep-Alive': '','Connection': 'keep-alive'}
 		#proxies = {"http": proxy2[0], "https": proxy2[0]}
-		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/1/")#,headers=headers, proxies=proxies)
+		link = requests.get(proxy2[0]+"http://netcine.biz/tvshows/page/1/")#,headers=headers, proxies=proxies)
 		l2 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/2/")#, headers=headers, proxies=proxies)
+		link = requests.get(proxy2[0]+"http://netcine.biz/tvshows/page/2/")#, headers=headers, proxies=proxies)
 		l3 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/3/")#, headers=headers, proxies=proxies)
+		link = requests.get(proxy2[0]+"http://netcine.biz/tvshows/page/3/")#, headers=headers, proxies=proxies)
 		l4 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/4/")#, headers=headers, proxies=proxies)
+		link = requests.get(proxy2[0]+"http://netcine.biz/tvshows/page/4/")#, headers=headers, proxies=proxies)
 		l5 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/5/")#, headers=headers, proxies=proxies)
+		link = requests.get(proxy2[0]+"http://netcine.biz/tvshows/page/5/")#, headers=headers, proxies=proxies)
 		l6 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/6/")
+		link = requests.get(proxy2[0]+"http://netcine.biz/tvshows/page/6/")
 		l7 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/7/")
+		link = requests.get(proxy2[0]+"http://netcine.biz/tvshows/page/7/")
 		l8 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/8/")
+		link = requests.get(proxy2[0]+"http://netcine.biz/tvshows/page/8/")
 		l9 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/9/")
+		link = requests.get(proxy2[0]+"http://netcine.biz/tvshows/page/9/")
 		l10 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/10/")
+		link = requests.get(proxy2[0]+"http://netcine.biz/tvshows/page/10/")
 		l11 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/11/")
+		link = requests.get(proxy2[0]+"http://netcine.biz/tvshows/page/11/")
 		l12 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/12/")
+		link = requests.get(proxy2[0]+"http://netcine.biz/tvshows/page/12/")
 		l13 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/13/")
+		link = requests.get(proxy2[0]+"http://netcine.biz/tvshows/page/13/")
 		l14 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		link = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/tvshows/page/14/")
+		link = requests.get(proxy2[0]+"http://netcine.biz/tvshows/page/14/")
 		l15 = re.compile("box_movies(.+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))        
 		lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(l2[0]+l3[0]+l4[0]+l5[0]+l6[0]+l7[0]+l8[0]+l9[0]+l10[0]+l11[0]+l12[0]+l13[0]+l14[0]+l15[0])
 		if cOrdNCS=="1":
@@ -1642,7 +1642,7 @@ def ListSNC(x): #61
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
 		#headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0",'Cache-Control': 'no-cache','Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7#','Referer': 'https://netcine.biz/','Keep-Alive': '','Connection': 'keep-alive'}
 		#proxies = {"http": proxy2[0], "https": proxy2[0]}
-		link = requests.get("http://"+proxy2[0]+":443/?url="+url)#,headers=headers, proxies=proxies)
+		link = requests.get(proxy2[0]+url)#,headers=headers, proxies=proxies)
 		m = re.compile("(.emporada \w+)(.+?class\=\'has-sub\')").findall(link.text.encode('utf-8').replace('\n','').replace('\r','').replace('<div class="soci">',"class='has-sub'").replace('\t',""))
 		info2 = re.compile("<h2>Synopsis<\/h2>+.+?[div|p].{0,15}?.+?(.+?)<\/").findall(link.text.encode('utf-8'))
 		info2 = re.sub('style\=.+?\>', '', info2[0] ) if info2 else " "
@@ -1665,19 +1665,19 @@ def PlayS(): #62
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
 		#headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0",'Cache-Control': 'no-cache','Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7#','Referer': 'https://netcine.biz/','Keep-Alive': '','Connection': 'keep-alive'}
 		#proxies = {"http": proxy2[0], "https": proxy2[0]}
-		link = requests.get("http://"+proxy2[0]+":443/?url="+url)#,headers=headers, proxies=proxies)
+		link = requests.get(proxy2[0]+url)#,headers=headers, proxies=proxies)
 		m = re.compile("\"play-.\".+?src=\"([^\"]+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
 		listan = re.compile("\#play-...(\w*)").findall(link.text.encode('utf-8'))
 		i=0
 		listaf=[]
 		listal=[]
 		for url2 in m:
-			link3 = requests.get("http://"+proxy2[0]+":443/?url="+url2)#,headers=headers, proxies=proxies)
+			link3 = requests.get(proxy2[0]+url2)#,headers=headers, proxies=proxies)
 			m3 = re.compile("src\=\"(.+campanha[^\"]+)").findall(link3.text.encode('utf-8'))
 			if m3:
-				red = requests.get("http://"+proxy2[0]+":443/?url="+m3[0])#,headers=headers, proxies=proxies)
+				red = requests.get(proxy2[0]+m3[0])#,headers=headers, proxies=proxies)
 				red2 = re.compile('redirecionar\.php\?data=([^"]+)').findall(red.text.encode('utf-8'))
-				link4 = requests.get("http://"+proxy2[0]+":443/?url="+red2[0])#,headers=headers, proxies=proxies)
+				link4 = requests.get(proxy2[0]+red2[0])#,headers=headers, proxies=proxies)
 				link4 = re.sub('window.location.href.+', '', link4.text.encode('utf-8'))
 				link4 = link4.replace("'",'"')
 				m4= re.compile("http.+?mp4[^\"]+").findall(link4.encode('utf-8')) 
@@ -1687,15 +1687,15 @@ def PlayS(): #62
 					dubleg="[COLOR green]HD[/COLOR][/B]" if "ALTO" in url4 else "[COLOR red]SD[/COLOR][/B]"
 					listaf.append("[B][COLOR blue]"+listan[i] +"[/COLOR] "+dubleg)
 			else:
-				red = requests.get("http://"+proxy2[0]+":443/?url="+url2)#,headers=headers, proxies=proxies)
+				red = requests.get(proxy2[0]+url2)#,headers=headers, proxies=proxies)
 				m3 = re.compile("src\=\"([^\"]+)").findall(red.text)
-				red1 = requests.get("http://"+proxy2[0]+":443/?url="+m3[0])#,headers=headers, proxies=proxies)
+				red1 = requests.get(proxy2[0]+m3[0])#,headers=headers, proxies=proxies)
 				red2 = re.compile('redirecionar\.php\?data=([^"]+)').findall(red1.text.encode('utf-8'))
-				link4 = requests.get("http://"+proxy2[0]+":443/?url="+red2[0],headers={'Cookie': "autorizado=teste; "})
+				link4 = requests.get(proxy2[0]+red2[0],headers={'Cookie': "autorizado=teste; "})
 				m5 = re.compile("location.href=\'([^\']+p\=[^\']+)").findall(link4.text.encode('utf-8'))
 				for x in m5:
 					if not "openload" in x:
-						link5 = requests.get("http://"+proxy2[0]+":443/?url="+x)#,headers=headers)#, proxies=proxies)
+						link5 = requests.get(proxy2[0]+x)#,headers=headers)#, proxies=proxies)
 				link5 = re.sub('window.location.href.+', '', link5.text)
 				link5 = link5.replace("'",'"')
 				m4= re.compile("http.+?mp4[^\"]+").findall(link5)
@@ -1726,7 +1726,7 @@ def MoviesNC(): #71 Netcine
 			l +=1
 			proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 			proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-			link = common.OpenURL("http://"+proxy2[0]+":443/?url=https://netcine.biz/"+ClistaGO0[int(CatGO)]+"/page/"+ str(l)+"/?filmes").replace('\n','').replace('\r','')
+			link = common.OpenURL(proxy2[0]+"https://netcine.biz/"+ClistaGO0[int(CatGO)]+"/page/"+ str(l)+"/?filmes").replace('\n','').replace('\r','')
 			m = re.compile("box_movies(.+)").findall(link)
 			lista = re.compile("img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(m[0])
 			if lista:
@@ -1748,7 +1748,7 @@ def ListMoviesNC(): #78
 	try:
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		link = common.OpenURL("http://"+proxy2[0]+":443/?url="+url).replace('\n','').replace('\r','')
+		link = common.OpenURL(proxy2[0]+url).replace('\n','').replace('\r','')
 		m = re.compile("\"play-.\".+?src=\"([^\"]+)").findall(link)
 		m2 = re.compile("\#play-...(\w*)").findall(link)
 		info2 = re.compile('<h2>Synopsis<\/h2>(.*?)<\/').findall(link)
@@ -1767,17 +1767,17 @@ def PlayMNC(): #79
 		listal=[]
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		link = common.OpenURL("http://"+proxy2[0]+":443/?url="+url)
+		link = common.OpenURL(proxy2[0]+url)
 		#red = re.compile('redirecionar\.php\?data=([^"]+)').findall(link)
 		#ST(red)
 		#if not red:
 		red2 = re.compile('http[^"]+').findall(link)
-		link2 = common.OpenURL("http://"+proxy2[0]+":443/?url="+red2[0])
+		link2 = common.OpenURL(proxy2[0]+red2[0])
 		red = re.compile('redirecionar\.php\?data=([^"]+)').findall(link2)
 		if not "desktop" in red[0]:
-			link2 = common.OpenURL("http://"+proxy2[0]+":443/?url="+red[0])
+			link2 = common.OpenURL(proxy2[0]+red[0])
 			red = re.compile('location.href=\'([^\']+p\=[^\']+)').findall(link2)
-		link3 = common.OpenURL("http://"+proxy2[0]+":443/?url="+red[0],headers={'Cookie': "autorizado=teste; "})
+		link3 = common.OpenURL(proxy2[0]+red[0],headers={'Cookie': "autorizado=teste; "})
 		link3 = re.sub('window.location.+', '', link3)
 		link3 = link3.replace("'",'"')
 		m4= re.compile("http.+?mp4[^\"]{0,150}").findall(link3) 
@@ -2356,7 +2356,7 @@ def Busca(): # 160
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
 		AddDir("[B][COLOR yellow]|||[/COLOR][COLOR white]|||[/COLOR][COLOR yellow]|||[/COLOR][COLOR yellow] [NetCine] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
-		link2 = requests.get("http://"+proxy2[0]+":443/?url=http://netcine.biz/?s="+d)#,headers=headers, proxies=proxies)
+		link2 = requests.get(proxy2[0]+"http://netcine.biz/?s="+d)#,headers=headers, proxies=proxies)
 		lista = re.compile("\s.{1,12}<img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(link2.text.encode('utf-8').replace('\n','').replace('\r',''))
 		for img2,name2,url2 in lista:
 			if name2!="Close" and name2!="NetCine":
@@ -2393,11 +2393,11 @@ def Busca(): # 160
 		pass
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		links = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmeshd.tv/series/")
+		links = common.OpenURL(proxy2[0]+"http://www.mmfilmeshd.tv/series/")
 		ms = re.compile('href\=\"(.+www.mmfilmeshd.tv.+)\" rel\=\"bookmark\"').findall(links)
 		for x in range(0, 3):
 			l+=1
-			link = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmeshd.tv/page/"+str(l)+"/?s="+d).replace('\n','').replace('\r','')
+			link = common.OpenURL(proxy2[0]+"http://www.mmfilmeshd.tv/page/"+str(l)+"/?s="+d).replace('\n','').replace('\r','')
 			m = re.compile('<li id=.+?" title="(.+?)".+?href="(.+?)".+?boxxer.+?boxxer">(.+?)<.+?src="(.+?)".+?audioy..(.+?)<').findall(link)
 			if m:
 				for name2, url2, dubleg, jpg, res in m:
@@ -2879,11 +2879,11 @@ def ListFilmeLancMM(): #184
 		pass
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		links = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmeshd.tv/series/")
+		links = common.OpenURL(proxy2[0]+"http://www.mmfilmeshd.tv/series/")
 		ms = re.compile('href\=\"(.+www.mmfilmeshd.tv.+)\" rel\=\"bookmark\"').findall(links)
 		for x in range(0, 5):
 			l+=1
-			link = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmeshd.tv/ultimos/page/"+str(l)+"/")
+			link = common.OpenURL(proxy2[0]+"http://www.mmfilmeshd.tv/ultimos/page/"+str(l)+"/")
 			m = re.compile('id\=\"post\-\d+\".+?\=.([^\"]+)\h*(?s)(.+?)(http[^\"]+)').findall(link)
 			res = re.compile('audioy..([^\<]*)').findall(link)
 			jpg = re.compile('src=\"(http.+?www.mmfilmeshd.tv\/wp-content\/uploads[^\"]+)').findall(link)
@@ -2922,11 +2922,11 @@ def ListFilmeMM(pagina2): #180
 		pass
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		links = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmeshd.tv/series/")
+		links = common.OpenURL(proxy2[0]+"http://www.mmfilmeshd.tv/series/")
 		ms = re.compile('href\=\"(.+www.mmfilmeshd.tv.+)\" rel\=\"bookmark\"').findall(links)
 		for x in range(0, 4):
 			l+=1
-			link = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmeshd.tv/"+ ClistaMM0[int(CatMM)] +"/page/"+str(l)+"/").replace('\n','').replace('\r','')
+			link = common.OpenURL(proxy2[0]+"http://www.mmfilmeshd.tv/"+ ClistaMM0[int(CatMM)] +"/page/"+str(l)+"/").replace('\n','').replace('\r','')
 			m = re.compile('<li id=.+?" title="(.+?)".+?href="(.+?)".+?boxxer.+?boxxer">(.+?)<.+?src="(.+?)".+?audioy..(.+?)<').findall(link)
 			if m:
 				for name2, url2, dubleg, jpg, res in m:
@@ -2954,12 +2954,12 @@ def OpenLinkMM(): #181
 		pass
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		link = common.OpenURL("http://"+proxy2[0]+":443/?url="+url)
+		link = common.OpenURL(proxy2[0]+url)
 		m = re.compile('boxp\(.([^\']+)').findall(link) #princi
 		info2 = re.compile('mCSB_container..\s(\h*(?s)(.+?))\<\/div').findall(link)
 		info2= info2[0][0].replace("\t","") if info2 else ""
 		if m:
-			link2 = common.OpenURL("http://"+proxy2[0]+":443/?url="+m[0],headers={'referer': "http://www.mmfilmeshd.tv/"})
+			link2 = common.OpenURL(proxy2[0]+m[0],headers={'referer': "http://www.mmfilmeshd.tv/"})
 			m2 = re.compile('opb\(.([^\']+).+?.{3}.+?[^\\>]+.([^\<]+)').findall(link2)
 			if m2:
 				name2 = re.sub(' \[.+', '', name )
@@ -3004,7 +3004,7 @@ def PlayLinkMM(): #182
 		pass
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		link = requests.get("http://"+proxy2[0]+":443/?url="+url, headers={'referer': "http://www.mmfilmeshd.tv/"})
+		link = requests.get(proxy2[0]+url, headers={'referer': "http://www.mmfilmeshd.tv/"})
 		m = re.compile("addiframe.'https:\/\/player.openload.network\/qweowqie.php.([^\']+)").findall(link.text.encode('utf-8'))
 		#result = {'mm': '1', 'url': m2, 'auth': 'benefits-and-risks-of-credit-cards'}
 		#r = requests.post('https://noticiasemfoco.online/benefits-and-risks-of-credit-cards/', cookies=result)
@@ -3057,7 +3057,7 @@ def ListSerieMM(): #190
 		pass
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		link = common.OpenURL("http://"+proxy2[0]+":443/?url=http://www.mmfilmeshd.tv/series/")
+		link = common.OpenURL(proxy2[0]+"http://www.mmfilmeshd.tv/series/")
 		m = re.compile('id\=\"post\-\d+\".+?\=.([^\"]+)\h*(?s)(.+?)(http[^\"]+)').findall(link)
 		jpg = re.compile('src=\"(http.+?www.mmfilmeshd.tv\/wp-content\/uploads[^\"]+)').findall(link)
 		i=0
@@ -3103,14 +3103,14 @@ def ListSMM(x): #191
 		pass
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		link = common.OpenURL("http://"+proxy2[0]+":443/?url="+url)
+		link = common.OpenURL(proxy2[0]+url)
 		m = re.compile('boxp\(.([^\']+)').findall(link)
 		info2= re.compile('mCSB_container..\s(\h*(?s)(.+?))\<\/div').findall(link)
 		info2= info2[0][0].replace("\t","") if info2 else ""
 		i=0
 		if m:
 			if x=="None":
-				link2 = common.OpenURL("http://"+proxy2[0]+":443/?url="+m[0],headers={'referer': "http://www.mmfilmeshd.tv/"})
+				link2 = common.OpenURL(proxy2[0]+m[0],headers={'referer': "http://www.mmfilmeshd.tv/"})
 				m2 = re.compile('opb\(.([^\']+).+?.{3}.+?[^\\>]+.([^\<]+)').findall(link2)
 				listar=[]
 				listal=[]
@@ -3124,7 +3124,7 @@ def ListSMM(x): #191
 				if d== -1:
 					d= 0
 				if m2:
-					link3 = common.OpenURL("http://"+proxy2[0]+":443/?url="+m2[0][0],headers={'referer': "http://www.mmfilmeshd.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
+					link3 = common.OpenURL(proxy2[0]+m2[0][0],headers={'referer': "http://www.mmfilmeshd.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
 					link3 = re.sub('(\(s \=\= \d+\))', r'<end>\1', link3 )
 					m3 = re.compile('s \=\= (\d+)(.+?\<end\>)').findall(link3)
 					for temp in m3:
@@ -3242,7 +3242,7 @@ def PlaySMM(): #194
 				url2 = re.sub(' ', '%20', listal[d] )
 				PlayUrl(name, url2, iconimage, info, sub=legenda)
 		else:
-			link2 = common.OpenURL( re.sub('(\/.{1,25}\/).{1,10}\/', r'\1', "http://"+proxy2[0]+":443/?url="+url) ,headers={'referer': "http://player.openload.network"}).replace('"',"'")
+			link2 = common.OpenURL( re.sub('(\/.{1,25}\/).{1,10}\/', r'\1', proxy2[0]+url) ,headers={'referer': "http://player.openload.network"}).replace('"',"'")
 			m2 = re.compile('(h[^\']+).+?label...(\w+)').findall(link2)
 			legenda = re.compile('([^\']+\.(vtt|srt|sub|ssa|txt|ass))').findall(link2)
 			listar=[]
