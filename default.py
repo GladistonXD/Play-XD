@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.40.00"
+Versao = "21.41.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2551,7 +2551,7 @@ def Busca(): # 160
 		p= 1
 		AddDir("[COLOR blue][B]RedeCanais[/B][/COLOR]", "" , 0 ,"", isFolder=False)
 		l= 0
-		for x in range(0, 10):
+		for x in range(0, 20):
 			l +=1
 			#progress.update(l*10/2, str(l*10/2)+"%", "Redecanais", "")
 			#AddDir("[COLOR blue]" +str(l)+ "[/COLOR]" ,"", 135, "", "")
