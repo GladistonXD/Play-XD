@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.41.00"
+Versao = "21.42.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -289,10 +289,10 @@ def AssistirMenu3(): # 460
 							html = requests.get(url4x, headers=headers)
 							ini = re.compile('"\/\/(.+?-)').findall(html.text)
 							delivery =  re.compile("(delivery\w+)").findall(html.text)
-							id = re.compile("MDCore.(.+?)[|]").findall(html.text)
-							seg = re.compile("(v[|].+?).[0-9]+?._t").findall(html.text)
-							e = re.compile("(.{1,10})._t").findall(html.text)
-							t = re.compile("mp4.(.+?)\W").findall(html.text)
+							id = re.compile("delivery\w+.\w+.(\w+)").findall(html.text)
+							seg = re.compile("[|]v.+?[|](.+?)[|]_").findall(html.text)
+							e = re.compile("[|]v[|](.+?)[|]").findall(html.text)
+							t = re.compile("_t.(.+?)[|]").findall(html.text)
 							contents = "https://" + ini[0] + delivery[0] + ".mxdcontent.net/v/" + id[0] + ".mp4?s=" + seg[0].replace("v|","").replace("v||","").replace("|","-") + "&e=" + e[0] + "&_t=" + t[0]
 							PlayUrl(name, contents.replace("|","-").replace("=-","=")+"|Referer=https://mixdrop.to/", iconimage, info)
 						except:
@@ -301,15 +301,21 @@ def AssistirMenu3(): # 460
 							htmlx = requests.get(url4x, headers=headers)
 							w = re.compile("'.MDCore.(.)").findall(htmlx.text)
 							w = w[0].replace("d","a")
-							w1 = re.compile("(delivery\w+)").findall(htmlx.text)
-							w2 = re.compile("delivery\w+.(\w+)").findall(htmlx.text)
-							w3 = re.compile("referrer.(.+?)[|]").findall(htmlx.text)
-							w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(htmlx.text)
-							w5 = re.compile("_t.+?\W(.+?)\W").findall(htmlx.text)
+							#w1 = re.compile("(delivery\w+)").findall(htmlx.text)
+							#w2 = re.compile("delivery\w+.(\w+)").findall(htmlx.text)
+							#w3 = re.compile("referrer.(.+?)[|]").findall(htmlx.text)
+							#w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(htmlx.text)
+							#w5 = re.compile("_t.+?\W(.+?)\W").findall(htmlx.text)
+							w1 = re.compile("(delivery\w+)").findall(html.text)
+							w2 = re.compile("delivery\w+.\w+.(\w+)").findall(html.text)
+							w3 = re.compile("_t.(.+?)[|][0-9]").findall(html.text)
+							w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
+							w5 = re.compile("wurl.+?\W[0-9]+\W(.+?)\W").findall(html.text)
 							contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
 							contents1 = contents.replace("|vfile", "").replace("|", "-")
 							contents2 = re.sub('\W\d+-', '', contents1)
 							PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
+                            
                         
 					if 'dood' in url4x:
 						headers={'Referer': 'https://dood.to/', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0'}
@@ -327,7 +333,7 @@ def AssistirMenu3(): # 460
 					if 'streamtape' in url4x:
 						arquivo = requests.get(url4x)
 						id = re.compile("getElement.+?=..(\/\/.+?)..<").findall(arquivo.text)
-						PlayUrl(name,'http:'+id[0]+"|Referer=https://streamtape.com/", iconimage, info)
+						PlayUrl(name,'https:'+id[0].replace('"',"").replace(" + '","")+"&stream=1|Referer=https://streamtape.com/", iconimage, info)
 
 					if 'mystream' in url4x:
 						media1 = requests.get(url4x.replace("embed.mystream.to","mstream.website"))
@@ -468,10 +474,10 @@ def AssistirSeriesPlay (): # 464
 							html = requests.get(url4x, headers=headers)
 							ini = re.compile('"\/\/(.+?-)').findall(html.text)
 							delivery =  re.compile("(delivery\w+)").findall(html.text)
-							id = re.compile("MDCore.(.+?)[|]").findall(html.text)
-							seg = re.compile("(v[|].+?).[0-9]+?._t").findall(html.text)
-							e = re.compile("(.{1,10})._t").findall(html.text)
-							t = re.compile("mp4.(.+?)\W").findall(html.text)
+							id = re.compile("delivery\w+.\w+.(\w+)").findall(html.text)
+							seg = re.compile("[|]v.+?[|](.+?)[|]_").findall(html.text)
+							e = re.compile("[|]v[|](.+?)[|]").findall(html.text)
+							t = re.compile("_t.(.+?)[|]").findall(html.text)
 							contents = "https://" + ini[0] + delivery[0] + ".mxdcontent.net/v/" + id[0] + ".mp4?s=" + seg[0].replace("v|","").replace("v||","").replace("|","-") + "&e=" + e[0] + "&_t=" + t[0]
 							PlayUrl(name, contents.replace("|","-").replace("=-","=")+"|Referer=https://mixdrop.to/", iconimage, info)
 						except:
@@ -480,11 +486,11 @@ def AssistirSeriesPlay (): # 464
 							htmlx = requests.get(url4x, headers=headers)
 							w = re.compile("'.MDCore.(.)").findall(htmlx.text)
 							w = w[0].replace("d","a")
-							w1 = re.compile("(delivery\w+)").findall(htmlx.text)
-							w2 = re.compile("delivery\w+.(\w+)").findall(htmlx.text)
-							w3 = re.compile("referrer.(.+?)[|]").findall(htmlx.text)
-							w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(htmlx.text)
-							w5 = re.compile("_t.+?\W(.+?)\W").findall(htmlx.text)
+							w1 = re.compile("(delivery\w+)").findall(html.text)
+							w2 = re.compile("delivery\w+.\w+.(\w+)").findall(html.text)
+							w3 = re.compile("_t.(.+?)[|][0-9]").findall(html.text)
+							w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
+							w5 = re.compile("wurl.+?\W[0-9]+\W(.+?)\W").findall(html.text)
 							contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
 							contents1 = contents.replace("|vfile", "").replace("|", "-")
 							contents2 = re.sub('\W\d+-', '', contents1)
@@ -505,7 +511,7 @@ def AssistirSeriesPlay (): # 464
 					if 'streamtape' in url4x:
 						arquivo = requests.get(url4x)
 						id = re.compile("getElement.+?=..(\/\/.+?)..<").findall(arquivo.text)
-						PlayUrl(name,'http:'+id[0]+"|Referer=https://streamtape.com/", iconimage, info)
+						PlayUrl(name,'https:'+id[0].replace('"',"").replace(" + '","")+"&stream=1|Referer=https://streamtape.com/", iconimage, info)
 
 					if 'mystream' in url4x:
 						media1 = requests.get(url4x.replace("embed.mystream.to","mstream.website"))
