@@ -9,7 +9,7 @@ import codecs
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.42.00"
+Versao = "21.43.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -746,6 +746,9 @@ def SeriePlayBZ2(): # 453 #### opção 1
 					legenda = re.compile("(.{1,7}\/wa.+?srt)").findall(url4.text)
 					link2 = re.compile('href="(http.+?)"').findall(url4.text)
 					link2= link2[0].replace("?","#")
+					arquivo = open(cachefolder + "5555555.txt", "w+")
+					arquivo.write(link2)
+					arquivo.close()
 					if 'mixdrop' in link2:
 						headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
 						html2 = requests.get(link2, headers=headers)
@@ -793,7 +796,7 @@ def SeriePlayBZ2(): # 453 #### opção 1
 							PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
                         
 					if 'feurl.com' in link2:
-						link2 = link2.replace("v","api/source")
+						link2 = link2.replace("v","api/source").replace("feurl.com","femax20.com")
 						result = {'r': '&', 'd': 'feurl.com'}
 						f = requests.post(link2, data=result)
 						m2 = re.compile('token=(.\w+).+?:"(\w+)').findall(f.text)
@@ -997,10 +1000,10 @@ def PlayVizer(): # 602 ###### opção 1
 						w = re.compile("'.MDCore.(.)").findall(html.text)
 						w = w[0].replace("d","a")
 						w1 = re.compile("(delivery\w+)").findall(html.text)
-						w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
-						w3 = re.compile("referrer.(.+?)[|]").findall(html.text)
+						w2 = re.compile("delivery\w+.\w+.(\w+)").findall(html.text)
+						w3 = re.compile("_t.(.+?)[|][0-9]").findall(html.text)
 						w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
-						w5 = re.compile("_t.+?\W(.+?)\W").findall(html.text)
+						w5 = re.compile("wurl.+?\W[0-9]+\W(.+?)\W").findall(html.text)
 						contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
 						contents1 = contents.replace("|vfile", "").replace("|", "-")
 						contents2 = re.sub('\W\d+-', '', contents1)
@@ -1034,7 +1037,7 @@ def PlayVizer(): # 602 ###### opção 1
 						PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
                         
 				if 'feurl.com' in link2:
-					link2 = link2.replace("v","api/source")
+					link2 = link2.replace("v","api/source").replace("feurl.com","femax20.com")
 					result = {'r': '&', 'd': 'feurl.com'}
 					f = requests.post(link2, data=result)
 					m2 = re.compile('token=(.\w+).+?:"(\w+)').findall(f.text)
