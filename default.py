@@ -7,9 +7,9 @@ from random import randrange
 import requests
 import codecs
 from six.moves.html_parser import HTMLParser
-#import urlresolver
+import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.43.00"
+Versao = "21.44.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -284,37 +284,39 @@ def AssistirMenu3(): # 460
 							PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info)
 
 					if 'mixdrop' in url4x:
-						try:
-							headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-							html = requests.get(url4x, headers=headers)
-							ini = re.compile('"\/\/(.+?-)').findall(html.text)
-							delivery =  re.compile("(delivery\w+)").findall(html.text)
-							id = re.compile("delivery\w+.\w+.(\w+)").findall(html.text)
-							seg = re.compile("[|]v.+?[|](.+?)[|]_").findall(html.text)
-							e = re.compile("[|]v[|](.+?)[|]").findall(html.text)
-							t = re.compile("_t.(.+?)[|]").findall(html.text)
-							contents = "https://" + ini[0] + delivery[0] + ".mxdcontent.net/v/" + id[0] + ".mp4?s=" + seg[0].replace("v|","").replace("v||","").replace("|","-") + "&e=" + e[0] + "&_t=" + t[0]
-							PlayUrl(name, contents.replace("|","-").replace("=-","=")+"|Referer=https://mixdrop.to/", iconimage, info)
-						except:
-							pass
-							headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-							htmlx = requests.get(url4x, headers=headers)
-							w = re.compile("'.MDCore.(.)").findall(htmlx.text)
-							w = w[0].replace("d","a")
-							#w1 = re.compile("(delivery\w+)").findall(htmlx.text)
-							#w2 = re.compile("delivery\w+.(\w+)").findall(htmlx.text)
-							#w3 = re.compile("referrer.(.+?)[|]").findall(htmlx.text)
-							#w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(htmlx.text)
-							#w5 = re.compile("_t.+?\W(.+?)\W").findall(htmlx.text)
-							w1 = re.compile("(delivery\w+)").findall(html.text)
-							w2 = re.compile("delivery\w+.\w+.(\w+)").findall(html.text)
-							w3 = re.compile("_t.(.+?)[|][0-9]").findall(html.text)
-							w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
-							w5 = re.compile("wurl.+?\W[0-9]+\W(.+?)\W").findall(html.text)
-							contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
-							contents1 = contents.replace("|vfile", "").replace("|", "-")
-							contents2 = re.sub('\W\d+-', '', contents1)
-							PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
+							url2Play = urlresolver.resolve(url4x)
+							PlayUrl(name, url2Play, iconimage, info)
+						#try:
+						#	headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+						#	html = requests.get(url4x, headers=headers)
+						#	ini = re.compile('"\/\/(.+?-)').findall(html.text)
+						#	delivery =  re.compile("(delivery\w+)").findall(html.text)
+						#	id = re.compile("delivery\w+.\w+.(\w+)").findall(html.text)
+						#	seg = re.compile("[|]v.+?[|](.+?)[|]_").findall(html.text)
+						#	e = re.compile("[|]v[|](.+?)[|]").findall(html.text)
+						#	t = re.compile("_t.(.+?)[|]").findall(html.text)
+						#	contents = "https://" + ini[0] + delivery[0] + ".mxdcontent.net/v/" + id[0] + ".mp4?s=" + seg[0].replace("v|","").replace("v||","").replace("|","-") + "&e=" + e[0] + "&_t=" + t[0]
+						#	PlayUrl(name, contents.replace("|","-").replace("=-","=")+"|Referer=https://mixdrop.to/", iconimage, info)
+						#except:
+						#	pass
+						#	headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+						#	htmlx = requests.get(url4x, headers=headers)
+						#	w = re.compile("'.MDCore.(.)").findall(htmlx.text)
+						#	w = w[0].replace("d","a")
+						#	#w1 = re.compile("(delivery\w+)").findall(htmlx.text)
+						#	#w2 = re.compile("delivery\w+.(\w+)").findall(htmlx.text)
+						#	#w3 = re.compile("referrer.(.+?)[|]").findall(htmlx.text)
+						#	#w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(htmlx.text)
+						#	#w5 = re.compile("_t.+?\W(.+?)\W").findall(htmlx.text)
+						#	w1 = re.compile("(delivery\w+)").findall(html.text)
+						#	w2 = re.compile("delivery\w+.\w+.(\w+)").findall(html.text)
+						#	w3 = re.compile("_t.(.+?)[|][0-9]").findall(html.text)
+						#	w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
+						#	w5 = re.compile("wurl.+?\W[0-9]+\W(.+?)\W").findall(html.text)
+						#	contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
+						#	contents1 = contents.replace("|vfile", "").replace("|", "-")
+						#	contents2 = re.sub('\W\d+-', '', contents1)
+						#	PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
                             
                         
 					if 'dood' in url4x:
@@ -469,32 +471,39 @@ def AssistirSeriesPlay (): # 464
 							PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info)
 
 					if 'mixdrop' in url4x:
-						try:
-							headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-							html = requests.get(url4x, headers=headers)
-							ini = re.compile('"\/\/(.+?-)').findall(html.text)
-							delivery =  re.compile("(delivery\w+)").findall(html.text)
-							id = re.compile("delivery\w+.\w+.(\w+)").findall(html.text)
-							seg = re.compile("[|]v.+?[|](.+?)[|]_").findall(html.text)
-							e = re.compile("[|]v[|](.+?)[|]").findall(html.text)
-							t = re.compile("_t.(.+?)[|]").findall(html.text)
-							contents = "https://" + ini[0] + delivery[0] + ".mxdcontent.net/v/" + id[0] + ".mp4?s=" + seg[0].replace("v|","").replace("v||","").replace("|","-") + "&e=" + e[0] + "&_t=" + t[0]
-							PlayUrl(name, contents.replace("|","-").replace("=-","=")+"|Referer=https://mixdrop.to/", iconimage, info)
-						except:
-							pass
-							headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-							htmlx = requests.get(url4x, headers=headers)
-							w = re.compile("'.MDCore.(.)").findall(htmlx.text)
-							w = w[0].replace("d","a")
-							w1 = re.compile("(delivery\w+)").findall(html.text)
-							w2 = re.compile("delivery\w+.\w+.(\w+)").findall(html.text)
-							w3 = re.compile("_t.(.+?)[|][0-9]").findall(html.text)
-							w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
-							w5 = re.compile("wurl.+?\W[0-9]+\W(.+?)\W").findall(html.text)
-							contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
-							contents1 = contents.replace("|vfile", "").replace("|", "-")
-							contents2 = re.sub('\W\d+-', '', contents1)
-							PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
+							url2Play = urlresolver.resolve(url4x)
+							PlayUrl(name, url2Play, iconimage, info)
+						#try:
+						#	headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+						#	html = requests.get(url4x, headers=headers)
+						#	ini = re.compile('"\/\/(.+?-)').findall(html.text)
+						#	delivery =  re.compile("(delivery\w+)").findall(html.text)
+						#	id = re.compile("delivery\w+.\w+.(\w+)").findall(html.text)
+						#	seg = re.compile("[|]v.+?[|](.+?)[|]_").findall(html.text)
+						#	e = re.compile("[|]v[|](.+?)[|]").findall(html.text)
+						#	t = re.compile("_t.(.+?)[|]").findall(html.text)
+						#	contents = "https://" + ini[0] + delivery[0] + ".mxdcontent.net/v/" + id[0] + ".mp4?s=" + seg[0].replace("v|","").replace("v||","").replace("|","-") + "&e=" + e[0] + "&_t=" + t[0]
+						#	PlayUrl(name, contents.replace("|","-").replace("=-","=")+"|Referer=https://mixdrop.to/", iconimage, info)
+						#except:
+						#	pass
+						#	headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+						#	htmlx = requests.get(url4x, headers=headers)
+						#	w = re.compile("'.MDCore.(.)").findall(htmlx.text)
+						#	w = w[0].replace("d","a")
+						#	#w1 = re.compile("(delivery\w+)").findall(htmlx.text)
+						#	#w2 = re.compile("delivery\w+.(\w+)").findall(htmlx.text)
+						#	#w3 = re.compile("referrer.(.+?)[|]").findall(htmlx.text)
+						#	#w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(htmlx.text)
+						#	#w5 = re.compile("_t.+?\W(.+?)\W").findall(htmlx.text)
+						#	w1 = re.compile("(delivery\w+)").findall(html.text)
+						#	w2 = re.compile("delivery\w+.\w+.(\w+)").findall(html.text)
+						#	w3 = re.compile("_t.(.+?)[|][0-9]").findall(html.text)
+						#	w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
+						#	w5 = re.compile("wurl.+?\W[0-9]+\W(.+?)\W").findall(html.text)
+						#	contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
+						#	contents1 = contents.replace("|vfile", "").replace("|", "-")
+						#	contents2 = re.sub('\W\d+-', '', contents1)
+						#	PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
                         
 					if 'dood' in url4x:
 						headers={'Referer': 'https://dood.to/', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0'}
@@ -746,54 +755,63 @@ def SeriePlayBZ2(): # 453 #### opção 1
 					legenda = re.compile("(.{1,7}\/wa.+?srt)").findall(url4.text)
 					link2 = re.compile('href="(http.+?)"').findall(url4.text)
 					link2= link2[0].replace("?","#")
-					arquivo = open(cachefolder + "5555555.txt", "w+")
-					arquivo.write(link2)
-					arquivo.close()
+					#arquivo = open(cachefolder + "5555555.txt", "w+")
+					#arquivo.write(link2)
+					#arquivo.close()
 					if 'mixdrop' in link2:
-						headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-						html2 = requests.get(link2, headers=headers)
-						g = re.compile('location.+?"(.+?)"').findall(html2.text)
-						try:
-							g2 = "https://mixdrop.to" + g[0]
-							html = requests.get(g2, headers=headers)
-							w = re.compile("'.MDCore.(.)").findall(html.text)
-							w = w[0].replace("d","a")
-							w1 = re.compile("(delivery\w+)").findall(html.text)
-							w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
-							w3 = re.compile("referrer.(.+?)[|]").findall(html.text)
-							w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
-							w5 = re.compile("_t.+?\W(.+?)\W").findall(html.text)
-							contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
-							contents1 = contents.replace("|vfile", "").replace("|", "-")
-							contents2 = re.sub('\W\d+-', '', contents1)
-							if legenda:
-								legenda = legenda[0]
-								if not "http" in legenda:
-									legenda = legenda
-								PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
-							else:
-								PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
-						except IndexError as g2:
-							pass
-						headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-						html = requests.get(link2, headers=headers)
-						w = re.compile("'.MDCore.(.)").findall(html.text)
-						w = w[0].replace("d","a")
-						w1 = re.compile("(delivery\w+)").findall(html.text)
-						w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
-						w3 = re.compile("referrer.(.+?)[|]").findall(html.text)
-						w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
-						w5 = re.compile("_t.+?\W(.+?)\W").findall(html.text)
-						contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
-						contents1 = contents.replace("|vfile", "").replace("|", "-")
-						contents2 = re.sub('\W\d+-', '', contents1)
+						url2Play = urlresolver.resolve(link2)
+						PlayUrl(name, url2Play, iconimage, info)
 						if legenda:
 							legenda = legenda[0]
 							if not "http" in legenda:
 								legenda = legenda
-							PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
+							PlayUrl(name, url2Play, iconimage, info, sub=legenda)
 						else:
-							PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
+							PlayUrl(name, url2Play, iconimage, info)
+						#headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+						#html2 = requests.get(link2, headers=headers)
+						#g = re.compile('location.+?"(.+?)"').findall(html2.text)
+						#try:
+						#	g2 = "https://mixdrop.to" + g[0]
+						#	html = requests.get(g2, headers=headers)
+						#	w = re.compile("'.MDCore.(.)").findall(html.text)
+						#	w = w[0].replace("d","a")
+						#	w1 = re.compile("(delivery\w+)").findall(html.text)
+						#	w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
+						#	w3 = re.compile("referrer.(.+?)[|]").findall(html.text)
+						#	w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
+						#	w5 = re.compile("_t.+?\W(.+?)\W").findall(html.text)
+						#	contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
+						#	contents1 = contents.replace("|vfile", "").replace("|", "-")
+						#	contents2 = re.sub('\W\d+-', '', contents1)
+						#	if legenda:
+						#		legenda = legenda[0]
+						#		if not "http" in legenda:
+						#			legenda = legenda
+						#		PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
+						#	else:
+						#		PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
+						#except IndexError as g2:
+					#		pass
+					#	headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+					#	html = requests.get(link2, headers=headers)
+					#	w = re.compile("'.MDCore.(.)").findall(html.text)
+					#	w = w[0].replace("d","a")
+					#	w1 = re.compile("(delivery\w+)").findall(html.text)
+					#	w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
+					#	w3 = re.compile("referrer.(.+?)[|]").findall(html.text)
+					#	w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
+					#	w5 = re.compile("_t.+?\W(.+?)\W").findall(html.text)
+					#	contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
+					#	contents1 = contents.replace("|vfile", "").replace("|", "-")
+					#	contents2 = re.sub('\W\d+-', '', contents1)
+					#	if legenda:
+					#		legenda = legenda[0]
+					#		if not "http" in legenda:
+					#			legenda = legenda
+					#		PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
+					#	else:
+					#		PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
                         
 					if 'feurl.com' in link2:
 						link2 = link2.replace("v","api/source").replace("feurl.com","femax20.com")
@@ -991,50 +1009,15 @@ def PlayVizer(): # 602 ###### opção 1
 					else:
 						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info)
 				if 'mixdrop' in link2:
-					headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-					html2 = requests.get(link2, headers=headers)
-					g = re.compile('location.+?"(.+?)"').findall(html2.text)
-					try:
-						g2 = "https://mixdrop.to" + g[0]
-						html = requests.get(g2, headers=headers)
-						w = re.compile("'.MDCore.(.)").findall(html.text)
-						w = w[0].replace("d","a")
-						w1 = re.compile("(delivery\w+)").findall(html.text)
-						w2 = re.compile("delivery\w+.\w+.(\w+)").findall(html.text)
-						w3 = re.compile("_t.(.+?)[|][0-9]").findall(html.text)
-						w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
-						w5 = re.compile("wurl.+?\W[0-9]+\W(.+?)\W").findall(html.text)
-						contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
-						contents1 = contents.replace("|vfile", "").replace("|", "-")
-						contents2 = re.sub('\W\d+-', '', contents1)
+						url2Play = urlresolver.resolve(link2)
+						PlayUrl(name, url2Play, iconimage, info)
 						if legenda:
 							legenda = legenda[0]
 							if not "http" in legenda:
 								legenda = legenda
-							PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
+							PlayUrl(name, url2Play, iconimage, info, sub=legenda)
 						else:
-							PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
-					except IndexError as g2:
-						pass
-					headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-					html = requests.get(link2, headers=headers)
-					w = re.compile("'.MDCore.(.)").findall(html.text)
-					w = w[0].replace("d","a")
-					w1 = re.compile("(delivery\w+)").findall(html.text)
-					w2 = re.compile("delivery\w+.(\w+)").findall(html.text)
-					w3 = re.compile("referrer.(.+?)[|]").findall(html.text)
-					w4 = re.compile("wurl.+?\W([0-9]+)\W").findall(html.text)
-					w5 = re.compile("_t.+?\W(.+?)\W").findall(html.text)
-					contents = "https://" + w + "-" + w1[0] + ".mxdcontent.net/v/" + w2[0] + ".mp4?s=" + w3[0] + "&e=" + w4[0] + "&_t=" + w5[0]
-					contents1 = contents.replace("|vfile", "").replace("|", "-")
-					contents2 = re.sub('\W\d+-', '', contents1)
-					if legenda:
-						legenda = legenda[0]
-						if not "http" in legenda:
-							legenda = legenda
-						PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
-					else:
-						PlayUrl(name, contents2.replace("poster-","").replace("s=-","s=").replace('-'+w4[0],"")+"|Referer=https://mixdrop.to/", iconimage, info)
+							PlayUrl(name, url2Play, iconimage, info)
                         
 				if 'feurl.com' in link2:
 					link2 = link2.replace("v","api/source").replace("feurl.com","femax20.com")
