@@ -4,13 +4,12 @@ import ftplib
 from random import randrange
 import requests
 import codecs
-#import tempfile
 import importlib
 from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.46.00"
+Versao = "21.47.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -722,7 +721,7 @@ def SeriePlayBZ2(): # 453 #### opção 1
 							legenda = legenda[0]
 							if not "http" in legenda:
 								legenda = legenda
-							PlayUrl(name, end+"|Referer=https://mixdrop.to/", iconimage, infoo, sub=legenda)
+							PlayUrl(name, end+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
 						else:
 							PlayUrl(name, end+"|Referer=https://mixdrop.to/", iconimage, info)
                         
@@ -933,7 +932,7 @@ def PlayVizer(): # 602 ###### opção 1
 							legenda = legenda[0]
 							if not "http" in legenda:
 								legenda = legenda
-							PlayUrl(name, end+"|Referer=https://mixdrop.to/", iconimage, infoo, sub=legenda)
+							PlayUrl(name, end+"|Referer=https://mixdrop.to/", iconimage, info, sub=legenda)
 						else:
 							PlayUrl(name, end+"|Referer=https://mixdrop.to/", iconimage, info)
                         
