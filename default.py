@@ -9,7 +9,7 @@ from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.47.00"
+Versao = "21.48.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3205,7 +3205,7 @@ def TVCB4(): #108
 		else:
 			if jq1['language']== "Brasil" or jq1['language'] == "Brazilian" or jq1['name'] == "MTV Live HD":
 				try:
-					jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]").replace("A E", "A&E")
+					jq1['name'] = jq1['name'].replace("HD","[COLOR lime]HD[/COLOR]").replace("F[COLOR lime]HD[/COLOR]","[COLOR lime]HD+[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]").replace("A E", "A&E")
 					AddDir( "[B]" + jq1['name'] + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="")
 				except:
 					pass
