@@ -4,13 +4,13 @@ import ftplib
 from random import randrange
 import requests
 import codecs
-import tempfile
+#import tempfile
 import importlib
 from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.45.00"
+Versao = "21.46.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3930,12 +3930,12 @@ def eval_unpack(p, a, c, k, e, d):
 
 
 def get_unpack_args_from_eval_str(data):
-    tf = tempfile.TemporaryFile(prefix="unpack", suffix=".py", delete=False)
-    tf.file.write(("v = %s" % data).encode())
-    tf.close()
-
-    imp_name = splitext(basename(tf.name))[0]
-    sys.path.append(tempfile.gettempdir())
+    arquivo = open(cachefolder + "mixdrop.py", "w+")
+    arquivo.write("v = " + data)
+    arquivo.close()
+    arquivoname = "mixdrop"
+    imp_name = splitext(basename(arquivoname))[0]
+    sys.path.append(cachefolder)
     m = importlib.import_module(imp_name)
     return m.v
 
