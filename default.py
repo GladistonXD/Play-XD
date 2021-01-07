@@ -9,7 +9,7 @@ from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.49.00"
+Versao = "21.50.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2310,26 +2310,8 @@ def Busca(): # 160
 						AddDir("[COLOR cyan]" +name2+ "[/COLOR]", url2, 191, jpg, jpg, isFolder=True,IsPlayable=False)
 					i+=1
 			i=0
-	except urllib2.URLError as links:
+	except:
 		pass
-		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
-		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		links = common.OpenURL(proxy2[0]+"http://www.mmfilmeshd.tv/series/")
-		ms = re.compile('href\=\"(.+www.mmfilmeshd.tv.+)\" rel\=\"bookmark\"').findall(links)
-		for x in range(0, 3):
-			l+=1
-			link = common.OpenURL(proxy2[0]+"http://www.mmfilmeshd.tv/page/"+str(l)+"/?s="+d).replace('\n','').replace('\r','')
-			m = re.compile('<li id=.+?" title="(.+?)".+?href="(.+?)".+?boxxer.+?boxxer">(.+?)<.+?src="(.+?)".+?audioy..(.+?)<').findall(link)
-			if m:
-				for name2, url2, dubleg, jpg, res in m:
-					name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'")
-					dubleg = dubleg.replace("</div>","")
-					if not url2 in ms:
-						AddDir("[COLOR cyan]" +name2+ "[/COLOR] [COLOR yellow]"+res+"[/COLOR] [COLOR green]"+dubleg+"[/COLOR]", url2, 181, jpg, jpg,isFolder=True,IsPlayable=False)
-					else:
-						AddDir("[COLOR cyan]" +name2+ "[/COLOR]", url2, 191, jpg, jpg, isFolder=True,IsPlayable=False)
-					i+=1
-			i=0
 	progress.update(48, "48%", "TopFlix", "")
 	try:
 		p= 1
