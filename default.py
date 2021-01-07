@@ -9,7 +9,7 @@ from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.51.00"
+Versao = "21.52.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -592,7 +592,7 @@ def SerieMenuBZ(): # 450
 				for url2, img2, name2 in match:
 					img3 = "https://image.tmdb.org/t/p/original/" + img2
 					url3 = "https://vizer.tv/serie/online/" + url2
-					AddDir(name2, url3, 451, img3, img3, isFolder=True, IsPlayable=True, info="")
+					AddDir(name2, url3, 451, img3, img3, isFolder=True, IsPlayable=True, info="[COLOR][/COLOR]")
 		except:
 			pass
 	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserVZ")
@@ -602,7 +602,7 @@ def SerieMenuBZ2(): # 451
 		match = re.compile('id="(.+?)">(.+?)<\/div>').findall(link)
         	if match:
 				for url2, name2 in match:
-					AddDir("Temporada "+ name2, url2, 452, iconimage, iconimage, isFolder=True, IsPlayable=False, info="")
+					AddDir("Temporada "+ name2, url2, 452, iconimage, iconimage, isFolder=True, IsPlayable=False, info="[COLOR][/COLOR]")
 	except:
 		pass
 def SeriePlayBZ(): # 452
@@ -614,7 +614,7 @@ def SeriePlayBZ(): # 452
         	if match:
 				for url2, name2, img2, numero in match:
 					img3 = "https://image.tmdb.org/t/p/w500/" + img2
-					AddDir(numero+" - " + name2.replace('",',""), url2, 453, img3, img3, isFolder=False, IsPlayable=True, info="")
+					AddDir(numero+" - " + name2.replace('",',""), url2, 453, img3, img3, isFolder=False, IsPlayable=True, info="[COLOR][/COLOR]")
 	except:
 		pass
 def SeriePlayBZ22(): # 453
@@ -832,7 +832,7 @@ def MenuVizer(): # 600
 				for name2, url2, img2, ano in match:
 					img3 = "https://image.tmdb.org/t/p/original/" + img2
 					url3 = "https://vizer.tv/filme/online/" + url2
-					AddDir(name2 + " - ("+ano+")", url3, 601, img3, img3, isFolder=True, IsPlayable=True, info="")
+					AddDir(name2 + " - ("+ano+")", url3, 601, img3, img3, isFolder=True, IsPlayable=True, info="[COLOR][/COLOR]")
 					p += 1
 		if p >= 27:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageVZ) + 2) +"][/B][/COLOR]", cPageVZ , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageVZ")
@@ -864,6 +864,28 @@ def MenuVizer2(): # 601
 					AddDir(name2, url2, 602, iconimage, iconimage, isFolder=False, IsPlayable=True, info= sinopse)
 	except:
 		pass
+		link = common.OpenURL(url)
+		#sinopse = re.compile('class="desc.+?>\s(.+?)<\/span>').findall(link)
+		#sinopse = sinopse[0]
+		hexd = re.compile('watchMovie.(\w+)." id').findall(link)
+		hexd= hexd[0]
+		url3 = ('https://vizer.tv/includes/ajax/publicFunctions.php')
+		result = {'watchMovie': hexd}
+		f = requests.post(url3, data=result)
+		f1 = json.loads(f.text)
+		f2 = json.dumps(f1, ensure_ascii=False)
+		arquivo2 = urllib.quote(f2.encode('utf8'))
+		String2 = urllib.unquote(arquivo2)
+		arquivo = open(cachefolder + "vizer.txt", "w+")
+		arquivo.write(String2)
+		arquivo.close()
+		match = re.compile('lang".."(.+?)".+?id".."(.+?)"').findall(String2)
+		#match = re.compile('lang".."(.+?)".+?:.+?"(.+?)"').findall(String2)
+        	if match:
+				for name2, url2 in match:
+					name2 = name2.replace("Original"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Dublado"," [COLOR springgreen][B]Dublado[/B][/COLOR]")
+					#name2 = name2.replace("Original"," [COLOR red][B]Legendado[/B][/COLOR]").replace("Português"," [COLOR springgreen][B]Dublado[/B][/COLOR]")
+					AddDir(name2, url2, 602, iconimage, iconimage, isFolder=False, IsPlayable=True, info= "[COLOR][/COLOR]")
 def PlayVizer1(): # 602
 	try:	
 				urlx = "https://vizer.tv/embed/getEmbed.php?orvio=" + url
