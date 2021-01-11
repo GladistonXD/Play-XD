@@ -9,7 +9,7 @@ from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.54.00"
+Versao = "21.55.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1430,7 +1430,7 @@ def AssistirbizMENU(): # 514
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaBIZ11[int(CatBB)] +"[/COLOR]", "url" ,232 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	try:
 			link = common.OpenURL("https://assistir.biz/home").replace('\n','').replace('\r','')
-			hex2 = re.compile('<div class="tab-content" id="myTabContent">(.+?)<div class="tab-pane fade"').findall(link)
+			hex2 = re.compile('id="owl_lancamentos">(.+?). ASSISTIDOS').findall(link)
 			hex2 = hex2[0]
 			match = re.compile('data-src="([^\"]+)".+?rate">([^\"]+)<\/span.+?a href="([^\"]+)">([^\"]+)<\/a.+?,.([^\"]+)<\/a').findall(hex2)
 			if ClistaBIZ10[int(CatBB)] != "0":
@@ -2360,88 +2360,60 @@ def PlayMRC2(): #96 Play filmes direto
 	if not "redecanais" in url2:
 		url2 = "https://"+RC+ url2
 	try:
-		link = requests.get(url2,headers={'referer': "https://bemestarglobal.fun/", 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0'})
-		desc = re.compile('itemprop=\"?description\"?>\s.{0,10}?<p>(.+)<\/p>').findall(link.text)
-		player = re.compile('<iframe name.+?src=.(.+?)"').findall(link.text)
-		complement = re.compile('<iframe name.+?src=.(.+?)\/').findall(link.text)
-		player2 = player[0]
-		complement = complement[0]
+		link = common.OpenURL(proxy+url2.replace("http\:","https\:"))
+		desc = re.compile('itemprop=\"?description\"?>\s.{0,10}?<p>(.+)<\/p>').findall(link)
 		if desc:
-			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
-		if player2:
-			player2 = re.sub('.php', "hlb.php", player2)
-			player3 = "https://bemestarglobal.fun" + player2
-			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/", 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0'})
-			player = re.compile('href.{1,5}(mega[^"|\']*)').findall(mp4)
-			mp4 = common.OpenURL("https://bemestarglobal.fun/player3/"+player[0] ,headers={'referer': "https://bemestarglobal.fun/"})
-			#ST(mp4)
-			#exp = re.compile('expires\=([^\'|\"]+)').findall(auth)
-			#player = re.sub('\.php', "hlb.php", player)
-			#file=re.compile('[^"|\']+\.mp4.{1,15}.m3u8').findall(mp4)
-			source = re.compile('source.+').findall(mp4)
-			file=re.compile('[^"|\']+\.mp4[^"|\'|\n]*').findall(source[0])
 			try:
-				file[0] = re.sub('\n', '', file[0])
-				#file[0] = re.sub('https', 'https', file[0])
-				#PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc) #aqui
-				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + "|Referer=https://topauto.fun&verifypeer=false&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100110 Firefox/11.0", iconimage, desc)
-			except IndexError as file:
-				pass
-			player2 = re.sub('.php', ".php", player2)
-			player3 = "https://bemestarglobal.fun" + player2
-			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/", 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0'})
-			source = re.compile('source.+').findall(mp4)
-			file=re.compile('[^"|\']+\.mp4[^"|\'|\n]*').findall(source[0])
+				desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
+			except:
+				desc = desc[0]
+		else:
+			desc = ""
+		player = re.compile('<iframe.{1,50}src=\"(\/?p[^\"]+)\"').findall(link)
+		if player:
+			player = re.sub('^/', "https://"+RC, player[0])
+			player = re.sub('\.php', "hlb.php", player)
+			player = re.sub('redecanais\.[^\/]+', "gamesgo.fun", player)
+			mp4 = common.OpenURL(player ,headers={'referer': 'https://gamesgo.fun/'})
+			try:
+				player = re.compile('href.{1,5}(mega[^"|\']*)').findall(mp4)
+				mp42 = common.OpenURL("https://gamesgo.fun/player3/"+player[0] ,headers={'referer': 'https://gamesgo.fun/'})
+				source = re.compile('source.+').findall(mp42)
+				file=re.compile('[^"|\']+\.mp4[^"|\'|\n]*').findall(source[0])
+				file=re.compile('src..(http.{1,200}\.mp4[^"|\']*)').findall(mp4)
+			except:
+				file=re.compile('src..(http.{1,200}\.mp4[^"|\']*)').findall(mp4)
 			file[0] = re.sub('\n', '', file[0])
-			#file[0] = re.sub('https', 'https', file[0])
-			#PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/" , iconimage, desc) #aqui
-			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + "|Referer=https://topauto.fun&verifypeer=false&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100110 Firefox/11.0", iconimage, desc)
+			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] +"|Referer=https://gamesgo.fun&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100110 Firefox/11.0", iconimage, desc) #aqui
+		else:
+			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
 	except:
-		#xbmcgui.Dialog().ok('Play XD', 'Erro, tente novamente em alguns minutos')
+		xbmcgui.Dialog().ok('PlayXD', 'Erro, tente novamente em alguns minutos')
 		sys.exit()
 # ----------------- FIM REDECANAIS
 # --------------  REDECANAIS SERIES,ANIMES,DESENHOS
 def PlaySRC(): #133 Play series
-	url2 = re.sub('redecanais\.[^\/]+', RC, url.replace("http\:","https\:") )
-	if not "redecanais" in url2:
-		url2 = "https://"+RC+ url2
 	try:
-		link = requests.get(url2,headers={'referer': "https://bemestarglobal.fun/", 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0'})
-		desc = re.compile('itemprop=\"?description\"?>\s.{0,10}?<p>(.+)<\/p>').findall(link.text)
-		player = re.compile('<iframe name.+?src=.(.+?)"').findall(link.text)
-		complement = re.compile('<iframe name.+?src=.(.+?)\/').findall(link.text)
-		player2 = player[0]
-		complement = complement[0]
-		if desc:
-			desc = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), desc[0]).encode('utf-8')
-		if player2:
-			player2 = re.sub('.php', "hlb.php", player2)
-			player3 = "https://bemestarglobal.fun" + player2
-			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/", 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0'})
-			player = re.compile('href.{1,5}(mega[^"|\']*)').findall(mp4)
-			mp4 = common.OpenURL("https://bemestarglobal.fun/player3/"+player[0] ,headers={'referer': "https://bemestarglobal.fun/"})
-			#ST(mp4)
-			#exp = re.compile('expires\=([^\'|\"]+)').findall(auth)
-			#player = re.sub('\.php', "hlb.php", player)
-			#file=re.compile('[^"|\']+\.mp4.{1,15}.m3u8').findall(mp4)
-			source = re.compile('source.+').findall(mp4)
-			file=re.compile('[^"|\']+\.mp4[^"|\'|\n]*').findall(source[0])
+		url2 = re.sub('redecanais\.[^\/]+', RC, url.replace("http\:","https\:") )
+		link = common.OpenURL(proxy+url2)
+		player = re.compile('<iframe.{1,50}src=\"(\/?p[^\"]+)\"').findall(link)
+		if player:
+			player = re.sub('^/', "https://"+RC, player[0])
+			player = re.sub('\.php', "hlb.php", player)
+			player = re.sub('redecanais\.[^\/]+', "gamesgo.fun", player)
+			mp4 = common.OpenURL(player ,headers={'referer': 'https://gamesgo.fun/'})
 			try:
-				file[0] = re.sub('\n', '', file[0])
-				#file[0] = re.sub('https', 'https', file[0])
-				#PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/", iconimage, desc) #aqui
-				PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + "|Referer=https://topauto.fun&verifypeer=false&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100110 Firefox/11.0", iconimage, desc)
-			except IndexError as file:
-				pass
-			player2 = re.sub('.php', ".php", player2)
-			player3 = "https://bemestarglobal.fun" + player2
-			mp4 = common.OpenURL(player3 ,headers={'referer': "https://bemestarglobal.fun/", 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0'})
-			source = re.compile('source.+').findall(mp4)
-			file=re.compile('[^"|\']+\.mp4[^"|\'|\n]*').findall(source[0])
-			file[0] = re.sub('\n', '', file[0])
-			#file[0] = re.sub('https', 'https', file[0])
-			#PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", "https://bemestarglobal.fun" + complement + file[0] + "|referer=https://bemestarglobal.fun/" , iconimage, desc) #aqui
-			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + "|Referer=https://topauto.fun&verifypeer=false&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100110 Firefox/11.0", iconimage, desc)
+				player = re.compile('href.{1,5}(mega[^"|\']*)').findall(mp4)
+				mp42 = common.OpenURL("https://gamesgo.fun/player3/"+player[0] ,headers={'referer': 'https://gamesgo.fun/'})
+				source = re.compile('source.+').findall(mp42)
+				file=re.compile('[^"|\']+\.mp4[^"|\'|\n]*').findall(source[0])
+				file=re.compile('src..(http.{1,200}\.mp4[^"|\']*)').findall(mp4)
+			except:
+				file=re.compile('src..(http.{1,200}\.mp4[^"|\']*)').findall(mp4)
+			file[0] = re.sub('\n', '', file[0])	
+			PlayUrl(name, file[0] + "|Referer=https://gamesgo.fun&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100110 Firefox/11.0", iconimage, name)
+		else:
+			xbmcgui.Dialog().ok('PlayXD', 'Erro, tente novamente em alguns minutos')
 	except:
 		sys.exit()
 def TemporadasRC(x): #135 Episodios
@@ -2528,6 +2500,8 @@ def AllEpisodiosRC(): #139 Mostrar todos Epi
 				AddDir("[COLOR blue][Leg][/COLOR] S"+str(S)+" E"+ name3 +" "+namem ,urlm[1], 133, iconimage, iconimage, info="", isFolder=False, IsPlayable=True)
 			elif urlm:
 				AddDir("S"+str(S)+" E"+ name3 +" "+namem ,urlm[0], 133, iconimage, iconimage, info="", isFolder=False, IsPlayable=True)
+def NF(x, t=5000):
+	xbmc.executebuiltin("Notification({0}, {1}, {3}, {2})".format(AddonName, str(x), icon, t))
 # ----------------- FIM REDECANAIS SERIES,ANIMES,DESENHOS
 # ----------------- BUSCA
 def Busca(): # 160
