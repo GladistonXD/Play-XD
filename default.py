@@ -9,7 +9,7 @@ from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.55.00"
+Versao = "21.56.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -439,7 +439,7 @@ def MaxPlay(): # 467
 
 				if 'mixdrop' in final:
 							headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-							html = requests.get(final.replace("mixdrop.to","mixdrop.co"), headers=headers)
+							html = requests.get(final.replace("mixdrop.to","mixdrop.to"), headers=headers)
 							valor = re.compile("(eval.+)").findall(html.text)
 							demo_eval = valor[0]
 							descom = unpack(demo_eval)
@@ -554,7 +554,7 @@ def AssistirMenu3(): # 460
 
 					if 'mixdrop' in url4x:
 							headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-							html = requests.get(url4x.replace("mixdrop.to","mixdrop.co"), headers=headers)
+							html = requests.get(url4x.replace("mixdrop.to","mixdrop.to"), headers=headers)
 							valor = re.compile("(eval.+)").findall(html.text)
 							demo_eval = valor[0]
 							descom = unpack(demo_eval)
@@ -716,7 +716,7 @@ def AssistirSeriesPlay (): # 464
 
 					if 'mixdrop' in url4x:
 							headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-							html = requests.get(url4x.replace("mixdrop.to","mixdrop.co"), headers=headers)
+							html = requests.get(url4x.replace("mixdrop.to","mixdrop.to"), headers=headers)
 							valor = re.compile("(eval.+)").findall(html.text)
 							demo_eval = valor[0]
 							descom = unpack(demo_eval)
@@ -980,7 +980,7 @@ def SeriePlayBZ2(): # 453 #### opção 1
 					#if 'mixdrop' in link2:
 					if 'mixdrop' in link2:
 						headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-						html = requests.get(link2.replace("mixdrop.to","mixdrop.co"), headers=headers)
+						html = requests.get(link2.replace("mixdrop.to","mixdrop.to"), headers=headers)
 						valor = re.compile("(eval.+)").findall(html.text)
 						demo_eval = valor[0]
 						descom = unpack(demo_eval)
@@ -1213,7 +1213,7 @@ def PlayVizer(): # 602 ###### opção 1
 						PlayUrl(name, mp4+"|Referer=https://orvio.co/", iconimage, info)
 				if 'mixdrop' in link2:
 						headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-						html = requests.get(link2.replace("mixdrop.to","mixdrop.co"), headers=headers)
+						html = requests.get(link2.replace("mixdrop.to","mixdrop.to"), headers=headers)
 						valor = re.compile("(eval.+)").findall(html.text)
 						demo_eval = valor[0]
 						descom = unpack(demo_eval)
