@@ -9,7 +9,7 @@ from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.56.00"
+Versao = "21.57.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2826,7 +2826,7 @@ def Busca(): # 160
 					url3 = url2
 					if "Filme" in tipo:
 						AddDir("[COLOR indianred]"+name2+"[/COLOR]", url3, 459, img3.replace('https:"https:',"https:").replace('"',""), img3.replace('https:"https:',"https:").replace('"',""), isFolder=True, IsPlayable=True, info="")
-					if "Série" in tipo or "Anime" in tipo or "Desenho" in tipo:
+					if "S" in tipo or "Anime" in tipo or "Desenho" in tipo:
 						AddDir("[COLOR indianred]"+name2+"[/COLOR]", url3, 462, img3.replace('https:"https:',"https:").replace('"',""), img3.replace('https:"https:',"https:").replace('"',""), isFolder=True, IsPlayable=True, info="")
 	except:
 		pass
