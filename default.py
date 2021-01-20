@@ -9,7 +9,7 @@ from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.57.00"
+Versao = "21.58.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -87,8 +87,8 @@ Clistafo0=[ "0",                        "48",         "3",    "7",        "8",  
 Clistafo1=["Sem filtro (Mostrar Todos)","Lançamentos","Ação", "Animação", "Aventura", "Comédia", "Drama",  "Ficção-Científica", "Romance", "Suspense", "Terror"]
 ClistaMM0=["ultimos","category/lancamentos","category/acao","category/animacao","category/aventura","category/comedia","category/drama","category/fantasia","category/ficcao-cientifica","category/guerra","category/policial","category/romance","category/suspense","category/terror"]
 ClistaMM1=["[COLOR red][B]Ultimos Adicionados[/COLOR][/B]","[COLOR red][B]Lançamentos[/COLOR][/B]","[COLOR red][B]Ação[/COLOR][/B]","[COLOR red][B]Animação[/COLOR][/B]","[COLOR red][B]Aventura[/COLOR][/B]","[COLOR red][B]Comédia[/COLOR][/B]","[COLOR red][B]Drama[/COLOR][/B]","[COLOR red][B]Fantasia[/COLOR][/B]","[COLOR red][B]F. Científica[/COLOR][/B]","[COLOR red][B]Guerra[/COLOR][/B]","[COLOR red][B]Policial[/COLOR][/B]","[COLOR red][B]Romance[/COLOR][/B]","[COLOR red][B]Suspense[/COLOR][/B]","[COLOR red][B]Terror[/COLOR][/B]"]
-ClistaGO0=["",                                                                  "ano-lancamento/2020",                    "ano-lancamento/2019",            "category/acao",                      "category/animacao",                "category/aventura",                                        "category/comedia",              "category/drama",                                     "category/fantasia",           "category/ficcao-cientifica",                                       "category/documentario",                        "category/faroeste",                               "category/romance",                              "category/suspense",                                        "category/terror", ]
-ClistaGO1=["[COLOR deepskyblue][B]Mostrar Todos[/COLOR][/B]",    "[COLOR yellow][B]Lançamentos 2020[/COLOR][/B]", "[COLOR slategray][B]2019[/COLOR][/B]",      "[COLOR red][B]Ação[/COLOR][/B]", "[COLOR lime][B]Animação[/COLOR][/B]", "[COLOR darkorchid][B]Aventura[/COLOR][/B]", "[COLOR hotpink][B]Comédia[/COLOR][/B]",       "[COLOR springgreen][B]Drama[/COLOR][/B]", "[COLOR salmon][B]Fantasia[/COLOR][/B]", "[COLOR paleturquoise][B]Ficção-Científica[/COLOR][/B]","[COLOR crimson][B]Documentário[/COLOR][/B]","[COLOR darkorange][B]Faroeste[/COLOR][/B]","[COLOR deepskyblue][B]Romance[/COLOR][/B]", "[COLOR darkorchid][B]Suspense[/COLOR][/B]",             "[COLOR lightgreen][B]Terror[/COLOR][/B]"]
+ClistaGO0=["",                                                                  "ano-lancamento/2021",                    "ano-lancamento/2020",            "category/acao",                      "category/animacao",                "category/aventura",                                        "category/comedia",              "category/drama",                                     "category/fantasia",           "category/ficcao-cientifica",                                       "category/documentario",                        "category/faroeste",                               "category/romance",                              "category/suspense",                                        "category/terror", ]
+ClistaGO1=["[COLOR deepskyblue][B]Mostrar Todos[/COLOR][/B]",    "[COLOR yellow][B]Lançamentos 2021[/COLOR][/B]", "[COLOR slategray][B]2020[/COLOR][/B]",      "[COLOR red][B]Ação[/COLOR][/B]", "[COLOR lime][B]Animação[/COLOR][/B]", "[COLOR darkorchid][B]Aventura[/COLOR][/B]", "[COLOR hotpink][B]Comédia[/COLOR][/B]",       "[COLOR springgreen][B]Drama[/COLOR][/B]", "[COLOR salmon][B]Fantasia[/COLOR][/B]", "[COLOR paleturquoise][B]Ficção-Científica[/COLOR][/B]","[COLOR crimson][B]Documentário[/COLOR][/B]","[COLOR darkorange][B]Faroeste[/COLOR][/B]","[COLOR deepskyblue][B]Romance[/COLOR][/B]", "[COLOR darkorchid][B]Suspense[/COLOR][/B]",             "[COLOR lightgreen][B]Terror[/COLOR][/B]"]
 ClistaFl0=["filmes", "0", "genero/acao", "genero/animacao", "genero/aventura", "genero/comedia", "genero/drama", "genero/ficcao", "genero/romance", "genero/suspense", "genero/terror"]
 ClistaFl1=["[COLOR yellow][B]Mostrar Todos[/COLOR][/B]", "[COLOR yellow][B]Lançamentos[/COLOR][/B]", "[COLOR yellow][B]Ação[/COLOR][/B]", "[COLOR yellow][B]Animação[/COLOR][/B]", "[COLOR yellow][B]Aventura[/COLOR][/B]", "[COLOR yellow][B]Comedia[/COLOR][/B]", "[COLOR yellow][B]Drama[/COLOR][/B]", "[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]", "[COLOR yellow][B]Romance[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]", "[COLOR yellow][B]Terror[/COLOR][/B]"]
 ClistaQUE10=["lancamentoss",                                               "acao",                            "animacao",                                "aventura",                             "comedia",                               "faroeste",                           "documentario",                       "fantasia",                       "drama",                                "ficcao-cientifica",                           "romance",                                                 "historia",                               "misterio",                           "suspense",                                "musica",                                 "terror",                             "thriller"]
@@ -1447,12 +1447,12 @@ def AssistirbizMENU(): # 514
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def AssistirbizLista(): #515
 	link = requests.get(url)
-	hexd = re.compile('"tab-pane.+? id="(.+?)".+?(assistir.biz\/iframe\/.+?)"').findall(link.text.encode('utf-8').replace("\r","").replace("\n",""))
+	hexd = re.compile('"tab-pane.+? id="(.+?)".+?(assistir.biz\/iframe\/.+?)"').findall(link.text.encode('utf-8').replace("\r","").replace("\n","").replace("hls","2"))
 	sinopse = re.compile('<i>([^\"]+)<\/i>').findall(link.text.encode('utf-8'))
 	sinopse = sinopse[0]
 	if hexd:
 		for name2, url2 in hexd:
-			name2 = name2.replace("player-1","[B][COLOR lightseagreen](Mediafire)[/B][/COLOR]").replace("player-3","[B][COLOR deepskyblue](Astr)[/B][/COLOR]")
+			name2 = name2.replace("player-1","[B][COLOR lightseagreen](Mediafire)[/B][/COLOR]").replace("player-2","[B][COLOR deepskyblue](Astr)[/B][/COLOR]").replace("player-3","[B][COLOR deepskyblue](Astr)[/B][/COLOR]")
 			AddDir(name2 + "[COLOR blue] - Dublado[/COLOR]", "https://"+url2, 516, iconimage, iconimage, isFolder=False, IsPlayable=True, info=sinopse)
 def AssistirbizPlay(): #516
 	try:	
@@ -1791,7 +1791,7 @@ def CategoryOrdem2(url):
 	Addon.setSetting(url, x )
 	xbmc.executebuiltin("XBMC.Container.Refresh()")
 def Series(): #60
-	AddDir("[COLOR mediumturquoise][B]||| Atualizar Lista |||[/B][/COLOR]" , "", 50, isFolder=False,info='Em caso de falha no carregamento clique aqui para atualizar')
+	#AddDir("[COLOR mediumturquoise][B]||| Atualizar Lista |||[/B][/COLOR]" , "", 50, isFolder=False,info='Em caso de falha no carregamento clique aqui para atualizar')
 	try:
 		CategoryOrdem("cOrdNCS")
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
@@ -1916,7 +1916,7 @@ def PlayS(): #62
 # --------------------------------------
 def MoviesNC(): #71 Netcine
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
-	AddDir("[COLOR mediumturquoise][B]||| Atualizar Lista |||[/B][/COLOR]" , "", 50, isFolder=False,info='Em caso de falha no carregamento clique aqui para atualizar')
+	#AddDir("[COLOR mediumturquoise][B]||| Atualizar Lista |||[/B][/COLOR]" , "", 50, isFolder=False,info='Em caso de falha no carregamento clique aqui para atualizar')
 	try:
 		p= 1
 		if int(cPageGOf) > 0:
