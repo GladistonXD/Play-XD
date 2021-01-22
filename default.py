@@ -9,7 +9,7 @@ from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.58.00"
+Versao = "21.59.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -233,7 +233,7 @@ def MaxMenuSeriePlay(): # 471
 		listar=[]
 		listal=[]
 		link = common.OpenURL(url)
-		match = re.compile('id="option-(.+?)".+?url=(.+?)"').findall(link)
+		match = re.compile('id="option-(.+?)".+?src=(.+?)"').findall(link)
         	if match:
 				for name2, url2 in match:
 					if name2 == 'fembed' or name2 == 'blogger' or name2 == 'dood':
