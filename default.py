@@ -9,7 +9,7 @@ from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.62.00"
+Versao = "21.63.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2596,10 +2596,8 @@ def Busca(): # 160
 #	except:
 #		pass
 	try:
-		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
-		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
 		AddDir("[B][COLOR yellow]|||[/COLOR][COLOR white]|||[/COLOR][COLOR yellow]|||[/COLOR][COLOR yellow] [NetCine] •[/B][/COLOR]", "" , 0 ,"", isFolder=False)
-		link2 = requests.get("http://138.122.11.44:443/?url="+"http://netcine.biz/?s="+d)#,headers=headers, proxies=proxies)
+		link2 = requests.get("http://netcine.biz/?s="+d)#,headers=headers, proxies=proxies)
 		lista = re.compile("\s.{1,12}<img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(link2.text.encode('utf-8').replace('\n','').replace('\r',''))
 		for img2,name2,url2 in lista:
 			if name2!="Close" and name2!="NetCine":
@@ -2610,7 +2608,19 @@ def Busca(): # 160
 				else:
 					AddDir("[COLOR yellow]" +name2+ "[/COLOR]",url2, 78, img2, img2, isFolder=True)
 	except:
-		pass
+		try:
+			link2 = requests.get("http://138.122.11.44:443/?url="+"http://netcine.biz/?s="+d)#,headers=headers, proxies=proxies)
+			lista = re.compile("\s.{1,12}<img src\=\"([^\"]+).+?alt\=\"([^\"]+).+?f\=\"([^\"]+)").findall(link2.text.encode('utf-8').replace('\n','').replace('\r',''))
+			for img2,name2,url2 in lista:
+				if name2!="Close" and name2!="NetCine":
+					name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'")
+					img2 = img2.replace("-120x170","")
+					if "tvshows" in url2:
+						AddDir("[COLOR yellow]" +name2+ "[/COLOR]",url2, 61, img2, img2, isFolder=True)
+					else:
+						AddDir("[COLOR yellow]" +name2+ "[/COLOR]",url2, 78, img2, img2, isFolder=True)
+		except:
+			pass
 	progress.update(32, "32%", "MMfilmes", "")
 	l=0
 	i=0
