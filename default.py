@@ -9,7 +9,7 @@ from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.65.00"
+Versao = "21.66.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -929,7 +929,7 @@ def SeriePlayBZ22(): # 453
 			else:
 				sys.exit()        
 	except (IndexError, ValueError):
-		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado, tente outro servidor')
+		#xbmcgui.Dialog().ok('Play XD', 'Video não encontrado, tente outro servidor')
 		sys.exit()
 def SeriePlayBZ2(): # 453 #### opção 1
 	try:	
@@ -1073,7 +1073,7 @@ def SeriePlayBZ2(): # 453 #### opção 1
 			else:
 				sys.exit()        
 	except (IndexError, ValueError):
-		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado, tente outro servidor')
+		#xbmcgui.Dialog().ok('Play XD', 'Video não encontrado, tente outro servidor')
 		sys.exit()
 		#pass
 #------------------ Vizer.tv SerieMenuBZ
@@ -1304,7 +1304,7 @@ def PlayVizer(): # 602 ###### opção 1
 			else:
 				sys.exit()
 	except:
-		xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
+		#xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 		sys.exit()
 # --------------  Fim menu
 def FilmesHD(): # 530
@@ -2109,37 +2109,35 @@ def PlayMNC(): #79
 		else:
 			sys.exit()
 	except:
-		i=0
-		listaf=[]
-		listal=[]
-		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
-		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
-		link = common.OpenURL("http://138.122.11.44:443/?url="+url)
-		#red = re.compile('redirecionar\.php\?data=([^"]+)').findall(link)
-		#ST(red)
-		#if not red:
-		red2 = re.compile('http[^"]+').findall(link)
-		link2 = common.OpenURL("http://138.122.11.44:443/?url="+red2[0])
-		red = re.compile('redirecionar\.php\?data=([^"]+)').findall(link2)
-		if not "desktop" in red[0]:
-			link2 = common.OpenURL("http://138.122.11.44:443/?url="+red[0])
-			red = re.compile('location.href=\'([^\']+p\=[^\']+)').findall(link2)
-		link3 = common.OpenURL("http://138.122.11.44:443/?url="+red[0],headers={'Cookie': "autorizado=teste; "})
-		link3 = re.sub('window.location.+', '', link3)
-		link3 = link3.replace("'",'"')
-		m4= re.compile("http.+?mp4[^\"]{0,150}").findall(link3) 
-		m4 = list(reversed(m4))
-		for url4 in m4:
-			if not "openload" in url4:
-				listal.append(url4.replace("';",""))
-				dubleg="[COLOR springgreen]HD[/COLOR][/B]" if "ALTO" in url4 else "[COLOR red]SD[/COLOR][/B]"
-				listaf.append("[B]"+dubleg)
-		d = xbmcgui.Dialog().select("Escolha a resolução:", listaf)
-		if d!= -1:
+		try:
+			i=0
+			listaf=[]
+			listal=[]
+			link = common.OpenURL("http://138.122.11.44:443/?url="+url)	
+			red2 = re.compile('http[^"]+').findall(link)
+			link2 = common.OpenURL("http://138.122.11.44:443/?url="+red2[0])
+			red = re.compile('redirecionar\.php\?data=([^"]+)').findall(link2)
+			if not "desktop" in red[0]:
+				link2 = common.OpenURL("http://138.122.11.44:443/?url="+red[0])
+				red = re.compile('location.href=\'([^\']+p\=[^\']+)').findall(link2)
+			link3 = common.OpenURL("http://138.122.11.44:443/?url="+red[0],headers={'Cookie': "autorizado=teste; "})
+			link3 = re.sub('window.location.+', '', link3)
+			link3 = link3.replace("'",'"')
+			m4= re.compile("http.+?mp4[^\"]{0,150}").findall(link3) 
+			m4 = list(reversed(m4))
+			for url4 in m4:
+				if not "openload" in url4:
+					listal.append(url4.replace("';",""))
+					dubleg="[COLOR springgreen]HD[/COLOR][/B]" if "ALTO" in url4 else "[COLOR red]SD[/COLOR][/B]"
+					listaf.append("[B]"+dubleg)
+			d = xbmcgui.Dialog().select("Escolha a resolução:", listaf)
+			if d!= -1:
 			#global background
 			#background=background+";;;"+name+";;;NC"
-			PlayUrl(name, listal[d]+"|Referer=http://netcine.biz&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0", iconimage, info)
-		else:
+				PlayUrl(name, listal[d]+"|Referer=http://netcine.biz&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0", iconimage, info)
+			else:
+				sys.exit()
+		except:
 			sys.exit()
 ############################################ Opção Proxy
 ########################opção 2
