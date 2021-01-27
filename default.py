@@ -9,7 +9,7 @@ from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.64.00"
+Versao = "21.65.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1471,8 +1471,8 @@ def AssistirbizPlay(): #516
 			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
 			if d!= -1:
 				url2 = re.sub(' ', '%20', listal[d] )
-				global background
-				background=background+";;;"+name+";;;MM"
+				#global background
+				#background=background+";;;"+name+";;;MM"
 				if legenda:
 					legenda = legenda[0]
 					if not "http" in legenda:
@@ -1574,8 +1574,8 @@ def QuerofilmeshdPlay2(): #513
 					session.storbinary('STOR /public_html/Cacheflix/movies'+x+'.m3u8', file)
 					file.close()                      
 					session.quit()
-					global background
-					background=background+";;;"+name+";;;MM"
+					#global background
+					#background=background+";;;"+name+";;;MM"
 					if legenda:
 						legenda = legenda[0]
 						if not "http" in legenda:
@@ -1679,8 +1679,8 @@ def PlayEpiQF(): #433
 				session.storbinary('STOR /public_html/Cacheflix/movies'+x+'.m3u8', file)
 				file.close()                      
 				session.quit()
-				global background
-				background=background+";;;"+name+";;;MM"
+				#global background
+				#background=background+";;;"+name+";;;MM"
 				if legenda:
 					legenda = legenda[0]
 					if not "http" in legenda:
@@ -2103,8 +2103,8 @@ def PlayMNC(): #79
 				listaf.append("[B]"+dubleg)
 		d = xbmcgui.Dialog().select("Escolha a resolução:", listaf)
 		if d!= -1:
-			global background
-			background=background+";;;"+name+";;;NC"
+			#global background
+			#background=background+";;;"+name+";;;NC"
 			PlayUrl(name, listal[d]+"|Referer=http://netcine.biz&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0", iconimage, info)
 		else:
 			sys.exit()
@@ -2136,8 +2136,8 @@ def PlayMNC(): #79
 				listaf.append("[B]"+dubleg)
 		d = xbmcgui.Dialog().select("Escolha a resolução:", listaf)
 		if d!= -1:
-			global background
-			background=background+";;;"+name+";;;NC"
+			#global background
+			#background=background+";;;"+name+";;;NC"
 			PlayUrl(name, listal[d]+"|Referer=http://netcine.biz&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0", iconimage, info)
 		else:
 			sys.exit()
@@ -2404,7 +2404,7 @@ def PlayMRC(): #95 Play filmes
 			#mp4 = common.OpenURL(player + "&expires=" + exp[0] ,headers={'referer': "https://dietafitness.fun/"})
 #			mp4 = common.OpenURL(player, headers={'referer': "https://redecanais.se/"})
 #			file=re.compile('<source src="([^"|\']+)" type=').findall(mp4)
-#			global background
+#			#global background
 #			background=url+";;;"+name+";;;RC"
 #			file[0] = re.sub('https', 'http', file[0])
 #			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0] + reference2, iconimage, desc) #aqui
@@ -3255,8 +3255,8 @@ def PlayLinkMM(): #182
 			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
 			if d!= -1:
 				url2 = re.sub(' ', '%20', listal[d] )
-				global background
-				background=background+";;;"+name+";;;MM"
+				#global background
+				#background=background+";;;"+name+";;;MM"
 				if legenda:
 					legenda = re.sub(' ', '%20', legenda[0][0] )
 					if not "http" in legenda:
@@ -3292,8 +3292,8 @@ def PlayLinkMM(): #182
 			d = xbmcgui.Dialog().select("Selecione a resolução", listar)
 			if d!= -1:
 				url2 = re.sub(' ', '%20', listal[d] )
-				global background
-				background=background+";;;"+name+";;;MM"
+				#global background
+				#background=background+";;;"+name+";;;MM"
 				if legenda:
 					legenda = re.sub(' ', '%20', legenda[0][0] )
 					if not "http" in legenda:
@@ -3807,8 +3807,8 @@ def ListPlay(): #213 play ======================================================
 				url2x = re.compile("var mp4Id = '(https:.+?.mp4)").findall(link2)
 				url2x = url2x[0]
 				legenda = re.compile('(filmes\/subtitles.+?vtt)').findall(link2)
-				global background
-				background=background+";;;"+name+";;;MM"
+				#global background
+				#background=background+";;;"+name+";;;MM"
 				if legenda:
 					legenda = "https://topflix.tv/" + legenda[0]
 					if not "http" in legenda:
