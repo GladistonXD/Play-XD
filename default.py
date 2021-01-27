@@ -9,7 +9,7 @@ from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.63.00"
+Versao = "21.64.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -414,44 +414,44 @@ def MaxPlay(): # 467
 				urlxx = re.compile('location.href = "(.+?)"').findall(open4.text)
 				final = "https:" + urlxx[0]
 				if 'play.assistir' in final:
-						url5 = requests.get(final)
-						url6 = re.compile('src="(.+?)" type').findall(url5.text)
-						PlayUrl(name, url6[0], iconimage, info)
+					url5 = requests.get(final)
+					url6 = re.compile('src="(.+?)" type').findall(url5.text)
+					PlayUrl(name, url6[0], iconimage, info)
                         
 				if 'vfilmesonline' in final:
-						url4x1 = final.replace("v","api/source").replace("sourcefilmesonline.net","vfilmesonline.net").replace("https:https://api","https:/")
-						result = {'r': '&', 'd': 'vfilmesonline.net'}
-						f = requests.post(url4x1, data=result)
-						m2 = re.compile('token=(.\w+).+?:"(\w+)').findall(f.text)
-						m2.reverse()
-						listar=[]
-						listal=[]
-						for link, res in m2:
-							listal.append(link)
-							listar.append(res)
-						if len(listal) <1:
-							xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
-							sys.exit(int(sys.argv[1]))
-						d = xbmcgui.Dialog().select("Selecione a resolução", listar)
-						if d!= -1:
-							url2 = re.sub(' ', '%20', listal[d] )
-							PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info)
+					url4x1 = final.replace("v","api/source").replace("sourcefilmesonline.net","vfilmesonline.net").replace("https:https://api","https:/")
+					result = {'r': '&', 'd': 'vfilmesonline.net'}
+					f = requests.post(url4x1, data=result)
+					m2 = re.compile('token=(.\w+).+?:"(\w+)').findall(f.text)
+					m2.reverse()
+					listar=[]
+					listal=[]
+					for link, res in m2:
+						listal.append(link)
+						listar.append(res)
+					if len(listal) <1:
+						xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
+						sys.exit(int(sys.argv[1]))
+					d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+					if d!= -1:
+						url2 = re.sub(' ', '%20', listal[d] )
+						PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info)
 
 				if 'mixdrop' in final:
-							headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-							html = requests.get(final.replace("mixdrop.to","mixdrop.to"), headers=headers)
-							valor = re.compile("(eval.+)").findall(html.text)
-							demo_eval = valor[0]
-							descom = unpack(demo_eval)
-							final = re.compile('MDCore.wurl="(.+?)"').findall(descom)
-							end = 'https:' + final[0]
-							PlayUrl(name, end+"|Referer=https://mixdrop.to/", iconimage, info)
+					headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+					html = requests.get(final.replace("mixdrop.to","mixdrop.to"), headers=headers)
+					valor = re.compile("(eval.+)").findall(html.text)
+					demo_eval = valor[0]
+					descom = unpack(demo_eval)
+					final = re.compile('MDCore.wurl="(.+?)"').findall(descom)
+					end = 'https:' + final[0]
+					PlayUrl(name, end+"|Referer=https://mixdrop.to/", iconimage, info)
 				if 'gdriveplayer' in final:
-							headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-							html = requests.get(final.replace("https://gdriveplayer.us/embed2.php?link=","https://download.gdriveplayer.us/download.php?link="), headers=headers)
-							valor = re.compile('<a href="(https:.+?)".+?720').findall(html.text)
-							end = valor[0]
-							PlayUrl(name, end+"|Referer=https://download.gdriveplayer.us/", iconimage, info)
+					headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+					html = requests.get(final.replace("https://gdriveplayer.us/embed2.php?link=","https://download.gdriveplayer.us/download.php?link="), headers=headers)
+					valor = re.compile('<a href="(https:.+?)".+?720').findall(html.text)
+					end = valor[0]
+					PlayUrl(name, end+"|Referer=https://download.gdriveplayer.us/", iconimage, info)
 				else:
 					sys.exit()
         	except:
@@ -553,14 +553,14 @@ def AssistirMenu3(): # 460
 							PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info)
 
 					if 'mixdrop' in url4x:
-							headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-							html = requests.get(url4x.replace("mixdrop.to","mixdrop.to"), headers=headers)
-							valor = re.compile("(eval.+)").findall(html.text)
-							demo_eval = valor[0]
-							descom = unpack(demo_eval)
-							final = re.compile('MDCore.wurl="(.+?)"').findall(descom)
-							end = 'https:' + final[0]
-							PlayUrl(name, end+"|Referer=https://mixdrop.to/", iconimage, info)
+						headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+						html = requests.get(url4x.replace("mixdrop.to","mixdrop.to"), headers=headers)
+						valor = re.compile("(eval.+)").findall(html.text)
+						demo_eval = valor[0]
+						descom = unpack(demo_eval)
+						final = re.compile('MDCore.wurl="(.+?)"').findall(descom)
+						end = 'https:' + final[0]
+						PlayUrl(name, end+"|Referer=https://mixdrop.to/", iconimage, info)
                             
                         
 					if 'dood' in url4x:
@@ -715,14 +715,14 @@ def AssistirSeriesPlay (): # 464
 							PlayUrl(name, "https://fvs.io/redirector?token="+url2, iconimage, info)
 
 					if 'mixdrop' in url4x:
-							headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
-							html = requests.get(url4x.replace("mixdrop.to","mixdrop.to"), headers=headers)
-							valor = re.compile("(eval.+)").findall(html.text)
-							demo_eval = valor[0]
-							descom = unpack(demo_eval)
-							final = re.compile('MDCore.wurl="(.+?)"').findall(descom)
-							end = 'https:' + final[0]
-							PlayUrl(name, end+"|Referer=https://mixdrop.to/", iconimage, info)
+						headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0'}
+						html = requests.get(url4x.replace("mixdrop.to","mixdrop.to"), headers=headers)
+						valor = re.compile("(eval.+)").findall(html.text)
+						demo_eval = valor[0]
+						descom = unpack(demo_eval)
+						final = re.compile('MDCore.wurl="(.+?)"').findall(descom)
+						end = 'https:' + final[0]
+						PlayUrl(name, end+"|Referer=https://mixdrop.to/", iconimage, info)
                         
 					if 'dood' in url4x:
 						headers={'Referer': 'https://dood.to/', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0'}
