@@ -9,7 +9,7 @@ from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.66.00"
+Versao = "21.67.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1951,50 +1951,53 @@ def PlayS(): #62
 		else:
 			sys.exit()
 	except:
-		link = requests.get("http://138.122.11.44:443/?url="+url)#,headers=headers, proxies=proxies)
-		m = re.compile("\"play-.\".+?src=\"([^\"]+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
-		listan = re.compile("\#play-...(\w*)").findall(link.text.encode('utf-8'))
-		i=0
-		listaf=[]
-		listal=[]
-		for url2 in m:
-			link3 = requests.get("http://138.122.11.44:443/?url="+url2)#,headers=headers, proxies=proxies)
-			m3 = re.compile("src\=\"(.+campanha[^\"]+)").findall(link3.text.encode('utf-8'))
-			if m3:
-				red = requests.get("http://138.122.11.44:443/?url="+m3[0])#,headers=headers, proxies=proxies)
-				red2 = re.compile('redirecionar\.php\?data=([^"]+)').findall(red.text.encode('utf-8'))
-				link4 = requests.get("http://138.122.11.44:443/?url="+red2[0])#,headers=headers, proxies=proxies)
-				link4 = re.sub('window.location.href.+', '', link4.text.encode('utf-8'))
-				link4 = link4.replace("'",'"')
-				m4= re.compile("http.+?mp4[^\"]+").findall(link4.encode('utf-8')) 
-				m4 = list(reversed(m4))
-				for url4 in m4:
-					listal.append(url4.replace("';",""))
-					dubleg="[COLOR green]HD[/COLOR][/B]" if "ALTO" in url4 else "[COLOR red]SD[/COLOR][/B]"
-					listaf.append("[B][COLOR blue]"+listan[i] +"[/COLOR] "+dubleg)
+		try:
+			link = requests.get("http://138.122.11.44:443/?url="+url)#,headers=headers, proxies=proxies)
+			m = re.compile("\"play-.\".+?src=\"([^\"]+)").findall(link.text.encode('utf-8').replace('\n','').replace('\r',''))
+			listan = re.compile("\#play-...(\w*)").findall(link.text.encode('utf-8'))
+			i=0
+			listaf=[]
+			listal=[]
+			for url2 in m:
+				link3 = requests.get("http://138.122.11.44:443/?url="+url2)#,headers=headers, proxies=proxies)
+				m3 = re.compile("src\=\"(.+campanha[^\"]+)").findall(link3.text.encode('utf-8'))
+				if m3:
+					red = requests.get("http://138.122.11.44:443/?url="+m3[0])#,headers=headers, proxies=proxies)
+					red2 = re.compile('redirecionar\.php\?data=([^"]+)').findall(red.text.encode('utf-8'))
+					link4 = requests.get("http://138.122.11.44:443/?url="+red2[0])#,headers=headers, proxies=proxies)
+					link4 = re.sub('window.location.href.+', '', link4.text.encode('utf-8'))
+					link4 = link4.replace("'",'"')
+					m4= re.compile("http.+?mp4[^\"]+").findall(link4.encode('utf-8')) 
+					m4 = list(reversed(m4))
+					for url4 in m4:
+						listal.append(url4.replace("';",""))
+						dubleg="[COLOR green]HD[/COLOR][/B]" if "ALTO" in url4 else "[COLOR red]SD[/COLOR][/B]"
+						listaf.append("[B][COLOR blue]"+listan[i] +"[/COLOR] "+dubleg)
+				else:
+					red = requests.get("http://138.122.11.44:443/?url="+url2)#,headers=headers, proxies=proxies)
+					m3 = re.compile("src\=\"([^\"]+)").findall(red.text)
+					red1 = requests.get("http://138.122.11.44:443/?url="+m3[0])#,headers=headers, proxies=proxies)
+					red2 = re.compile('redirecionar\.php\?data=([^"]+)').findall(red1.text.encode('utf-8'))
+					link4 = requests.get("http://138.122.11.44:443/?url="+red2[0],headers={'Cookie': "autorizado=teste; "})
+					m5 = re.compile("location.href=\'([^\']+p\=[^\']+)").findall(link4.text.encode('utf-8'))
+					for x in m5:
+						if not "openload" in x:
+							link5 = requests.get("http://138.122.11.44:443/?url="+x)#,headers=headers)#, proxies=proxies)
+					link5 = re.sub('window.location.href.+', '', link5.text)
+					link5 = link5.replace("'",'"')
+					m4= re.compile("http.+?mp4[^\"]+").findall(link5)
+					m4 = list(reversed(m4))
+					for url4 in m4:
+						listal.append(url4.replace("';",""))
+						dubleg="[COLOR green]HD[/COLOR][/B]" if "ALTO" in url4 else "[COLOR red]SD[/COLOR][/B]"
+						listaf.append("[B][COLOR blue]"+listan[i] +"[/COLOR] "+dubleg)
+				i+=1
+			d = xbmcgui.Dialog().select("Escolha a resolução:", listaf)
+			if d!= -1:
+				PlayUrl(name, listal[d]+"|Referer=http://netcine.biz&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0", iconimage, info)
 			else:
-				red = requests.get("http://138.122.11.44:443/?url="+url2)#,headers=headers, proxies=proxies)
-				m3 = re.compile("src\=\"([^\"]+)").findall(red.text)
-				red1 = requests.get("http://138.122.11.44:443/?url="+m3[0])#,headers=headers, proxies=proxies)
-				red2 = re.compile('redirecionar\.php\?data=([^"]+)').findall(red1.text.encode('utf-8'))
-				link4 = requests.get("http://138.122.11.44:443/?url="+red2[0],headers={'Cookie': "autorizado=teste; "})
-				m5 = re.compile("location.href=\'([^\']+p\=[^\']+)").findall(link4.text.encode('utf-8'))
-				for x in m5:
-					if not "openload" in x:
-						link5 = requests.get("http://138.122.11.44:443/?url="+x)#,headers=headers)#, proxies=proxies)
-				link5 = re.sub('window.location.href.+', '', link5.text)
-				link5 = link5.replace("'",'"')
-				m4= re.compile("http.+?mp4[^\"]+").findall(link5)
-				m4 = list(reversed(m4))
-				for url4 in m4:
-					listal.append(url4.replace("';",""))
-					dubleg="[COLOR green]HD[/COLOR][/B]" if "ALTO" in url4 else "[COLOR red]SD[/COLOR][/B]"
-					listaf.append("[B][COLOR blue]"+listan[i] +"[/COLOR] "+dubleg)
-			i+=1
-		d = xbmcgui.Dialog().select("Escolha a resolução:", listaf)
-		if d!= -1:
-			PlayUrl(name, listal[d]+"|Referer=http://netcine.biz&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0", iconimage, info)
-		else:
+				sys.exit()
+		except:
 			sys.exit()
 # --------------------------------------
 def MoviesNC(): #71 Netcine
