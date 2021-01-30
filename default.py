@@ -9,7 +9,7 @@ from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.67.00"
+Versao = "21.68.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -229,11 +229,11 @@ def MaxMenuSerie3(): # 470
 					img2 = img2.replace("w154","original")
 					AddDir(name2, url2, 471, img2, img2, isFolder=False, IsPlayable=True, info="")
 def MaxMenuSeriePlay(): # 471
-	#try:
+	try:
 		listar=[]
 		listal=[]
 		link = common.OpenURL(url)
-		match = re.compile('id="option-(.+?)".+?(http.+?)"').findall(link)
+		match = re.compile('id="option-(.+?)".+?url=(http.+?)"').findall(link)
         	if match:
 				for name2, url2 in match:
 					if name2 == 'fembed' or name2 == 'blogger' or name2 == 'dood':
@@ -301,7 +301,9 @@ def MaxMenuSeriePlay(): # 471
 						sys.exit()
 				else:
 					sys.exit()
-
+	except:
+		xbmcgui.Dialog().ok('Play XD', 'Video indisponível, tente outro servidor')
+		sys.exit()
 def MaxMenu(): # 465
 	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaMX11[int(CatMX)] +"[/COLOR]", "url" ,237 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
 	try:
