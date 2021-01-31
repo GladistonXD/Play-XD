@@ -9,7 +9,7 @@ from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.68.00"
+Versao = "21.69.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2053,6 +2053,16 @@ def MoviesNC(): #71 Netcine
 		except:
 			pass
 def ListMoviesNC(): #78
+	#trailer = requests.get("https://www.youtube.com/results?search_query="+ name.replace(" ","+")+"Trailer+Dublado")
+	#trailer2 = re.compile('"url":".watch.+?=(.+?)"').findall(trailer.text)
+	#AddDir("[B]Trailer®[/B]", "plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid="+trailer2[0], 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info='Trailer do filme '+name)
+	#urlx = requests.get("https://www.imdb.com/find?q="+ name.replace(" ","+"))
+	#url2x = re.compile('<a href=".title.(.+?)."').findall(urlx.text)
+	#url3x = requests.get("https://www.imdb.com/title/"+url2x[0])
+	#url4x = re.compile('href="(.video.+?)"').findall(url3x.text)
+	#url5x = requests.get("https://www.imdb.com"+url4x[0])
+	#final = re.compile('video.mp4.+?(https.+?)."').findall(url5x.text)
+	#AddDir("[B]Trailer®[/B]", final[0], 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info='Trailer do filme '+name)
 	try:
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
