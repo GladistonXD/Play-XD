@@ -9,7 +9,7 @@ from os.path import *
 from six.moves.html_parser import HTMLParser
 #import urlresolver
 #from bs4 import BeautifulSoup
-Versao = "21.69.00"
+Versao = "21.70.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -326,6 +326,9 @@ def MaxMenu(): # 465
 	except:
 		pass
 def MaxMenu2(): # 466
+	trailer = requests.get("https://www.youtube.com/results?search_query="+ name.replace(" ","+")+"Trailer+Dublado")
+	trailer2 = re.compile('"url":".watch.+?=(.+?)"').findall(trailer.text)
+	AddDir("[COLOR yellow]Trailer YouTube[/COLOR]", "plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid="+trailer2[0], 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info='Trailer do filme '+name)
 	try:
 		link = requests.get(url)
 		url2x = re.compile('camp.php.url=(.+?)"').findall(link.text)
@@ -486,6 +489,9 @@ def AssistirMenu(): # 458
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def AssistirMenu2(): # 459
+	trailer = requests.get("https://www.youtube.com/results?search_query="+ name.replace(" ","+")+"Trailer+Dublado")
+	trailer2 = re.compile('"url":".watch.+?=(.+?)"').findall(trailer.text)
+	AddDir("[COLOR yellow]Trailer YouTube[/COLOR]", "plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid="+trailer2[0], 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info='Trailer do filme '+name)
 	try:
 		link = requests.get(url)
 		Desc = re.compile('og.+?ption".+?"(.+?)"').findall(link.text.encode('utf8'))
@@ -1110,6 +1116,9 @@ def MenuVizer(): # 600
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def MenuVizer2(): # 601
+	trailer = requests.get("https://www.youtube.com/results?search_query="+ name.replace(" ","+")+"Trailer+Dublado")
+	trailer2 = re.compile('"url":".watch.+?=(.+?)"').findall(trailer.text)
+	AddDir("[COLOR yellow]Trailer YouTube[/COLOR]", "plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid="+trailer2[0], 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info='Trailer do filme '+name)
 	try:
 		link = common.OpenURL(url)
 		sinopse = re.compile('class="desc.+?>\s(.+?)<\/span>').findall(link)
@@ -1448,6 +1457,9 @@ def AssistirbizMENU(): # 514
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def AssistirbizLista(): #515
+	trailer = requests.get("https://www.youtube.com/results?search_query="+ name.replace(" ","+")+"Trailer+Dublado")
+	trailer2 = re.compile('"url":".watch.+?=(.+?)"').findall(trailer.text)
+	AddDir("[COLOR yellow]Trailer YouTube[/COLOR]", "plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid="+trailer2[0], 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info='Trailer do filme '+name)
 	link = requests.get(url)
 	hexd = re.compile('"tab-pane.+? id="(.+?)".+?(assistir.biz\/iframe\/.+?)"').findall(link.text.encode('utf-8').replace("\r","").replace("\n","").replace("hls","2"))
 	sinopse = re.compile('<i>([^\"]+)<\/i>').findall(link.text.encode('utf-8'))
@@ -2053,7 +2065,16 @@ def MoviesNC(): #71 Netcine
 		except:
 			pass
 def ListMoviesNC(): #78
-	#trailer = requests.get("https://www.youtube.com/results?search_query="+ name.replace(" ","+")+"Trailer+Dublado")
+    #urlx = requests.get("http://www.adorocinema.com/busca/?q="+ name.replace(" ","+"))
+    #url2x = re.compile('"id":"TW92aWU6(.+?)"').findall(urlx.text.encode('utf8'))
+    #decode = base64.b64decode(url2x[0])
+    #decode2 = str(decode).replace("b","").replace("'","")
+    #url3x = requests.get("http://www.adorocinema.com/filmes/filme-"+decode2)
+    #url4x = re.compile('trailer-(.+?)\/" title').findall(url3x.text.encode('utf8'))
+    #url5x = requests.get("http://www.adorocinema.com/filmes/filme-"+decode2+"/trailer-"+url4x[0]+"/")
+    #final = re.compile('(br.{1,90})&quot.}').findall(url5x.text.encode('utf8').replace("\/","/"))
+    #AddDir("[B]Trailer®[/B]", "https://"+final[0], 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info='Trailer do filme '+name)
+    #trailer = requests.get("https://www.youtube.com/results?search_query="+ name.replace(" ","+")+"Trailer+Dublado")
 	#trailer2 = re.compile('"url":".watch.+?=(.+?)"').findall(trailer.text)
 	#AddDir("[B]Trailer®[/B]", "plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid="+trailer2[0], 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info='Trailer do filme '+name)
 	#urlx = requests.get("https://www.imdb.com/find?q="+ name.replace(" ","+"))
@@ -2063,6 +2084,9 @@ def ListMoviesNC(): #78
 	#url5x = requests.get("https://www.imdb.com"+url4x[0])
 	#final = re.compile('video.mp4.+?(https.+?)."').findall(url5x.text)
 	#AddDir("[B]Trailer®[/B]", final[0], 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info='Trailer do filme '+name)
+	trailer = requests.get("https://www.youtube.com/results?search_query="+ name.replace(" ","+")+"Trailer+Dublado")
+	trailer2 = re.compile('"url":".watch.+?=(.+?)"').findall(trailer.text)
+	AddDir("[COLOR yellow]Trailer YouTube[/COLOR]", "plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid="+trailer2[0], 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info='Trailer do filme '+name)
 	try:
 		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
 		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
@@ -3217,6 +3241,9 @@ def ListFilmeMM(pagina2): #180
 			if p >= 40:
 				AddDir("[COLOR lime][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background=pagina2)
 def OpenLinkMM(): #181
+	#trailer = requests.get("https://www.youtube.com/results?search_query="+ name.replace(" ","+")+"Trailer+Dublado")
+	#trailer2 = re.compile('"url":".watch.+?=(.+?)"').findall(trailer.text)
+	#AddDir("[COLOR yellow]Trailer YouTube[/COLOR]", "plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid="+trailer2[0], 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info='Trailer do filme '+name)
 	try:
 		link = common.OpenURL(url)
 		m = re.compile('boxp\(.([^\']+)').findall(link) #princi
@@ -3380,8 +3407,8 @@ def ListSMM(x): #191
 						i+=1
 	except urllib2.URLError as link:
 		pass
-		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
-		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+		#proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+		#proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
 		link = common.OpenURL("http://138.122.11.44:443/?url="+url)
 		m = re.compile('boxp\(.([^\']+)').findall(link)
 		info2= re.compile('mCSB_container..\s(\h*(?s)(.+?))\<\/div').findall(link)
@@ -3428,8 +3455,8 @@ def ListEpiMM(x): #192
 			AddDir("Episódio "+ e + " [COLOR blue]" + name2 ,url2, 194, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info)
 	except urllib2.URLError as link3:
 		pass
-		proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
-		proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
+		#proxy = requests.get("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/proxy")
+		#proxy2 = re.compile('proxy = "(.+?)"').findall(proxy.text)
 		link3 = common.OpenURL(url,headers={'referer': "http://www.mmfilmeshd.tv/"}).replace("\n","").replace("\r","").replace('".Svplayer"',"<end>").replace('\t'," ")
 		link3 = re.sub('(\(s \=\= \d+\))', r'<end>\1', link3 )
 		m3 = re.compile('s \=\= (\d+)(.+?\<end\>)').findall(link3)
@@ -3762,6 +3789,9 @@ def ListGOL(): #310 Lançamentos ---------------------------------------
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def ListTop(): #211
+	trailer = requests.get("https://www.youtube.com/results?search_query="+ name.replace(" ","+")+"Trailer+Dublado")
+	trailer2 = re.compile('"url":".watch.+?=(.+?)"').findall(trailer.text)
+	AddDir("[COLOR yellow]Trailer YouTube[/COLOR]", "plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid="+trailer2[0], 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info='Trailer do filme '+name)
 	try:	
 		link = common.OpenURL(url).replace('\n','').replace('\r','').replace(' ','%20')
 		m = re.compile("globalUri='([^\']+)'").findall(link)
