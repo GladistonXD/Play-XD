@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+<category label="MODO MOBILE">
+<setting label="[COLOR lightblue]MODO MOBILE:[/COLOR]" type="lsep"/>
+<setting label="[B][COLOR red]DESATIVAR[/COLOR] / [COLOR green]ATIVAR[/COLOR][/B]" id="viewmode" type="bool" default="false" />
+</category>
+<category label="PLAYLIST">
+<setting label="[COLOR lightblue]COM UPNEXT INSTALADO:[/COLOR]" type="lsep"/>
+<setting label="[B]Configurar [COLOR lightblue]UpNext[/COLOR][/B]" type="action" option="close" action="Addon.OpenSettings(service.upnext)"/>
+<setting label="[B]install [COLOR lightblue]UpNext[/COLOR][/B]" type="action" action="InstallAddon(service.upnext)" option="close" visible="!System.HasAddon(service.upnext)"/>
+</category>
+<category label="TV ONLINE">
+<setting label="[COLOR lightblue]ALTERAR PARA PLAYER COM BUFFERING:[/COLOR]" type="lsep"/>
+<setting label="[B][COLOR gold]FFMPEG COM PAUSA[/COLOR][/B]" id="ffmpeg_opt" type="bool" default="false" />
+<setting label="[B]ALTERAR MINUTOS DO BUFFERING[/B]" type="action" option="close" action="Addon.OpenSettings(inputstream.ffmpegdirect)"/>
+<setting label="[B]install [COLOR lightblue]inputstream.adaptive[/COLOR][/B]" type="action" action="InstallAddon(inputstream.adaptive)" option="close" visible="!System.HasAddon(inputstream.adaptive)"/>
+<setting label="[B]install [COLOR lightblue]inputstream.ffmpegdirect[/COLOR][/B]" type="action" action="InstallAddon(inputstream.ffmpegdirect)" option="close" visible="!System.HasAddon(inputstream.ffmpegdirect)"/>
+
+<setting label="" type="sep" />
+<setting id="makeGroups" type="text" label="30036" default="true" visible="false"/>
+<setting id="Cat" label="Cat" type="text" default="0" visible="false" />
+<setting id="Catfo" label="Catfo" type="text" default="0" visible="false" />
+<setting id="CatMM" label="CatMM" type="text" default="0" visible="false" />
+<setting id="CatGO" label="CatGO" type="text" default="0" visible="false" />
+<setting id="CatFl" label="CatFl" type="text" default="0" visible="false" />
+<setting id="CatQ1" label="CatQ1" type="text" default="0" visible="false" />
+<setting id="CatBB" label="CatBB" type="text" default="0" visible="false" />
+<setting id="CatMG" label="CatMG" type="text" default="0" visible="false" />
+<setting id="CatHD" label="CatHD" type="text" default="0" visible="false" />
+<setting id="CatVZ" label="CatVZ" type="text" default="0" visible="false" />
+<setting id="CatAS" label="CatAS" type="text" default="0" visible="false" />
+<setting id="CatMX" label="CatMX" type="text" default="0" visible="false" />
+<setting id="Catpr" label="Catpr" type="text" default="0" visible="false" />
+<setting id="cEPG" label="cEPG" type="text" default="0" visible="false" />
+<setting label="" type="sep" />
+<setting id="cPage" label="cPage" type="text" default="0" visible="false" />
+<setting id="cPageleg" label="cPageleg" type="text" default="0" visible="false" />
+<setting id="cPagenac" label="cPagenac" type="text" default="0" visible="false" />
+<setting id="cPagelan" label="cPagelan" type="text" default="0" visible="false" />
+<setting id="cPageflix" label="cPageflix" type="text" default="0" visible="false" />
+<setting id="cPageser" label="cPageser" type="text" default="0" visible="false" />
+<setting id="cPageani" label="cPageani" type="text" default="0" visible="false" />
+<setting id="cPagedes" label="cPagedes" type="text" default="0" visible="false" />
+<setting id="cPagefo1" label="cPagefo1" type="text" default="0" visible="false" />
+<setting id="cPageMMf" label="cPageMMf" type="text" default="0" visible="false" />
+<setting id="cPageGOf" label="cPageGOf" type="text" default="0" visible="false" />
+<setting id="cPageFlf" label="cPageFlf" type="text" default="0" visible="false" />
+<setting id="cPageQlf" label="cPageQlf" type="text" default="0" visible="false" />
+<setting id="cPageBIZ" label="cPageBIZ" type="text" default="0" visible="false" />
+<setting id="cPageMEG" label="cPageMEG" type="text" default="0" visible="false" />
+<setting id="cPageFHD" label="cPageFHD" type="text" default="0" visible="false" />
+<setting id="cPageVZ" label="cPageVZ" type="text" default="0" visible="false" />
+<setting id="cPageAS" label="cPageAS" type="text" default="0" visible="false" />
+<setting id="cPageMX" label="cPageMX" type="text" default="0" visible="false" />
+<setting id="cPagepr1" label="cPagepr1" type="text" default="0" visible="false" />
+<setting label="" type="sep" />
+</category>
+</settings>
