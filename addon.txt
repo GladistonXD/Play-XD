@@ -18,4 +18,4 @@
 	<news>
 	</news>
   </extension>
-</addon>
+</addon> 
