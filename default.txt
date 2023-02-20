@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.11.00"
+Versao = "23.12.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -8221,7 +8221,7 @@ def RadioTV(x): #106
 		else:
 			AddDir(name2, url2, 214,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
 def TVCB5(): #111
-    url1 = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/TV4').text
+    url1 = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/TV4', headers={'Accept-Encoding': 'deflate'}).text
     url1x = re.compile("<title>(.+?)<.+\s.link>(.+?)<.+\s.thumbnail>(.+?)<").findall(url1)
     jq = sorted(url1x, key=lambda url1x: url1x)
     for name2, url2, img2 in jq:
