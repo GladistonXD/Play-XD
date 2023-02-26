@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.12.00"
+Versao = "23.13.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -244,6 +244,44 @@ def MSeries(): #-3
 	#AddDir("[B][COLOR mediumvioletred]Séries TuaSerie[/COLOR][/B]", "config" , 454,"https://tconline.com.br/wp-content/uploads/2020/02/8.1-VS250220A.jpg", "https://tconline.com.br/wp-content/uploads/2020/02/8.1-VS250220A.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	setViewM()
 ######################
+
+'''from http.server import BaseHTTPRequestHandler, HTTPServer
+from urllib.parse import parse_qsl, urlparse
+import threading
+
+class MyServer(BaseHTTPRequestHandler):
+    def do_GET(self):
+        try:
+            useragent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+            parse = urlparse(self.path)
+            dic = dict(parse_qsl(parse.query))
+            url = dic['url']
+            sesion = requests.Session()
+            res = sesion.get(url, headers={'User-Agent': useragent}, timeout=10)
+            self.send_response(200)
+            self.send_header('Content-Type', 'video/mp2t')
+            self.send_header('User-Agent', useragent)
+            #self.send_header('Referer', decodebase64('aHR0cHM6Ly9zdHJlYW0tMy5kaXNuZXljZG4ub3JnLw=='))
+            self.end_headers()
+            self.wfile.write(res.content)
+            return
+        finally:
+            self.finish()
+def proxyserver():
+    try:
+        server_address = ('127.0.0.1', 3000)
+        webServer = HTTPServer(server_address, MyServer)
+        server_thread = threading.Thread(target=webServer.serve_forever)
+        server_thread.start()
+        monitor = xbmc.Monitor()
+        while not monitor.waitForAbort(3):
+            pass
+        webServer.shutdown()
+        server_thread.join()
+    except:
+        pass
+proxyserver()'''
+
 def MaxMenuSerie(): # 468
 	pagina = "0" if not cPageserMX else cPageserMX
 	if int(pagina) > 0:
