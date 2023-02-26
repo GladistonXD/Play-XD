@@ -265,7 +265,7 @@ class MyServer(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(res.content)
             return
-        finally:
+        except:
             self.finish()
 def proxyserver():
     try:
