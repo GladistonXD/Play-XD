@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.13.00"
+Versao = "23.14.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -196,7 +196,7 @@ def MCanais(): #-1
     #AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](POYRATV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
     AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
     AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
-    AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](SABTOOHTV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
+    #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](SABTOOHTV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](R98K)[/B][/COLOR]"  , "", 91, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
     setViewM()
     #AddDir('[B] [COLOR white]CONFIGURAÇÕES[/COLOR][/B]','',4,'','', isFolder=False, info='[COLOR white][B]LOOP [COLOR green]ON[/COLOR] [COLOR red]OFF[/COLOR][/B][/COLOR]')
