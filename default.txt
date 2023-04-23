@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.15.00"
+Versao = "23.16.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -220,7 +220,7 @@ def MFilmes(): #-2
 	AddDir("[COLOR mediumpurple][B]Filmes ComandoHDTorrents[/B][/COLOR]" , "", 170, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='[COLOR][/COLOR]')
 	AddDir("[COLOR yellow][B]Filmes Pirate-Filmes[/B][/COLOR]" , "", 186, "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", info='[COLOR][/COLOR]')
 	AddDir("[COLOR deepskyblue][B]Filmes FilmesViaTorrent[/B][/COLOR]" , "", 530, "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", info='[COLOR][/COLOR]')	
-	AddDir("[COLOR mediumvioletred][B]Filmes ComoEuBaixo[/B][/COLOR]" , "", 526, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='[COLOR][/COLOR]')
+	#AddDir("[COLOR mediumvioletred][B]Filmes ComoEuBaixo[/B][/COLOR]" , "", 526, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='[COLOR][/COLOR]')
 	#AddDir("[COLOR salmon][B]Filmes DosTorrents[/B][/COLOR]" , "", 5261, "https://uploaddeimagens.com.br/images/003/565/308/full/Spider.png", "https://uploaddeimagens.com.br/images/003/565/308/full/Spider.png", info='[COLOR][/COLOR]')
 	#AddDir("[COLOR lightgreen][B]Filmes Max[/B][/COLOR]" , "", 465, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", info='[COLOR][/COLOR]')
 	#AddDir("[COLOR indianred][B]Filmes Assistir.One[/B][/COLOR]" , "", 458, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='[COLOR][/COLOR]')
@@ -236,7 +236,7 @@ def MSeries(): #-3
 	AddDir("[B][COLOR yellow]Séries Filme-Pirate[/COLOR][/B]", "config" , 250,"https://uploaddeimagens.com.br/images/003/583/191/original/serie1.png", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='[COLOR][/COLOR]')
 	AddDir("[B][COLOR deepskyblue]Séries FilmesViaTorrent[/COLOR][/B]", "config" , 533,"https://uploaddeimagens.com.br/images/003/583/193/full/serie3.png", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	#AddDir("[B][COLOR salmon]Séries DosTorrents[/COLOR][/B]", "config" , 5291,"https://uploaddeimagens.com.br/images/003/583/195/full/serie5.png", "https://jbt-en-images.s3.ap-south-1.amazonaws.com/wp-content/uploads/2021/10/05100134/lost-in-space-s3.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	AddDir("[B][COLOR mediumvioletred]Séries ComoEuBaixo[/COLOR][/B]", "config" , 529,"https://uploaddeimagens.com.br/images/003/883/514/full/BreakingBad-7277.png", "https://uploaddeimagens.com.br/images/003/883/514/full/BreakingBad-7277.png", isFolder=True, info='[COLOR][/COLOR]')
+	#AddDir("[B][COLOR mediumvioletred]Séries ComoEuBaixo[/COLOR][/B]", "config" , 529,"https://uploaddeimagens.com.br/images/003/883/514/full/BreakingBad-7277.png", "https://uploaddeimagens.com.br/images/003/883/514/full/BreakingBad-7277.png", isFolder=True, info='[COLOR][/COLOR]')
 	#AddDir("[B][COLOR lightgreen]Séries Max[/COLOR][/B]", "config" , 468,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
 	#AddDir("[B][COLOR springgreen]Séries QueroFilmesHD[/COLOR][/B]", "config" , 430,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='[COLOR][/COLOR]')
 	#AddDir("[B][COLOR indianred]Séries Assistir.One[/COLOR][/B]", "config" , 461,"https://www.jornadageek.com.br/wp-content/uploads/2019/01/Vikings-5%C2%AA-temporada.jpg", "https://www.jornadageek.com.br/wp-content/uploads/2019/01/Vikings-5%C2%AA-temporada.jpg", isFolder=True, info='[COLOR][/COLOR]')
@@ -1436,7 +1436,7 @@ def FilmesHD(): #530
 		l= int(cPageFHD)*4
 		for x in range(0, 4):
 			l +=1
-			link = OpenURL("https://filmesviatorrents.biz/"+ClistaFHD10[int(CatHD)]+"/page/"+ str(l) +"/?tr_post_type=1",headers={'Referer':'https://filmesviatorrents.biz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).replace('\n','').replace('\r','').replace("  ","").replace("Dub & Leg","Dubleg")
+			link = OpenURL("https://filmesviatorrents.site/"+ClistaFHD10[int(CatHD)]+"/page/"+ str(l) +"/?tr_post_type=1",headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).replace('\n','').replace('\r','').replace("  ","").replace("Dub & Leg","Dubleg")
 			match = re.compile('TPost C"><a href="(.+?)">.+?src="(.+?)".alt=".+? (.+?)".+?ClB">(\w+).{1,99}<div class="mi').findall(link)
 			if match:
 				for link, img2, name2,dubleg in match:
@@ -1459,7 +1459,7 @@ def FilmesHDmenu(): #531
 	except:
 		pass
 	try:	
-		link = requests.get(url,headers={'Referer':'https://filmesviatorrents.biz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+		link = requests.get(url,headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
 		sinopse = re.compile("Description.+?p>(.+?)<").findall(link.text)
 		filmes = re.compile("(Filmes via Torrent<.a> &gt;.<span.class)").findall(link.text)
 		filmes = filmes[0]
@@ -1818,7 +1818,7 @@ def Filmesviatorrent(): # 533
 	for x in range(0, 4):
 		try:
 			y +=1
-			link = requests.get("https://filmesviatorrents.biz/series-torrent/page/"+ str(y) +"/",headers={'Referer':'https://filmesviatorrents.biz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+			link = requests.get("https://filmesviatorrents.site/series-torrent/page/"+ str(y) +"/",headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
 			match = re.compile('<a href="(.+?)">\s.+\s.+\s.+src="(.+?)".+?alt="Imagem (.+?)"').findall(link.text)
 			if match:
 				for link, img2, name2 in match:
@@ -1830,7 +1830,7 @@ def Filmesviatorrent(): # 533
     
 def Filmesviatorrentmenu1(): #534
 	try:	
-		link = requests.get(url,headers={'Referer':'https://filmesviatorrents.biz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+		link = requests.get(url,headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
 		#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 		#arquivo.write(link.text.replace("<b>","\n<b>"))
 		#arquivo.close()
@@ -1843,7 +1843,7 @@ def Filmesviatorrentmenu1(): #534
 				AddDir(name2, link, 535, iconimage, iconimage, isFolder=True, IsPlayable=False, info="[COLOR][/COLOR]")
 	except:
 		pass
-		link = requests.get(url,headers={'Referer':'https://filmesviatorrents.biz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+		link = requests.get(url,headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
 		#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 		#arquivo.write(link.text.replace("<b>","\n<b>"))
 		#arquivo.close()
@@ -3556,7 +3556,7 @@ def Busca(): # 160
 		l= 0
 		for x in range(0, 1):
 			l +=1
-			link = OpenURL("https://filmesviatorrents.biz/?s="+d.replace('%2B','+'),headers={'Referer':'https://filmesviatorrents.biz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).replace('\n','').replace('\r','').replace("  ","").replace("Dub & Leg","Dubleg")
+			link = OpenURL("https://filmesviatorrents.site/?s="+d.replace('%2B','+'),headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).replace('\n','').replace('\r','').replace("  ","").replace("Dub & Leg","Dubleg")
 			match = re.compile('TPost C"><a href="(.+?)">.+?src="(.+?)".alt=".+? (.+?)".+?ClB">(\w+).{1,99}<div class="mi').findall(link)
 			if match:
 				for link, img2, name2,dubleg in match:
@@ -3584,7 +3584,7 @@ def Busca(): # 160
 					AddDir("[COLOR salmon]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 5271, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
 	except:
 		pass'''
-	if (progress.iscanceled()):
+	'''if (progress.iscanceled()):
 		sys.exit(int(sys.argv[1]))
 	progress.update(100, "ComoEuBaixo")
 	try:
@@ -3602,7 +3602,7 @@ def Busca(): # 160
 					else:
 						AddDir("[COLOR mediumvioletred]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 527, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
 	except:
-		pass    
+		pass'''    
 	'''try:
 			#p= 1
 			AddDir("[B][COLOR salmon]|||[/COLOR][COLOR white]|||[/COLOR][COLOR salmon]|||[/COLOR][COLOR salmon] [DosTorrents] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
