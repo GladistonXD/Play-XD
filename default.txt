@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.16.00"
+Versao = "23.17.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -179,69 +179,69 @@ def getLocaleString(id):
 def Categories(): #70
 	#AddDir("[B]!{0}: {1}[/B] - {2} ".format(getLocaleString(30036), getLocaleString(30037) if makeGroups else getLocaleString(30038) , getLocaleString(30039)), "setting" ,50 ,os.path.join(iconsDir, "setting.png"), isFolder=False)
 	#AddDir("[COLOR white][B][Canais de TV1][/B][/COLOR]" , "", 100, "http://oi68.tinypic.com/116jn69.jpg", "http://oi68.tinypic.com/116jn69.jpg")
-	#AddDir("[COLOR white][B]Canais de TV[/B][/COLOR]" , "", -1, "https://uploaddeimagens.com.br/images/002/440/396/original/TV.jpg", "https://uploaddeimagens.com.br/images/002/440/396/original/TV.jpg", info='[COLOR][/COLOR]')
-	AddDir("[B][COLOR white]Filmes[/COLOR][/B]", "" , -2,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	AddDir("[COLOR white][B]Séries[/B][/COLOR]" , "", -3, "https://uploaddeimagens.com.br/images/002/376/145/original/Novo_3.jpg", "https://uploaddeimagens.com.br/images/002/376/145/original/Novo_3.jpg", info='[COLOR][/COLOR]')
-	AddDir("[COLOR white][B]Radio TV[/B][/COLOR]" , "", 106, "https://uploaddeimagens.com.br/images/002/527/445/original/Radio-tv-black.png", "https://uploaddeimagens.com.br/images/002/527/445/original/Radio-tv-black.png", info='[COLOR][/COLOR]')
-	AddDir("[COLOR white][B]Canais de TV[/B][/COLOR]" , "", -1, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
-	#AddDir("[COLOR green][B]Histórico Filmes[/B][/COLOR]", "" ,305 , "https://cdn2.iconfinder.com/data/icons/business-office-icons/256/To-do_List-512.png", "https://cdn2.iconfinder.com/data/icons/business-office-icons/256/To-do_List-512.png", info='[COLOR][/COLOR]')
+	#AddDir("[COLOR white][B]Canais de TV[/B][/COLOR]" , "", -1, "https://uploaddeimagens.com.br/images/002/440/396/original/TV.jpg", "https://uploaddeimagens.com.br/images/002/440/396/original/TV.jpg", info='\xa0')
+	AddDir("[B][COLOR white]Filmes[/COLOR][/B]", "" , -2,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True, info='\xa0')
+	AddDir("[COLOR white][B]Séries[/B][/COLOR]" , "", -3, "https://uploaddeimagens.com.br/images/002/376/145/original/Novo_3.jpg", "https://uploaddeimagens.com.br/images/002/376/145/original/Novo_3.jpg", info='\xa0')
+	AddDir("[COLOR white][B]Radio TV[/B][/COLOR]" , "", 106, "https://uploaddeimagens.com.br/images/002/527/445/original/Radio-tv-black.png", "https://uploaddeimagens.com.br/images/002/527/445/original/Radio-tv-black.png", info='\xa0')
+	AddDir("[COLOR white][B]Canais de TV[/B][/COLOR]" , "", -1, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+	#AddDir("[COLOR green][B]Histórico Filmes[/B][/COLOR]", "" ,305 , "https://cdn2.iconfinder.com/data/icons/business-office-icons/256/To-do_List-512.png", "https://cdn2.iconfinder.com/data/icons/business-office-icons/256/To-do_List-512.png", info='\xa0')
 	AddDir("[COLOR crimson][B]Pesquisa[/B][/COLOR]" , "", 160, "https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", "https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", "https://azure.microsoft.com/svghandler/search/?width=400&height=315", "https://azure.microsoft.com/svghandler/search/?width=400&height=315", info="Pesquisa em todo o Addon por palavra-chave\n\nUsar: [[B]=[/B]] \nFiltra número expecifico de temporada quando não apresentada a lista\n\nExemplo: \nOs Simpsons 14= \n\n Para exibir a temporada 14ª")
 	AddDir("[B][COLOR orange]Checar Atualizações[/COLOR][/B]", "" , 200,"https://uploaddeimagens.com.br/images/002/376/161/original/Update.jpg", "https://uploaddeimagens.com.br/images/002/376/161/original/Update.jpg", isFolder=False, info="Checar se há atualizações\n\nAs atualizações normalmente são automáticas\nUse esse recurso caso não esteja recebendo automaticamente\r\nVersão atual: "+Versao)
 	AddDir("[B][COLOR darkgray]Configurações[/COLOR][/B]", "" , 541,"https://uploaddeimagens.com.br/images/003/570/571/full/pngaaa.com-371737.png", "https://uploaddeimagens.com.br/images/003/570/571/full/pngaaa.com-371737.png", isFolder=False, info="Configurações")
 	setViewM()
 # --------------  Menu
 def MCanais(): #-1
-    #AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](REDPLAY)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
-    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
-    #AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](POYRATV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
-    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
-    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
-    #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](SABTOOHTV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
-    #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](R98K)[/B][/COLOR]"  , "", 91, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='[COLOR][/COLOR]')
+    #AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](REDPLAY)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    #AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](POYRATV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](SABTOOHTV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](R98K)[/B][/COLOR]"  , "", 91, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     setViewM()
     #AddDir('[B] [COLOR white]CONFIGURAÇÕES[/COLOR][/B]','',4,'','', isFolder=False, info='[COLOR white][B]LOOP [COLOR green]ON[/COLOR] [COLOR red]OFF[/COLOR][/B][/COLOR]')
 def MFilmes(): #-2
 	#AddDir("[COLOR white][B][Filmes Dublado/Legendado][/B][/COLOR]" , cPage, 220, "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", "https://walter.trakt.tv/images/movies/000/222/254/fanarts/thumb/401d5f083e.jpg", background="cPage")
-	#AddDir("[B][COLOR cyan]Filmes Lançamentos MMFilmes[/COLOR][/B]", "config" , 184,"https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", "https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	#AddDir("[B][COLOR cyan]Filmes MMFilmes[/COLOR][/B]", "config" , 180,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	#AddDir("[COLOR maroon][B]Filmes Lançamentos Topflix.tv[/B][/COLOR]" , "config", 310, "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", info='[COLOR][/COLOR]')
-	#AddDir("[COLOR maroon][B]Filmes Topflix.tv[/B][/COLOR]" , "config", 210, "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", info='[COLOR][/COLOR]')
-	#AddDir("[COLOR yellow][B]Filmes NetCine[/B][/COLOR]" , "", 71, "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", info='[COLOR][/COLOR]')
+	#AddDir("[B][COLOR cyan]Filmes Lançamentos MMFilmes[/COLOR][/B]", "config" , 184,"https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", "https://walter.trakt.tv/images/movies/000/191/797/fanarts/thumb/6049212229.jpg", isFolder=True, info='\xa0')
+	#AddDir("[B][COLOR cyan]Filmes MMFilmes[/COLOR][/B]", "config" , 180,"https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", "https://uploaddeimagens.com.br/images/002/376/272/original/TONY.jpg", isFolder=True, info='\xa0')
+	#AddDir("[COLOR maroon][B]Filmes Lançamentos Topflix.tv[/B][/COLOR]" , "config", 310, "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", "https://walter.trakt.tv/images/movies/000/219/436/fanarts/thumb/0ff039faa5.jpg", info='\xa0')
+	#AddDir("[COLOR maroon][B]Filmes Topflix.tv[/B][/COLOR]" , "config", 210, "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", info='\xa0')
+	#AddDir("[COLOR yellow][B]Filmes NetCine[/B][/COLOR]" , "", 71, "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", "https://uploaddeimagens.com.br/images/002/376/273/original/THORR.jpg", info='\xa0')
 
-	#AddDir("[COLOR deepskyblue][B]Filmes Lançamentos Assistir.biz[/B][/COLOR]" , "", 517, "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", info='[COLOR][/COLOR]')
-	#AddDir("[COLOR deepskyblue][B]Filmes Assistir.biz[/B][/COLOR]" , "", 514, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='[COLOR][/COLOR]')
-	#AddDir("[COLOR mediumpurple][B]Filmes Vizer.tv[/B][/COLOR]" , "", 600, "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", info='[COLOR][/COLOR]')
-	#AddDir("[COLOR springgreen][B]Filmes QuerofilmesHD[/B][/COLOR]" , "config", 510, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='[COLOR][/COLOR]')
-	#AddDir("[COLOR blue][B]Filmes Lançamentos RedeCanais[/B][/COLOR]" , cPage, 221, "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", background="cPage", info='[COLOR][/COLOR]')
-	#AddDir("[COLOR blue][B]Filmes Dublado RedeCanais[/B][/COLOR]" , cPage, 90, "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", background="cPage", info='[COLOR][/COLOR]')
-	#AddDir("[COLOR blue][B]Filmes Legendado RedeCanais[/B][/COLOR]" , cPageleg, 91, "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", background="cPageleg", info='[COLOR][/COLOR]')
-	#AddDir("[COLOR blue][B]Filmes Nacional RedeCanais[/B][/COLOR]" , cPagenac, 92, "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", background="cPagenac", info='[COLOR][/COLOR]')
-	AddDir("[COLOR lightgreen][B]Filmes Comando.to[/B][/COLOR]" , "", 518, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", info='[COLOR][/COLOR]')
-	AddDir("[COLOR mediumpurple][B]Filmes ComandoHDTorrents[/B][/COLOR]" , "", 170, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='[COLOR][/COLOR]')
-	AddDir("[COLOR yellow][B]Filmes Pirate-Filmes[/B][/COLOR]" , "", 186, "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", info='[COLOR][/COLOR]')
-	AddDir("[COLOR deepskyblue][B]Filmes FilmesViaTorrent[/B][/COLOR]" , "", 530, "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", info='[COLOR][/COLOR]')	
-	#AddDir("[COLOR mediumvioletred][B]Filmes ComoEuBaixo[/B][/COLOR]" , "", 526, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='[COLOR][/COLOR]')
-	#AddDir("[COLOR salmon][B]Filmes DosTorrents[/B][/COLOR]" , "", 5261, "https://uploaddeimagens.com.br/images/003/565/308/full/Spider.png", "https://uploaddeimagens.com.br/images/003/565/308/full/Spider.png", info='[COLOR][/COLOR]')
-	#AddDir("[COLOR lightgreen][B]Filmes Max[/B][/COLOR]" , "", 465, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", info='[COLOR][/COLOR]')
-	#AddDir("[COLOR indianred][B]Filmes Assistir.One[/B][/COLOR]" , "", 458, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='[COLOR][/COLOR]')
+	#AddDir("[COLOR deepskyblue][B]Filmes Lançamentos Assistir.biz[/B][/COLOR]" , "", 517, "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", "https://uploaddeimagens.com.br/images/002/644/779/original/Sarta2.jpg", info='\xa0')
+	#AddDir("[COLOR deepskyblue][B]Filmes Assistir.biz[/B][/COLOR]" , "", 514, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='\xa0')
+	#AddDir("[COLOR mediumpurple][B]Filmes Vizer.tv[/B][/COLOR]" , "", 600, "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", info='\xa0')
+	#AddDir("[COLOR springgreen][B]Filmes QuerofilmesHD[/B][/COLOR]" , "config", 510, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='\xa0')
+	#AddDir("[COLOR blue][B]Filmes Lançamentos RedeCanais[/B][/COLOR]" , cPage, 221, "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", "https://walter.trakt.tv/images/movies/000/222/216/fanarts/thumb/6f9bb1a733.jpg", background="cPage", info='\xa0')
+	#AddDir("[COLOR blue][B]Filmes Dublado RedeCanais[/B][/COLOR]" , cPage, 90, "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", background="cPage", info='\xa0')
+	#AddDir("[COLOR blue][B]Filmes Legendado RedeCanais[/B][/COLOR]" , cPageleg, 91, "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", background="cPageleg", info='\xa0')
+	#AddDir("[COLOR blue][B]Filmes Nacional RedeCanais[/B][/COLOR]" , cPagenac, 92, "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", background="cPagenac", info='\xa0')
+	AddDir("[COLOR lightgreen][B]Filmes Comando.to[/B][/COLOR]" , "", 518, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", info='\xa0')
+	AddDir("[COLOR mediumpurple][B]Filmes ComandoHDTorrents[/B][/COLOR]" , "", 170, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='\xa0')
+	AddDir("[COLOR yellow][B]Filmes Pirate-Filmes[/B][/COLOR]" , "", 186, "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", info='\xa0')
+	AddDir("[COLOR deepskyblue][B]Filmes FilmesViaTorrent[/B][/COLOR]" , "", 530, "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", info='\xa0')	
+	#AddDir("[COLOR mediumvioletred][B]Filmes ComoEuBaixo[/B][/COLOR]" , "", 526, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='\xa0')
+	#AddDir("[COLOR salmon][B]Filmes DosTorrents[/B][/COLOR]" , "", 5261, "https://uploaddeimagens.com.br/images/003/565/308/full/Spider.png", "https://uploaddeimagens.com.br/images/003/565/308/full/Spider.png", info='\xa0')
+	#AddDir("[COLOR lightgreen][B]Filmes Max[/B][/COLOR]" , "", 465, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", info='\xa0')
+	#AddDir("[COLOR indianred][B]Filmes Assistir.One[/B][/COLOR]" , "", 458, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='\xa0')
 	setViewM()
 def MSeries(): #-3
 	#AddDir("[COLOR yellow][B]Séries NetCine[/B][/COLOR]" , "", 60, "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg", "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg")
-	#AddDir("[COLOR blue][B]Séries RedeCanais[/B][/COLOR]" , cPageser, 130, "https://walter.trakt.tv/images/shows/000/001/393/fanarts/thumb/fc68b3b649.jpg", "https://walter.trakt.tv/images/shows/000/001/393/fanarts/thumb/fc68b3b649.jpg", background="cPageser", info='[COLOR][/COLOR]')
-	#AddDir("[COLOR blue][B]Animes RedeCanais[/B][/COLOR]" , cPageser, 140, "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", background="cPageser", info='[COLOR][/COLOR]')
-	#AddDir("[COLOR blue][B]Desenhos RedeCanais[/B][/COLOR]" , cPageani, 150, "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", background="cPageser", info='[COLOR][/COLOR]')
-	#AddDir("[B][COLOR cyan]Séries MMFilmes[/COLOR][/B]", "config" , 190,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	AddDir("[B][COLOR lightgreen]Séries Comando.to[/COLOR][/B]", "config" , 522,"https://uploaddeimagens.com.br/images/003/583/194/full/serie4.png", "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	AddDir("[B][COLOR mediumpurple]Séries ComandoHDTorrents[/COLOR][/B]", "config" , 173,"https://uploaddeimagens.com.br/images/003/583/192/full/serie2.png", "https://tconline.com.br/wp-content/uploads/2020/02/8.1-VS250220A.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	AddDir("[B][COLOR yellow]Séries Filme-Pirate[/COLOR][/B]", "config" , 250,"https://uploaddeimagens.com.br/images/003/583/191/original/serie1.png", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='[COLOR][/COLOR]')
-	AddDir("[B][COLOR deepskyblue]Séries FilmesViaTorrent[/COLOR][/B]", "config" , 533,"https://uploaddeimagens.com.br/images/003/583/193/full/serie3.png", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	#AddDir("[B][COLOR salmon]Séries DosTorrents[/COLOR][/B]", "config" , 5291,"https://uploaddeimagens.com.br/images/003/583/195/full/serie5.png", "https://jbt-en-images.s3.ap-south-1.amazonaws.com/wp-content/uploads/2021/10/05100134/lost-in-space-s3.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	#AddDir("[B][COLOR mediumvioletred]Séries ComoEuBaixo[/COLOR][/B]", "config" , 529,"https://uploaddeimagens.com.br/images/003/883/514/full/BreakingBad-7277.png", "https://uploaddeimagens.com.br/images/003/883/514/full/BreakingBad-7277.png", isFolder=True, info='[COLOR][/COLOR]')
-	#AddDir("[B][COLOR lightgreen]Séries Max[/COLOR][/B]", "config" , 468,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	#AddDir("[B][COLOR springgreen]Séries QueroFilmesHD[/COLOR][/B]", "config" , 430,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='[COLOR][/COLOR]')
-	#AddDir("[B][COLOR indianred]Séries Assistir.One[/COLOR][/B]", "config" , 461,"https://www.jornadageek.com.br/wp-content/uploads/2019/01/Vikings-5%C2%AA-temporada.jpg", "https://www.jornadageek.com.br/wp-content/uploads/2019/01/Vikings-5%C2%AA-temporada.jpg", isFolder=True, info='[COLOR][/COLOR]')
-	#AddDir("[B][COLOR mediumpurple]Séries Vizer.tv[/COLOR][/B]", "config" , 450,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='[COLOR][/COLOR]')
-	#AddDir("[B][COLOR mediumvioletred]Séries TuaSerie[/COLOR][/B]", "config" , 454,"https://tconline.com.br/wp-content/uploads/2020/02/8.1-VS250220A.jpg", "https://tconline.com.br/wp-content/uploads/2020/02/8.1-VS250220A.jpg", isFolder=True, info='[COLOR][/COLOR]')
+	#AddDir("[COLOR blue][B]Séries RedeCanais[/B][/COLOR]" , cPageser, 130, "https://walter.trakt.tv/images/shows/000/001/393/fanarts/thumb/fc68b3b649.jpg", "https://walter.trakt.tv/images/shows/000/001/393/fanarts/thumb/fc68b3b649.jpg", background="cPageser", info='\xa0')
+	#AddDir("[COLOR blue][B]Animes RedeCanais[/B][/COLOR]" , cPageser, 140, "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", background="cPageser", info='\xa0')
+	#AddDir("[COLOR blue][B]Desenhos RedeCanais[/B][/COLOR]" , cPageani, 150, "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", background="cPageser", info='\xa0')
+	#AddDir("[B][COLOR cyan]Séries MMFilmes[/COLOR][/B]", "config" , 190,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='\xa0')
+	AddDir("[B][COLOR lightgreen]Séries Comando.to[/COLOR][/B]", "config" , 522,"https://uploaddeimagens.com.br/images/003/583/194/full/serie4.png", "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg", isFolder=True, info='\xa0')
+	AddDir("[B][COLOR mediumpurple]Séries ComandoHDTorrents[/COLOR][/B]", "config" , 173,"https://uploaddeimagens.com.br/images/003/583/192/full/serie2.png", "https://tconline.com.br/wp-content/uploads/2020/02/8.1-VS250220A.jpg", isFolder=True, info='\xa0')
+	AddDir("[B][COLOR yellow]Séries Filme-Pirate[/COLOR][/B]", "config" , 250,"https://uploaddeimagens.com.br/images/003/583/191/original/serie1.png", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='\xa0')
+	AddDir("[B][COLOR deepskyblue]Séries FilmesViaTorrent[/COLOR][/B]", "config" , 533,"https://uploaddeimagens.com.br/images/003/583/193/full/serie3.png", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='\xa0')
+	#AddDir("[B][COLOR salmon]Séries DosTorrents[/COLOR][/B]", "config" , 5291,"https://uploaddeimagens.com.br/images/003/583/195/full/serie5.png", "https://jbt-en-images.s3.ap-south-1.amazonaws.com/wp-content/uploads/2021/10/05100134/lost-in-space-s3.jpg", isFolder=True, info='\xa0')
+	#AddDir("[B][COLOR mediumvioletred]Séries ComoEuBaixo[/COLOR][/B]", "config" , 529,"https://uploaddeimagens.com.br/images/003/883/514/full/BreakingBad-7277.png", "https://uploaddeimagens.com.br/images/003/883/514/full/BreakingBad-7277.png", isFolder=True, info='\xa0')
+	#AddDir("[B][COLOR lightgreen]Séries Max[/COLOR][/B]", "config" , 468,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='\xa0')
+	#AddDir("[B][COLOR springgreen]Séries QueroFilmesHD[/COLOR][/B]", "config" , 430,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='\xa0')
+	#AddDir("[B][COLOR indianred]Séries Assistir.One[/COLOR][/B]", "config" , 461,"https://www.jornadageek.com.br/wp-content/uploads/2019/01/Vikings-5%C2%AA-temporada.jpg", "https://www.jornadageek.com.br/wp-content/uploads/2019/01/Vikings-5%C2%AA-temporada.jpg", isFolder=True, info='\xa0')
+	#AddDir("[B][COLOR mediumpurple]Séries Vizer.tv[/COLOR][/B]", "config" , 450,"https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='\xa0')
+	#AddDir("[B][COLOR mediumvioletred]Séries TuaSerie[/COLOR][/B]", "config" , 454,"https://tconline.com.br/wp-content/uploads/2020/02/8.1-VS250220A.jpg", "https://tconline.com.br/wp-content/uploads/2020/02/8.1-VS250220A.jpg", isFolder=True, info='\xa0')
 	setViewM()
 ######################
 
@@ -298,7 +298,7 @@ def MaxMenuSerie(): # 468
 				for url2, img2, name2 in match:
 					img2 = img2.replace("w185","original")
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-					AddDir(name2, url2, 469, img2, isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
+					AddDir(name2, url2, 469, img2, isFolder=True, IsPlayable=True, info='\xa0')
 		except:
 			pass
 	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserVZ")
@@ -394,7 +394,7 @@ def MaxMenuSeriePlay(): # 471
 		xbmcgui.Dialog().ok('Play XD', 'Video indisponível, tente outro servidor')
 		sys.exit()
 def MaxMenu(): # 465
-	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaMX11[int(CatMX)] +"[/COLOR]", "url" ,237 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaMX11[int(CatMX)] +"[/COLOR]", "url" ,237 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	try:
 		p= 1
 		if int(cPageMX) > 0:
@@ -408,7 +408,7 @@ def MaxMenu(): # 465
 				for url2, img2, name2 in match:
 					img2 = img2.replace("w185","original")
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-					AddDir(name2, url2, 466, img2, isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
+					AddDir(name2, url2, 466, img2, isFolder=True, IsPlayable=True, info='\xa0')
 					p += 1
 		if p >= 48:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageMX) + 2) +"][/B][/COLOR]", cPageMX , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageMX")
@@ -552,7 +552,7 @@ def MaxPlay(): # 467
 			except:
 				pass
 def AssistirMenu(): # 458
-	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaAS11[int(CatAS)] +"[/COLOR]", "url" ,236 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaAS11[int(CatAS)] +"[/COLOR]", "url" ,236 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	try:
 		p= 1
 		if int(cPageAS) > 0:
@@ -569,7 +569,7 @@ def AssistirMenu(): # 458
 				for img2,url2, name2 in match:
 					img3 = "https:" + img2
 					url3 = "https:" + url2
-					AddDir(name2, url3, 459, img3.replace('https:"https:',"https:").replace('"',""), img3.replace('https:"https:',"https:").replace('"',""), isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
+					AddDir(name2, url3, 459, img3.replace('https:"https:',"https:").replace('"',""), img3.replace('https:"https:',"https:").replace('"',""), isFolder=True, IsPlayable=True, info='\xa0')
 					p += 1
 			else:
 				break
@@ -1184,7 +1184,7 @@ def SeriePlayBZ2(): # 453 #### opção 1
 		#pass
 #------------------ Vizer.tv SerieMenuBZ
 def MenuVizer(): # 600
-	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaVZ11[int(CatVZ)] +"[/COLOR]", "url" ,235 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaVZ11[int(CatVZ)] +"[/COLOR]", "url" ,235 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	try:
 		p= 1
 		if int(cPageVZ) > 0:
@@ -1428,11 +1428,11 @@ def PlayVizer(): # 602 ###### opção 1
 		sys.exit()
 # --------------  Fim menu
 def FilmesHD(): #530
-	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaFHD11[int(CatHD)] +"[/COLOR]", "url" ,234 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaFHD11[int(CatHD)] +"[/COLOR]", "url" ,234 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	try:
 		p= 1
 		if int(cPageFHD) > 0:
-			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageFHD) ) +"][/B][/COLOR]", cPageFHD , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageFHD", info='[COLOR][/COLOR]')
+			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageFHD) ) +"][/B][/COLOR]", cPageFHD , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageFHD", info='\xa0')
 		l= int(cPageFHD)*4
 		for x in range(0, 4):
 			l +=1
@@ -1443,10 +1443,10 @@ def FilmesHD(): #530
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 					#if "Temporada" in name2: False
 					#else:
-					AddDir(name2+" ("+dubleg.replace("Dubleg","Dublado & Legendado")+")", link, 531, "https:"+img2.replace("w185","original"), "https:"+img2.replace("w185","original"), isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
+					AddDir(name2+" ("+dubleg.replace("Dubleg","Dublado & Legendado")+")", link, 531, "https:"+img2.replace("w185","original"), "https:"+img2.replace("w185","original"), isFolder=True, IsPlayable=True, info='\xa0')
 					p += 1
 		if p >= 80:
-			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageFHD) + 2) +"][/B][/COLOR]", cPageFHD , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageFHD", info='[COLOR][/COLOR]')
+			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageFHD) + 2) +"][/B][/COLOR]", cPageFHD , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageFHD", info='\xa0')
 	except:
 		pass
 def FilmesHDmenu(): #531
@@ -1472,7 +1472,7 @@ def FilmesHDmenu(): #531
 					for info1 in sinopse:
 						AddDir(resolu+" - "+name2, link, 532, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
 				else:
-					AddDir(resolu+" - "+name2, link, 532, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
+					AddDir(resolu+" - "+name2, link, 532, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
 	except:
 		pass
 	try:	
@@ -1489,7 +1489,7 @@ def FilmesHDmenu(): #531
 					for info1 in sinopse:
 						AddDir(resolu+" - "+name2, link, 532, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
 				else:
-					AddDir(resolu+" - "+name2, link, 532, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
+					AddDir(resolu+" - "+name2, link, 532, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
 	except:
 		pass
 	link = requests.get(url)
@@ -1503,7 +1503,7 @@ def FilmesHDmenu(): #531
 				for info1 in sinopse:
 					AddDir(name2, link, 535, iconimage, iconimage, isFolder=True, IsPlayable=False, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
 			else:
-				AddDir(name2, link, 535, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
+				AddDir(name2, link, 535, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
 def FilmesHDPlay(): #532
 	PlayUrl(name,"plugin://plugin.video.elementum/play?show=''&uri="+url, subs=[cachefolder+"Legendas/Elsubtitle (Brasil)-pt.forced.srt", cachefolder+"Legendas/Legendei (Brasil)-pt.srt", cachefolder+"Legendas/OpenSubtitles (Brasil)-pt.srt", cachefolder+"Legendas/Baixarlegenda (Brasil)-pt.srt"])
 	try:
@@ -1813,7 +1813,7 @@ def FilmesHDPlay(): #532
 def Filmesviatorrent(): # 533
 	pagina = "0" if not cPageserCM else cPageserCM
 	if int(pagina) > 0:
-		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserCM", info='[COLOR][/COLOR]')
+		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserCM", info='\xa0')
 	y= int(pagina)*4
 	for x in range(0, 4):
 		try:
@@ -1826,7 +1826,7 @@ def Filmesviatorrent(): # 533
 					AddDir(name2, link, 534, "https:"+img2.replace("w185","original"), "https:"+img2.replace("w185","original"), isFolder=True, IsPlayable=True, info="[COLOR][/COLOR]")
 		except:
 			pass
-	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserCM", info='[COLOR][/COLOR]')
+	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserCM", info='\xa0')
     
 def Filmesviatorrentmenu1(): #534
 	try:	
@@ -1999,7 +1999,7 @@ def AssistirbizMENU2(): # 514
 	except:
 		AddDir("Server error, tente novamente em alguns minutos" , "", 0, "", "", 0)
 def AssistirbizMENU(): # 514
-	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaBIZ11[int(CatBB)] +"[/COLOR]", "url" ,232 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaBIZ11[int(CatBB)] +"[/COLOR]", "url" ,232 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	try:
 			link = OpenURL("https://assistir.biz/home").replace('\n','').replace('\r','')
 			hex2 = re.compile('id="owl_lancamentos">(.+?). ASSISTIDOS').findall(link)
@@ -2062,7 +2062,7 @@ def AssistirbizPlay(): #516
 		sys.exit()
 # --------------  Inicio QueroFilmes
 def QuerofilmeshdMENU(): # 510
-	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaQUE11[int(CatQ1)] +"[/COLOR]", "url" ,231 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaQUE11[int(CatQ1)] +"[/COLOR]", "url" ,231 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	try:
 		p= 1
 		if int(cPageQlf) > 0:
@@ -2078,7 +2078,7 @@ def QuerofilmeshdMENU(): # 510
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 					if "tvshows" in url2: False
 					else:
-						AddDir(name2 + " - ("+ano+")" ,url2, 511, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
+						AddDir(name2 + " - ("+ano+")" ,url2, 511, img2, img2, info='\xa0', isFolder=True, IsPlayable=True)
 					p += 1
 			else:
 				break
@@ -2187,7 +2187,7 @@ def ListSerieQF(): #430:
 				for img2,name2,url2,ano in match:
 					img2= img2.replace("w185","original")
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-					AddDir(name2 + " - ("+ano+")" ,url2, 431, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
+					AddDir(name2 + " - ("+ano+")" ,url2, 431, img2, img2, info='\xa0', isFolder=True, IsPlayable=True)
 		except:
 			pass
 	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserQF")
@@ -2270,7 +2270,7 @@ def PlayEpiQF(): #433
 		xbmcgui.Dialog().ok('Play XD', 'Video não encontrado')
 		sys.exit()
 #def QuerofilmeshdMENU(): # 510 GoFilmes
-#	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaFl1[int(CatFl)] +"[/COLOR]", "url" ,230 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+#	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaFl1[int(CatFl)] +"[/COLOR]", "url" ,230 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 #	try:
 #		p= 1
 #		if int(cPageFlf) > 0:
@@ -2284,7 +2284,7 @@ def PlayEpiQF(): #433
 #				for url2,name2,img2, in match:
 #					if name2!="Close":
 #						name2 = name2.replace("Assistir","").replace("Online ","").replace("Dublado e Legendado","[COLOR blue]Dublado e Legendado[/COLOR]").replace("Dublado","[COLOR blue] Dublado[/COLOR]").replace("Legendado","[COLOR blue] Legendado[/COLOR]")
-#						AddDir(name2, url2, 511, img2.replace("w150_and_h225_bestv2","w342"), img2.replace("w150_and_h225_bestv2","w342"), info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
+#						AddDir(name2, url2, 511, img2.replace("w150_and_h225_bestv2","w342"), img2.replace("w150_and_h225_bestv2","w342"), info='\xa0', isFolder=True, IsPlayable=True)
 #					p += 1
 #		if p >= 97:
 #			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageFlf) + 2) +"][/B][/COLOR]", cPageFlf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageFlf")
@@ -2331,7 +2331,7 @@ def Filmes96(): #220
 	for x in m:
 		try:
 			meta = eval(x)
-			AddDir(meta['title'] +" [COLOR yellow]("+str(meta['year'])+")[/COLOR] "+" [COLOR blue]["+str(meta['rating'])+"][/COLOR]" , meta['mp4'] +"?play", 229, isFolder=False, IsPlayable=True, metah=meta, info='[COLOR][/COLOR]')
+			AddDir(meta['title'] +" [COLOR yellow]("+str(meta['year'])+")[/COLOR] "+" [COLOR blue]["+str(meta['rating'])+"][/COLOR]" , meta['mp4'] +"?play", 229, isFolder=False, IsPlayable=True, metah=meta, info='\xa0')
 		except:
 			pass
 	setViewM()
@@ -2347,7 +2347,7 @@ def FilmesRC(): #221
 			reg = "(.+)\$"+file[1]
 			m = re.compile(reg, re.IGNORECASE).findall(link2)
 			url2 = m[0]
-			AddDir(meta['title'] +" [COLOR yellow]("+str(meta['year'])+")[/COLOR] "+" [COLOR blue]["+str(meta['rating'])+"][/COLOR]" , url2 + file[0] +"?play|Referer=http://redecanais.xyz/", 229, isFolder=False, IsPlayable=True, metah=meta, info='[COLOR][/COLOR]')
+			AddDir(meta['title'] +" [COLOR yellow]("+str(meta['year'])+")[/COLOR] "+" [COLOR blue]["+str(meta['rating'])+"][/COLOR]" , url2 + file[0] +"?play|Referer=http://redecanais.xyz/", 229, isFolder=False, IsPlayable=True, metah=meta, info='\xa0')
 		except:
 			pass
 	setViewM()
@@ -2358,7 +2358,7 @@ def PlayFilmes96(): #229
 def CategoryOrdem(x):
 	x2 = Addon.getSetting(eval("x"))
 	name2 = "Data" if x2=="0" else "Título"
-	AddDir("[COLOR green][B][Organizado por:][/B] "+name2 +" (Clique para alterar)[/COLOR]" , x, 81, "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR green][B][Organizado por:][/B] "+name2 +" (Clique para alterar)[/COLOR]" , x, 81, "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 def CategoryOrdem2(url):
 	x2 = Addon.getSetting(url)
 	x = "0" if x2=="1" else "1"
@@ -2403,7 +2403,7 @@ def Series(): #60
 			if name2!="Close":
 				name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'")
 				img2 = re.sub('-120x170.(jpg|png)', r'.\1', img2 )
-				AddDir(name2 ,url2, 61, img2, img2, isFolder=True, info='[COLOR][/COLOR]')
+				AddDir(name2 ,url2, 61, img2, img2, isFolder=True, info='\xa0')
 	except:
 		AddDir("[COLOR mediumturquoise][B]||| Atualizar Lista |||[/B][/COLOR]" , "", 50, isFolder=False,info='Em caso de falha no carregamento clique aqui para atualizar')
 		try:
@@ -2442,7 +2442,7 @@ def Series(): #60
 				if name2!="Close":
 					name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'")
 					img2 = re.sub('-120x170.(jpg|png)', r'.\1', img2 )
-					AddDir(name2 ,url2, 61, img2, img2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir(name2 ,url2, 61, img2, img2, isFolder=True, info='\xa0')
 		except:
 			pass
 def ListSNC(x): #61
@@ -2576,7 +2576,7 @@ def PlayS(): #62
 			sys.exit()
 # --------------------------------------
 def MoviesNC(): #71 Netcine
-	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	#AddDir("[COLOR mediumturquoise][B]||| Atualizar Lista |||[/B][/COLOR]" , "", 50, isFolder=False,info='Em caso de falha no carregamento clique aqui para atualizar')
 	try:
 		p= 1
@@ -2595,7 +2595,7 @@ def MoviesNC(): #71 Netcine
 						img2 = img2.replace("-120x170","")
 					if "tvshows" in url2: False
 					else:
-						AddDir(name2,url2, 78, img2, img2, isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
+						AddDir(name2,url2, 78, img2, img2, isFolder=True, IsPlayable=True, info='\xa0')
 					p += 1
 		if p >= 55:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageGOf) + 2) +"][/B][/COLOR]", cPageGOf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageGOf")
@@ -2619,7 +2619,7 @@ def MoviesNC(): #71 Netcine
 							img2 = img2.replace("-120x170","")
 						if "tvshows" in url2: False
 						else:
-							AddDir(name2,url2, 78, img2, img2, isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
+							AddDir(name2,url2, 78, img2, img2, isFolder=True, IsPlayable=True, info='\xa0')
 						p += 1
 		if p >= 55:
 				AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageGOf) + 2) +"][/B][/COLOR]", cPageGOf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageGOf")
@@ -2741,7 +2741,7 @@ def PlayMNC(): #79
 			sys.exit()
 ############################################ Opção Proxy
 ########################opção 2
-#	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+#	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaGO1[int(CatGO)] +"[/COLOR]", "url" ,219 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 #	try:
 #		p= 1
 #		if int(cPageGOf) > 0:
@@ -2773,7 +2773,7 @@ def PlayMNC(): #79
 #				img2 = img2.replace("-120x170","")
 #			  if "tvshows" in url2: False
 #			  else:
-#				AddDir(name2,url2, 78, img2, img2, isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
+#				AddDir(name2,url2, 78, img2, img2, isFolder=True, IsPlayable=True, info='\xa0')
 #			  p += 1
 #		if p >= 56:
 #			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageGOf) + 2) +"][/B][/COLOR]", cPageGOf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageGOf")
@@ -2830,7 +2830,7 @@ def Generos2(): #500
 # --------------  FIM NETCINE
 # --------------  REDECANAIS FILMES
 def MoviesRCD(): #90 Filme dublado
-	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + Clista1[int(Cat)] +"[/COLOR]", "url" ,80 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + Clista1[int(Cat)] +"[/COLOR]", "url" ,80 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	CategoryOrdem("cOrdRCF")
 	try:
 		p= 1
@@ -2870,7 +2870,7 @@ def MoviesRCL(): #91 Filme Legendado
 	url1 = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/TV3.txt').text
 	urlx = re.compile('<title>(.+?)<.+\s.+?link>(htt.+?)<.+\s.+\s.+?il>(.+?)<').findall(url1)
 	for name2, url2, img2 in urlx:
-		AddDir(name2 ,url2, 214, img2, img2, info='[COLOR][/COLOR]', isFolder=False, IsPlayable=True) 
+		AddDir(name2 ,url2, 214, img2, img2, info='\xa0', isFolder=False, IsPlayable=True) 
 def MoviesRCN(): #92 Filmes Nacional
 	CategoryOrdem("cOrdRCF")
 	try:
@@ -3140,7 +3140,7 @@ def NF(x, t=5000):
 # ----------------- FIM REDECANAIS SERIES,ANIMES,DESENHOS
 # ----------------- BUSCA
 def Busca(): # 160
-	AddDir("[COLOR crimson][B][Nova Pesquisa][/B][/COLOR]", "" , 50 ,"https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR crimson][B][Nova Pesquisa][/B][/COLOR]", "" , 50 ,"https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", isFolder=False, info='\xa0')
 	d = xbmcgui.Dialog().input("Busca (poder demorar a carregar os resultados)").replace(" ", "+").replace('#','ª').replace('=','ª')
 	d = quote_plus(d)
 	progress = xbmcgui.DialogProgress()
@@ -3285,7 +3285,7 @@ def Busca(): # 160
 					img2= img2.replace("//image","https://image").replace("w185","original")
 					if "tvshows" in url2: False
 					else:
-						AddDir("[COLOR deepskyblue]" +name2+ " - ("+ano+")[/COLOR]", url2, 515, img2, img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
+						AddDir("[COLOR deepskyblue]" +name2+ " - ("+ano+")[/COLOR]", url2, 515, img2, img2, info='\xa0', isFolder=True, IsPlayable=True)
 	except:
 		pass'''
 	#progress.update(73, "73%", "VerFilmesHD", "")
@@ -3425,7 +3425,7 @@ def Busca(): # 160
 	#				img2 = img2.replace("w185", 'original').replace("https:", '').replace("w220_and_h330_face", 'original').replace("-185x278", "")
 	#				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 	#				if "Filme" in tvmovie:
-	#					AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 405, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
+	#					AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 405, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False, info='\xa0')
 	#				if "Série" in tvmovie:
 	#					AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 402, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=False)
 	#except:
@@ -3443,7 +3443,7 @@ def Busca(): # 160
 				for img2, name2, url2 in match:
 					img2 = img2.replace("w92","original")
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-					AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 466, img2, isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
+					AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 466, img2, isFolder=True, IsPlayable=True, info='\xa0')
 	except:
 		pass
 	progress.update(93, "Max")        
@@ -3458,7 +3458,7 @@ def Busca(): # 160
 				for img2, name2, url2 in match:
 					img2 = img2.replace("w92","original")
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-					AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 469, img2, isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
+					AddDir("[COLOR lightgreen]"+name2+"[/COLOR]", url2, 469, img2, isFolder=True, IsPlayable=True, info='\xa0')
 	except:
 		pass
 	progress.update(95, "Assistir.One")        
@@ -3509,9 +3509,9 @@ def Busca(): # 160
 			match = re.compile('"headline" ><a href="(.+?)">(.+?)<.+?" src="(.+?)"').findall(link2[0])
 			for link, name2, image2 in match:
 				if "Temporada" in name2 or "Completo" in name2:
-					AddDir("[COLOR lightgreen]"+name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]", link, 523, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir("[COLOR lightgreen]"+name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]", link, 523, image2, image2, isFolder=True, info='\xa0')
 				else:
-					AddDir("[COLOR lightgreen]"+name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]", link, 519, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir("[COLOR lightgreen]"+name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]", link, 519, image2, image2, isFolder=True, info='\xa0')
 	except:
 		pass
 	if (progress.iscanceled()):
@@ -3526,9 +3526,9 @@ def Busca(): # 160
 			for link,name2, image2 in match:
 				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 				if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2:
-					AddDir("[COLOR mediumpurple]" +name2.replace(" Torrent","").replace(" –","")+"[/COLOR]", link, 174, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir("[COLOR mediumpurple]" +name2.replace(" Torrent","").replace(" –","")+"[/COLOR]", link, 174, image2, image2, isFolder=True, info='\xa0')
 				else:
-					AddDir("[COLOR mediumpurple]" +name2.replace(" Torrent","").replace(" –","")+"[/COLOR]", link, 1711, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir("[COLOR mediumpurple]" +name2.replace(" Torrent","").replace(" –","")+"[/COLOR]", link, 1711, image2, image2, isFolder=True, info='\xa0')
 	except:
 		pass
 	if (progress.iscanceled()):
@@ -3542,9 +3542,9 @@ def Busca(): # 160
 			match = re.compile('<\/i><a href="(.+?)#.+?title="(.+?)".+?src="(.+?)".+?Duração:.+?>(.+?)<').findall(link)
 			for link, name2, image2, ep in match:
 				if "Temporada" in name2 or "EPISÓDIO" in name2 or "TEMPORADA" in name2 or 'EP' in ep:
-					AddDir("[COLOR yellow]"+name2.replace("Torrent ","").replace(" –","").replace('Download','')+"[/COLOR]", link, 251, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir("[COLOR yellow]"+name2.replace("Torrent ","").replace(" –","").replace('Download','')+"[/COLOR]", link, 251, image2, image2, isFolder=True, info='\xa0')
 				else:
-					AddDir("[COLOR yellow]"+name2.replace("Torrent ","").replace(" –","").replace('Download','')+"[/COLOR]", link, 187, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir("[COLOR yellow]"+name2.replace("Torrent ","").replace(" –","").replace('Download','')+"[/COLOR]", link, 187, image2, image2, isFolder=True, info='\xa0')
 	except:
 		pass
 	if (progress.iscanceled()):
@@ -3579,9 +3579,9 @@ def Busca(): # 160
 			match = re.compile('headline.+?<a href="(.+?)">(.+?)<.+?src="(.+?)"').findall(link)
 			for link, name2, image2 in match:
 				if "Temporada" in name2 or "Completo" in name2:
-					AddDir("[COLOR salmon]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 5381, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir("[COLOR salmon]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 5381, image2, image2, isFolder=True, info='\xa0')
 				else:
-					AddDir("[COLOR salmon]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 5271, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir("[COLOR salmon]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 5271, image2, image2, isFolder=True, info='\xa0')
 	except:
 		pass'''
 	'''if (progress.iscanceled()):
@@ -3598,9 +3598,9 @@ def Busca(): # 160
 				if not 'Torrent' in tipo: False
 				else:
 					if "Temporada" in name2 or "Completo" in name2:
-						AddDir("[COLOR mediumvioletred]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 538, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+						AddDir("[COLOR mediumvioletred]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 538, image2, image2, isFolder=True, info='\xa0')
 					else:
-						AddDir("[COLOR mediumvioletred]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 527, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+						AddDir("[COLOR mediumvioletred]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 527, image2, image2, isFolder=True, info='\xa0')
 	except:
 		pass'''    
 	'''try:
@@ -3611,9 +3611,9 @@ def Busca(): # 160
 			match = re.compile('headline" ><a href="(.+?)">(.+?)<.+?src="(.+?)"').findall(link)
 			for link, name2, image2 in match:
 				if "Temporada" in name2 or "Completo" in name2:
-					AddDir("[COLOR salmon]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 538, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir("[COLOR salmon]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 538, image2, image2, isFolder=True, info='\xa0')
 				else:
-					AddDir("[COLOR salmon]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 527, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir("[COLOR salmon]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 527, image2, image2, isFolder=True, info='\xa0')
 	except:
 		pass'''
 	'''if (progress.iscanceled()):
@@ -3627,9 +3627,9 @@ def Busca(): # 160
 			match = re.compile('headline">.+?href="(.+?)".+?title="(.+?)".src="(.+?)"').findall(link)
 			for link, name2, image2 in match:
 				if "Temporada" in name2 or "Completo" in name2:
-					AddDir("[COLOR salmon]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 538, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir("[COLOR salmon]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 538, image2, image2, isFolder=True, info='\xa0')
 				else:
-					AddDir("[COLOR salmon]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 527, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir("[COLOR salmon]"+html.unescape(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]"), link, 527, image2, image2, isFolder=True, info='\xa0')
 	except:
 		pass'''
 	if (progress.iscanceled()):
@@ -3656,7 +3656,7 @@ def TVCB(x): #102
 	urlx = re.compile('<title>(.+?)<.+\s.link>(.+?)<.+\s.+\s.thumbnail>(.+?)<').findall(url1)
 	jq = sorted(urlx, key=lambda urlx: urlx)
 	for name2, url2, img2 in jq:
-		AddDir(name2, url2, 103, img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+		AddDir(name2, url2, 103, img2, img2, isFolder=False, IsPlayable=True, info='\xa0')
     
 def PlayTVCB(): #103
 	try:
@@ -3734,7 +3734,7 @@ def TVRC(): #100
 	#link = OpenURL("http://localhost:8080/epg/_rc.php?c="+str(d))
 	match = re.compile('tvg\-logo\=\"([^\"]+).+,(.+)\s(.+)|,(.+)\s(.+)').findall(link)
 	for img2,name2,url2,a,c in match:
-		AddDir(name2, url2, 3, img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+		AddDir(name2, url2, 3, img2, img2, isFolder=False, IsPlayable=True, info='\xa0')
 def PlayTVRC(): # 101
 	#url2 = re.sub('redecanais\.[^\/]+', "redecanais.xyz", url.replace("https","http") )
 	try:
@@ -3781,10 +3781,10 @@ def GenerosPR(): #86
 #www.torrentdosfilmeshd2.net
 def MoviesFO(): #170
 	pagina = "0" if not cPageserTR else cPageserTR
-	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + Clistafo1[int(Catfo)] +"[/COLOR]", "url" ,85 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + Clistafo1[int(Catfo)] +"[/COLOR]", "url" ,85 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	try:
 		if int(pagina) > 0:
-			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserTR", info='[COLOR][/COLOR]')
+			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserTR", info='\xa0')
 		l= int(pagina)*5
 		for x in range(0, 5):
 			l +=1
@@ -3793,8 +3793,8 @@ def MoviesFO(): #170
 			for link, name2, image2, genero in match:
 				if "Serie" in genero or "Anime" in genero or "Temporada" in name2 or "Completo" in name2: False
 				else:
-					AddDir(name2.replace(" Torrent","").replace(" –",""), link, 1711, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
-		AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserTR", info='[COLOR][/COLOR]')
+					AddDir(name2.replace(" Torrent","").replace(" –",""), link, 1711, image2, image2, isFolder=True, info='\xa0')
+		AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserTR", info='\xa0')
 	except:
 		pass
 		
@@ -3817,14 +3817,14 @@ def GetMFO1(): #171
 		matchpff = match[0]
 		sinopse = re.compile('<.span><.strong>:(.+?)<.p>').findall(html.unescape(link.replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
 		if 'O Massacre da Serra Elétrica 3' in name:
-			AddDir('[COLOR springgreen][B]Sem Censura[/B][/COLOR]', '/></a></strong></p><p style="text-align: center;"><strong>BluRay 720p [Versão sem censura] </strong>(Mkv)<strong><br /><a rel="nofollow" target="_blank" href="magnet:?xt=urn:btih:8808F94E50CADEDF1662A8DA389D7226ED1D6C05&dn=O%20Massacre%20da%20Serra%20El%c3%a9trica%203%201990%20BluRay%20720p%20Dublado%20%5bgeek-filmes.com%5d&tr=udp%3a%2f%2ftracker.openbittorrent.com%3a80%2fannounce&tr=udp%3a%2f%2ftracker.opentrackr.org%3a1337%2fannounce&tr=http%3a%2f%2fnyaa.tracker.wf%3a7777%2fannounce&tr=http%3a%2f%2fanidex.moe%3a6969%2fannounce&tr=http%3a%2f%2fopen.tracker.thepiratebay.org%2fannounce&tr=http%3a%2f%2fwww.torrent-downloads.to%3a2710%2fannounce&tr=http%3a%2f%2fdenis.stalker.h3q.com%3a6969%2fannounce&tr=udp%3a%2f%2fdenis.stalker.h3q.com%3a6969%2fannounce&tr=http%3a%2f%2fwww.sumotracker.com%2fannounce&tr=udp%3a%2f%2f9.rarbg.com%3a2790%2fannounce&tr=udp%3a%2f%2f9.rarbg.me%3a2770%2fannounce&tr=http%3a%2f%2ftracker.anirena.com%3a80%2fannounce"><img loading="lazy" class="aligncenter" src="https://i.imgur.com/vgdG1Kt.png" alt="MAGNET LINK" width="300" height="125" /></a></strong></p><hr /><h3 style="text-align: center;"><img loading="lazy" class="alignnone" src="https://image.tmdb.org/t/p/original/3f40SgZ4Ty4uxITrvhAOHM0QhOw.jpg" alt="" width="500" height="352" /></h3><hr', 172, iconimage, iconimage, isFolder=False, IsPlayable=True, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), info='[COLOR][/COLOR]')
+			AddDir('[COLOR springgreen][B]Sem Censura[/B][/COLOR]', '/></a></strong></p><p style="text-align: center;"><strong>BluRay 720p [Versão sem censura] </strong>(Mkv)<strong><br /><a rel="nofollow" target="_blank" href="magnet:?xt=urn:btih:8808F94E50CADEDF1662A8DA389D7226ED1D6C05&dn=O%20Massacre%20da%20Serra%20El%c3%a9trica%203%201990%20BluRay%20720p%20Dublado%20%5bgeek-filmes.com%5d&tr=udp%3a%2f%2ftracker.openbittorrent.com%3a80%2fannounce&tr=udp%3a%2f%2ftracker.opentrackr.org%3a1337%2fannounce&tr=http%3a%2f%2fnyaa.tracker.wf%3a7777%2fannounce&tr=http%3a%2f%2fanidex.moe%3a6969%2fannounce&tr=http%3a%2f%2fopen.tracker.thepiratebay.org%2fannounce&tr=http%3a%2f%2fwww.torrent-downloads.to%3a2710%2fannounce&tr=http%3a%2f%2fdenis.stalker.h3q.com%3a6969%2fannounce&tr=udp%3a%2f%2fdenis.stalker.h3q.com%3a6969%2fannounce&tr=http%3a%2f%2fwww.sumotracker.com%2fannounce&tr=udp%3a%2f%2f9.rarbg.com%3a2790%2fannounce&tr=udp%3a%2f%2f9.rarbg.me%3a2770%2fannounce&tr=http%3a%2f%2ftracker.anirena.com%3a80%2fannounce"><img loading="lazy" class="aligncenter" src="https://i.imgur.com/vgdG1Kt.png" alt="MAGNET LINK" width="300" height="125" /></a></strong></p><hr /><h3 style="text-align: center;"><img loading="lazy" class="alignnone" src="https://image.tmdb.org/t/p/original/3f40SgZ4Ty4uxITrvhAOHM0QhOw.jpg" alt="" width="500" height="352" /></h3><hr', 172, iconimage, iconimage, isFolder=False, IsPlayable=True, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), info='\xa0')
 		for title2, link in match:
 			title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("MULTI ÁUDIO","[COLOR springgreen][B]Multi Áudio[/B][/COLOR]").replace("OFICIAL","")
 			if sinopse:
 				for info1 in sinopse:
 					AddDir(title2, link, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
 			else:
-				AddDir(title2, link, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), info='[COLOR][/COLOR]', legdub=title2)
+				AddDir(title2, link, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), info='\xa0', legdub=title2)
 	except:
 		pass
 		try:
@@ -3841,7 +3841,7 @@ def GetMFO1(): #171
 				filtro = re.compile('(.+)').findall(str(linkL))
 				t += 1
 				for magnet in filtro:
-					AddDir("[B]"+'Completo'+"[/B]", magnet, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
+					AddDir("[B]"+'Completo'+"[/B]", magnet, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
 		except:
 			pass
 			try:
@@ -3859,7 +3859,7 @@ def GetMFO1(): #171
 						for info1 in sinopse:
 							AddDir(title2, link, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
 					else:
-						AddDir(title2, link, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), info='[COLOR][/COLOR]', legdub=title2)
+						AddDir(title2, link, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), info='\xa0', legdub=title2)
 			except:
 				match2 = re.compile('(<.p><h3><a href=".+?".target=")').findall(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('Download Mkv: ','').replace(' / Áudio:','')))
 				sinopse = re.compile('<.span><.strong>:(.+?)<.p>').findall(html.unescape(link.replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
@@ -3869,7 +3869,7 @@ def GetMFO1(): #171
 						for info1 in sinopse:
 							AddDir('Selecione a opção', teste , 172, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
 					else:
-						AddDir('Selecione a opção', teste , 172, iconimage, iconimage, isFolder=False, IsPlayable=True, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), info='[COLOR][/COLOR]', legdub=title2)
+						AddDir('Selecione a opção', teste , 172, iconimage, iconimage, isFolder=False, IsPlayable=True, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), info='\xa0', legdub=title2)
                     
 def PlayMFO1(): #172
 	listar=[]
@@ -4260,11 +4260,11 @@ def PlayMFO1(): #172
 ##########################
 ##################################
 def MoviesPR(): #186
-	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + Clistapr1[int(Catpr)] +"[/COLOR]", "url" ,86 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + Clistapr1[int(Catpr)] +"[/COLOR]", "url" ,86 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	try:
 		p= 1
 		if int(cPagepr1) > 0:
-			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPagepr1) ) +"][/B][/COLOR]", cPagepr1 , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPagepr1", info='[COLOR][/COLOR]')
+			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPagepr1) ) +"][/B][/COLOR]", cPagepr1 , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPagepr1", info='\xa0')
 		l= int(cPagepr1)*6
 		for x in range(0, 6):
 			l +=1
@@ -4273,10 +4273,10 @@ def MoviesPR(): #186
 			for link, name2, image2, ep in match:
 				if "Temporada" in name2 or "EPISÓDIO" in name2 or "TEMPORADA" in name2 or 'EP' in ep: False
 				else:
-					AddDir(name2.replace("Torrent ","").replace(" –",""), link, 187, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir(name2.replace("Torrent ","").replace(" –",""), link, 187, image2, image2, isFolder=True, info='\xa0')
 				p += 1
 		if p >= 60:
-			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPagepr1) + 2) +"][/B][/COLOR]", cPagepr1 , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPagepr1", info='[COLOR][/COLOR]')
+			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPagepr1) + 2) +"][/B][/COLOR]", cPagepr1 , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPagepr1", info='\xa0')
 	except:
 		pass
 		
@@ -4311,7 +4311,7 @@ def MenuPR(): #187
 				for info1 in sinopse:
 					AddDir(title2, link, 188, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
 			else:
-				AddDir(title2, link, 188, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
+				AddDir(title2, link, 188, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
 	except:
 		pass
 def PlayPR(): #188
@@ -4695,7 +4695,7 @@ def PlayPR(): #188
 def Pirateserie(): #250
 	pagina = "0" if not cPageserPR else cPageserPR
 	if int(pagina) > 0:
-		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserPR", info='[COLOR][/COLOR]')
+		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserPR", info='\xa0')
 	y= int(pagina)*4
 	for x in range(0, 4):
 		try:
@@ -4703,10 +4703,10 @@ def Pirateserie(): #250
 			link = requests.get("https://filmesviatorrents.net/category/series/page/"+str(y)+"/",headers={'Referer':'https://filmesviatorrents.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile('<\/i><a href="(.+?)#.+?title="(.+?)".+?src="(.+?)"').findall(link)
 			for link, name2, image2 in match:
-				AddDir(name2.replace("Torrent ","").replace(" –",""), link, 251, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+				AddDir(name2.replace("Torrent ","").replace(" –",""), link, 251, image2, image2, isFolder=True, info='\xa0')
 		except:
 			pass
-	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserPR", info='[COLOR][/COLOR]')
+	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserPR", info='\xa0')
 
 def Piratemenu(): #251
 	try:
@@ -4718,7 +4718,7 @@ def Piratemenu(): #251
 		match1 = match[0]
 		for title2, link in match:
 			title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]")
-			AddDir(title2, "https://"+link, 252, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]')
+			AddDir(title2, "https://"+link, 252, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 	except:
 		pass
 		#link = requests.get(url,headers={'Referer':'https://filmesviatorrents.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n','').replace('\r','')
@@ -4726,7 +4726,7 @@ def Piratemenu(): #251
 		for title2, link in match:
 			if ":: LEGENDADO ::" in title2 or ":: DUAL ÁUDIO / DUBLADO ::" in title2 or "OBS:" in title2: False
 			else:
-				AddDir(title2, "https://"+link, 252, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]')
+				AddDir(title2, "https://"+link, 252, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 
 def Piratemenu2(): #252
 	#arquivo = open(cachefolder + "netcine.txt", "w+")
@@ -4750,7 +4750,7 @@ def Piratemenu2(): #252
 			except:
 				pass
 		for name2, url2 in match:
-			AddDir(name2.replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace('<ter;">'," ").replace('</b>',"").replace('</strong>','').replace('</p><p style="text-align center;">','').replace('Temporada Temporada','Temporada'), url2, 253, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+			AddDir(name2.replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace('<ter;">'," ").replace('</b>',"").replace('</strong>','').replace('</p><p style="text-align center;">','').replace('Temporada Temporada','Temporada'), url2, 253, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 	except:
 		match = re.compile('(Temporada.+?|Epi.+?|S[0-9].+?)<a(.+?)<.a><.p>').findall(url.replace('—<br /> ','ter;">').replace('/strong></p><p>','ter;">Temporada Completa'))
 		try:
@@ -4768,7 +4768,7 @@ def Piratemenu2(): #252
 			except:
 				pass
 		for name2, url2 in match:
-			AddDir(name2.replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace('<ter;">'," ").replace('</b>',"").replace('</strong>','').replace('</p><p style="text-align center;">','').replace('Temporada Temporada','Temporada'), url2, 253, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+			AddDir(name2.replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace('<ter;">'," ").replace('</b>',"").replace('</strong>','').replace('</p><p style="text-align center;">','').replace('Temporada Temporada','Temporada'), url2, 253, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 
 def Pirateplay(): #253
 	listar=[]
@@ -4886,7 +4886,7 @@ def Pirateplay(): #253
 def comandoseries(): #173
 	pagina = "0" if not cPageserCM else cPageserCM
 	if int(pagina) > 0:
-		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserCM", info='[COLOR][/COLOR]')
+		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserCM", info='\xa0')
 	y= int(pagina)*4
 	for x in range(0, 4):
 		try:
@@ -4894,10 +4894,10 @@ def comandoseries(): #173
 			link = requests.get("https://www.torrentdosfilmeshd1.net/category/series/page/"+str(y)+"/",headers={'Referer':'https://www.torrentdosfilmeshd1.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 			match = re.compile('<a href="(.+?)".+?title="(.+?).Download.+\s.+\s.+\s.+\s.+\s.+\s.+\s.+?src="(.+?)".+\s.+\s.+?Baixar.(.+?):').findall(html.unescape(link.replace('src="data:','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
 			for link, name2, image2,genero in match:
-				AddDir(name2.replace(" Torrent","").replace(" –",""), link, 174, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+				AddDir(name2.replace(" Torrent","").replace(" –",""), link, 174, image2, image2, isFolder=True, info='\xa0')
 		except:
 			pass
-	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserCM", info='[COLOR][/COLOR]')
+	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserCM", info='\xa0')
 
 def comandomenu1(): #174
 	#try:
@@ -4908,8 +4908,8 @@ def comandomenu1(): #174
 		match = re.compile('<strong>::.(.+?)::(.+?)><h2').findall(link.replace('\n','').replace('\r','').replace('<strong> ::','<strong>::').replace('center;">::','<strong>::').replace('»<b>','<strong>:: ').replace('«</strong>','::').replace('**FIM DE TEMPORADA**','><h2').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​',''))
 		if match:
 			for title2, link in match:
-				title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("MULTI ÁUDIO","[COLOR springgreen][B]MULTI ÁUDIO[/B][/COLOR]").replace('</b>','')
-				AddDir(title2, link, 177, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
+				title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("MULTI ÁUDIO","[COLOR springgreen][B]MULTI ÁUDIO[/B][/COLOR]").replace('</b>','').replace("MULTI-ÁUDIO","[COLOR springgreen][B]Multi-Áudio[/B][/COLOR]").replace("MULTI-SUBS","/ [COLOR red][B]Multi-Subs[/B][/COLOR]")
+				AddDir(title2, link, 177, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
 	#except:
 	#	pass
 
@@ -4923,10 +4923,10 @@ def comandomenu2(): #177
 		#arquivo.close()
         #(TEM.+?|Tem.+?|EPI.+?|Epi.+?)<.+?href="(.+?<.p)
 		try:
-			match = re.compile('<p style="text-align:.center;"><strong>(.+?)<.+?href="(.+?idd.+?<.p)').findall(urlx.replace('<p><strong>','<p style="text-align: center;"><strong>').replace('<div style="text-align: center;"><strong>','<p style="text-align:.center;"><strong>').replace('o </b>','o ').replace('</div><div style="text-align: center;">','<p style="text-align:.center;"><strong>').replace('</a></strong>','</a></p').replace('center;"><b>Episódio','><strong>Episódio').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('</b>',''))
+			match = re.compile('<p style="text-align:.center;"><strong>(.+?)<.+?href="(.+?idd.+?<.p)').findall(urlx.replace('<p><strong>','<p style="text-align: center;"><strong>').replace('<p style="text-align: center;"><b>','<p style="text-align: center;"><strong>').replace('<div style="text-align: center;"><strong>','<p style="text-align:.center;"><strong>').replace('o </b>','o ').replace('</div><div style="text-align: center;">','<p style="text-align:.center;"><strong>').replace('</a></strong>','</a></p').replace('center;"><b>Episódio','><strong>Episódio').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('</b>',''))
 			teste = match[0]
 		except:
-			match = re.compile('<p style="text-align:.center;"><strong>(.+?)<.+?href="(magnet.+?<.p)').findall(urlx.replace('<p><strong>','<p style="text-align: center;"><strong>').replace('<div style="text-align: center;"><strong>','<p style="text-align:.center;"><strong>').replace('o </b>','o ').replace('</div><div style="text-align: center;">','<p style="text-align:.center;"><strong>').replace('</a></strong>','</a></p').replace('center;"><b>Episódio','><strong>Episódio').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('</b>',''))
+			match = re.compile('<p style="text-align:.center;"><strong>(.+?)<.+?href="(magnet.+?<.p)').findall(urlx.replace('<p><strong>','<p style="text-align: center;"><strong>').replace('<p style="text-align: center;"><b>','<p style="text-align: center;"><strong>').replace('<div style="text-align: center;"><strong>','<p style="text-align:.center;"><strong>').replace('o </b>','o ').replace('</div><div style="text-align: center;">','<p style="text-align:.center;"><strong>').replace('</a></strong>','</a></p').replace('center;"><b>Episódio','><strong>Episódio').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('</b>',''))
 			matchoff = match[0]
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(str(match))
@@ -4948,7 +4948,7 @@ def comandomenu2(): #177
 		for name2, url2 in match:
 			cookiex = re.compile('(http.+?)<.p').findall(url2)
 			name2 = re.sub('.+Em Exibição.', 'EPISÓDIO 01', name2)
-			AddDir(name2.replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace('<ter;">'," ").replace('</b>',""), url2, 178, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=background)
+			AddDir(name2.replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace('<ter;">'," ").replace('</b>',""), url2, 178, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=background)
 	except:
 		pass
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
@@ -4978,7 +4978,7 @@ def comandomenu2(): #177
 		for name2, url2 in match:
 			cookiex = re.compile('(http.+?<).a>').findall(url2.replace('\xa0',' '))
 			name2 = re.sub('.+Em Exibição.', 'EPISÓDIO 01', name2)
-			AddDir(name2.replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace('<ter;">'," ").replace('</b>',""), cookiex, 178, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=background)
+			AddDir(name2.replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace('<ter;">'," ").replace('</b>',""), cookiex, 178, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=background)
                 
 def comandoplay(): #178
 	#arquivo = open(cachefolder + "testeplayer.txt", "w+")
@@ -5351,18 +5351,18 @@ def Paylistplay4(): #545
 
 ##### Alternativo: comandotorrents.fun
 def Comandotomenu(): #518
-	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + ClistaMEG11[int(CatMG)] +"[/COLOR]", "url" ,233 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + ClistaMEG11[int(CatMG)] +"[/COLOR]", "url" ,233 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	try:
 		p= 1
 		if int(cPageMEG) > 0:
-			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageMEG) ) +"][/B][/COLOR]", cPageMEG , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageMEG", info='[COLOR][/COLOR]')
+			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageMEG) ) +"][/B][/COLOR]", cPageMEG , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageMEG", info='\xa0')
 		l= int(cPageMEG)*4
 		for x in range(0, 4):
 			l +=1
 			if 'Fixados' in ClistaMEG11[int(CatMG)]:
 				#pagina = "0" if not FIXADOS else FIXADOS
 				#if int(pagina) > 0:
-				#	AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="FIXADOS", info='[COLOR][/COLOR]')
+				#	AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="FIXADOS", info='\xa0')
 				#y= int(pagina)*4
 				#for x in range(0, 4):
 					try:
@@ -5377,7 +5377,7 @@ def Comandotomenu(): #518
 								AddDir(name2.replace(" Torrent","").replace(" –","").replace("Download","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…'), link, 519, image2.replace('#038;',''), image2.replace('#038;',''), isFolder=True, info='[COLOR yellow]\nIMDb: [/COLOR]'+imdb1.replace('–/10','Sem nota').replace('&#8211;/10','Sem nota'))
 					except:
 						pass
-				#AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="FIXADOS", info='[COLOR][/COLOR]')
+				#AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="FIXADOS", info='\xa0')
 			elemento = "https://comando.la/category/"+ClistaMEG10[int(CatMG)]+"/page/"+str(l)+"/"
 			link = requests.get(elemento.replace('page/1/',''),headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 			link2 = re.compile("Categoria:(.+?)Página").findall(link.replace('\n','').replace('\r',''))
@@ -5392,7 +5392,7 @@ def Comandotomenu(): #518
 					AddDir(name2.replace(" Torrent","").replace(" –","").replace("Download","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…'), link, 519, image2.replace('#038;',''), image2.replace('#038;',''), isFolder=True, info='[COLOR yellow]\nIMDb: [/COLOR]'+imdb1.replace('–/10','Sem nota').replace('&#8211;/10','Sem nota'))
 				p += 1
 		if p >= 40:
-			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageMEG) + 2) +"][/B][/COLOR]", cPageMEG , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageMEG", info='[COLOR][/COLOR]')
+			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageMEG) + 2) +"][/B][/COLOR]", cPageMEG , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageMEG", info='\xa0')
 	except:
 		pass
 
@@ -5424,7 +5424,7 @@ def Comandotomenu2(): #519
 					for info1 in sinopse:
 						AddDir(html.unescape(title2+"[/B][/COLOR]"), link, 521, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
 				else:
-					AddDir(html.unescape(title2+"[/B][/COLOR]"), link, 521, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
+					AddDir(html.unescape(title2+"[/B][/COLOR]"), link, 521, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
 	except:
 		match = re.compile('<p style="text-align:.center;"><strong>(.+?)<.+?href="(mag.+?)"').findall(link.replace('\n','').replace('\r','').replace("</a></strong></p><p><","<strong>:: SELECIONE A OPÇÃO ::</strong>").replace('blank">K-Lite-Codec-Pack</a></strong></p><h2 style="text-align: center;">','<strong>:: SELECIONE A OPÇÃO ::</strong></a></strong></p> style="text-align: center;">').replace("</a></p><h2","").replace('/> style="text-align: center;">','<p style="text-align: center;"><strong>').replace('</strong></a></strong></p> style="text-align: center;">','<p style="text-align: center;"><strong>').replace('" width="300" height="125" /></p><p>','<p style="text-align: center;"><strong>1080p').replace('DVDRip (<strong style="font-style: italic;">','<strong>:: SELECIONE A OPÇÃO ::</strong></a></strong></p> style="text-align: center;">').replace('</strong>)</h4><p>','<p style="text-align: center;"><strong>1080p').replace("<strong>BAIXAR FILME</strong>",'<strong>:: SELECIONE A OPÇÃO ::</strong></a></strong></p> style="text-align: center;">').replace('LEGENDA</a></p></div><div style="text-align: center;">','<p style="text-align: center;"><strong>1080p').replace("MULTI ÁUDIO","[COLOR springgreen][B]Multi Áudio[/B][/COLOR]").replace("</strong></p><p>720p</p></div>","<strong>:: SELECIONE A OPÇÃO ::</a></div>").replace("</a></strong></p></div>","<strong>:: Dublado ::</a></div>").replace("</a></strong></p><h2>","<strong>:: Dublado ::</a></div>").replace('<strong>Caso haja algum problema de reprodução: <a',''))
 		sinopse = re.compile('<.span><.strong>:(.+?)<.p>').findall(html.unescape(link))
@@ -5438,7 +5438,7 @@ def Comandotomenu2(): #519
 				for info1 in sinopse:
 					AddDir(html.unescape("[B]"+title2+"[/B]"), link, 521, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
 			else:
-				AddDir(html.unescape("[B]"+title2+"[/B]"), link, 521, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
+				AddDir(html.unescape("[B]"+title2+"[/B]"), link, 521, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
         
 def Comandotoplayer(): #519
 	listar=[]
@@ -5827,7 +5827,7 @@ def Comandotoplayer(): #519
 def Comandotoserie(): #522
 	pagina = "0" if not cPageserCMT else cPageserCMT
 	if int(pagina) > 0:
-		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserCMT", info='[COLOR][/COLOR]')
+		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserCMT", info='\xa0')
 	y= int(pagina)*4
 	for x in range(0, 4):
 		try:
@@ -5837,10 +5837,10 @@ def Comandotoserie(): #522
 			link2 = re.compile("Categoria:(.+)").findall(link.replace('\n','').replace('\r',''))
 			match = re.compile('"headline" ><a href="(.+?)">(.+?)<.+?" src="(.+?)"').findall(link2[0])
 			for link, name2, image2 in match:
-				AddDir(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…'), link, 523, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+				AddDir(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…'), link, 523, image2, image2, isFolder=True, info='\xa0')
 		except:
 			pass
-	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserCMT", info='[COLOR][/COLOR]')
+	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserCMT", info='\xa0')
 
 def Comandotoserie2(): #523
 	link = requests.get(url,headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
@@ -5857,7 +5857,7 @@ def Comandotoserie2(): #523
 		if match:
 			for title2, link in match:
 				title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace('</strong>','')
-				AddDir(title2, link, 524, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]')
+				AddDir(title2, link, 524, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 	except:
 		pass
 		try:
@@ -5870,7 +5870,7 @@ def Comandotoserie2(): #523
 			if match:
 				for title2, link in match:
 					title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace('</strong>','')
-					AddDir(title2, link, 524, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]')
+					AddDir(title2, link, 524, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 		except:
 			pass
 			try:
@@ -5883,7 +5883,7 @@ def Comandotoserie2(): #523
 				if match:
 					for title2, link in match:
 						title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace('</strong>','')
-						AddDir(title2, link, 524, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]')
+						AddDir(title2, link, 524, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 			except:
 				pass
 				#link = requests.get(url,headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
@@ -5894,7 +5894,7 @@ def Comandotoserie2(): #523
 				if match:
 					for title2, link in match:
 						title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace('</strong>','')
-						AddDir("[COLOR springgreen][B]Dual Áudio[/B][/COLOR]", link, 524, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]')
+						AddDir("[COLOR springgreen][B]Dual Áudio[/B][/COLOR]", link, 524, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 
 def Comandotoserie3(): #524
 	#arquivo = open(cachefolder + "Comandoto.txt", "w+")
@@ -5921,7 +5921,7 @@ def Comandotoserie3(): #524
 			name2 = re.sub('.+?Epi', 'Epi', name2)
 			if "&#8230;" in name2 or 'problemas' in name2 or 'EGENDAS' in name2  or "Respostas" in name2 or 'ES</a>' in name2: False
 			else:
-				AddDir(name2.replace('</a></p>',' ').replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',"").replace('EMPORADA','TEMPORADA'), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+				AddDir(name2.replace('</a></p>',' ').replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',"").replace('EMPORADA','TEMPORADA'), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 	except:
 		#pass
 		try:
@@ -5931,7 +5931,7 @@ def Comandotoserie3(): #524
 				name2 = re.sub('.+?Epi', 'Epi', name2)
 				if "&#8230;" in name2 or 'problemas' in name2 or 'ENT END' in name2 or 'EGENDAS' in name2  or "Respostas" in name2: False
 				else:
-					AddDir(name2.replace("<b>","").replace('</a></p>',' ').replace('Baixar ','').replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',""), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+					AddDir(name2.replace("<b>","").replace('</a></p>',' ').replace('Baixar ','').replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',""), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 		except:
 			#pass
 			try:
@@ -5940,7 +5940,7 @@ def Comandotoserie3(): #524
 					name2 = re.sub('.+?Epi', 'Epi', name2)
 					if "&#8230;" in name2 or 'problemas' in name2 or 'EGENDAS' in name2 or "Respostas" in name2: False
 					else:
-						AddDir(name2.replace("<b>","").replace('</a></p>',' ').replace('Torrent Download','').replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',""), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+						AddDir(name2.replace("<b>","").replace('</a></p>',' ').replace('Torrent Download','').replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',""), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 			except:
 				#pass
 				try:
@@ -5950,7 +5950,7 @@ def Comandotoserie3(): #524
 						name2 = re.sub('.+?Epi', 'Epi', name2)
 						if "&#8230;" in name2 or 'problemas' in name2 or 'EGENDAS' in name2 or "Respostas" in name2: False
 						else:
-							AddDir(name2.replace('</a></p>',' ').replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',""), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+							AddDir(name2.replace('</a></p>',' ').replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',""), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 				except:
 					pass
         
@@ -6077,11 +6077,11 @@ def Comandotoserieplay(): #525
 
 # ------------------------------ DOS TORRENTS
 def DosTorrents(): #526
-	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + Clista1[int(Cat)] +"[/COLOR]", "url" ,80 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + Clista1[int(Cat)] +"[/COLOR]", "url" ,80 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	try:
 		p= 1
 		if int(cPage) > 0:
-			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPage) ) +"][/B][/COLOR]", cPage , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPage", info='[COLOR][/COLOR]')
+			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPage) ) +"][/B][/COLOR]", cPage , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPage", info='\xa0')
 		l= int(cPage)*6
 		for x in range(0, 6):
 			l +=1
@@ -6090,10 +6090,10 @@ def DosTorrents(): #526
 			for link,image2,name2, nome3, tipo in match:
 				if not 'Torrent' in tipo: False
 				else:
-					AddDir(name2.replace(" Torrent","").replace(" –","").replace("Download","").replace(' - Legendado','').replace(' - Dublado','').replace(' - CAM','').replace(' - R5','')+''+nome3, link, 527, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir(name2.replace(" Torrent","").replace(" –","").replace("Download","").replace(' - Legendado','').replace(' - Dublado','').replace(' - CAM','').replace(' - R5','')+''+nome3, link, 527, image2, image2, isFolder=True, info='\xa0')
 				p += 1
 		if p >= 120:
-			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPage) + 2) +"][/B][/COLOR]", cPage , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPage", info='[COLOR][/COLOR]')
+			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPage) + 2) +"][/B][/COLOR]", cPage , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPage", info='\xa0')
 	except:
 		pass
         
@@ -6126,7 +6126,7 @@ def DosTorrents2(): #527
 				for info1 in sinopse:
 					AddDir(html.unescape(title2.replace('/strong><strong>','').replace('[]','')+"[/B][/COLOR]"), link, 528, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
 			else:
-				AddDir(html.unescape(title2.replace('/strong><strong>','').replace('[]','')+"[/B][/COLOR]"), link, 528, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
+				AddDir(html.unescape(title2.replace('/strong><strong>','').replace('[]','')+"[/B][/COLOR]"), link, 528, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
 	except:
 		pass
 		match = re.compile('(href="magnet:.+?")').findall(link.replace('\n', '').replace('\r', ''))
@@ -6141,9 +6141,9 @@ def DosTorrents2(): #527
 				filtro = re.compile('(href=".+?<strong.+?)('+filtrar[0]+'.+)').findall(str(linkL))
 				matchoffx = filtro[0]
 				for magnet,nome in filtro:
-					AddDir("[B]"+nome.replace('<','')+"[/B]", magnet+nome, 528, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
+					AddDir("[B]"+nome.replace('<','')+"[/B]", magnet+nome, 528, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
 			except:
-				AddDir("[B]"+end+"[/B]", linkL, 528, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
+				AddDir("[B]"+end+"[/B]", linkL, 528, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
 
 def DosTorrentsPlay(): #528
 	listar=[]
@@ -6528,11 +6528,11 @@ def DosTorrentsPlay(): #528
 #####################################################################################################
 
 def DosTorrents1(): #5261
-	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + ClistaQUE11[int(CatQ1)] +"[/COLOR]", "url" ,80 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + ClistaQUE11[int(CatQ1)] +"[/COLOR]", "url" ,80 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	try:
 		p= 1
 		if int(cPageQlf) > 0:
-			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageQlf) ) +"][/B][/COLOR]", cPageQlf , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageQlf", info='[COLOR][/COLOR]')
+			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageQlf) ) +"][/B][/COLOR]", cPageQlf , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageQlf", info='\xa0')
 		l= int(cPageQlf)*4
 		for x in range(0, 4):
 			l +=1
@@ -6541,10 +6541,10 @@ def DosTorrents1(): #5261
 			for link, name2, image2 in match:
 				if "Temporada" in name2 or "Completo" in name2 or "temporada" in name2 or "completo" in name2: False
 				else:
-					AddDir(name2.replace(" Torrent","").replace(" –","").replace("Download",""), link, 5271, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir(name2.replace(" Torrent","").replace(" –","").replace("Download",""), link, 5271, image2, image2, isFolder=True, info='\xa0')
 				p += 1
 		if p >= 40:
-			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageQlf) + 2) +"][/B][/COLOR]", cPageQlf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageQlf", info='[COLOR][/COLOR]')
+			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageQlf) + 2) +"][/B][/COLOR]", cPageQlf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageQlf", info='\xa0')
 	except:
 		pass
         
@@ -6571,7 +6571,7 @@ def DosTorrents21(): #5271
 				for info1 in sinopse:
 					AddDir(html.unescape(title2.replace('/strong><strong>','')+"[/B][/COLOR]"), link, 5281, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
 			else:
-				AddDir(html.unescape(title2.replace('/strong><strong>','')+"[/B][/COLOR]"), link, 5281, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
+				AddDir(html.unescape(title2.replace('/strong><strong>','')+"[/B][/COLOR]"), link, 5281, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
 	except:
 		pass
 		match = re.compile('(href="magnet:.+?")').findall(link.replace('\n', '').replace('\r', ''))
@@ -6586,9 +6586,9 @@ def DosTorrents21(): #5271
 				filtro = re.compile('(href=".+?<strong.+?)('+filtrar[0]+'.+)').findall(str(linkL))
 				matchoffx = filtro[0]
 				for magnet,nome in filtro:
-					AddDir("[B]"+nome.replace('<','')+"[/B]", magnet+nome, 5281, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
+					AddDir("[B]"+nome.replace('<','')+"[/B]", magnet+nome, 5281, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
 			except:
-				AddDir("[B]"+end+"[/B]", linkL, 5281, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
+				AddDir("[B]"+end+"[/B]", linkL, 5281, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
 
 def DosTorrentsPlay1(): #5281
 	listar=[]
@@ -6874,11 +6874,11 @@ def DosTorrentsPlay1(): #5281
 					pass
         
 '''def DosTorrents(): #526
-	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + Clista1[int(Cat)] +"[/COLOR]", "url" ,80 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + Clista1[int(Cat)] +"[/COLOR]", "url" ,80 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	try:
 		p= 1
 		if int(cPage) > 0:
-			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPage) ) +"][/B][/COLOR]", cPage , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPage", info='[COLOR][/COLOR]')
+			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPage) ) +"][/B][/COLOR]", cPage , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPage", info='\xa0')
 		l= int(cPage)*4
 		for x in range(0, 4):
 			l +=1
@@ -6887,10 +6887,10 @@ def DosTorrentsPlay1(): #5281
 			for link, name2, image2 in match:
 				if "Temporada" in name2 or "Completo" in name2 or "temporada" in name2 or "completo" in name2: False
 				else:
-					AddDir(name2.replace(" Torrent","").replace(" –","").replace("Download",""), link, 527, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir(name2.replace(" Torrent","").replace(" –","").replace("Download",""), link, 527, image2, image2, isFolder=True, info='\xa0')
 				p += 1
 		if p >= 40:
-			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPage) + 2) +"][/B][/COLOR]", cPage , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPage", info='[COLOR][/COLOR]')
+			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPage) + 2) +"][/B][/COLOR]", cPage , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPage", info='\xa0')
 	except:
 		pass
 
@@ -6914,7 +6914,7 @@ def DosTorrents2(): #527
 				for info1 in sinopse:
 					AddDir(html.unescape(title2.replace('/strong><strong>','')+"[/B][/COLOR]"), link, 528, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
 			else:
-				AddDir(html.unescape(title2.replace('/strong><strong>','')+"[/B][/COLOR]"), link, 528, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
+				AddDir(html.unescape(title2.replace('/strong><strong>','')+"[/B][/COLOR]"), link, 528, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
 	except:
 		pass
 		match = re.compile('(href="magnet:.+?")').findall(link.replace('\n', '').replace('\r', ''))
@@ -6929,9 +6929,9 @@ def DosTorrents2(): #527
 				filtro = re.compile('(href=".+?<strong.+?)('+filtrar[0]+'.+)').findall(str(linkL))
 				matchoffx = filtro[0]
 				for magnet,nome in filtro:
-					AddDir("[B]"+nome.replace('<','')+"[/B]", magnet+nome, 528, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
+					AddDir("[B]"+nome.replace('<','')+"[/B]", magnet+nome, 528, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
 			except:
-				AddDir("[B]"+end+"[/B]", linkL, 528, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
+				AddDir("[B]"+end+"[/B]", linkL, 528, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
 
 def DosTorrentsPlay(): #528
 	listar=[]
@@ -7211,7 +7211,7 @@ def DosTorrentsPlay(): #528
 def DosTorrentsSerie(): #529
 	pagina = "0" if not cPageserDTS else cPageserDTS
 	if int(pagina) > 0:
-		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserDTS", info='[COLOR][/COLOR]')
+		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserDTS", info='\xa0')
 	y= int(pagina)*6
 	for x in range(0, 6):
 		try:
@@ -7222,10 +7222,10 @@ def DosTorrentsSerie(): #529
 			for link,image2,name2, nome3, tipo in match:
 				if not 'Torrent' in tipo: False
 				else:
-					AddDir(name2.replace("Torrent ","").replace(' Legendada','').replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…'), link, 538, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+					AddDir(name2.replace("Torrent ","").replace(' Legendada','').replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…'), link, 538, image2, image2, isFolder=True, info='\xa0')
 		except:
 			pass
-	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 538 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserDTS", info='[COLOR][/COLOR]')
+	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 538 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserDTS", info='\xa0')
 
 def DosTorrentsSerie1(): #538
 	try:
@@ -7238,7 +7238,7 @@ def DosTorrentsSerie1(): #538
 		if match:
 			for title2, link in match:
 				title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("Dual Áudio","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("Legendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]")
-				AddDir(title2, link, 539, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]')
+				AddDir(title2, link, 539, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 	except:
 		pass
 		try:
@@ -7250,7 +7250,7 @@ def DosTorrentsSerie1(): #538
 		    teste = match[0]
 		    if match:
 			    for title2, link in match:
-				    AddDir(title2, link, 539, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]')
+				    AddDir(title2, link, 539, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 		except:
 			pass
 			#link = requests.get(url, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
@@ -7262,7 +7262,7 @@ def DosTorrentsSerie1(): #538
 			if match:
 				for title2, link in match:
 					title2 = title2.replace("K-Lite-Codec-Pack","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]")
-					AddDir(title2, link, 539, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]')
+					AddDir(title2, link, 539, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
             
 
 def DosTorrentsSerie2(): #539
@@ -7291,7 +7291,7 @@ def DosTorrentsSerie2(): #539
 			#arquivo.write(url2)
 			#arquivo.close()
 			ts = re.sub('Temporada – Torrent.+', 'Episódio 01', ts)
-			AddDir(ts.replace(":","").swapcase().title().replace('P','p'), url2, 540, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+			AddDir(ts.replace(":","").swapcase().title().replace('P','p'), url2, 540, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 	except:
 		pass
 		#arquivo = open(cachefolder + "Comandoto.txt", "w+")
@@ -7299,7 +7299,7 @@ def DosTorrentsSerie2(): #539
 		#arquivo.close()
 		match = re.compile('(.+?)<.+?href="(.+?">.+?)<').findall(url)#.replace('unce"><img class="alignnone','unce">Completa').replace('</strong></h2><p><strong','<p><b>'))#.replace('—<br /> ','ter;">').replace('center;"><a','center;"><b>Temporada Completa: </b><a').replace('<span style="font-weight',"").replace(' 700 !important;">',"").replace("</span>","").replace('<p>',"").replace('"><strong>','">1080p</a></p>').replace("</p><p","</a></p><p"))
 		for name2, url2 in match:
-			AddDir(name2.replace(":","").replace('/a>','Temporada Completa').replace('</strong>','Temporada Completa'), url2, 540, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+			AddDir(name2.replace(":","").replace('/a>','Temporada Completa').replace('</strong>','Temporada Completa'), url2, 540, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 
 def DosTorrentsSeriePlay(): #540
 	#arquivo = open(cachefolder + "Comandoto.txt", "w+")
@@ -7427,7 +7427,7 @@ def DosTorrentsSeriePlay(): #540
 def DosTorrentsSerie11(): #5291
 	pagina = "0" if not cPageserDTS1 else cPageserDTS1
 	if int(pagina) > 0:
-		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserDTS1", info='[COLOR][/COLOR]')
+		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserDTS1", info='\xa0')
 	y= int(pagina)*4
 	for x in range(0, 4):
 		try:
@@ -7436,10 +7436,10 @@ def DosTorrentsSerie11(): #5291
 			#link2 = re.compile("Categoria:(.+?)Clientes").findall(link.replace('\n','').replace('\r',''))#.replace("Baixar Série:</b> ","").replace("«</b></span><br /><b>",">").replace("«</b><b> </b></span><br /><b>Título Traduzido</b>: ",">").replace("«</strong></span><br /><b>",">").replace("«</b><b> </b></span><br /><strong>Título Traduzido</strong>: ",">").replace('Título Traduzido:</b> ',"").replace(">>",">").replace('<a href="https://comando.la/category/',"").replace("Titulo original:</b> ","").replace("Titulo Traduzido:</b> ","").replace("Titulo original :</b> ","").replace("Baixar Filme:</b> ",""))
 			match = re.compile('headline".+?<a href="(.+?)">(.+?)<.+?src="(.+?)"').findall(link)
 			for link, name2, image2 in match:
-				AddDir(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…'), link, 5381, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+				AddDir(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…'), link, 5381, image2, image2, isFolder=True, info='\xa0')
 		except:
 			pass
-	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 5381 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserDTS1", info='[COLOR][/COLOR]')
+	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 5381 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserDTS1", info='\xa0')
 
 def DosTorrentsSerie111(): #5381
 	try:
@@ -7452,7 +7452,7 @@ def DosTorrentsSerie111(): #5381
 		if match:
 			for title2, link in match:
 				title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]")
-				AddDir(title2, link, 5391, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]')
+				AddDir(title2, link, 5391, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 	except:
 		pass
 		try:
@@ -7464,7 +7464,7 @@ def DosTorrentsSerie111(): #5381
 		    teste = match[0]
 		    if match:
 			    for title2, link in match:
-				    AddDir(title2, link, 5391, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]')
+				    AddDir(title2, link, 5391, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 		except:
 			pass
 			#link = requests.get(url, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
@@ -7476,7 +7476,7 @@ def DosTorrentsSerie111(): #5381
 			if match:
 				for title2, link in match:
 					title2 = title2.replace("K-Lite-Codec-Pack","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]")
-					AddDir(title2, link, 5391, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]')
+					AddDir(title2, link, 5391, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
             
 
 def DosTorrentsSerie21(): #5391
@@ -7504,7 +7504,7 @@ def DosTorrentsSerie21(): #5391
 			#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 			#arquivo.write(url2)
 			ts = re.sub('Temporada – Torrent.+', 'Episódio 01', ts)
-			AddDir(ts.replace(":",""), url2, 5401, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+			AddDir(ts.replace(":",""), url2, 5401, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 	except:
 		pass
 		#arquivo = open(cachefolder + "Comandoto.txt", "w+")
@@ -7512,7 +7512,7 @@ def DosTorrentsSerie21(): #5391
 		#arquivo.close()
 		match = re.compile('(.+?)<.+?href="(.+?">.+?)<').findall(url)#.replace('unce"><img class="alignnone','unce">Completa').replace('</strong></h2><p><strong','<p><b>'))#.replace('—<br /> ','ter;">').replace('center;"><a','center;"><b>Temporada Completa: </b><a').replace('<span style="font-weight',"").replace(' 700 !important;">',"").replace("</span>","").replace('<p>',"").replace('"><strong>','">1080p</a></p>').replace("</p><p","</a></p><p"))
 		for name2, url2 in match:
-			AddDir(name2.replace(":","").replace('/a>','Temporada Completa').replace('</strong>','Temporada Completa'), url2, 5401, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+			AddDir(name2.replace(":","").replace('/a>','Temporada Completa').replace('</strong>','Temporada Completa'), url2, 5401, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 
 def DosTorrentsSeriePlay1(): #5401
 	#arquivo = open(cachefolder + "Comandoto.txt", "w+")
@@ -7634,7 +7634,7 @@ def DosTorrentsSeriePlay1(): #5401
 '''def DosTorrentsSerie(): #529
 	pagina = "0" if not cPageserDTS else cPageserDTS
 	if int(pagina) > 0:
-		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserDTS", info='[COLOR][/COLOR]')
+		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserDTS", info='\xa0')
 	y= int(pagina)*4
 	for x in range(0, 4):
 		try:
@@ -7643,10 +7643,10 @@ def DosTorrentsSeriePlay1(): #5401
 			#link2 = re.compile("Categoria:(.+?)Clientes").findall(link.replace('\n','').replace('\r',''))#.replace("Baixar Série:</b> ","").replace("«</b></span><br /><b>",">").replace("«</b><b> </b></span><br /><b>Título Traduzido</b>: ",">").replace("«</strong></span><br /><b>",">").replace("«</b><b> </b></span><br /><strong>Título Traduzido</strong>: ",">").replace('Título Traduzido:</b> ',"").replace(">>",">").replace('<a href="https://comando.la/category/',"").replace("Titulo original:</b> ","").replace("Titulo Traduzido:</b> ","").replace("Titulo original :</b> ","").replace("Baixar Filme:</b> ",""))
 			match = re.compile('headline">.+?href="(.+?)".+?title="(.+?)".src="(.+?)"').findall(link)
 			for link, name2, image2 in match:
-				AddDir(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…'), link, 538, image2, image2, isFolder=True, info='[COLOR][/COLOR]')
+				AddDir(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…'), link, 538, image2, image2, isFolder=True, info='\xa0')
 		except:
 			pass
-	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 538 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserDTS", info='[COLOR][/COLOR]')
+	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 538 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserDTS", info='\xa0')
 
 def DosTorrentsSerie1(): #538
 	try:
@@ -7661,7 +7661,7 @@ def DosTorrentsSerie1(): #538
 				title2 = title2.replace('LEGENDADOS','LEGENDADO').replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace('LINKS','').replace('LINK','')
 				if "LEG" in title2 or 'DUB' in title2: False
 				else:
-					AddDir(title2, link, 539, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]')
+					AddDir(title2, link, 539, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 	except:
 		pass
 		try:
@@ -7673,7 +7673,7 @@ def DosTorrentsSerie1(): #538
 		    teste = match[0]
 		    if match:
 			    for title2, link in match:
-				    AddDir(title2, link, 539, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]')
+				    AddDir(title2, link, 539, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 		except:
 			pass
 			try:
@@ -7685,7 +7685,7 @@ def DosTorrentsSerie1(): #538
 				if match:
 					for link,title2 in match:
 						title2 = title2.replace("K-Lite-Codec-Pack","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]")
-						AddDir(title2, "TEMPORADA COMPLETA"+link+'".">720<.a><.p>', 539, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]')
+						AddDir(title2, "TEMPORADA COMPLETA"+link+'".">720<.a><.p>', 539, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 			except:
 				#link = requests.get(url,headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 				#arquivo = open(cachefolder + "Comandoto.txt", "w+")
@@ -7696,7 +7696,7 @@ def DosTorrentsSerie1(): #538
 				if match:
 					for title2, link in match:
 						title2 = title2.replace("K-Lite-Codec-Pack","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]")
-						AddDir(title2, link, 539, iconimage, iconimage, isFolder=True, IsPlayable=False, info='[COLOR][/COLOR]')
+						AddDir(title2, link, 539, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
             
 
 def DosTorrentsSerie2(): #539
@@ -7722,7 +7722,7 @@ def DosTorrentsSerie2(): #539
 			#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 			#arquivo.write(url2)
 			ts = re.sub('Temporada – Torrent.+', 'Episódio 01', ts)
-			AddDir(ts.replace(":",""), url2, 540, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+			AddDir(ts.replace(":",""), url2, 540, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 	except:
 		pass
 		#arquivo = open(cachefolder + "Comandoto.txt", "w+")
@@ -7730,7 +7730,7 @@ def DosTorrentsSerie2(): #539
 		#arquivo.close()
 		match = re.compile('<a href="(mag.+?"><strong>).+?(Temporada.+?)<').findall(url)#.replace('unce"><img class="alignnone','unce">Completa').replace('</strong></h2><p><strong','<p><b>'))#.replace('—<br /> ','ter;">').replace('center;"><a','center;"><b>Temporada Completa: </b><a').replace('<span style="font-weight',"").replace(' 700 !important;">',"").replace("</span>","").replace('<p>',"").replace('"><strong>','">1080p</a></p>').replace("</p><p","</a></p><p"))
 		for url2, name2 in match:
-			AddDir(name2.replace(":","").replace('/a>','Temporada Completa').replace('</strong>','Temporada Completa'), url2, 540, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+			AddDir(name2.replace(":","").replace('/a>','Temporada Completa').replace('</strong>','Temporada Completa'), url2, 540, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 
 def DosTorrentsSeriePlay(): #540
 	#arquivo = open(cachefolder + "Comandoto.txt", "w+")
@@ -7875,18 +7875,18 @@ def ListFilmeLancMM(): #184
 				for name2,b,url2 in m:
 					name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'").replace("&#8230;","")
 					if not url2 in ms:
-						AddDir(name2+ " [COLOR yellow]"+res[i]+"[/COLOR] [COLOR green]"+dubleg[i]+"[/COLOR]", url2, 181, jpg[i], jpg[i],isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
+						AddDir(name2+ " [COLOR yellow]"+res[i]+"[/COLOR] [COLOR green]"+dubleg[i]+"[/COLOR]", url2, 181, jpg[i], jpg[i],isFolder=True,IsPlayable=False, info='\xa0')
 					i+=1
 			i=0
 	except:
 		pass
 def ListFilmeMM(pagina2): #180
-	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + ClistaMM1[int(CatMM)] +"[/COLOR]", "url" ,189 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + ClistaMM1[int(CatMM)] +"[/COLOR]", "url" ,189 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	pagina=eval(pagina2)
 	l= int(pagina)*4
 	p=1
 	if int(pagina) > 0:
-		AddDir("[COLOR lime][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background=pagina2, info='[COLOR][/COLOR]')
+		AddDir("[COLOR lime][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background=pagina2, info='\xa0')
 	try:
 		links = OpenURL("http://www.mmfilmeshd.tv/series/")
 		links = OpenURL("http://www.mmfilmeshd.tv/series/")
@@ -7900,7 +7900,7 @@ def ListFilmeMM(pagina2): #180
 					name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'").replace("&#8230;","")
 					dubleg = dubleg.replace("</div>","")
 					if not url2 in ms:
-						AddDir(name2+ " [B][COLOR yellow]"+res+"[/COLOR][/B] [B][COLOR cyan]"+dubleg+"[/COLOR][/B]", url2, 181, jpg, jpg,isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
+						AddDir(name2+ " [B][COLOR yellow]"+res+"[/COLOR][/B] [B][COLOR cyan]"+dubleg+"[/COLOR][/B]", url2, 181, jpg, jpg,isFolder=True,IsPlayable=False, info='\xa0')
 					p+=1
 			if p >= 40:
 				AddDir("[COLOR lime][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background=pagina2)
@@ -7976,7 +7976,7 @@ def ListSerieMM(): #190
 			m2 = sorted(m2, key=lambda m2: m2[0])
 			for name2,url2,jpg2 in m2:
 				name2 = name2.replace("&#8211;","-").replace("&#038;","&").replace("&#8217;","\'").replace("&#8230;","")
-				AddDir(name2, url2, 191, jpg2, jpg2, isFolder=True,IsPlayable=False, info='[COLOR][/COLOR]')
+				AddDir(name2, url2, 191, jpg2, jpg2, isFolder=True,IsPlayable=False, info='\xa0')
 	#except:
 	#	pass
 def ListSMM(x): #191
@@ -8095,7 +8095,7 @@ def TVCB2(x): #104
 		url = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/BTV1').text
 		urlx = re.compile('(.B..C.+?)<.+?btv1=(.+?)=.+?il>(.+?)<').findall(url)
 		for name2, url2, img2 in urlx:
-			AddDir(name2, user+url2+password, 214, img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+			AddDir(name2, user+url2+password, 214, img2, img2, isFolder=False, IsPlayable=True, info='\xa0')
 	#canal_link = requests.get('https://brazucaplay.forumeiros.com/h101-servermax.xml').text
 	#canal_link = re.compile('btv4="(.+?)"').findall(canal_link)[0]
 	#canal_link = base64.b16decode(canal_link[::-1]).decode('utf-8')
@@ -8105,7 +8105,7 @@ def TVCB2(x): #104
 	#	url = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/tv4.txt').text
 	#	urlx = re.compile('tvg-name="(.+?)".+?"(.+?)".+\s(.+)').findall(url)
 	#	for name2, img2, url2 in urlx:
-	#		AddDir(name2, url2.replace('user',user).replace('pass',password)+agent, 214, img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+	#		AddDir(name2, url2.replace('user',user).replace('pass',password)+agent, 214, img2, img2, isFolder=False, IsPlayable=True, info='\xa0')
 def PlayTVB3(): #1212
 	t = requests.get("https://cutt.ly/canalTop", verify=False)
 	jq_ = json.loads(t.text.replace("\\","//"))
@@ -8117,10 +8117,10 @@ def TVCB3(): #107
 	m = re.compile('tvg-id=".+?e](.+?)[[].+?(http.+?)".+?(plugi.+?ffle)').findall(link)
 	for name2, img2, url2 in m:
 		#url2 = url2.replace('BR-LIVE-TODO MUNDO USA',"[COLOR green][B]HD[/B][/COLOR]").replace('Juntos Vamos Derrotar o Virus',"[COLOR green][B]HD[/B][/COLOR]").replace('BR-LIVE-SEMPRE 0800',"[COLOR green][B]HD[/B][/COLOR]")
-		AddDir(name2, url2, 212, img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+		AddDir(name2, url2, 212, img2, img2, isFolder=False, IsPlayable=True, info='\xa0')
 def RedOndemand(): #98
-	AddDir('[B][COLOR red]|[/COLOR]|[COLOR red]|[/COLOR][COLOR red] Filmes RED[/B][/COLOR]', '', 87, 'https://uploaddeimagens.com.br/images/004/002/278/full/logofilmes.png', 'https://uploaddeimagens.com.br/images/004/002/278/full/logofilmes.png', isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
-	AddDir('[B][COLOR red]|[/COLOR]|[COLOR red]|[/COLOR][COLOR red] Séries RED[/B][/COLOR]', '', 89, 'https://uploaddeimagens.com.br/images/004/002/590/full/logoSeries.png', 'https://uploaddeimagens.com.br/images/004/002/590/full/logoSeries.png', isFolder=True, IsPlayable=True, info='[COLOR][/COLOR]')
+	AddDir('[B][COLOR red]|[/COLOR]|[COLOR red]|[/COLOR][COLOR red] Filmes RED[/B][/COLOR]', '', 87, 'https://uploaddeimagens.com.br/images/004/002/278/full/logofilmes.png', 'https://uploaddeimagens.com.br/images/004/002/278/full/logofilmes.png', isFolder=True, IsPlayable=True, info='\xa0')
+	AddDir('[B][COLOR red]|[/COLOR]|[COLOR red]|[/COLOR][COLOR red] Séries RED[/B][/COLOR]', '', 89, 'https://uploaddeimagens.com.br/images/004/002/590/full/logoSeries.png', 'https://uploaddeimagens.com.br/images/004/002/590/full/logoSeries.png', isFolder=True, IsPlayable=True, info='\xa0')
 
 '''def auth():
     mstimetwo = int(time.mktime(datetime.datetime.utcnow().timetuple()) * 1000)
@@ -8254,14 +8254,14 @@ def PlayTVCB2(): #212
 def PlayTVCB3(): #214
 	PlayUrl(name, url, iconimage, info, "", metah)       
 def RadioTV(x): #106
-	AddDir("[COLOR white][B]RÁDIO YOUTUBE[/B][/COLOR]" , "", 107, "https://www.youtube.com/img/desktop/yt_1200.png", "https://www.youtube.com/img/desktop/yt_1200.png", info='[COLOR][/COLOR]')
+	AddDir("[COLOR white][B]RÁDIO YOUTUBE[/B][/COLOR]" , "", 107, "https://www.youtube.com/img/desktop/yt_1200.png", "https://www.youtube.com/img/desktop/yt_1200.png", info='\xa0')
 	link = OpenURL("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/Radios-tv").replace("\n","").replace('\r','')
 	m = re.compile('<title>(.+?)<\/title><link>(.+?)<\/link><thumbnail>(.+?)<\/thumbnail>').findall(link)
 	for name2, url2, img2 in m:
 		if 'live3.msr.cdn.mediaset.net' in url2:
 			AddDir(name2, url2, 544,img2, img2, isFolder=False, IsPlayable=True, info='Necessita de InputStream Adaptive')
 		else:
-			AddDir(name2, url2, 214,img2, img2, isFolder=False, IsPlayable=True, info='[COLOR][/COLOR]')
+			AddDir(name2, url2, 214,img2, img2, isFolder=False, IsPlayable=True, info='\xa0')
 def TVCB5(): #111
     url1 = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/TV4', headers={'Accept-Encoding': 'deflate'}).text
     url1x = re.compile("<title>(.+?)<.+\s.link>(.+?)<.+\s.thumbnail>(.+?)<").findall(url1)
@@ -8269,7 +8269,7 @@ def TVCB5(): #111
     for name2, url2, img2 in jq:
         if "AMC" in name2 or "BAND NEWS" in name2 or "COMBATE" in name2 or "DISCOVERY CHANNEL" in name2 or "DISCOVERY CIVILIZATION" in name2 or "DISCOVERY SCIENCE" in name2 or "DISCOVERY THEATER" in name2 or "ESPN EXTRA" in name2 or "ESPN[/COLOR]" in name2 or "FOX SPORTS" in name2 or "H2" in name2 or "MTV" in name2 or "MULTISHOW" in name2 or "NICK" in name2 or "PARAMOUNT" in name2 or "RECORD NEWS" in name2 or "SBT" in name2 or "STUDIO UNIVERSAL" in name2 or "TCM" in name2 or "TNT[/COLOR]" in name2 or "TOONCAST" in name2: False
         else:
-            AddDir(name2.replace('gold','springgreen'), url2, 112,img2, img2, isFolder=False, IsPlayable=True, background=name2, info='[COLOR][/COLOR]')
+            AddDir(name2.replace('gold','springgreen'), url2, 112,img2, img2, isFolder=False, IsPlayable=True, background=name2, info='\xa0')
         
 def TVCB5PLAY(): #112
     try:
@@ -8313,7 +8313,7 @@ def TVCB5PLAY(): #112
     url1 = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/poyra-channel.txt').text
     url1x = re.compile("Nome=(.+?), imagem=(.+?), link=(.+)").findall(url1)
     for name2, img2, url2 in url1x:
-        AddDir("[B]"+name2+"[/B]", url2, 114,img2, img2, isFolder=False, IsPlayable=True, background=name2, info='[COLOR][/COLOR]')
+        AddDir("[B]"+name2+"[/B]", url2, 114,img2, img2, isFolder=False, IsPlayable=True, background=name2, info='\xa0')
         
 def POY1PLAY(): #114
     #mac = "MDA6MUE6Nzk6QTQ6OTY6NUQ=" #poyra
@@ -8355,7 +8355,7 @@ def POY1(): #113
     url1 = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/sabtooh-channels').text
     url1x = re.compile("Nome=(.+?),.Link=(.+?),.imagem=(.+)").findall(url1)
     for name2, url2,img2 in url1x:
-        AddDir("[B]"+name2+"[/B]", url2, 114,img2, img2, isFolder=False, IsPlayable=True, background=name2, info='[COLOR][/COLOR]')
+        AddDir("[B]"+name2+"[/B]", url2, 114,img2, img2, isFolder=False, IsPlayable=True, background=name2, info='\xa0')
         
 def POY1PLAY(): #114
     PlayFFmpeg(name, "http://sabtooh.club:12060/199771479671/62f6e7668797b.15494/"+url+"|User-Agent=DRAGON.SERVERS.UAGENT123.00/4.7 (Linux;Android 7.1.1) ExoPlayerLib/2.11.8", iconimage, '')
@@ -8366,13 +8366,13 @@ def FOX1(): #115
     for name2, img2, url2 in url1x:
         if 'NET#' in name2:
             net = re.compile('NET="(.+?)"').findall(url1)
-            AddDir("[B]"+name2.replace('NET#','')+"[/B]", url2, 114,img2, img2, isFolder=False, IsPlayable=True, background=net[0], info='[COLOR][/COLOR]')
+            AddDir("[B]"+name2.replace('NET#','')+"[/B]", url2, 114,img2, img2, isFolder=False, IsPlayable=True, background=net[0], info='\xa0')
         elif 'DONT#' in name2:
             dont = re.compile('DONT="(.+?)"').findall(url1)
-            AddDir("[B]"+name2.replace('DONT#','')+"[/B]", url2, 114,img2, img2, isFolder=False, IsPlayable=True, background=dont[0], info='[COLOR][/COLOR]')
+            AddDir("[B]"+name2.replace('DONT#','')+"[/B]", url2, 114,img2, img2, isFolder=False, IsPlayable=True, background=dont[0], info='\xa0')
         else:
             fox = re.compile('FOX="(.+?)"').findall(url1)
-            AddDir("[B]"+name2+"[/B]", url2, 116,img2, img2, isFolder=False, IsPlayable=True, background=fox[0], info='[COLOR][/COLOR]')
+            AddDir("[B]"+name2+"[/B]", url2, 116,img2, img2, isFolder=False, IsPlayable=True, background=fox[0], info='\xa0')
         
 def FOXPLAY(): #116
     mac = background
@@ -8405,7 +8405,7 @@ def FOXPLAY(): #116
     url1x = re.compile("img = '(.+?)'.Nome = '(.+?)'.Canal = '(.+?)'").findall(url1)
     for img2, name2, url2 in url1x:
         img2 = 'https://redecanaistv.net'+img2
-        AddDir("[B][COLOR white]"+name2+"[/COLOR][/B]", 'https://'+url2, 112,img2, img2, isFolder=False, IsPlayable=True, background=name2, info='[COLOR][/COLOR]')
+        AddDir("[B][COLOR white]"+name2+"[/COLOR][/B]", 'https://'+url2, 112,img2, img2, isFolder=False, IsPlayable=True, background=name2, info='\xa0')
 def TVCB5PLAY(): #112
     urlplax = 'https://sinalpublico.com/player3/ch.php?canal='+url.replace('https://','')
     urlplax1 = OpenURL(urlplax,headers={'referer': urlplax}).replace("\n","").replace('\r','')
@@ -8515,7 +8515,7 @@ def GenerosMX(): #237
 		Addon.setSetting("cPageMX", "0" )
 		xbmc.executebuiltin("Container.Refresh()")                        
 def ListGO(): #210 Topflix Dublado --------------------------------------------
-	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaFl1[int(CatFl)] +"[/COLOR]", "url" ,230 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaFl1[int(CatFl)] +"[/COLOR]", "url" ,230 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	try:
 		p= 1
 		if int(cPageFlf) > 0:
@@ -8536,7 +8536,7 @@ def ListGO(): #210 Topflix Dublado --------------------------------------------
 						name2 = name2.replace("</font>","").replace("<span>","- ").replace("</span>","")
 					if "series" in url2: False
 					else:                        
-						AddDir(name2 ,RC4 + url2, 211, "https://topflix.vc/" +img2, RC4 + img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
+						AddDir(name2 ,RC4 + url2, 211, "https://topflix.vc/" +img2, RC4 + img2, info='\xa0', isFolder=True, IsPlayable=True)
 					p += 1
 		if p >= 96:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageFlf) + 2) +"][/B][/COLOR]", cPageFlf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageFlf")
@@ -8560,7 +8560,7 @@ def ListGOL(): #310 Lançamentos ---------------------------------------
 						name2 = name2.replace("</font>","").replace("<span>","- ").replace("</span>","")
 					if "series" in url2: False
 					else:                        
-						AddDir(name2 ,RC4 + url2, 211, "https://topflix.vc/" +img2, RC4 + img2, info='[COLOR][/COLOR]', isFolder=True, IsPlayable=True)
+						AddDir(name2 ,RC4 + url2, 211, "https://topflix.vc/" +img2, RC4 + img2, info='\xa0', isFolder=True, IsPlayable=True)
 					p += 1
 		if p >= 72:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageFlf) + 2) +"][/B][/COLOR]", cPageFlf , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageFlf")
@@ -8649,7 +8649,7 @@ def ListPlay(): #213 play ======================================================
 		sys.exit()           
 # ----------------- Inicio Superflix
 def ListMovieSF(): #411:
-	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaMEG11[int(CatMG)] +"[/COLOR]", "url" ,233 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='[COLOR][/COLOR]')
+	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaMEG11[int(CatMG)] +"[/COLOR]", "url" ,233 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	try:
 		p= 1
 		if int(cPageMEG) > 0:
@@ -8666,7 +8666,7 @@ def ListMovieSF(): #411:
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 					if "Série" in tvmovie: False
 					else:
-						AddDir(name2+" ("+year2+")", url2, 405, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=True, info='[COLOR][/COLOR]')
+						AddDir(name2+" ("+year2+")", url2, 405, "http:"+img2, "http:"+img2,isFolder=True,IsPlayable=True, info='\xa0')
 					p += 1
 		if p >= 33:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageMEG) + 2) +"][/B][/COLOR]", cPageMEG , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageMEG")
