@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.20.00"
+Versao = "23.21.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -8270,9 +8270,9 @@ def TVCB5(): #111
     url1x = re.compile("<title>(.+?)<.+\s.link>(.+?)<.+\s.thumbnail>(.+?)<").findall(url1)
     jq = sorted(url1x, key=lambda url1x: url1x)
     for name2, url2, img2 in jq:
-        if "AMC" in name2 or "BAND NEWS" in name2 or "COMBATE" in name2 or "DISCOVERY CHANNEL" in name2 or "DISCOVERY CIVILIZATION" in name2 or "DISCOVERY SCIENCE" in name2 or "DISCOVERY THEATER" in name2 or "ESPN EXTRA" in name2 or "ESPN[/COLOR]" in name2 or "FOX SPORTS" in name2 or "H2" in name2 or "MTV" in name2 or "MULTISHOW" in name2 or "NICK" in name2 or "PARAMOUNT" in name2 or "RECORD NEWS" in name2 or "SBT" in name2 or "STUDIO UNIVERSAL" in name2 or "TCM" in name2 or "TNT[/COLOR]" in name2 or "TOONCAST" in name2: False
-        else:
-            AddDir(name2.replace('gold','springgreen'), url2, 112,img2, img2, isFolder=False, IsPlayable=True, background=name2, info='\xa0')
+        #if "AMC" in name2 or "BAND NEWS" in name2 or "COMBATE" in name2 or "DISCOVERY CHANNEL" in name2 or "DISCOVERY CIVILIZATION" in name2 or "DISCOVERY SCIENCE" in name2 or "DISCOVERY THEATER" in name2 or "ESPN EXTRA" in name2 or "ESPN[/COLOR]" in name2 or "FOX SPORTS" in name2 or "H2" in name2 or "MTV" in name2 or "MULTISHOW" in name2 or "NICK" in name2 or "PARAMOUNT" in name2 or "RECORD NEWS" in name2 or "SBT" in name2 or "STUDIO UNIVERSAL" in name2 or "TCM" in name2 or "TNT[/COLOR]" in name2 or "TOONCAST" in name2: False
+        #else:
+        AddDir(name2.replace('gold','springgreen'), url2, 112,img2, img2, isFolder=False, IsPlayable=True, background=name2, info='\xa0')
         
 def TVCB5PLAY(): #112
     try:
