@@ -3152,9 +3152,6 @@ def Busca(): # 160
 		pass
 	if 'Yes' in url:
 		d = background.replace('+','%2B')
-	arquivo = open(cachefolder + "LegendaT.txt", "w+")
-	arquivo.write(d)
-	arquivo.close()
 	progress = xbmcgui.DialogProgress()
 	progress.create('Buscando...')
 	#progress.update(0, "Netcine")
