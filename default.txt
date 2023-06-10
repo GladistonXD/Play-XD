@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.21.00"
+Versao = "23.22.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -185,7 +185,7 @@ def Categories(): #70
 	AddDir("[COLOR white][B]Radio TV[/B][/COLOR]" , "", 106, "https://uploaddeimagens.com.br/images/002/527/445/original/Radio-tv-black.png", "https://uploaddeimagens.com.br/images/002/527/445/original/Radio-tv-black.png", info='\xa0')
 	AddDir("[COLOR white][B]Canais de TV[/B][/COLOR]" , "", -1, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
 	#AddDir("[COLOR green][B]Histórico Filmes[/B][/COLOR]", "" ,305 , "https://cdn2.iconfinder.com/data/icons/business-office-icons/256/To-do_List-512.png", "https://cdn2.iconfinder.com/data/icons/business-office-icons/256/To-do_List-512.png", info='\xa0')
-	AddDir("[COLOR crimson][B]Pesquisa[/B][/COLOR]" , "", 160, "https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", "https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", "https://azure.microsoft.com/svghandler/search/?width=400&height=315", "https://azure.microsoft.com/svghandler/search/?width=400&height=315", info="Pesquisa em todo o Addon por palavra-chave\n\nUsar: [[B]=[/B]] \nFiltra número expecifico de temporada quando não apresentada a lista\n\nExemplo: \nOs Simpsons 14= \n\n Para exibir a temporada 14ª")
+	AddDir("[COLOR crimson][B]Pesquisa[/B][/COLOR]" , "No", 160, "https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", "https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", "https://azure.microsoft.com/svghandler/search/?width=400&height=315", "https://azure.microsoft.com/svghandler/search/?width=400&height=315", info="Pesquisa em todo o Addon por palavra-chave\n\nUsar: [[B]=[/B]] \nFiltra número expecifico de temporada quando não apresentada a lista\n\nExemplo: \nOs Simpsons 14= \n\n Para exibir a temporada 14ª")
 	AddDir("[B][COLOR orange]Checar Atualizações[/COLOR][/B]", "" , 200,"https://uploaddeimagens.com.br/images/002/376/161/original/Update.jpg", "https://uploaddeimagens.com.br/images/002/376/161/original/Update.jpg", isFolder=False, info="Checar se há atualizações\n\nAs atualizações normalmente são automáticas\nUse esse recurso caso não esteja recebendo automaticamente\r\nVersão atual: "+Versao)
 	AddDir("[B][COLOR darkgray]Configurações[/COLOR][/B]", "" , 541,"https://uploaddeimagens.com.br/images/003/570/571/full/pngaaa.com-371737.png", "https://uploaddeimagens.com.br/images/003/570/571/full/pngaaa.com-371737.png", isFolder=False, info="Configurações")
 	setViewM()
@@ -3140,9 +3140,21 @@ def NF(x, t=5000):
 # ----------------- FIM REDECANAIS SERIES,ANIMES,DESENHOS
 # ----------------- BUSCA
 def Busca(): # 160
-	AddDir("[COLOR crimson][B][Nova Pesquisa][/B][/COLOR]", "" , 50 ,"https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", isFolder=False, info='\xa0')
-	d = xbmcgui.Dialog().input("Busca (poder demorar a carregar os resultados)").replace(" ", "+").replace('#','ª').replace('=','ª')
-	d = quote_plus(d)
+	if 'No' in url:
+		AddDir("[COLOR crimson][B][Nova Pesquisa][/B][/COLOR]", "No" , 50 ,"https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", isFolder=False, info='\xa0')
+		d = xbmcgui.Dialog().input("Busca (poder demorar a carregar os resultados)").replace(" ", "+").replace('#','ª').replace('=','ª')
+		d = quote_plus(d)
+	try:
+		Sugestao = requests.get('https://www.google.com/search?q='+d+'&ie=UTF-8').text
+		Sugestao1 = re.compile('Exibindo resultados para.+?<span>(.+?)</span>').findall(Sugestao)[0].replace('<b><i>','').replace('</i></b>','')
+		AddDir("[B]Você quis dizer: [COLOR springgreen]"+Sugestao1.replace('+',' ')+"[/COLOR]*?[/B]", "Yes" , 160 ,"https://uploaddeimagens.com.br/images/002/376/135/original/941129_stock-photo-illustration-of-a-magnifying-glass.jpg", isFolder=True, background=Sugestao1, info='\xa0')
+	except:
+		pass
+	if 'Yes' in url:
+		d = background.replace('+','%2B')
+	arquivo = open(cachefolder + "LegendaT.txt", "w+")
+	arquivo.write(d)
+	arquivo.close()
 	progress = xbmcgui.DialogProgress()
 	progress.create('Buscando...')
 	#progress.update(0, "Netcine")
