@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.23.00"
+Versao = "23.24.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -191,11 +191,11 @@ def Categories(): #70
 	setViewM()
 # --------------  Menu
 def MCanais(): #-1
-    #AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](REDPLAY)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](REDPLAY)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](POYRATV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](SABTOOHTV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](R98K)[/B][/COLOR]"  , "", 91, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     setViewM()
@@ -8148,62 +8148,68 @@ def RedOndemand(): #98
 
 def TVCB4(): #108
 	AddDir('[B][COLOR red]|||[/COLOR][COLOR white]|||[/COLOR][COLOR red]|||[/COLOR][COLOR red] Filmes e Séries[/B][/COLOR]', '', 98, 'https://uploaddeimagens.com.br/images/004/002/176/full/filmeseseries.png', 'https://uploaddeimagens.com.br/images/004/002/176/full/filmeseseries.png', isFolder=True, IsPlayable=True, info='[B]Filmes e Séries OnDemand[/B]')
-	try:
-		header = 'UkVETElORUNMSUVOVCBSRUQzNjAgVjAuMS41Mg=='
-		header = base64.b64decode(header).decode('utf-8')
-		log = base64.b64decode('aHR0cHM6Ly9hbmRyb2lkLnJlZGlwdHYyLmNvbS9sb2dpbi5waHA/dXNlcmNvZGU9MDAwMDAwMDAwMCZwaWQ9MSZtYWM9Qjg5QkVEMDI0OTU1JnNuPTIzNDdiOGRjZmIyMiZjdXN0b21lcj1SRUQzNjAmbGFuZz1lbmcmY3M9YW1sb2dpYyZjaGVjaz0yODkxMTY2NTgz').decode('utf-8')
-		login = requests.get(log, headers={'User-Agent':header}).text
-		link = 'aHR0cHM6Ly9hbmRyb2lkLnJlZGlwdHYyLmNvbS9jaC5waHA/dXNlcmNvZGU9ODA3MDM5NDcwOSZwaWQ9MSZtYWM9Qjg5QkVEMDI0OTU1JnNuPTIzNDdiOGRjZmIyNiZjdXN0b21lcj1SRUQmbGFuZz1lbmcmY3M9YW1sb2dpYyZjaGVjaz0yNzkxNzIzMTU0'
-		link = base64.b64decode(link).decode('utf-8')
-		t = requests.get(link, verify=False, headers={'User-Agent': header,'Connection':'Keep-Alive','Accept-Encoding':'gzip'})
-		jq_ = json.loads(t.text.replace("\\","//").replace('SKY 10','SKY 99').replace('////','//').replace('///','/').replace("http://files.rednetcontent.com/chlogo2/Brasil/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/Portuguese/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/english/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/french/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/arabic/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/dutch/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/russian/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/German/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("1280px-SporTV_2017_logo.png","SporTV_2_logo_20167.png").replace("SporTV_2_logo_2016.png","Sportv2.png").replace("TVBAH//u0130A.png","bahia.png").replace('new/','').replace('gloob//u0131nho.png','gloob.png').replace('band_campinas-br.png','tv_globo_br.png').replace('Premiere Clubes','Premiere 1 Clubes').replace('HBO+','HBO 3').replace('MTVL//u0130VE.png','mtv-live.png').replace('http://files.rednetcontent.com/chlogo2/denmark/mtv-80s-us.png','https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/vh1.png').replace('MTV 80s','V1H'))
-		jq = sorted(jq_, key=lambda jq_: jq_['name'])
-		for jq1 in jq:
-			#if "Action 1" in jq1['name']or "Action 2" in jq1['name'] or "Action 3" in jq1['name'] or "Action 4" in jq1['name'] or "Action 5" in jq1['name'] or "Action 6" in jq1['name'] or "Action 7" in jq1['name'] or "Action 8" in jq1['name'] or "Action 9" in jq1['name'] or "Action 10" in jq1['name'] or "Adventure" in jq1['name'] or "Crime" in jq1['name'] or "Documentary" in jq1['name'] or "Drama" in jq1['name'] or "Horror" in jq1['name'] or "Sci-Fi" in jq1['name'] or "Comedy 1" in jq1['name'] or "Comedy 2" in jq1['name'] or "Comedy 3" in jq1['name'] or "Comedy 4" in jq1['name'] or "Comedy 5" in jq1['name'] or "Comedy 6" in jq1['name'] or "Comedy 7" in jq1['name'] or "Comedy 8" in jq1['name'] or "Comedy 9" in jq1['name'] or "Comedy 10" in jq1['name'] or "Kids 1" in jq1['name'] or "Kids 2" in jq1['name'] or "Kids 3" in jq1['name'] or "Kids 4" in jq1['name'] or "Kids 5" in jq1['name'] or "Kids 6" in jq1['name'] or "Kids 7" in jq1['name'] or "Kids 8" in jq1['name'] or "Kids 9" in jq1['name'] or "Kids 10" in jq1['name']: False
-			if "Fazenda" in jq1['name'] or "BBB" in jq1['name'] or "Star Hits" in jq1['name'] or 'Disney XD' in jq1['name'] or 'Disney Junior' in jq1['name'] or 'Nat Geo Kids' in jq1['name'] or 'National Geographics' in jq1['name'] or 'DAZN' in jq1['name'] or 'Fashion TV' in jq1['name'] or 'France 24' in jq1['name'] or 'MTVs 00' in jq1['name'] or 'Mega TV' in jq1['name'] or 'Star+' in jq1['name'] or 'Cine SKY' in jq1['name'] or 'Cine Sky' in jq1['name'] or 'Canal Do Boi' in jq1['name'] or 'Band Campinas' in jq1['name'] or 'Agro+' in jq1['name'] or 'Bandeirantes' in jq1['name'] or 'Euro Channel' in jq1['name'] or 'Sabor Arte' in jq1['name'] or 'Smithsonian' in jq1['name'] or 'Trace Brazuca' in jq1['name'] or 'Travel Box' in jq1['name'] or 'Loading TV' in jq1['name'] or 'Entertainment' in jq1['name'] or 'Sao Carlos' in jq1['name'] or 'Film And Arts' in jq1['name'] or 'Gazeta' in jq1['name'] or 'Globo Amazonas' in jq1['name'] or 'Globo Asa Branca' in jq1['name'] or 'Globo Cabugi' in jq1['name'] or 'Globo Centro' in jq1['name'] or 'Globo EPTV Ribeirao Preto' in jq1['name'] or 'Inter TV' in jq1['name'] or 'NSC TV' in jq1['name'] or 'Nsc' in jq1['name'] or 'RPC TV' in jq1['name'] or 'Globo TV Bahia' in jq1['name'] or 'Globo Rede' in jq1['name'] or 'Rede Amazonica' in jq1['name'] or 'TV Cabo Branco' in jq1['name'] or 'TV Clube Teresina' in jq1['name'] or 'TV Diario Mogi Das Cruzes' in jq1['name'] or 'TV Fronteira Presidente' in jq1['name'] or 'TV Gazeta' in jq1['name'] or 'TV Inegracao juiz' in jq1['name'] or 'TV Itapetininga' in jq1['name'] or 'TV Liberal Belem' in jq1['name'] or 'TV Morena' in jq1['name'] or 'TV Riberio Preto' in jq1['name'] or 'TV Sergipe' in jq1['name'] or 'TV TEM' in jq1['name'] or 'TV Tem' in jq1['name'] or 'TV Vanguarda' in jq1['name'] or 'Globo Tribuna Santos' in jq1['name'] or 'Nickelodeon' in jq1['name'] or 'RBS TV Porto' in jq1['name'] or 'Record Campinas' in jq1['name'] or 'Record Goias' in jq1['name'] or 'Record TV Belem' in jq1['name'] or 'Record TV Brasília' in jq1['name'] or 'Record TV Cidade' in jq1['name'] or 'Record TV GO' in jq1['name'] or 'Record TV Interior' in jq1['name'] or 'Record TV MG' in jq1['name'] or 'Record TV R' in jq1['name'] or 'Record TV SP' in jq1['name'] or 'Rede Gospel' in jq1['name'] or 'Rede Vida' in jq1['name'] or 'SBT TV Goias' in jq1['name'] or 'SBT TV Jangadeiro' in jq1['name'] or 'SBT TV PR' in jq1['name'] or 'SporTV 4' in jq1['name'] or 'TV Brasil' in jq1['name'] or 'Globo RBS TV' in jq1['name'] or 'de Fora' in jq1['name'] or 'Mirante' in jq1['name'] or 'Rio Sul' in jq1['name'] or 'Premiere 8' in jq1['name'] or 'Record TV Bras' in jq1['name'] or 'mtv-live.png' in jq1['logo'] or 'VH1' in jq1['name']: False
-			else:
-				if jq1['language']== "Brasil" or jq1['language'] == "Brazilian" or jq1['name'] == "MTV Live HD" or jq1['id'] == "49182" or jq1['id'] == "2383" or jq1['id'] == "32062":
-					try:
-						jq1['name'] = jq1['name'].replace("AE", "A&E").replace('99','10').replace('Premiere 1 Clubes','Premiere Clubes').replace('HBO 3','HBO+').replace('V1H','VH1').replace('Music Box TV','Music Box Ru')#.replace("HD","[COLOR lime]HD[/COLOR]").replace("F[COLOR lime]HD[/COLOR]","[COLOR lime]HD+[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]")
-						AddDir( "[B]" + jq1['name'].replace('//','\\').encode().decode('unicode-escape') + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="[COLOR][/COLOR]")
-					except:
-						pass
-	except:
-		AddDir('[B]Canais offline, tente novamente mais tarde...[/B]', '', 50, 'https://uploaddeimagens.com.br/images/004/090/947/full/pngwing.com.png', 'https://uploaddeimagens.com.br/images/004/090/947/full/pngwing.com.png', isFolder=False, info='[B][/B]')
+	link = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/redplus%2B').text
+	base = re.compile('Nome: (.+)\sUrl: (.+)\sImagem: (.+)').findall(link)
+	for name2, url2, img2 in base:
+		name2 = name2.replace('HD+','[COLOR springgreen]HD+[/COLOR]').replace('HD','[COLOR springgreen]HD[/COLOR]').replace('4K','[COLOR springgreen]4K[/COLOR]')
+		AddDir('[B]'+name2+'[/B]', url2, 212, img2, img2, isFolder=False, IsPlayable=True, info='\xa0')
+	#try:
+	#	header = 'UkVETElORUNMSUVOVCBSRUQzNjAgVjAuMS41Mg=='
+	#	header = base64.b64decode(header).decode('utf-8')
+	#	log = base64.b64decode('aHR0cHM6Ly9hbmRyb2lkLnJlZGlwdHYyLmNvbS9sb2dpbi5waHA/dXNlcmNvZGU9MDAwMDAwMDAwMCZwaWQ9MSZtYWM9Qjg5QkVEMDI0OTU1JnNuPTIzNDdiOGRjZmIyMiZjdXN0b21lcj1SRUQzNjAmbGFuZz1lbmcmY3M9YW1sb2dpYyZjaGVjaz0yODkxMTY2NTgz').decode('utf-8')
+	#	login = requests.get(log, headers={'User-Agent':header}).text
+	#	link = 'aHR0cHM6Ly9hbmRyb2lkLnJlZGlwdHYyLmNvbS9jaC5waHA/dXNlcmNvZGU9ODA3MDM5NDcwOSZwaWQ9MSZtYWM9Qjg5QkVEMDI0OTU1JnNuPTIzNDdiOGRjZmIyNiZjdXN0b21lcj1SRUQmbGFuZz1lbmcmY3M9YW1sb2dpYyZjaGVjaz0yNzkxNzIzMTU0'
+	#	link = base64.b64decode(link).decode('utf-8')
+	#	t = requests.get(link, verify=False, headers={'User-Agent': header,'Connection':'Keep-Alive','Accept-Encoding':'gzip'})
+	#	jq_ = json.loads(t.text.replace("\\","//").replace('SKY 10','SKY 99').replace('////','//').replace('///','/').replace("http://files.rednetcontent.com/chlogo2/Brasil/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/Portuguese/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/english/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/french/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/arabic/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/dutch/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/russian/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("http://files.rednetcontent.com/chlogo2/German/","https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/").replace("1280px-SporTV_2017_logo.png","SporTV_2_logo_20167.png").replace("SporTV_2_logo_2016.png","Sportv2.png").replace("TVBAH//u0130A.png","bahia.png").replace('new/','').replace('gloob//u0131nho.png','gloob.png').replace('band_campinas-br.png','tv_globo_br.png').replace('Premiere Clubes','Premiere 1 Clubes').replace('HBO+','HBO 3').replace('MTVL//u0130VE.png','mtv-live.png').replace('http://files.rednetcontent.com/chlogo2/denmark/mtv-80s-us.png','https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/imagens/vh1.png').replace('MTV 80s','V1H'))
+	#	jq = sorted(jq_, key=lambda jq_: jq_['name'])
+	#	for jq1 in jq:
+	#		#if "Action 1" in jq1['name']or "Action 2" in jq1['name'] or "Action 3" in jq1['name'] or "Action 4" in jq1['name'] or "Action 5" in jq1['name'] or "Action 6" in jq1['name'] or "Action 7" in jq1['name'] or "Action 8" in jq1['name'] or "Action 9" in jq1['name'] or "Action 10" in jq1['name'] or "Adventure" in jq1['name'] or "Crime" in jq1['name'] or "Documentary" in jq1['name'] or "Drama" in jq1['name'] or "Horror" in jq1['name'] or "Sci-Fi" in jq1['name'] or "Comedy 1" in jq1['name'] or "Comedy 2" in jq1['name'] or "Comedy 3" in jq1['name'] or "Comedy 4" in jq1['name'] or "Comedy 5" in jq1['name'] or "Comedy 6" in jq1['name'] or "Comedy 7" in jq1['name'] or "Comedy 8" in jq1['name'] or "Comedy 9" in jq1['name'] or "Comedy 10" in jq1['name'] or "Kids 1" in jq1['name'] or "Kids 2" in jq1['name'] or "Kids 3" in jq1['name'] or "Kids 4" in jq1['name'] or "Kids 5" in jq1['name'] or "Kids 6" in jq1['name'] or "Kids 7" in jq1['name'] or "Kids 8" in jq1['name'] or "Kids 9" in jq1['name'] or "Kids 10" in jq1['name']: False
+	#		if "Fazenda" in jq1['name'] or "BBB" in jq1['name'] or "Star Hits" in jq1['name'] or 'Disney XD' in jq1['name'] or 'Disney Junior' in jq1['name'] or 'Nat Geo Kids' in jq1['name'] or 'National Geographics' in jq1['name'] or 'DAZN' in jq1['name'] or 'Fashion TV' in jq1['name'] or 'France 24' in jq1['name'] or 'MTVs 00' in jq1['name'] or 'Mega TV' in jq1['name'] or 'Star+' in jq1['name'] or 'Cine SKY' in jq1['name'] or 'Cine Sky' in jq1['name'] or 'Canal Do Boi' in jq1['name'] or 'Band Campinas' in jq1['name'] or 'Agro+' in jq1['name'] or 'Bandeirantes' in jq1['name'] or 'Euro Channel' in jq1['name'] or 'Sabor Arte' in jq1['name'] or 'Smithsonian' in jq1['name'] or 'Trace Brazuca' in jq1['name'] or 'Travel Box' in jq1['name'] or 'Loading TV' in jq1['name'] or 'Entertainment' in jq1['name'] or 'Sao Carlos' in jq1['name'] or 'Film And Arts' in jq1['name'] or 'Gazeta' in jq1['name'] or 'Globo Amazonas' in jq1['name'] or 'Globo Asa Branca' in jq1['name'] or 'Globo Cabugi' in jq1['name'] or 'Globo Centro' in jq1['name'] or 'Globo EPTV Ribeirao Preto' in jq1['name'] or 'Inter TV' in jq1['name'] or 'NSC TV' in jq1['name'] or 'Nsc' in jq1['name'] or 'RPC TV' in jq1['name'] or 'Globo TV Bahia' in jq1['name'] or 'Globo Rede' in jq1['name'] or 'Rede Amazonica' in jq1['name'] or 'TV Cabo Branco' in jq1['name'] or 'TV Clube Teresina' in jq1['name'] or 'TV Diario Mogi Das Cruzes' in jq1['name'] or 'TV Fronteira Presidente' in jq1['name'] or 'TV Gazeta' in jq1['name'] or 'TV Inegracao juiz' in jq1['name'] or 'TV Itapetininga' in jq1['name'] or 'TV Liberal Belem' in jq1['name'] or 'TV Morena' in jq1['name'] or 'TV Riberio Preto' in jq1['name'] or 'TV Sergipe' in jq1['name'] or 'TV TEM' in jq1['name'] or 'TV Tem' in jq1['name'] or 'TV Vanguarda' in jq1['name'] or 'Globo Tribuna Santos' in jq1['name'] or 'Nickelodeon' in jq1['name'] or 'RBS TV Porto' in jq1['name'] or 'Record Campinas' in jq1['name'] or 'Record Goias' in jq1['name'] or 'Record TV Belem' in jq1['name'] or 'Record TV Brasília' in jq1['name'] or 'Record TV Cidade' in jq1['name'] or 'Record TV GO' in jq1['name'] or 'Record TV Interior' in jq1['name'] or 'Record TV MG' in jq1['name'] or 'Record TV R' in jq1['name'] or 'Record TV SP' in jq1['name'] or 'Rede Gospel' in jq1['name'] or 'Rede Vida' in jq1['name'] or 'SBT TV Goias' in jq1['name'] or 'SBT TV Jangadeiro' in jq1['name'] or 'SBT TV PR' in jq1['name'] or 'SporTV 4' in jq1['name'] or 'TV Brasil' in jq1['name'] or 'Globo RBS TV' in jq1['name'] or 'de Fora' in jq1['name'] or 'Mirante' in jq1['name'] or 'Rio Sul' in jq1['name'] or 'Premiere 8' in jq1['name'] or 'Record TV Bras' in jq1['name'] or 'mtv-live.png' in jq1['logo'] or 'VH1' in jq1['name']: False
+	#		else:
+	#			if jq1['language']== "Brasil" or jq1['language'] == "Brazilian" or jq1['name'] == "MTV Live HD" or jq1['id'] == "49182" or jq1['id'] == "2383" or jq1['id'] == "32062":
+	#				try:
+	#					jq1['name'] = jq1['name'].replace("AE", "A&E").replace('99','10').replace('Premiere 1 Clubes','Premiere Clubes').replace('HBO 3','HBO+').replace('V1H','VH1').replace('Music Box TV','Music Box Ru')#.replace("HD","[COLOR lime]HD[/COLOR]").replace("F[COLOR lime]HD[/COLOR]","[COLOR lime]HD+[/COLOR]").replace("HEVC", "[COLOR lime]+[/COLOR]")
+	#					AddDir( "[B]" + jq1['name'].replace('//','\\').encode().decode('unicode-escape') + "[/B]", jq1['id'] , 109, jq1['logo'], jq1['logo'], isFolder=False, IsPlayable=True, info="[COLOR][/COLOR]")
+	#				except:
+	#					pass
+	#except:
+	#	AddDir('[B]Canais offline, tente novamente mais tarde...[/B]', '', 50, 'https://uploaddeimagens.com.br/images/004/090/947/full/pngwing.com.png', 'https://uploaddeimagens.com.br/images/004/090/947/full/pngwing.com.png', isFolder=False, info='[B][/B]')'''
 def TVCB4PLAY(): #109
-	try:
-		header = 'UkVETElORUNMSUVOVCBSRUQzNjAgVjAuMS41Mg=='
-		header = base64.b64decode(header).decode('utf-8')
-		log = base64.b64decode('aHR0cHM6Ly9hbmRyb2lkLnJlZGlwdHYyLmNvbS9sb2dpbi5waHA/dXNlcmNvZGU9MDAwMDAwMDAwMCZwaWQ9MSZtYWM9Qjg5QkVEMDI0OTU1JnNuPTIzNDdiOGRjZmIyMiZjdXN0b21lcj1SRUQzNjAmbGFuZz1lbmcmY3M9YW1sb2dpYyZjaGVjaz0yODkxMTY2NTgz').decode('utf-8')
-		login = requests.get(log, headers={'User-Agent':header}).text
-		link = 'aHR0cHM6Ly9hbmRyb2lkLnJlZGlwdHYyLmNvbS9jaC5waHA/dXNlcmNvZGU9ODA3MDM5NDcwOSZwaWQ9MSZtYWM9Qjg5QkVEMDI0OTU1JnNuPTIzNDdiOGRjZmIyNiZjdXN0b21lcj1SRUQmbGFuZz1lbmcmY3M9YW1sb2dpYyZjaGVjaz0yNzkxNzIzMTU0'
-		link = base64.b64decode(link).decode('utf-8')
-		headerp = 'fFVzZXItQWdlbnQ9UkVETElORUNMSUVOVCBSRUQzNjAgVjAuMS41Mg=='
-		headerp = base64.b64decode(headerp).decode('utf-8')
-		t = requests.get(link, verify=False, headers={'User-Agent': header,'Connection':'Keep-Alive','Accept-Encoding':'gzip'})
-		jq_ = json.loads(t.text.replace("\\","//"))
-		for jq1 in jq_:
-			if jq1['id'] == url:
-				EPG = OpenURL('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/EPG2')
-				contents = re.compile(jq1['name']+'.+ = "(.+?)"').findall(EPG)
-				try:
-					url2 = OpenURL(contents[0]).replace('\n','').replace('\t','').replace('<h2>','"/>').replace('/><img','').replace('synopsis">','title">').replace('.</p>','</span')
-					url4 = re.compile('<li class=("ongoing">.+)').findall(url2)
-					url4x = re.compile('restantes(.+)').findall(url2)
-					title = re.compile('"ongoing">.+?class="time">.+?<.+?\/>(.+?)<\/h2.+?title">.+?<.+?progress-container">.+?<div').findall(url4[0])
-					program = re.compile('"ongoing">.+?class="(time">.+?)<.+?\/>(.+?<\/h2).+?title">(.+?)<.+?progress-(container">.+?<div).+?(:.+?)"').findall(url4[0])
-					program2 = re.compile('lass="(time">.+?)<.+?\/>(.+?<\/h2).+?title">(.+?<\/span)').findall(url4x[0])
-					ir1 = str(program).replace('<div','').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','[COLOR red]AO VIVO:[/COLOR] ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace("<span class='rating good'>"," IMDB: ").replace("container - >","Tempo:").replace('</span>','').replace(' - Tempo:','\n[COLOR yellow]TEMPO:[/COLOR] ').replace('- :',' : ').replace('%',"% concluído\n\n").replace("'Tempo:",'\n[COLOR yellow]TEMPO:[/COLOR] ')
-					ir2 = str(program2).replace('</span','\n\n').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','Horário: ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace("<span class='rating good'>"," IMDB: ").replace('><p class= - title - >','').replace(']','').replace('- )','').replace("-,",'')
-					title = " - "+title[0]
-					url5 = "[B]"+'\n\n\n'+ir1+"[/B]" + ir2
-					url6 = url5
-					PlayFFmpeg(name + title, jq1['link'].replace('////','//').replace('///','/')+headerp, iconimage, url6)
-				except IndexError as url2:
-					pass
-					PlayFFmpeg(name, jq1['link'].replace('////','//').replace('///','/')+headerp, iconimage,"")
-	except:
-		pass
+	PlayFFmpeg(name, url+'|User-Agent=Rediptv Plus 2.0.17', iconimage)
+	#try:
+	#	header = 'UkVETElORUNMSUVOVCBSRUQzNjAgVjAuMS41Mg=='
+	#	header = base64.b64decode(header).decode('utf-8')
+	#	log = base64.b64decode('aHR0cHM6Ly9hbmRyb2lkLnJlZGlwdHYyLmNvbS9sb2dpbi5waHA/dXNlcmNvZGU9MDAwMDAwMDAwMCZwaWQ9MSZtYWM9Qjg5QkVEMDI0OTU1JnNuPTIzNDdiOGRjZmIyMiZjdXN0b21lcj1SRUQzNjAmbGFuZz1lbmcmY3M9YW1sb2dpYyZjaGVjaz0yODkxMTY2NTgz').decode('utf-8')
+	#	login = requests.get(log, headers={'User-Agent':header}).text
+	#	link = 'aHR0cHM6Ly9hbmRyb2lkLnJlZGlwdHYyLmNvbS9jaC5waHA/dXNlcmNvZGU9ODA3MDM5NDcwOSZwaWQ9MSZtYWM9Qjg5QkVEMDI0OTU1JnNuPTIzNDdiOGRjZmIyNiZjdXN0b21lcj1SRUQmbGFuZz1lbmcmY3M9YW1sb2dpYyZjaGVjaz0yNzkxNzIzMTU0'
+	#	link = base64.b64decode(link).decode('utf-8')
+	#	headerp = 'fFVzZXItQWdlbnQ9UkVETElORUNMSUVOVCBSRUQzNjAgVjAuMS41Mg=='
+	#	headerp = base64.b64decode(headerp).decode('utf-8')
+	#	t = requests.get(link, verify=False, headers={'User-Agent': header,'Connection':'Keep-Alive','Accept-Encoding':'gzip'})
+	#	jq_ = json.loads(t.text.replace("\\","//"))
+	#	for jq1 in jq_:
+	#		if jq1['id'] == url:
+	#			EPG = OpenURL('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/EPG2')
+	#			contents = re.compile(jq1['name']+'.+ = "(.+?)"').findall(EPG)
+	#			try:
+	#				url2 = OpenURL(contents[0]).replace('\n','').replace('\t','').replace('<h2>','"/>').replace('/><img','').replace('synopsis">','title">').replace('.</p>','</span')
+	#				url4 = re.compile('<li class=("ongoing">.+)').findall(url2)
+	#				url4x = re.compile('restantes(.+)').findall(url2)
+	#				title = re.compile('"ongoing">.+?class="time">.+?<.+?\/>(.+?)<\/h2.+?title">.+?<.+?progress-container">.+?<div').findall(url4[0])
+	#				program = re.compile('"ongoing">.+?class="(time">.+?)<.+?\/>(.+?<\/h2).+?title">(.+?)<.+?progress-(container">.+?<div).+?(:.+?)"').findall(url4[0])
+	#				program2 = re.compile('lass="(time">.+?)<.+?\/>(.+?<\/h2).+?title">(.+?<\/span)').findall(url4x[0])
+	#				ir1 = str(program).replace('<div','').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','[COLOR red]AO VIVO:[/COLOR] ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace("<span class='rating good'>"," IMDB: ").replace("container - >","Tempo:").replace('</span>','').replace(' - Tempo:','\n[COLOR yellow]TEMPO:[/COLOR] ').replace('- :',' : ').replace('%',"% concluído\n\n").replace("'Tempo:",'\n[COLOR yellow]TEMPO:[/COLOR] ')
+	#				ir2 = str(program2).replace('</span','\n\n').replace("')]","").replace("('","").replace('"), ',"").replace("'), ","").replace("', '"," - ").replace("[","").replace("', ","").replace('"',' - ').replace('time - >','Horário: ').replace("</h2"," | Gênero/EP").replace(" <span class='rating'>"," IMDB: ").replace("<span class='rating good'>"," IMDB: ").replace('><p class= - title - >','').replace(']','').replace('- )','').replace("-,",'')
+	#				title = " - "+title[0]
+	#				url5 = "[B]"+'\n\n\n'+ir1+"[/B]" + ir2
+	#				url6 = url5
+	#				PlayFFmpeg(name + title, jq1['link'].replace('////','//').replace('///','/')+headerp, iconimage, url6)
+	#			except IndexError as url2:
+	#				pass
+	#				PlayFFmpeg(name, jq1['link'].replace('////','//').replace('///','/')+headerp, iconimage,"")
+	#except:
+	#	pass
 
 def FilmesRED(): #87
 	header = 'UkVETElORUNMSUVOVCBSRUQzNjAgVjAuMS40OQ=='
