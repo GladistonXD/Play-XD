@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.24.00"
+Versao = "23.25.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -5862,10 +5862,14 @@ def Comandotoserie2(): #523
 	try:
 		#link = requests.get(url,headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 		#arquivo = open(cachefolder + "Comandoto.txt", "w+")
-		#arquivo.write(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2"))
+		#arquivo.write(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace('﻿',''))
 		#arquivo.close()
-		match = re.compile('>::.(.+?)::(.+?)><h2').findall(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace('﻿',''))
-		teste = match[0]
+		try:
+			match = re.compile('>::.(.+?)::(.+?)><h2').findall(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace('﻿',''))
+			teste = match[0]
+		except:
+			match = re.compile('<strong>(DUAL.+?|LEGENDADO.+?|DUBLADO.+?)<(.+?)><h2').findall(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace('﻿',''))
+			teste = match[0]
 		if match:
 			for title2, link in match:
 				title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace('</strong>','')
@@ -5933,7 +5937,7 @@ def Comandotoserie3(): #524
 			name2 = re.sub('.+?Epi', 'Epi', name2)
 			if "&#8230;" in name2 or 'problemas' in name2 or 'EGENDAS' in name2  or "Respostas" in name2 or 'ES</a>' in name2: False
 			else:
-				AddDir(name2.replace('</a></p>',' ').replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',"").replace('EMPORADA','TEMPORADA'), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
+				AddDir(name2.replace('</a></p>',' ').replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',"").replace('EMPORADA','TEMPORADA').replace('ET LINK" width="300" height="100"','').replace('>','').replace(' / ',''), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 	except:
 		#pass
 		try:
