@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.25.00"
+Versao = "23.26.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -8156,7 +8156,7 @@ def TVCB4(): #108
 	base = re.compile('Nome: (.+)\sUrl: (.+)\sImagem: (.+)').findall(link)
 	for name2, url2, img2 in base:
 		name2 = name2.replace('HD+','[COLOR springgreen]HD+[/COLOR]').replace('HD','[COLOR springgreen]HD[/COLOR]').replace('4K','[COLOR springgreen]4K[/COLOR]')
-		AddDir('[B]'+name2+'[/B]', url2, 212, img2, img2, isFolder=False, IsPlayable=True, info='\xa0')
+		AddDir('[B]'+name2+'[/B]', url2, 109, img2, img2, isFolder=False, IsPlayable=True, info='\xa0')
 	#try:
 	#	header = 'UkVETElORUNMSUVOVCBSRUQzNjAgVjAuMS41Mg=='
 	#	header = base64.b64decode(header).decode('utf-8')
