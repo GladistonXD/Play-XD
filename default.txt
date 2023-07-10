@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.26.00"
+Versao = "23.27.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -192,10 +192,10 @@ def Categories(): #70
 # --------------  Menu
 def MCanais(): #-1
     AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](REDPLAY)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    #AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](POYRATV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](TOUROBOX)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 5  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](SABTOOHTV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](R98K)[/B][/COLOR]"  , "", 91, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     setViewM()
@@ -8374,13 +8374,14 @@ def POY1PLAY(): #114
     PlayFFmpeg(name, player, iconimage, '')'''
     
 def POY1(): #113
-    url1 = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/sabtooh-channels').text
-    url1x = re.compile("Nome=(.+?),.Link=(.+?),.imagem=(.+)").findall(url1)
-    for name2, url2,img2 in url1x:
+    url1 = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/TouroBox').text
+    url1x = re.compile('logo="(.+?)".+?,(.+)\s(.+)').findall(url1)
+    for img2, name2,url2 in url1x:
+        url2 = url2.replace('#','Tourobox1-VTpgsnOoHj/28QmTPho90')
         AddDir("[B]"+name2+"[/B]", url2, 114,img2, img2, isFolder=False, IsPlayable=True, background=name2, info='\xa0')
         
 def POY1PLAY(): #114
-    PlayFFmpeg(name, "http://sabtooh.club:12060/199771479671/62f6e7668797b.15494/"+url+"|User-Agent=DRAGON.SERVERS.UAGENT123.00/4.7 (Linux;Android 7.1.1) ExoPlayerLib/2.11.8", iconimage, '')
+    PlayFFmpeg(name, url+"|User-Agent=20216c020ec2834c-1.1.21&Icy-MetaData=1&Accept-Encoding=identity", iconimage, '')
     
 def FOX1(): #115
     url1 = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/fox-channels.txt').text
