@@ -3884,9 +3884,9 @@ def PlayMFO1(): #172
 	listar=[]
 	listal=[]
 	#arquivo = open(cachefolder + "testeplayer.txt", "w+")
-	#arquivo.write(legdub)
+	#arquivo.write(url)
 	#arquivo.close()
-	match = re.compile('<p style="text-align:.center;"><strong>(.+?)<.+?href="(.+?)"').findall(url)
+	match = re.compile('<p style="text-align:.center;"><strong>(.+?)<.+?href="(.+?)"').findall(url.replace('center;"><strong>ASSISTIR ONLINE',''))
 	if match:
 		for name2, url2 in match:
 			listal.append(url2)
@@ -3898,7 +3898,7 @@ def PlayMFO1(): #172
 		if d!= -1:
 			url2x = listal[d]
 			try:
-				cookiex = re.compile('idd=(.+?).ref=').findall(url2x)
+				cookiex = re.compile('id=(.+?)&').findall(url2x)
 				invertida = ''.join(palavra[::-1] for palavra in cookiex[0].split())
 				decode = base64.b64decode(invertida)
 				PlayUrl(name,"plugin://plugin.video.elementum/play?show=''&uri="+str(decode).replace("b'","").replace("'","").replace(' ',''), subs=[cachefolder+"Legendas/Elsubtitle (Brasil)-pt.forced.srt", cachefolder+"Legendas/Legendei (Brasil)-pt.srt", cachefolder+"Legendas/OpenSubtitles (Brasil)-pt.srt", cachefolder+"Legendas/Baixarlegenda (Brasil)-pt.srt"])
