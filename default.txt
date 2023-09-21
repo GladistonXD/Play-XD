@@ -3930,8 +3930,8 @@ def PlayMFO1(): #172
 					xbmc.sleep(3000)
 					cutzim = re.compile('btih:(.+?)&|btih:(.+)').findall(str(decode).lower())
 					for cutzm in cutzim:
-						cache = xbmc.translatePath("special://temp")
-						file = open(cache +'elementum/'+cutzm[0]+'.torrent', 'r', errors="ignore")
+						cache = xbmcvfs.translatePath("special://temp")
+						file = open(cache +'elementum/'+''.join(cutzm).replace("'",'')+'.torrent', 'r', errors="ignore")
 						leg4 = re.compile('name.+?:(.+? )[0-9][0-9][0-9][0-9]').findall(file.readline().replace('.',' '))
 						#arquivo = open(cachefolder + "movies.txt", "w+")
 						#arquivo.write(leg4[0])
@@ -4364,8 +4364,8 @@ def PlayPR(): #188
 					xbmc.sleep(3000)
 					cutzim = re.compile('btih:(.+?)&|btih:(.+)').findall(url2x.lower())
 					for cutzm in cutzim:
-						cache = xbmc.translatePath("special://temp")
-						file = open(cache +'elementum/'+cutzm[0]+'.torrent', 'r', errors="ignore")
+						cache = xbmcvfs.translatePath("special://temp")
+						file = open(cache +'elementum/'+''.join(cutzm).replace("'",'')+'.torrent', 'r', errors="ignore")
 						leg4 = re.compile('name.+?:(.+? )[0-9][0-9][0-9][0-9]').findall(file.readline().replace('.',' '))
 						#arquivo = open(cachefolder + "movies.txt", "w+")
 						#arquivo.write(leg4[0])
@@ -5498,8 +5498,8 @@ def Comandotoplayer(): #519
 					xbmc.sleep(3000)
 					cutzim = re.compile('btih:(.+?)&|btih:(.+)').findall(url2x.lower())
 					for cutzm in cutzim:
-						cache = xbmc.translatePath("special://temp")
-						file = open(cache +'elementum/'+cutzm[0]+'.torrent', 'r', errors="ignore")
+						cache = xbmcvfs.translatePath("special://temp")
+						file = open(cache +'elementum/'+''.join(cutzm).replace("'",'')+'.torrent', 'r', errors="ignore")
 						leg4 = re.compile('name.+?:(.+? )[0-9][0-9][0-9][0-9]').findall(file.readline().replace('.',' '))
 						#arquivo = open(cachefolder + "movies.txt", "w+")
 						#arquivo.write(leg4[0])
@@ -6207,8 +6207,8 @@ def DosTorrentsPlay(): #528
 					xbmc.sleep(3000)
 					cutzim = re.compile('btih:(.+?)&|btih:(.+)').findall(url2x.lower())
 					for cutzm in cutzim:
-						cache = xbmc.translatePath("special://temp")
-						file = open(cache +'elementum/'+cutzm[0]+'.torrent', 'r', errors="ignore")
+						cache = xbmcvfs.translatePath("special://temp")
+						file = open(cache +'elementum/'+''.join(cutzm).replace("'",'')+'.torrent', 'r', errors="ignore")
 						leg4 = re.compile('name.+?:(.+? )[0-9][0-9][0-9][0-9]').findall(file.readline().replace('.',' '))
 						#arquivo = open(cachefolder + "movies.txt", "w+")
 						#arquivo.write(leg4[0])
