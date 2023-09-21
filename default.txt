@@ -3933,33 +3933,40 @@ def PlayMFO1(): #172
 						cache = xbmcvfs.translatePath("special://temp")
 						file = open(cache +'elementum/'+''.join(cutzm).replace("'",'')+'.torrent', 'r', errors="ignore")
 						leg4 = re.compile('name.+?:(.+? )[0-9][0-9][0-9][0-9]').findall(file.readline().replace('.',' '))
+						legoff = leg4[0]
 						#arquivo = open(cachefolder + "movies.txt", "w+")
 						#arquivo.write(leg4[0])
 						#arquivo.close()
 				except:
 					try:
 						leg4 = re.compile('dn=(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
+						legoff = leg4[0]
 						#arquivo = open(cachefolder + "movies.txt", "w+")
 						#arquivo.write(leg4[0])
 						#arquivo.close()
 					except:
 						try:
-							re22 = re.compile("(\w.+?)([(])").findall(background)
-							recom2 = re22[0][0]
-							leg1 = requests.get("https://www.imdb.com/find?q="+recom2).text
-							leg1x1 = recom2[:-1].split(' ')
-							notific1 = (['\w' + name[1:] + '' for name in leg1x1])
-							cut = ' '.join(notific1)
-							try:
-								leg2 = re.compile('<a href="(.{1,100})".>'+cut).findall(leg1)
-								legx = leg2[0]
-							except:
-								urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
-								leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
-							leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-							leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
+							decode = requests.get('http://127.0.0.1:65220/torrents/').text
+							leg4 = re.compile('"title":"(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
+							legoff = leg4[0]
 						except:
-							pass
+							try:
+								re22 = re.compile("(\w.+?)([(])").findall(background)
+								recom2 = re22[0][0]
+								leg1 = requests.get("https://www.imdb.com/find?q="+recom2).text
+								leg1x1 = recom2[:-1].split(' ')
+								notific1 = (['\w' + name[1:] + '' for name in leg1x1])
+								cut = ' '.join(notific1)
+								try:
+									leg2 = re.compile('<a href="(.{1,100})".>'+cut).findall(leg1)
+									legx = leg2[0]
+								except:
+									urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
+									leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
+								leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+								leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
+							except:
+								pass
 				try:
 					backcut = re.compile('\((\w+)\)').findall(background)
 					leg4x = leg4[0][:-1].split(' ')
@@ -4362,38 +4369,45 @@ def PlayPR(): #188
 			if 'Legendado' in legdub:
 				try:
 					xbmc.sleep(3000)
-					cutzim = re.compile('btih:(.+?)&|btih:(.+)').findall(url2x.lower())
+					cutzim = re.compile('btih:(.+?)&|btih:(.+)').findall(str(decode).lower())
 					for cutzm in cutzim:
 						cache = xbmcvfs.translatePath("special://temp")
 						file = open(cache +'elementum/'+''.join(cutzm).replace("'",'')+'.torrent', 'r', errors="ignore")
 						leg4 = re.compile('name.+?:(.+? )[0-9][0-9][0-9][0-9]').findall(file.readline().replace('.',' '))
+						legoff = leg4[0]
 						#arquivo = open(cachefolder + "movies.txt", "w+")
 						#arquivo.write(leg4[0])
 						#arquivo.close()
 				except:
 					try:
-						leg4 = re.compile('dn=(.+?)[0-9][0-9][0-9][0-9]').findall(url2x.replace('.',' '))
-							#arquivo = open(cachefolder + "movies.txt", "w+")
-							#arquivo.write(leg4[0])
-							#arquivo.close()
+						leg4 = re.compile('dn=(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
+						legoff = leg4[0]
+						#arquivo = open(cachefolder + "movies.txt", "w+")
+						#arquivo.write(leg4[0])
+						#arquivo.close()
 					except:
 						try:
-							re22 = re.compile("(\w.+?)([(])").findall(background)
-							recom2 = re22[0][0]
-							leg1 = requests.get("https://www.imdb.com/find?q="+recom2).text
-							leg1x1 = recom2[:-1].split(' ')
-							notific1 = (['\w' + name[1:] + '' for name in leg1x1])
-							cut = ' '.join(notific1)
-							try:
-								leg2 = re.compile('<a href="(.{1,100})".>'+cut).findall(leg1)
-								legx = leg2[0]
-							except:
-								urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
-								leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
-							leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-							leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
+							decode = requests.get('http://127.0.0.1:65220/torrents/').text
+							leg4 = re.compile('"title":"(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
+							legoff = leg4[0]
 						except:
-							pass
+							try:
+								re22 = re.compile("(\w.+?)([(])").findall(background)
+								recom2 = re22[0][0]
+								leg1 = requests.get("https://www.imdb.com/find?q="+recom2).text
+								leg1x1 = recom2[:-1].split(' ')
+								notific1 = (['\w' + name[1:] + '' for name in leg1x1])
+								cut = ' '.join(notific1)
+								try:
+									leg2 = re.compile('<a href="(.{1,100})".>'+cut).findall(leg1)
+									legx = leg2[0]
+								except:
+									urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
+									leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
+								leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+								leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
+							except:
+								pass
 				try:
 					backcut = re.compile('\((\w+)\)').findall(background)
 					leg4x = leg4[0][:-1].split(' ')
@@ -5496,38 +5510,45 @@ def Comandotoplayer(): #519
 			if 'Legendado' in legdub:
 				try:
 					xbmc.sleep(3000)
-					cutzim = re.compile('btih:(.+?)&|btih:(.+)').findall(url2x.lower())
+					cutzim = re.compile('btih:(.+?)&|btih:(.+)').findall(str(decode).lower())
 					for cutzm in cutzim:
 						cache = xbmcvfs.translatePath("special://temp")
 						file = open(cache +'elementum/'+''.join(cutzm).replace("'",'')+'.torrent', 'r', errors="ignore")
 						leg4 = re.compile('name.+?:(.+? )[0-9][0-9][0-9][0-9]').findall(file.readline().replace('.',' '))
+						legoff = leg4[0]
 						#arquivo = open(cachefolder + "movies.txt", "w+")
 						#arquivo.write(leg4[0])
 						#arquivo.close()
 				except:
 					try:
-						leg4 = re.compile('dn=(.+?)[0-9][0-9][0-9][0-9]').findall(url2x.replace('.',' '))
-							#arquivo = open(cachefolder + "movies.txt", "w+")
-							#arquivo.write(leg4[0])
-							#arquivo.close()
+						leg4 = re.compile('dn=(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
+						legoff = leg4[0]
+						#arquivo = open(cachefolder + "movies.txt", "w+")
+						#arquivo.write(leg4[0])
+						#arquivo.close()
 					except:
 						try:
-							re22 = re.compile("(\w.+?)([(])").findall(background)
-							recom2 = re22[0][0]
-							leg1 = requests.get("https://www.imdb.com/find?q="+recom2).text
-							leg1x1 = recom2[:-1].split(' ')
-							notific1 = (['\w' + name[1:] + '' for name in leg1x1])
-							cut = ' '.join(notific1)
-							try:
-								leg2 = re.compile('<a href="(.{1,100})".>'+cut).findall(leg1)
-								legx = leg2[0]
-							except:
-								urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
-								leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
-							leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-							leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
+							decode = requests.get('http://127.0.0.1:65220/torrents/').text
+							leg4 = re.compile('"title":"(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
+							legoff = leg4[0]
 						except:
-							pass
+							try:
+								re22 = re.compile("(\w.+?)([(])").findall(background)
+								recom2 = re22[0][0]
+								leg1 = requests.get("https://www.imdb.com/find?q="+recom2).text
+								leg1x1 = recom2[:-1].split(' ')
+								notific1 = (['\w' + name[1:] + '' for name in leg1x1])
+								cut = ' '.join(notific1)
+								try:
+									leg2 = re.compile('<a href="(.{1,100})".>'+cut).findall(leg1)
+									legx = leg2[0]
+								except:
+									urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
+									leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
+								leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+								leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
+							except:
+								pass
 				try:
 					backcut = re.compile('\((\w+)\)').findall(background)
 					leg4x = leg4[0][:-1].split(' ')
@@ -6205,38 +6226,45 @@ def DosTorrentsPlay(): #528
 			if 'Legendado' in legdub:
 				try:
 					xbmc.sleep(3000)
-					cutzim = re.compile('btih:(.+?)&|btih:(.+)').findall(url2x.lower())
+					cutzim = re.compile('btih:(.+?)&|btih:(.+)').findall(str(decode).lower())
 					for cutzm in cutzim:
 						cache = xbmcvfs.translatePath("special://temp")
 						file = open(cache +'elementum/'+''.join(cutzm).replace("'",'')+'.torrent', 'r', errors="ignore")
 						leg4 = re.compile('name.+?:(.+? )[0-9][0-9][0-9][0-9]').findall(file.readline().replace('.',' '))
+						legoff = leg4[0]
 						#arquivo = open(cachefolder + "movies.txt", "w+")
 						#arquivo.write(leg4[0])
 						#arquivo.close()
 				except:
 					try:
-						leg4 = re.compile('dn=(.+?)[0-9][0-9][0-9][0-9]').findall(url2x.replace('.',' '))
-							#arquivo = open(cachefolder + "movies.txt", "w+")
-							#arquivo.write(leg4[0])
-							#arquivo.close()
+						leg4 = re.compile('dn=(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
+						legoff = leg4[0]
+						#arquivo = open(cachefolder + "movies.txt", "w+")
+						#arquivo.write(leg4[0])
+						#arquivo.close()
 					except:
 						try:
-							re22 = re.compile("(\w.+?)([(])").findall(background)
-							recom2 = re22[0][0]
-							leg1 = requests.get("https://www.imdb.com/find?q="+recom2).text
-							leg1x1 = recom2[:-1].split(' ')
-							notific1 = (['\w' + name[1:] + '' for name in leg1x1])
-							cut = ' '.join(notific1)
-							try:
-								leg2 = re.compile('<a href="(.{1,100})".>'+cut).findall(leg1)
-								legx = leg2[0]
-							except:
-								urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
-								leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
-							leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-							leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
+							decode = requests.get('http://127.0.0.1:65220/torrents/').text
+							leg4 = re.compile('"title":"(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
+							legoff = leg4[0]
 						except:
-							pass
+							try:
+								re22 = re.compile("(\w.+?)([(])").findall(background)
+								recom2 = re22[0][0]
+								leg1 = requests.get("https://www.imdb.com/find?q="+recom2).text
+								leg1x1 = recom2[:-1].split(' ')
+								notific1 = (['\w' + name[1:] + '' for name in leg1x1])
+								cut = ' '.join(notific1)
+								try:
+									leg2 = re.compile('<a href="(.{1,100})".>'+cut).findall(leg1)
+									legx = leg2[0]
+								except:
+									urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
+									leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
+								leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+								leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
+							except:
+								pass
 				try:
 					backcut = re.compile('\((\w+)\)').findall(background)
 					leg4x = leg4[0][:-1].split(' ')
