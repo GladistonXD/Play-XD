@@ -3946,10 +3946,15 @@ def PlayMFO1(): #172
 						#arquivo.close()
 					except:
 						try:
-							xbmc.sleep(3000)
-							decode = requests.get('http://127.0.0.1:65220/torrents/').text
-							leg4 = re.compile('"title":"(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
-							legoff = leg4[0]
+							while True:
+								decode = requests.get('http://127.0.0.1:65220/torrents/').text
+								leg4 = re.compile('"title":"(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
+								time.sleep(2)
+								if leg4:
+									#arquivo = open(cachefolder + "movies.txt", "w+")
+									#arquivo.write(leg4[0])
+									#arquivo.close()
+									break
 						except:
 							try:
 								re22 = re.compile("(\w.+?)([(])").findall(background)
@@ -4388,10 +4393,12 @@ def PlayPR(): #188
 						#arquivo.close()
 					except:
 						try:
-							xbmc.sleep(3000)
-							decode = requests.get('http://127.0.0.1:65220/torrents/').text
-							leg4 = re.compile('"title":"(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
-							legoff = leg4[0]
+							while True:
+								decode = requests.get('http://127.0.0.1:65220/torrents/').text
+								leg4 = re.compile('"title":"(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
+								time.sleep(2)
+								if leg4:
+									break
 						except:
 							try:
 								re22 = re.compile("(\w.+?)([(])").findall(background)
@@ -5530,10 +5537,12 @@ def Comandotoplayer(): #519
 						#arquivo.close()
 					except:
 						try:
-							xbmc.sleep(3000)
-							decode = requests.get('http://127.0.0.1:65220/torrents/').text
-							leg4 = re.compile('"title":"(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
-							legoff = leg4[0]
+							while True:
+								decode = requests.get('http://127.0.0.1:65220/torrents/').text
+								leg4 = re.compile('"title":"(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
+								time.sleep(2)
+								if leg4:
+									break
 						except:
 							try:
 								re22 = re.compile("(\w.+?)([(])").findall(background)
@@ -6247,10 +6256,12 @@ def DosTorrentsPlay(): #528
 						#arquivo.close()
 					except:
 						try:
-							xbmc.sleep(3000)
-							decode = requests.get('http://127.0.0.1:65220/torrents/').text
-							leg4 = re.compile('"title":"(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
-							legoff = leg4[0]
+							while True:
+								decode = requests.get('http://127.0.0.1:65220/torrents/').text
+								leg4 = re.compile('"title":"(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
+								time.sleep(2)
+								if leg4:
+									break
 						except:
 							try:
 								re22 = re.compile("(\w.+?)([(])").findall(background)
