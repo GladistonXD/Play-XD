@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.29.00"
+Versao = "23.30.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3946,6 +3946,7 @@ def PlayMFO1(): #172
 						#arquivo.close()
 					except:
 						try:
+							xbmc.sleep(3000)
 							decode = requests.get('http://127.0.0.1:65220/torrents/').text
 							leg4 = re.compile('"title":"(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
 							legoff = leg4[0]
@@ -4387,6 +4388,7 @@ def PlayPR(): #188
 						#arquivo.close()
 					except:
 						try:
+							xbmc.sleep(3000)
 							decode = requests.get('http://127.0.0.1:65220/torrents/').text
 							leg4 = re.compile('"title":"(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
 							legoff = leg4[0]
@@ -5528,6 +5530,7 @@ def Comandotoplayer(): #519
 						#arquivo.close()
 					except:
 						try:
+							xbmc.sleep(3000)
 							decode = requests.get('http://127.0.0.1:65220/torrents/').text
 							leg4 = re.compile('"title":"(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
 							legoff = leg4[0]
@@ -6244,6 +6247,7 @@ def DosTorrentsPlay(): #528
 						#arquivo.close()
 					except:
 						try:
+							xbmc.sleep(3000)
 							decode = requests.get('http://127.0.0.1:65220/torrents/').text
 							leg4 = re.compile('"title":"(.+?)[0-9][0-9][0-9][0-9]').findall(str(decode).replace('.',' '))
 							legoff = leg4[0]
