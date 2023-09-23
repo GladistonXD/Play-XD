@@ -3517,7 +3517,7 @@ def Busca(): # 160
 			link2 = re.compile("Results for(.+)").findall(link.replace('\n','').replace('\r',''))
 			match = re.compile('"headline" ><a href="(.+?)">(.+?)<.+?" src="(.+?)"').findall(link2[0])
 			for link, name2, image2 in match:
-				if "Temporada" in name2 or "Completo" in name2:
+				if "Temporada" in name2 or "Completo" in name2 or "Minissérie" in name2:
 					AddDir("[COLOR lightgreen]"+name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]", link, 523, image2, image2, isFolder=True, info='\xa0')
 				else:
 					AddDir("[COLOR lightgreen]"+name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]", link, 519, image2, image2, isFolder=True, info='\xa0')
@@ -5426,7 +5426,7 @@ def Comandotomenu(): #518
 						link = requests.get("https://comando.la/",headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
 						match = re.compile('"headline" ><a href="(.+?)">(.+?)<.+?" src="(.+?)".+?>([0-9].+?)<').findall(link.replace('>: ','>'))
 						for link, name2, image2, imdb in match:
-							if "Temporada" in name2 or "Completo" in name2: False
+							if "Temporada" in name2 or "Completo" in name2 or "Minissérie" in name2: False
 							else:
 								imdb1 = re.sub('\w\w\w\w','Sem nota',imdb)
 								AddDir(name2.replace(" Torrent","").replace(" –","").replace("Download","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…'), link, 519, image2.replace('#038;',''), image2.replace('#038;',''), isFolder=True, info='[COLOR yellow]\nIMDb: [/COLOR]'+imdb1.replace('–/10','Sem nota').replace('&#8211;/10','Sem nota'))
@@ -5441,7 +5441,7 @@ def Comandotomenu(): #518
 			#arquivo.close()
 			match = re.compile('"headline" ><a href="(.+?)">(.+?)<.+?" src="(.+?)".+?>([0-9].+?)<').findall(html.unescape(link2[0].replace('>: ','>')))
 			for link, name2, image2, imdb in match:
-				if "Temporada" in name2 or "Completo" in name2: False
+				if "Temporada" in name2 or "Completo" in name2 or "Minissérie" in name2: False
 				else:
 					imdb1 = re.sub('\w\w\w\w','Sem nota',imdb)
 					AddDir(name2.replace(" Torrent","").replace(" –","").replace("Download","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…'), link, 519, image2.replace('#038;',''), image2.replace('#038;',''), isFolder=True, info='[COLOR yellow]\nIMDb: [/COLOR]'+imdb1.replace('–/10','Sem nota').replace('&#8211;/10','Sem nota'))
