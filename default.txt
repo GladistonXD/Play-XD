@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.30.00"
+Versao = "23.31.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -191,11 +191,11 @@ def Categories(): #70
 	setViewM()
 # --------------  Menu
 def MCanais(): #-1
-    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](REDPLAY)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](TOUROBOX)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 5  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    #AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](REDPLAY)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    #AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](TOUROBOX)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](SABTOOHTV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](R98K)[/B][/COLOR]"  , "", 91, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     setViewM()
@@ -5147,16 +5147,23 @@ def comandoplay(): #178
 					pass
 
 def Paylistplay(): #542
-	#arquivo = open(cachefolder + "playerteste.txt", "w+")
-	#arquivo.write(str(url.replace('ó','o').replace("'",'"')))
-	#arquivo.close()
+	url1 = url.replace(' (REPACK)','')
+	try:
+		result = re.compile('[0-9]([0-9]) \w.+?[0-9]([0-9]).+?href="(.+?)"').findall(url1)
+		lista_episodios = []
+		for num1, num2, link in result:
+			lista_numeros = list(range(int(num1), int(num2) + 1))
+			for numero in lista_numeros:
+				episodio = f'"Episódio 0{numero}<: - href={link}&index={numero-1}"'
+				lista_episodios.append(episodio)
+		url1 = re.sub('Episodio [0-9][0-9] \w.+?[0-9][0-9]:.+?magnet.+?"',str(lista_episodios).replace("']",""), url1.replace('ó','o'))
+		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
+		#arquivo.write(str(url1))
+		#arquivo.close()
+	except:
+		pass
 	playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
-	#playlist.clear()
-	#item = xbmcgui.ListItem('[B][COLOR dimgray]|||[/COLOR][COLOR white]|||[/COLOR][COLOR dimgray]|||[/COLOR][COLOR dimgray][/B][/COLOR]', path = name)
-	#item.setInfo('video', infoLabels={'Title': name, 'plot': ''})
-	#item.setArt({'thumb': iconimage,'poster': iconimage, 'fanart': iconimage})
-	#playlist.add('', item)
-	ur = re.compile('"(.+?[0-9]+?)[<:].+?(mag.+?)"').findall(str(url.replace('ó','o').replace("'",'"').replace(' - ','<').replace('xa0','')))
+	ur = re.compile('"(.+?[0-9]+?)[<:].+?(mag.+?)"').findall(str(url1.replace('ó','o').replace("'",'"').replace(' - ','<').replace('xa0','')))
 	for name2,stream in ur:
 		name2 = re.sub(".+a>", '', name2)
 		name2 = re.sub('.+"', '', name2)
@@ -5315,14 +5322,33 @@ def Paylistplay2(): #543
 								playlist.add("plugin://plugin.video.elementum/play?show=''&uri="+stream, item)
                                 
 	except:
+		url1 = url.replace(' (REPACK)','')
 		try:
-			ur = re.compile('"(.+?[0-9]+?):.+?idd=(.+?).ref=').findall(str(url.replace('ó','o').replace("'",'"').replace('\ '[0],'').replace('xa0',' ')))
+			ends = []
+			invert = re.compile('(Epi.+?[0-9]+?:.+?id=).(.+?)&.+?(")').findall(url1)
+			for part1, comp, rest in invert:
+				invertida = ''.join(palavra[::-1] for palavra in comp.split())
+				link = base64.b64decode(invertida)
+				end = part1+link.decode()+rest
+				ends.append(end)
+			result = re.compile('[0-9]([0-9]) \w.+?[0-9]([0-9]).+?id=(.+?)"').findall(str(ends))
+			lista_episodios = []
+			for num1, num2, link in result:
+				lista_numeros = list(range(int(num1), int(num2) + 1))
+				for numero in lista_numeros:
+					episodio = f'"Episódio 0{numero}: - id={link}&index={numero - 1}"'
+					lista_episodios.append(episodio)
+			url1 = re.sub('Episodio [0-9][0-9] \w.+?[0-9][0-9]:.+?id=.+?"',str(lista_episodios).replace("']",""), str(ends).replace('ó','o'))
+			arquivo = open(cachefolder + "testeplayer.txt", "w+")
+			arquivo.write(str(url1.replace('ó','o').replace('','').replace("'",'"').replace('\ '[0],'').replace('xa0',' ')))
+			arquivo.close()
+		except:
+			pass
+		try:
+			ur = re.compile('"(.+?[0-9]+?):.+?id=(.+?)"').findall(str(url1.replace('ó','o').replace('','').replace("'",'"').replace('\ '[0],'').replace('xa0',' ')))
 			urlof = ur[0]
 		except:
-			ur = re.compile('"(.+?[0-9]+?):.+?(magnet.+?)"').findall(str(url.replace('ó','o').replace("'",'"').replace('\ '[0],'').replace('xa0',' ')))
-			#arquivo = open(cachefolder + "Resolution2.txt", "w+")
-			#arquivo.write(str(ur))
-			#arquivo.close()
+			ur = re.compile('"(.+?[0-9]+?):.+?(magnet.+?)"').findall(str(url1.replace('ó','o').replace("'",'"').replace('\ '[0],'').replace('xa0',' ')))
 		for name2, stream in ur:
 			name2 = re.sub(">.+?, '", '', name2)
 			name2 = re.sub('.+"', '', name2)
@@ -5345,9 +5371,6 @@ def Paylistplay2(): #543
 					item = xbmcgui.ListItem(name2.replace(':',''), path = name2)
 					item.setInfo('video', infoLabels={'Title': '', 'plot': name2.replace(':','')})
 					item.setArt({'thumb': iconimage,'poster': iconimage, 'fanart': iconimage, "icon": iconimage})
-					#arquivo = open(cachefolder + "playerteste.txt", "w+")
-					#arquivo.write(str(stream))
-					#arquivo.close()
 					playlist.add("plugin://plugin.video.elementum/play?show=''&uri="+stream, item)
 			#playlist.remove('') 
             
