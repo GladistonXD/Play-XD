@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.31.00"
+Versao = "23.32.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -195,7 +195,7 @@ def MCanais(): #-1
     #AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](TOUROBOX)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    #AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](SABTOOHTV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](R98K)[/B][/COLOR]"  , "", 91, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     setViewM()
@@ -3691,7 +3691,7 @@ def PlayTVCB(): #103
 		stream = requests.get(url,headers={'Referer':'https://player.aovivotv.xyz/','User-Agent':'Mozilla%2F5.0+%28Windows+NT+10.0%3B+Win64%3B+x64%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F94.0.4606.71+Safari%2F537.36'}).text
 		texto = re.findall('(eval\(.+?)</script>', stream, re.MULTILINE | re.DOTALL | re.IGNORECASE)[0]
 		descom = unpack(texto)
-		unpack1 = re.findall('src:(.+?).type', descom, re.MULTILINE|re.DOTALL|re.IGNORECASE)[0]
+		unpack1 = re.findall('media=(.+?);let', descom, re.MULTILINE|re.DOTALL|re.IGNORECASE)[0]
 		filtro = re.compile('String.fromCharCode\((.+?)\)', re.MULTILINE|re.DOTALL|re.IGNORECASE).findall(unpack1)
 		for delete in filtro:
 			novo = chr(int(delete) & 0xffff)
