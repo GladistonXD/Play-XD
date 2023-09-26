@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.32.00"
+Versao = "23.33.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -5177,10 +5177,108 @@ def Paylistplay(): #542
 		if re.search(r'([0-9]+ \w+ [0-9]+)|(Completa)|(Temporada)|(BluRay)', name2): False
 		else:
 			item = xbmcgui.ListItem(name2.replace(':','').replace(',','').replace('"',''), path = name2)
+			item.setSubtitles([cachefolder+"Legendas/Legendei (Brasil)-pt.srt"])
 			item.setInfo('video', infoLabels={'Title': '', 'plot': name2.replace(':','').replace(',','').replace('"','')})
 			item.setArt({'thumb': iconimage,'poster': iconimage, 'fanart': iconimage, "icon": iconimage})
 			playlist.add("plugin://plugin.video.elementum/play?show=''&uri="+stream, item)
-	#playlist.remove('')
+			xbmcplugin.endOfDirectory(int(sys.argv[1]))
+	while True:
+		decode = requests.get('http://127.0.0.1:65220/torrents/list').text
+		leg4 = re.compile('"name":"(.+?[0-9][0-9]\w)').findall(str(decode).replace('.', ' '))
+		time.sleep(2)
+		if leg4:
+			break
+	while True:
+		url4 = ''
+		try:
+			time.sleep(1)
+			arquivo1 = open(cachefolder + 'subcheck.txt', 'r')
+			url4 = arquivo1.read()
+		except:
+			pass
+		time.sleep(2)
+		tag = xbmc.getInfoLabel('VideoPlayer.PlaylistPosition')
+		try:
+			tag1 = int(tag)-1
+		except:
+			pass
+		if tag1 <= 9:
+			number = f"0{str(tag1)}"
+		else:
+			number = str(tag1)
+		arquivo = open(cachefolder + "subcheck.txt", "w+")
+		arquivo.write(number)
+		arquivo.close()
+		if number == url4:
+			ok = ''
+		else:
+            ###################################################################################################################
+			try:
+				recom2 = leg4[0]+number
+				try:
+					xbmc.executebuiltin("Notification({0}, {1}, 20000, {2})".format(recom2, "[COLOR red][B]Buscando Legendas Externas...[/B][/COLOR]", iconimage))
+				except:
+					pass
+				url5 = requests.get("https://legendei.top/?s="+recom2,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				teste = re.compile('thumbnail.+\s.+?href="(.+?)"').findall(url5)
+				teste = teste[0]
+				try:
+					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
+					teste3 = teste3[0]
+				except:
+					xbmc.executebuiltin("Notification({0}, {1}, 40000, {2})".format(recom2, "[COLOR yellow][B]Legenda em Breve...[/B][/COLOR]", iconimage))
+
+				path = cachefolder+"Legendas/"
+				try:
+					os.remove(cachefolder+'Legendas/Legendei (Brasil)-pt.srt')
+				except:
+					pass
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+
+				file = zipfile.ZipFile(io.BytesIO(response.content))
+
+				file.extractall(path)
+				try:
+					local = os.path.abspath(cachefolder+"Legendas")
+					for p, _, files in os.walk(local):
+						for file in files:
+							filex = file.replace('(','#%').replace(')','#@')
+							arquivos = os.path.join(p, filex)
+							arquivos1 = re.sub('.+Legendas.'+filex,'',arquivos)
+							arquivos1x = arquivos1
+							teste = str(arquivos1x).replace('\n','').replace('\r','')
+							final = re.compile('.+srt').findall(teste)
+							for teste in final:
+								arquivos2 = re.compile('.'*5+'.srt').findall(teste)
+								os.rename(teste.replace('#%','(').replace('#@',')'), cachefolder+'Legendas/'+arquivos2[0])
+				except:
+					pass
+				for nome in os.listdir(cachefolder+"Legendas/"):
+					if ".srt" in nome:
+						novo_nome = "Legendei (Brasil)-pt" + ".srt"
+						os.rename(cachefolder+"Legendas/" + nome, cachefolder+"Legendas/" + novo_nome)
+						renam = cachefolder+"Legendas/Legendei (Brasil)-pt.srt"
+						renam = renam[0]
+			except:
+				pass
+			try:
+				notific = ([name for name in os.listdir(cachefolder+"Legendas/")])
+				teste = re.compile('srt').findall(str(notific))
+				teste = teste[0]
+				LegCont = ([name for name in os.listdir(cachefolder+"Legendas/") if 'Legendei (Brasil)' in name or 'Legendas-Dev (Brasil)' in name or 'OpenSubtitles (Brasil)' in name or 'Elsubtitle (Brasil)' in name])
+				legname = "[COLOR green][B]"+str(len(LegCont))+" Legendas Encontradas[/B][/COLOR]"
+				xbmc.executebuiltin("Notification({0}, {1}, 5000, {2})".format(recom2,legname.replace('1 Legendas Encontradas','1 Legenda Encontrada'), iconimage))
+			except:
+				try:
+					xbmc.executebuiltin("Notification({0}, {1}, 2000, {2})".format(recom2, "[COLOR red][B]Nenhuma Legenda Encontrada[/B][/COLOR]", iconimage))
+				except:
+					pass
+		if not tag:
+			arquivo = open(cachefolder + "subcheck.txt", "w+")
+			arquivo.write(str(tag))
+			arquivo.close()
+			break
     
 def Paylistplay2(): #543
 	playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
