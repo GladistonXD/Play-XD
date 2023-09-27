@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.35.00"
+Versao = "23.36.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -6151,7 +6151,8 @@ def Comandotoserie(): #522
 	for x in range(0, 4):
 		try:
 			y +=1
-			link = requests.get("https://comando.la/category/series/page/"+str(y)+"/",headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+			urs = "https://comando.la/category/series/page/"+str(y)+"/"
+			link = requests.get(urs.replace('page/1/',''),headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 			#link2 = re.compile("Categoria:(.+?)Clientes").findall(link.replace('\n','').replace('\r',''))#.replace("Baixar Série:</b> ","").replace("«</b></span><br /><b>",">").replace("«</b><b> </b></span><br /><b>Título Traduzido</b>: ",">").replace("«</strong></span><br /><b>",">").replace("«</b><b> </b></span><br /><strong>Título Traduzido</strong>: ",">").replace('Título Traduzido:</b> ',"").replace(">>",">").replace('<a href="https://comando.la/category/',"").replace("Titulo original:</b> ","").replace("Titulo Traduzido:</b> ","").replace("Titulo original :</b> ","").replace("Baixar Filme:</b> ",""))
 			link2 = re.compile("Categoria:(.+)").findall(link.replace('\n','').replace('\r',''))
 			match = re.compile('"headline" ><a href="(.+?)">(.+?)<.+?" src="(.+?)"').findall(link2[0])
