@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.34.00"
+Versao = "23.35.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -5214,6 +5214,21 @@ def Paylistplay(): #542
 		else:
             ###################################################################################################################
 			try:
+				try:
+					dir = cachefolder+'Legendas'
+					dir2 = os.listdir(dir)
+					for f in dir2:
+						if '.srt' in f or '.nfo' in f or '.com' in f or '.txt' in f or '.html' in f or '.net' in f:
+							os.remove(os.path.join(dir, f))
+				except:
+					pass
+				try:
+					dir =  cachefolder+'Legendas'
+					dir2 = os.listdir(dir)
+					for f in dir2:
+						shutil.rmtree(cachefolder+'Legendas/'+f)
+				except:
+					pass
 				recom2 = leg4[0]+number
 				try:
 					xbmc.executebuiltin("Notification({0}, {1}, 20000, {2})".format(recom2, "[COLOR red][B]Buscando Legendas Externas...[/B][/COLOR]", iconimage))
@@ -5375,6 +5390,21 @@ def Paylistplay2(): #543
 				ok = ''
 			else:
 				try:
+					try:
+						dir = cachefolder+'Legendas'
+						dir2 = os.listdir(dir)
+						for f in dir2:
+							if '.srt' in f or '.nfo' in f or '.com' in f or '.txt' in f or '.html' in f or '.net' in f:
+								os.remove(os.path.join(dir, f))
+					except:
+						pass
+					try:
+						dir =  cachefolder+'Legendas'
+						dir2 = os.listdir(dir)
+						for f in dir2:
+							shutil.rmtree(cachefolder+'Legendas/'+f)
+					except:
+						pass
 					recom2 = leg4[0]+number
 					try:
 						xbmc.executebuiltin("Notification({0}, {1}, 20000, {2})".format(recom2, "[COLOR red][B]Buscando Legendas Externas...[/B][/COLOR]", iconimage))
@@ -5513,6 +5543,21 @@ def Paylistplay2(): #543
 			else:
    	         ###################################################################################################################
 				try:
+					try:
+						dir = cachefolder+'Legendas'
+						dir2 = os.listdir(dir)
+						for f in dir2:
+							if '.srt' in f or '.nfo' in f or '.com' in f or '.txt' in f or '.html' in f or '.net' in f:
+								os.remove(os.path.join(dir, f))
+					except:
+						pass
+					try:
+						dir =  cachefolder+'Legendas'
+						dir2 = os.listdir(dir)
+						for f in dir2:
+							shutil.rmtree(cachefolder+'Legendas/'+f)
+					except:
+						pass
 					recom2 = leg4[0]+number
 					try:
 						xbmc.executebuiltin("Notification({0}, {1}, 20000, {2})".format(recom2, "[COLOR red][B]Buscando Legendas Externas...[/B][/COLOR]", iconimage))
