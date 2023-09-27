@@ -4966,20 +4966,20 @@ def comandomenu2(): #177
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(str(match))
 		#arquivo.close()
-		#try:
-		#	url3 = ([name1 for name1, link in match])
-		#	if re.search(r'(o [0-9][0-9]\b)|x([0-9][0-9]\b)|O ([0-9][0-9]\b)', str(url3)):
-		#		teste = false
-		#	else:
-		#		teste = ''
-		#except:
-		#	pass
 		try:
+			url3 = ([name1 for name1, link in match])
+			if re.search(r'(WEB-DL)|(Completo)|(Temporada)', str(url3)):
+				teste = ''
+			else:
+				teste = false
+		except:
+			pass
+			try:
 				playlist = ([nome+' - '+link for nome, link in match])
 				playlist2 = playlist[0]
 				AddDir('[B]Playlist de episódios[/B]', playlist, 543, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[B]Lista automatizada de episódios[/B]\n\nSó irá carregar episódios soltos, episódios embutidos apenas com UpNext\n\n\n\n\n\n\n\n\n\n\nEste modo não procura legendas externas, mas pode haver legendas inclusas no episódio')
-		except:
-			pass
+			except:
+				pass
 		for name2, url2 in match:
 			cookiex = re.compile('(http.+?)<.p').findall(url2)
 			name2 = re.sub('.+Em Exibição.', 'EPISÓDIO 01', name2)
@@ -4996,20 +4996,20 @@ def comandomenu2(): #177
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(str(match))
 		#arquivo.close()
-		#try:
-		#	url3 = ([name1 for name1, link in match])
-		#	if re.search(r'(o [0-9][0-9]\b)|x([0-9][0-9]\b)|O ([0-9][0-9]\b)', str(url3)):
-		#		teste = false
-		#	else:
-		#		teste = ''
-		#except:
-		#	pass
 		try:
+			url3 = ([name1 for name1, link in match])
+			if re.search(r'(WEB-DL)|(Completo)|(Temporada)', str(url3)):
+				teste = ''
+			else:
+				teste = false
+		except:
+			pass
+			try:
 				playlist = ([nome+' - '+link for nome, link in match])
 				playlist2 = playlist[0]
 				AddDir('[B]Playlist de episódios[/B]', playlist, 543, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[B]Lista automatizada de episódios[/B]\n\nSó irá carregar episódios soltos, episódios embutidos apenas com UpNext\n\n\n\n\n\n\n\n\n\n\nEste modo não procura legendas externas, mas pode haver legendas inclusas no episódio')
-		except:
-			pass
+			except:
+				pass
 		for name2, url2 in match:
 			cookiex = re.compile('(http.+?<).a>').findall(url2.replace('\xa0',' '))
 			name2 = re.sub('.+Em Exibição.', 'EPISÓDIO 01', name2)
@@ -6226,20 +6226,20 @@ def Comandotoserie3(): #524
 	try:
 		match = re.compile('(Tem.+?|E.+?)<a(.+?magn.+?)<.a><.p>').findall(url.replace('</a></p','</a></p>').replace('—<br /> ','ter;">').replace('center;"><a','center;"><b>Temporada Completa: </b><a').replace('<span style="font-weight',"").replace(' 700 !important;">',"").replace("</span>","").replace('<p>',"").replace('"><strong>','">1080p</a></p>').replace("</p><p","</a></p><p"))
 		teste = match[0]
-		#try:
-		#	url3 = ([name1 for name1, link in match])
-		#	if re.search(r'(o [0-9][0-9]\b)|x([0-9][0-9]\b)|O ([0-9][0-9]\b)', str(url3)):
-		#		teste = false
-		#	else:
-		#		teste = ''
-		#except:
-		#	pass
 		try:
+			url3 = ([name1 for name1, link in match])
+			if re.search(r'(EB-DL)|(Completo)|(Temporada)', str(url3)):
+				teste = ''
+			else:
+				teste = false
+		except:
+			pass
+			try:
 				playlist = ([nome+' - '+link for nome, link in match])
 				playlist2 = playlist[0]
 				AddDir('[B]Playlist de episódios[/B]', playlist, 542, iconimage, iconimage, isFolder=False, IsPlayable=True, info='[B]Lista automatizada de episódios[/B]\n\nSó irá carregar episódios soltos, episódios embutidos apenas com UpNext\n\n\n\n\n\n\n\n\n\n\nEste modo não procura legendas externas, mas pode haver legendas inclusas no episódio')
-		except:
-			pass
+			except:
+				pass
 		for name2, url2 in match:
 			name2 = re.sub('.+?Epi', 'Epi', name2)
 			if "&#8230;" in name2 or 'problemas' in name2 or 'EGENDAS' in name2  or "Respostas" in name2 or 'ES</a>' in name2: False
