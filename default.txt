@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.36.00"
+Versao = "23.37.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3550,7 +3550,7 @@ def Busca(): # 160
 			#p= 1
 			AddDir("[B][COLOR yellow]|||[/COLOR][COLOR white]|||[/COLOR][COLOR yellow]|||[/COLOR][COLOR yellow] [Pirate-Torrent] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
 			#l +=1
-			link = requests.get("https://filmesviatorrents.net/?s="+d.replace('%2B','+'),headers={'Referer':'https://filmesviatorrents.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+			link = requests.get("https://thepiratetorrents.org/?s="+d.replace('%2B','+'),headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile('<\/i><a href="(.+?)#.+?title="(.+?)".+?src="(.+?)".+?Duração:.+?>(.+?)<').findall(link)
 			for link, name2, image2, ep in match:
 				if "Temporada" in name2 or "EPISÓDIO" in name2 or "TEMPORADA" in name2 or 'EP' in ep:
@@ -4293,7 +4293,7 @@ def MoviesPR(): #186
 		l= int(cPagepr1)*6
 		for x in range(0, 6):
 			l +=1
-			link = requests.get("https://filmesviatorrents.net/category/genero/"+Clistapr0[int(Catpr)]+"/page/"+str(l)+"/",headers={'Referer':'https://filmesviatorrents.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+			link = requests.get("https://thepiratetorrents.org/category/genero/"+Clistapr0[int(Catpr)]+"/page/"+str(l)+"/",headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile('<\/i><a href="(.+?)#.+?title="(.+?)".+?src="(.+?)".+?Duração:.+?>(.+?)<').findall(link)
 			for link, name2, image2, ep in match:
 				if "Temporada" in name2 or "EPISÓDIO" in name2 or "TEMPORADA" in name2 or 'EP' in ep: False
@@ -4308,7 +4308,7 @@ def MoviesPR(): #186
 		
 def MenuPR(): #187
 	try:
-		brevelink = requests.get(url,headers={'Referer':'https://filmesviatorrents.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+		brevelink = requests.get(url,headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
 		breve = re.compile('">(EM BREVE)<.span>').findall(brevelink)
 		breve = breve[0]
 		AddDir("[COLOR red][B]*EM BREVE (AINDA NÃO DISPONIVEL)*[/B][/COLOR]", '', '', iconimage, iconimage, isFolder=False, IsPlayable=True, info='Filme ainda não está disponivel, provavelmente ainda nos cinemas')
@@ -4324,7 +4324,7 @@ def MenuPR(): #187
 	except:
 		pass
 	try:
-		link = requests.get(url,headers={'Referer':'https://filmesviatorrents.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+		link = requests.get(url,headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
 		#arquivo = open(cachefolder + "pirate.txt", "w+")
 		#arquivo.write(url)
 		#arquivo.close()
@@ -4735,7 +4735,7 @@ def Pirateserie(): #250
 	for x in range(0, 4):
 		try:
 			y +=1
-			link = requests.get("https://filmesviatorrents.net/category/series/page/"+str(y)+"/",headers={'Referer':'https://filmesviatorrents.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+			link = requests.get("https://thepiratetorrents.org/category/series/page/"+str(y)+"/",headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile('<\/i><a href="(.+?)#.+?title="(.+?)".+?src="(.+?)"').findall(link)
 			for link, name2, image2 in match:
 				AddDir(name2.replace("Torrent ","").replace(" –",""), link, 251, image2, image2, isFolder=True, info='\xa0')
@@ -4745,7 +4745,7 @@ def Pirateserie(): #250
 
 def Piratemenu(): #251
 	try:
-		link = requests.get(url,headers={'Referer':'https://filmesviatorrents.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+		link = requests.get(url,headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
 		#arquivo = open(cachefolder + "netcine.txt", "w+")
 		#arquivo.write(link.replace('Versão Legendado:',':: LEGENDADO ::').replace('Versão Dual Áudio / Dublado:',':: DUAL ÁUDIO / DUBLADO ::').replace('color: #ff0000;">','><h2').replace('﻿',''))
 		#arquivo.close()
@@ -4756,7 +4756,7 @@ def Piratemenu(): #251
 			AddDir(title2, "https://"+link, 252, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 	except:
 		pass
-		#link = requests.get(url,headers={'Referer':'https://filmesviatorrents.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n','').replace('\r','')
+		#link = requests.get(url,headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n','').replace('\r','')
 		match = re.compile('DOWNLOAD.+?<strong>(.+?)<(.+?)><h2').findall(link.replace('﻿',''))
 		for title2, link in match:
 			if ":: LEGENDADO ::" in title2 or ":: DUAL ÁUDIO / DUBLADO ::" in title2 or "OBS:" in title2: False
