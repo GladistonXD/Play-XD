@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.37.00"
+Versao = "23.38.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3534,7 +3534,7 @@ def Busca(): # 160
 			#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 			#arquivo.write(link)
 			#arquivo.close()
-			match = re.compile('class="title">.+?<a href="(.+?)".+?title="(.+?)".+?src="(.+?)"').findall(link)
+			match = re.compile('<div class="title"><a href="(.+?)".+?title="(.+?)".+?src="(.+?)"').findall(link)
 			for link,name2, image2 in match:
 				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 				if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2:
