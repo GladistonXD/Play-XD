@@ -5180,7 +5180,7 @@ def Paylistplay(): #542
 			for numero in lista_numeros:
 				episodio = f'"Episódio 0{numero}<: - href={link}&index={numero-1}"'
 				lista_episodios.append(episodio)
-		url1 = re.sub('Episodio [0-9][0-9] \w.+?[0-9][0-9]:.+?magnet.+?"',str(lista_episodios).replace("']",""), url1.replace('ó','o'))
+		url1 = re.sub('Episodio [0-9][0-9] \w.+?[0-9][0-9].+?magnet.+?"',str(lista_episodios).replace("']",""), url1.replace('ó','o'))
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(str(url1))
 		#arquivo.close()
@@ -5205,7 +5205,7 @@ def Paylistplay(): #542
 			xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	while True:
 		decode = requests.get('http://127.0.0.1:65220/torrents/list').text
-		leg4 = re.compile('"name":"(.+?[0-9][0-9]\w)').findall(str(decode).replace('.', ' '))
+		leg4 = re.compile('"name":"(.+?[0-9][0-9])').findall(str(decode).replace('.', ' '))
 		time.sleep(2)
 		if leg4:
 			break
@@ -5250,7 +5250,7 @@ def Paylistplay(): #542
 						shutil.rmtree(cachefolder+'Legendas/'+f)
 				except:
 					pass
-				recom2 = leg4[0]+number
+				recom2 = leg4[0]+'E'+number
 				try:
 					xbmc.executebuiltin("Notification({0}, {1}, 20000, {2})".format(recom2, "[COLOR red][B]Buscando Legendas Externas...[/B][/COLOR]", iconimage))
 				except:
