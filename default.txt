@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.38.00"
+Versao = "23.39.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1962,10 +1962,12 @@ def Filmesviatorrentplay(): #536
 					pass
 				for nome in os.listdir(cachefolder+"Legendas/"):
 					if ".srt" in nome:
-						novo_nome = "Legendei (Brasil)-pt" + ".srt"
-						os.rename(cachefolder+"Legendas/" + nome, cachefolder+"Legendas/" + novo_nome)
-						renam = cachefolder+"Legendas/Legendei (Brasil)-pt.srt"
-						renam = renam[0]
+						new1 = re.compile('E([0-9][0-9])').findall(recom2)[0]
+						if 'E'+new1 in nome or 'e'+new1 in nome:
+							novo_nome = "Legendei (Brasil)-pt" + ".srt"
+							os.rename(cachefolder+"Legendas/" + nome, cachefolder+"Legendas/" + novo_nome)
+							renam = cachefolder+"Legendas/Legendei (Brasil)-pt.srt"
+							renam = renam[0]
 			except:
 				pass
 			try:
@@ -4897,10 +4899,12 @@ def Pirateplay(): #253
 					pass
 				for nome in os.listdir(cachefolder+"Legendas/"):
 					if ".srt" in nome:
-						novo_nome = "Legendei (Brasil)-pt" + ".srt"
-						os.rename(cachefolder+"Legendas/" + nome, cachefolder+"Legendas/" + novo_nome)
-						renam = cachefolder+"Legendas/Legendei (Brasil)-pt.srt"
-						renam = renam[0]
+						new1 = re.compile('E([0-9][0-9])').findall(recom2)[0]
+						if 'E'+new1 in nome or 'e'+new1 in nome:
+							novo_nome = "Legendei (Brasil)-pt" + ".srt"
+							os.rename(cachefolder+"Legendas/" + nome, cachefolder+"Legendas/" + novo_nome)
+							renam = cachefolder+"Legendas/Legendei (Brasil)-pt.srt"
+							renam = renam[0]
 			except:
 				pass
 			try:
@@ -5130,10 +5134,12 @@ def comandoplay(): #178
 					pass
 				for nome in os.listdir(cachefolder+"Legendas/"):
 					if ".srt" in nome:
-						novo_nome = "Legendei (Brasil)-pt" + ".srt"
-						os.rename(cachefolder+"Legendas/" + nome, cachefolder+"Legendas/" + novo_nome)
-						renam = cachefolder+"Legendas/Legendei (Brasil)-pt.srt"
-						renam = renam[0]
+						new1 = re.compile('E([0-9][0-9])').findall(recom2)[0]
+						if 'E'+new1 in nome or 'e'+new1 in nome:
+							novo_nome = "Legendei (Brasil)-pt" + ".srt"
+							os.rename(cachefolder+"Legendas/" + nome, cachefolder+"Legendas/" + novo_nome)
+							renam = cachefolder+"Legendas/Legendei (Brasil)-pt.srt"
+							renam = renam[0]
 			except:
 				pass
 			try:
@@ -6377,10 +6383,12 @@ def Comandotoserieplay(): #525
 					pass
 				for nome in os.listdir(cachefolder+"Legendas/"):
 					if ".srt" in nome:
-						novo_nome = "Legendei (Brasil)-pt" + ".srt"
-						os.rename(cachefolder+"Legendas/" + nome, cachefolder+"Legendas/" + novo_nome)
-						renam = cachefolder+"Legendas/Legendei (Brasil)-pt.srt"
-						renam = renam[0]
+						new1 = re.compile('E([0-9][0-9])').findall(recom2)[0]
+						if 'E'+new1 in nome or 'e'+new1 in nome:
+							novo_nome = "Legendei (Brasil)-pt" + ".srt"
+							os.rename(cachefolder+"Legendas/" + nome, cachefolder+"Legendas/" + novo_nome)
+							renam = cachefolder+"Legendas/Legendei (Brasil)-pt.srt"
+							renam = renam[0]
 			except:
 				pass
 			try:
