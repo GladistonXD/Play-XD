@@ -6288,7 +6288,7 @@ def Comandotoserie3(): #524
 	#arquivo.write(url.replace('—<br /> ','ter;">').replace('center;"><a','center;"><b>Temporada Completa: </b><a').replace('<span style="font-weight',"").replace(' 700 !important;">',"").replace("</span>","").replace('<p>',"").replace('"><strong>','">1080p</a></p>').replace("</p><p","</a></p><p"))#.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2"))
 	#arquivo.close()
 	try:
-		match = re.compile('(Tem.+?|E.+?)<a(.+?magn.+?)<.a><.p>').findall(url.replace('</a></p','</a></p>').replace('—<br /> ','ter;">').replace('center;"><a','center;"><b>Temporada Completa: </b><a').replace('<span style="font-weight',"").replace(' 700 !important;">',"").replace("</span>","").replace('<p>',"").replace('"><strong>','">1080p</a></p>').replace("</p><p","</a></p><p"))
+		match = re.compile('(Tem.+?|E.+?)<a(.+?magn.+?)<.a><.p>').findall(url.replace('</a></p','</a></p>').replace('—<br /> ','ter;">').replace('center;"><a','center;"><b>Temporada Completa: </b><a').replace('<span style="font-weight',"").replace(' 700 !important;">',"").replace("</span>","").replace('<p>',"").replace('"><strong>','">1080p</a></p>').replace("</p><p","</a></p><p").replace('</a></div><div>','</a></p>'))
 		teste = match[0]
 		try:
 			url3 = ([name1 for name1, link in match])
@@ -6308,7 +6308,7 @@ def Comandotoserie3(): #524
 			name2 = re.sub('.+?Epi', 'Epi', name2)
 			if "&#8230;" in name2 or 'problemas' in name2 or 'EGENDAS' in name2  or "Respostas" in name2 or 'ES</a>' in name2: False
 			else:
-				AddDir(name2.replace('</a></p>',' ').replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',"").replace('EMPORADA','TEMPORADA').replace('ET LINK" width="300" height="100"','').replace('>','').replace(' / ',''), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
+				AddDir(name2.replace('EB-DL','WEB-DL').replace('</a></p>',' ').replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',"").replace('EMPORADA','TEMPORADA').replace('ET LINK" width="300" height="100"','').replace('>','').replace(' / ',''), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 	except:
 		#pass
 		try:
@@ -6318,7 +6318,7 @@ def Comandotoserie3(): #524
 				name2 = re.sub('.+?Epi', 'Epi', name2)
 				if "&#8230;" in name2 or 'problemas' in name2 or 'ENT END' in name2 or 'EGENDAS' in name2  or "Respostas" in name2: False
 				else:
-					AddDir(name2.replace("<b>","").replace('</a></p>',' ').replace('Baixar ','').replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',""), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
+					AddDir(name2.replace('EB-DL','WEB-DL').replace("<b>","").replace('</a></p>',' ').replace('Baixar ','').replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',""), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 		except:
 			#pass
 			try:
@@ -6327,7 +6327,7 @@ def Comandotoserie3(): #524
 					name2 = re.sub('.+?Epi', 'Epi', name2)
 					if "&#8230;" in name2 or 'problemas' in name2 or 'EGENDAS' in name2 or "Respostas" in name2: False
 					else:
-						AddDir(name2.replace("<b>","").replace('</a></p>',' ').replace('Torrent Download','').replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',""), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
+						AddDir(name2.replace('EB-DL','WEB-DL').replace("<b>","").replace('</a></p>',' ').replace('Torrent Download','').replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',""), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 			except:
 				#pass
 				try:
@@ -6337,7 +6337,7 @@ def Comandotoserie3(): #524
 						name2 = re.sub('.+?Epi', 'Epi', name2)
 						if "&#8230;" in name2 or 'problemas' in name2 or 'EGENDAS' in name2 or "Respostas" in name2: False
 						else:
-							AddDir(name2.replace('</a></p>',' ').replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',""), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
+							AddDir(name2.replace('EB-DL','WEB-DL').replace('</a></p>',' ').replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace("</strong>","").replace('<ter;">'," ").replace('</b>',"").replace('<br />',"").replace('</div><div style="text-align center;"><p style="text-align center;">'," ").replace("1080p</a></p>","").replace('<p style="text-align center;">',""), url2, 525, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0')
 				except:
 					pass
         
