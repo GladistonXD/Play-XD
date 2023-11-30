@@ -6346,9 +6346,17 @@ def Comandotoserieplay(): #525
 					xbmc.executebuiltin("Notification({0}, {1}, 20000, {2})".format(recom2, "[COLOR red][B]Buscando Legendas Externas...[/B][/COLOR]", iconimage))
 				except:
 					pass
-				url5 = requests.get("https://legendei.top/?s="+recom2,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-				teste = re.compile('thumbnail.+\s.+?href="(.+?)"').findall(url5)
-				teste = teste[0]
+				cuts = re.compile('(.+) S[0-9][0-9]').findall(recom2)[0]
+				cutsnum = re.compile('S[0-9]([0-9])').findall(recom2)[0]
+				seasonnum = cuts+' '+cutsnum+'ª'
+				try:
+					url5 = requests.get("https://legendei.top/?s=" + recom2, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					teste = re.compile('thumbnail.+\s.+?href="(.+?)".+?title="'+cuts).findall(url5.replace('Permanent Link to ',''))
+					teste = teste[0]
+				except:
+					url5 = requests.get("https://legendei.top/?s=" + seasonnum, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					teste = re.compile('thumbnail.+\s.+?href="(.+?)".+?title="' + cuts).findall(url5.replace('Permanent Link to ', ''))
+					teste = teste[0]
 				try:
 					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 					teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
