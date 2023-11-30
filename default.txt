@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.39.00"
+Versao = "23.40.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -5020,9 +5020,9 @@ def comandomenu2(): #177
 			AddDir(name2.replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace('<ter;">'," ").replace('</b>',""), cookiex, 178, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=background)
                 
 def comandoplay(): #178
-	#arquivo = open(cachefolder + "testeplayer.txt", "w+")
-	#arquivo.write(url)
-	#arquivo.close()
+	arquivo = open(cachefolder + "testeplayer.txt", "w+")
+	arquivo.write(name)
+	arquivo.close()
 	listar=[]
 	listal=[]
 	try:
@@ -5094,12 +5094,27 @@ def comandoplay(): #178
 				except:
 					pass
 				try:
+					re22 = re.compile("(.+).ª").findall(recom2)[0]
+					re23 = re.compile(".+(.)ª").findall(recom2)[0]
+					re24 = re.compile("([0-9][0-9])").findall(name)[0]
+					recom2 = re22+'S0'+re23+'E'+re24
+				except:
+					pass
+				try:
 					xbmc.executebuiltin("Notification({0}, {1}, 20000, {2})".format(recom2, "[COLOR red][B]Buscando Legendas Externas...[/B][/COLOR]", iconimage))
 				except:
 					pass
-				url5 = requests.get("https://legendei.top/?s="+recom2,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-				teste = re.compile('thumbnail.+\s.+?href="(.+?)"').findall(url5)
-				teste = teste[0]
+				cuts = re.compile('(.+) S[0-9][0-9]').findall(recom2)[0]
+				cutsnum = re.compile('S[0-9]([0-9])').findall(recom2)[0]
+				seasonnum = cuts+' '+cutsnum+'ª'
+				try:
+					url5 = requests.get("https://legendei.top/?s=" + recom2, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					teste = re.compile('thumbnail.+\s.+?href="(.+?)".+?title="'+cuts).findall(url5.replace('Permanent Link to ',''))
+					teste = teste[0]
+				except:
+					url5 = requests.get("https://legendei.top/?s=" + seasonnum, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					teste = re.compile('thumbnail.+\s.+?href="(.+?)".+?title="' + cuts).findall(url5.replace('Permanent Link to ', ''))
+					teste = teste[0]
 				try:
 					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 					teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
