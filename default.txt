@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.41.00"
+Versao = "23.42.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3906,7 +3906,7 @@ def PlayMFO1(): #172
 				cookiex = re.compile('id=(.+?)&').findall(url2x)
 				invertida = ''.join(palavra[::-1] for palavra in cookiex[0].split())
 				decode = base64.b64decode(invertida)
-				PlayUrl(name,"plugin://plugin.video.elementum/play?show=''&uri="+str(decode).replace("b'","").replace("'","").replace(' ',''), subs=[cachefolder+"Legendas/Elsubtitle (Brasil)-pt.forced.srt", cachefolder+"Legendas/Legendei (Brasil)-pt.srt", cachefolder+"Legendas/OpenSubtitles (Brasil)-pt.srt", cachefolder+"Legendas/Baixarlegenda (Brasil)-pt.srt"])
+				PlayUrl(name,"plugin://plugin.video.elementum/play?show=''&uri="+decode.decode(), subs=[cachefolder+"Legendas/Elsubtitle (Brasil)-pt.forced.srt", cachefolder+"Legendas/Legendei (Brasil)-pt.srt", cachefolder+"Legendas/OpenSubtitles (Brasil)-pt.srt", cachefolder+"Legendas/Baixarlegenda (Brasil)-pt.srt"])
 			except:
 				PlayUrl(name,"plugin://plugin.video.elementum/play?show=''&uri="+url2x, subs=[cachefolder+"Legendas/Elsubtitle (Brasil)-pt.forced.srt", cachefolder+"Legendas/Legendei (Brasil)-pt.srt", cachefolder+"Legendas/OpenSubtitles (Brasil)-pt.srt", cachefolder+"Legendas/Baixarlegenda (Brasil)-pt.srt"])
 			try:
@@ -4985,9 +4985,11 @@ def comandomenu2(): #177
 			except:
 				pass
 		for name2, url2 in match:
-			cookiex = re.compile('(http.+?)<.p').findall(url2)
-			name2 = re.sub('.+Em Exibição.', 'EPISÓDIO 01', name2)
-			AddDir(name2.replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace('<ter;">'," ").replace('</b>',""), url2, 178, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=background)
+			if "ONLINE" in name2: False
+			else:
+				cookiex = re.compile('(http.+?)<.p').findall(url2)
+				name2 = re.sub('.+Em Exibição.', 'EPISÓDIO 01', name2)
+				AddDir(name2.replace("<b>","").replace(":","").replace("|","").replace("<strong>","").replace('<ter;">'," ").replace('</b>',""), url2, 178, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=background)
 	except:
 		pass
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
@@ -5021,7 +5023,7 @@ def comandomenu2(): #177
                 
 def comandoplay(): #178
 	#arquivo = open(cachefolder + "testeplayer.txt", "w+")
-	#arquivo.write(name)
+	#arquivo.write(url)
 	#arquivo.close()
 	listar=[]
 	listal=[]
@@ -5032,9 +5034,11 @@ def comandoplay(): #178
 		match = re.compile('(magnet.+?)">(.+?)<').findall(url.replace('" rel="nofollow noopener noreferrer',''))
 	if match:
 		for url2, name2 in match:
-			name2 = re.sub('<img.+', name, name2)
-			listal.append(url2)
-			listar.append(name2)
+			if "Online" in name2: False
+			else:
+				name2 = re.sub('<img.+', name, name2)
+				listal.append(url2)
+				listar.append(name2)
 		if len(listal) <1:
 			xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 			sys.exit(int(sys.argv[1]))
@@ -5044,9 +5048,8 @@ def comandoplay(): #178
 			try:
 				invertida = ''.join(palavra[::-1] for palavra in url2x.split())
 				decode = base64.b64decode(invertida)
-				urloff = re.compile('magnet').findall(str(decode))
-				urloffx = urloff[0]
-				PlayUrl(name,"plugin://plugin.video.elementum/play?show=''&uri="+str(decode).replace("b'","").replace("'","").replace(' ',''), sub=cachefolder+"Legendas/Legendei (Brasil)-pt.srt")
+				urloffx = decode.decode()
+				PlayUrl(name,"plugin://plugin.video.elementum/play?show=''&uri="+urloffx, sub=cachefolder+"Legendas/Legendei (Brasil)-pt.srt")
 			except:
 				PlayUrl(name,"plugin://plugin.video.elementum/play?show=''&uri="+url2x, sub=cachefolder+"Legendas/Legendei (Brasil)-pt.srt")
 			try:
