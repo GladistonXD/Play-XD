@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.45.00"
+Versao = "23.46.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3791,8 +3791,7 @@ def GenerosPR(): #86
 		Addon.setSetting("cPagepr1", "0" )
 		xbmc.executebuiltin("Container.Refresh()")
 
-#www.torrentfilmes4k.com
-#www.torrentdosfilmeshd2.net
+#https://torrentdofilmes.com/
 def MoviesFO(): #170
 	pagina = "0" if not cPageserTR else cPageserTR
 	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + Clistafo1[int(Catfo)] +"[/COLOR]", "url" ,85 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
@@ -3828,6 +3827,7 @@ def GetMFO1(): #171
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
 		#arquivo.close()
+		genero = re.compile('<b>Baixar.(.+?):<.b>').findall(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))[0]
 		match = re.compile('<strong>::.(.+?)::(.+?)><h2').findall(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
 		matchpff = match[0]
 		sinopse = re.compile('<.span><.strong>:(.+?)<.p>').findall(html.unescape(link.replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
@@ -3837,9 +3837,15 @@ def GetMFO1(): #171
 			title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("MULTI ÁUDIO","[COLOR springgreen][B]Multi Áudio[/B][/COLOR]").replace("OFICIAL","")
 			if sinopse:
 				for info1 in sinopse:
-					AddDir(title2, link, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
+					if 'Anime' in genero or 'Serie' in genero:
+						AddDir(title2, link, 177, iconimage, iconimage, isFolder=True, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
+					else:
+						AddDir(title2, link, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
 			else:
-				AddDir(title2, link, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), info='\xa0', legdub=title2)
+				if 'Anime' in genero or 'Serie' in genero:
+					AddDir(title2, link, 177, iconimage, iconimage, isFolder=True, IsPlayable=True, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), info='\xa0', legdub=title2)
+				else:
+					AddDir(title2, link, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), info='\xa0', legdub=title2)
 	except:
 		pass
 		try:
