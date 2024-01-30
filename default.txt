@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.46.00"
+Versao = "23.47.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -5917,14 +5917,14 @@ def Comandotoplayer(): #519
 					leg4xx = ' '.join(notific)
 					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 					try:
-						dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0]).findall(url5.replace(':','').replace("'",''))
+						dev1x = re.compile('href=".{1,400}' + leg4xx + '.+?.-.\(' + backcut[0]).findall(url5.replace(':','').replace("'",''))
 						off1 = dev1x[0]
 					except:
 						try:
-							dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0][:-1]).findall(url5.replace(':','').replace("'",''))
+							dev1x = re.compile('href=".{1,400}' + leg4xx + '.+?.-.\(' + backcut[0][:-1]).findall(url5.replace(':','').replace("'",''))
 							off1 = dev1x[0]
 						except:
-							dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0][:-2]).findall(url5.replace(':','').replace("'",''))
+							dev1x = re.compile('href=".{1,400}' + leg4xx + '.+?.-.\(' + backcut[0][:-2]).findall(url5.replace(':','').replace("'",''))
 				except:
 					pass
 			else:
@@ -5952,31 +5952,43 @@ def Comandotoplayer(): #519
 					leg4xx = ' '.join(notific)
 					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 					try:
-						dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0]).findall(url5)
+						dev1x = re.compile('href=".{1,400}' + leg4xx + '.+?.-.\(' + backcut[0]).findall(url5)
 						off1 = dev1x[0]
 					except:
 						try:
-							dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0][:-1]).findall(url5)
+							dev1x = re.compile('href=".{1,400}' + leg4xx + '.+?.-.\(' + backcut[0][:-1]).findall(url5)
 							off1 = dev1x[0]
 						except:
-							dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0][:-2]).findall(url5)
+							dev1x = re.compile('href=".{1,400}' + leg4xx + '.+?.-.\(' + backcut[0][:-2]).findall(url5)
 				except:
 					pass
 			try:
 				dev1 = re.compile('href="(.title.+?)"').findall(dev1x[0])
+				#arquivo = open(cachefolder + "movies.txt", "w+")
+				#arquivo.write(dev1[0])
+				#arquivo.close()
 				url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 				try:
 					devx = re.compile('Brazil.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 					off = devx[0]
 					url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-br', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url4 = re.compile('subtitles-download-p2.+?>\s.+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)"').findall(url3)
+					for rawurlencode, sublanguage, downloadtext, worktitle, workyear, workid in url4:
+						url3 = requests.post('https://www.elsubtitle.com/subtitles-download-p2/',data={'rawurlencode': rawurlencode, 'sublanguage': sublanguage, 'downloadtext': downloadtext,'worktitle': worktitle,'workyear': workyear, 'workid': workid},headers={'Referer': 'https://www.elsubtitle.com/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 				except:
 					try:
 						devx = re.compile('Portugal.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						off = devx[0]
 						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url4 = re.compile('subtitles-download-p2.+?>\s.+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)"').findall(url3)
+						for rawurlencode, sublanguage, downloadtext, worktitle, workyear, workid in url4:
+							url3 = requests.post('https://www.elsubtitle.com/subtitles-download-p2/',data={'rawurlencode': rawurlencode, 'sublanguage': sublanguage, 'downloadtext': downloadtext,'worktitle': worktitle,'workyear': workyear, 'workid': workid},headers={'Referer': 'https://www.elsubtitle.com/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 					except:
 						devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url4 = re.compile('subtitles-download-p2.+?>\s.+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)"').findall(url3)
+						for rawurlencode, sublanguage, downloadtext, worktitle, workyear, workid in url4:
+							url3 = requests.post('https://www.elsubtitle.com/subtitles-download-p2/',data={'rawurlencode': rawurlencode, 'sublanguage': sublanguage, 'downloadtext': downloadtext,'worktitle': worktitle,'workyear': workyear, 'workid': workid},headers={'Referer': 'https://www.elsubtitle.com/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 				dev2 = re.compile('<a href="(.+?srt)"').findall(url3)
 				teste3 = 'https://www.elsubtitle.com' + dev2[0]
 
@@ -6016,8 +6028,11 @@ def Comandotoplayer(): #519
 				#arquivo = open(cachefolder + "LegendaT.txt", "w+")
 				#arquivo.write(leg4[0])
 				#arquivo.close()
-				url5 = requests.get("https://legendei.top/?s="+leg4[0].replace(':',''),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n','').replace('\r','')
-				teste = re.compile('thumbnail">\s\s.+?href="(.+?)".+?title.+?'+leg4[0][:-1].replace(':','')+'\s[(]').findall(url5.replace(':',''))
+				url5 = requests.get("https://legendei.top/?s="+leg4[0].replace(':','').replace('(',''),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n','').replace('\r','')
+				leg1x1 = leg4[0][:-2].replace(':', '').replace('(','').split(' ')
+				notific1 = (['\w' + name[1:] + '' for name in leg1x1])
+				cut1 = ' '.join(notific1)
+				teste = re.compile('thumbnail">\s\s.+?href="(.+?)".+?title.+?'+cut1+'\s[(]').findall(url5.replace(':',''))
 				teste = teste[0]
 				teste2 = requests.get(teste.replace('https//','https://'),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 				teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
