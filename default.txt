@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.47.00"
+Versao = "23.48.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -8698,7 +8698,7 @@ def RadioTV(x): #106
 	link = OpenURL("https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/Radios-tv").replace("\n","").replace('\r','')
 	m = re.compile('<title>(.+?)<\/title><link>(.+?)<\/link><thumbnail>(.+?)<\/thumbnail>').findall(link)
 	for name2, url2, img2 in m:
-		if 'live3.msr.cdn.mediaset.net' in url2:
+		if 'live03' in url2:
 			AddDir(name2, url2, 544,img2, img2, isFolder=False, IsPlayable=True, info='Necessita de InputStream Adaptive')
 		else:
 			AddDir(name2, url2, 214,img2, img2, isFolder=False, IsPlayable=True, info='\xa0')
