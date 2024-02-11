@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.48.00"
+Versao = "23.49.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -5964,9 +5964,9 @@ def Comandotoplayer(): #519
 					pass
 			try:
 				dev1 = re.compile('href="(.title.+?)"').findall(dev1x[0])
-				#arquivo = open(cachefolder + "movies.txt", "w+")
-				#arquivo.write(dev1[0])
-				#arquivo.close()
+				arquivo = open(cachefolder + "movies.txt", "w+")
+				arquivo.write(dev1[0])
+				arquivo.close()
 				url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 				try:
 					devx = re.compile('Brazil.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
@@ -6253,7 +6253,7 @@ def Comandotoserie(): #522
 	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserCMT", info='\xa0')
 
 def Comandotoserie2(): #523
-	link = requests.get(url,headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('<strong>DUAL ÁUDIO</strong>','<strong>:: DUAL ÁUDIO ::</strong>').replace('<strong>DUBLADO OFICIAL</strong>','<strong>:: DUBLADO OFICIAL ::</strong>').replace('<strong>DUBLADO NÃO OFICIAL</strong>','<strong>:: DUBLADO NÃO OFICIAL ::</strong>').replace('<strong>LEGENDADO</strong>','<strong>:: LEGENDADO ::</strong>').replace('<strong>DUBLADO</strong>','<strong>:: DUBLADO ::</strong>')
+	link = requests.get(url,headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('DUAL ÁUDIO','<strong>:: DUAL ÁUDIO ::</strong>').replace('<strong>DUBLADO OFICIAL</strong>','<strong>:: DUBLADO OFICIAL ::</strong>').replace('DUBLADO NÃO OFICIAL','<strong>:: DUBLADO NÃO OFICIAL ::</strong>').replace('LEGENDADO','<strong>:: LEGENDADO ::</strong>').replace('<strong>DUBLADO</strong>','<strong>:: DUBLADO ::</strong>').replace('<strong> DUBLADO </strong>','<strong>:: DUBLADO ::</strong>')
 	#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 	#arquivo.write(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('﻿',''))
 	#arquivo.close()
