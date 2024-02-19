@@ -6263,10 +6263,10 @@ def Comandotoserie2(): #523
 		#arquivo.write(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace('﻿',''))
 		#arquivo.close()
 		try:
-			match = re.compile('>::.(.+?)::(.+?)><h2').findall(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace('﻿',''))
+			match = re.compile('>::.(.+?)::(.+?)><h2').findall(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace('﻿','').replace('﻿ <strong>::',''))
 			teste = match[0]
 		except:
-			match = re.compile('<strong>(DUAL.+?|LEGENDADO.+?|DUBLADO.+?)<(.+?)><h2').findall(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace('﻿','').replace('﻿ <strong>::',''))
+			match = re.compile('<strong>(DUAL.+?|LEGENDADO.+?|DUBLADO.+?)<(.+?)><h2').findall(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace('﻿',''))
 			teste = match[0]
 		if match:
 			for title2, link in match:
