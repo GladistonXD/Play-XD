@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.50.00"
+Versao = "23.51.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -6266,7 +6266,7 @@ def Comandotoserie2(): #523
 			match = re.compile('>::.(.+?)::(.+?)><h2').findall(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace('﻿',''))
 			teste = match[0]
 		except:
-			match = re.compile('<strong>(DUAL.+?|LEGENDADO.+?|DUBLADO.+?)<(.+?)><h2').findall(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace('﻿',''))
+			match = re.compile('<strong>(DUAL.+?|LEGENDADO.+?|DUBLADO.+?)<(.+?)><h2').findall(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace('﻿','').replace('﻿ <strong>::',''))
 			teste = match[0]
 		if match:
 			for title2, link in match:
