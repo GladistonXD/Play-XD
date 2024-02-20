@@ -13,7 +13,7 @@ import zipfile
 import shutil
 import time, datetime
 from os.path import *
-Versao = "23.51.00"
+Versao = "23.52.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -6263,14 +6263,14 @@ def Comandotoserie2(): #523
 		#arquivo.write(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace('﻿',''))
 		#arquivo.close()
 		try:
-			match = re.compile('>::.(.+?)::(.+?)><h2').findall(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace(' <strong>::','').replace('﻿',''))
+			match = re.compile('>::.(.+?)::(.+?)><h2').findall(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace(' <strong>::','::').replace('﻿',''))
 			teste = match[0]
 		except:
 			match = re.compile('<strong>(DUAL.+?|LEGENDADO.+?|DUBLADO.+?)<(.+?)><h2').findall(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace('﻿',''))
 			teste = match[0]
 		if match:
 			for title2, link in match:
-				title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace('</strong>','')
+				title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace('</strong>','').replace(':','')
 				AddDir(title2, link, 524, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 	except:
 		pass
@@ -6283,7 +6283,7 @@ def Comandotoserie2(): #523
 			teste = match[0]
 			if match:
 				for title2, link in match:
-					title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace('</strong>','')
+					title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace('</strong>','').replace(':','')
 					AddDir(title2, link, 524, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 		except:
 			pass
@@ -6296,7 +6296,7 @@ def Comandotoserie2(): #523
 				teste = match[0]
 				if match:
 					for title2, link in match:
-						title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace('</strong>','')
+						title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace('</strong>','').replace(':','')
 						AddDir(title2, link, 524, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 			except:
 				pass
@@ -6307,7 +6307,7 @@ def Comandotoserie2(): #523
 				match = re.compile('>(K.+?)<(.+?)<h2').findall(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('﻿',''))
 				if match:
 					for title2, link in match:
-						title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace('</strong>','')
+						title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace('</strong>','').replace(':','')
 						AddDir("[COLOR springgreen][B]Dual Áudio[/B][/COLOR]", link, 524, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 
 def Comandotoserie3(): #524
