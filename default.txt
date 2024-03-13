@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys, xbmcplugin, xbmcgui, xbmcvfs, xbmcaddon, xbmc, os, json, hashlib, re, math, html
 import base64
-from urllib.parse import urlparse, quote_plus
+from urllib.parse import urlparse, quote_plus, parse_qs, unquote, unquote_plus
 from urllib.request import urlopen, Request
 import urllib.request, urllib.parse, urllib.error
 import urllib.parse
@@ -12,8 +12,10 @@ import io
 import zipfile
 import shutil
 import time, datetime
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
-Versao = "23.53.00"
+Versao = "23.54.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -193,8 +195,8 @@ def Categories(): #70
 def MCanais(): #-1
     #AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](REDPLAY)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](TOUROBOX)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](SABTOOHTV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](R98K)[/B][/COLOR]"  , "", 91, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
@@ -283,6 +285,9 @@ def proxyserver():
     except:
         pass
 proxyserver()'''
+
+
+
 
 def MaxMenuSerie(): # 468
 	pagina = "0" if not cPageserMX else cPageserMX
@@ -3665,7 +3670,7 @@ def Busca(): # 160
 	#	pass
 # ----------------- FIM BUSCA
 # ----------------- TV Cubeplay
-def TVCB(x): #102
+'''def TVCB(x): #102
 	url1 = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/Tv2.txt').text
 	urlx = re.compile('<title>(.+?)<.+\s.link>(.+?)<.+\s.+\s.thumbnail>(.+?)<').findall(url1)
 	jq = sorted(urlx, key=lambda urlx: urlx)
@@ -3710,8 +3715,18 @@ def PlayTVCB(): #103
 			#PlayUrl(name, unpack1+"|Referer=https://player.aovivotv.xyz/&User-Agent=Mozilla%2F5.0+%28Windows+NT+10.0%3B+Win64%3B+x64%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F94.0.4606.71+Safari%2F537.36", iconimage, name)
 			PlayFFmpeg(name, unpack1+"|Referer=https://player.aovivotv.xyz/&User-Agent=Mozilla%2F5.0+%28Windows+NT+10.0%3B+Win64%3B+x64%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F94.0.4606.71+Safari%2F537.36", iconimage, name)
 	except:
-		xbmcgui.Dialog().ok('Play XD', 'Canal indisponível no momento')
-        
+		xbmcgui.Dialog().ok('Play XD', 'Canal indisponível no momento')'''
+def TVCB(x): #102
+	url = 'https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/tvs3'
+	link = requests.get(url).text
+	decode = base64.b64decode(link).decode('utf-8')
+	base = re.compile('tvg-name="(.+?)".+?logo="(.+?)".+\s(.+)').findall(decode)
+	for name2, img2, url2 in base:
+		AddDir('[B]'+name2+'[/B]', url2, 103, img2, img2, isFolder=False, IsPlayable=True, info='\xa0')
+
+def PlayTVCB(): #103
+	PlayF4M(url+'.m3u8|User-Agent=XCIPTV-v5.0.1')
+    
 ##########################################################################################
 ###########################################################################################
 # ----------------- Fim TV Cubeplay
@@ -9467,6 +9482,475 @@ def PlayUrl(name, url, iconimage=None, info='', sub='', subs='', metah=''):
 		except:
 			listitem.setThumbnailImage(iconimage)
 	xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, listitem)
+
+HOST_NAME = '127.0.0.1'
+PORT_NUMBER = 3000
+
+global URL_BASE
+global LAST_URL
+global HEADERS_BASE
+global STOP_SERVER
+global CACHE_CHUNKS
+global CACHE_M3U8
+URL_BASE = ''
+LAST_URL = ''
+HEADERS_BASE = {}
+STOP_SERVER = False
+CACHE_CHUNKS = []
+CACHE_M3U8 = ''
+
+class ProxyHandler(BaseHTTPRequestHandler):
+
+    def basename(self,p):
+        """Returns the final component of a pathname"""
+        i = p.rfind('/') + 1
+        return p[i:]
+
+    def convert_to_m3u8(self,url):
+        if '|' in url:
+            url = url.split('|')[0]
+        elif '%7C' in url:
+            url = url.split('%7C')[0]
+        if not '.m3u8' in url and not '/hl' in url and int(url.count(":")) == 2 and int(url.count("/")) > 4:
+            parsed_url = urlparse(url)
+            try:
+                host_part1 = '%s://%s'%(parsed_url.scheme,parsed_url.netloc)
+                host_part2 = url.split(host_part1)[1]
+                url = host_part1 + '/live' + host_part2
+                file = self.basename(url)
+                if '.ts' in file:
+                    file_new = file.replace('.ts', '.m3u8')
+                    url = url.replace(file, file_new)
+                else:
+                    file_new = file + '.m3u8'
+                    url = url.replace(file, file_new)
+            except:
+                pass
+        return url
+
+    def set_headers(self,url):
+        global URL_BASE
+        global HEADERS_BASE
+        headers_default = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0'}
+        headers = {}
+        if 'User-Agent' in url:
+            try:
+                user_agent = url.split('User-Agent=')[1]
+                try:
+                    user_agent = user_agent.split('&')[0]
+                except:
+                    pass
+                try:
+                    user_agent = unquote_plus(user_agent)
+                except:
+                    pass
+                try:
+                    user_agent = unquote(user_agent)
+                except:
+                    pass
+                headers['User-Agent'] = user_agent
+            except:
+                pass
+        if 'Referer' in url:
+            try:
+                referer = url.split('Referer=')[1]
+                try:
+                    referer = referer.split('&')[0]
+                except:
+                    pass
+                try:
+                    referer = unquote_plus(referer)
+                except:
+                    pass
+                try:
+                    referer = unquote(referer)
+                except:
+                    pass
+                headers['Referer'] = referer
+            except:
+                pass
+        if 'Origin' in url:
+            try:
+                origin = url.split('Origin=')[1]
+                try:
+                    origin = origin.split('&')[0]
+                except:
+                    pass
+                try:
+                    origin = unquote_plus(origin)
+                except:
+                    pass
+                try:
+                    origin = unquote(origin)
+                except:
+                    pass
+                headers['Origin'] = origin
+            except:
+                pass
+
+        HEADERS_ = headers if headers else headers_default
+        if not HEADERS_BASE:
+            HEADERS_BASE = HEADERS_
+
+    def base_url(self,url):
+        global HEADERS_BASE
+        for i in range(4):
+            try:
+                r = requests.get(url, headers=HEADERS_BASE, timeout=3)
+                url = r.url
+            except:
+                pass
+            filename = url.split('/')[-1]
+            if not '.m3u8' in filename:
+                url = url.split('?')[0]
+                filename = url.split('/')[-1]
+                url = url.split(filename)[0]
+            else:
+                url = url.replace(filename, '')
+            return url
+
+    def make_m3u8(self,m3u):
+        default = r'#EXTINF:\d+\.\d+,\n/hl.+?/[^/]+\d+\.ts\?[^#]+'
+        default2 = r'#EXTINF:\d+\.\d+,\n/hl.+?/[^/]+\d+\.ts'
+        result = re.findall(default, m3u)
+        if not result:
+            result = re.findall(default2, m3u)
+        if result:
+            base_m3u = m3u.split('#EXTINF')[0]
+            two_last_lines = result[-1:]
+            for linha in two_last_lines:
+                base_m3u += linha
+            m3u = base_m3u
+        return m3u
+
+    def parse_stream(self,url):
+        global URL_BASE
+        global LAST_URL
+        global HEADERS_BASE
+        global STOP_SERVER
+        global CACHE_CHUNKS
+        global CACHE_M3U8
+        try:
+            url = url.split('|')[0]
+        except:
+            pass
+        try:
+            url = url.split('%7C')[0]
+        except:
+            pass
+
+        if '.html' in url:
+            for i in range(4):
+                if STOP_SERVER:
+                    break
+                try:
+                    r = requests.get(url,headers=HEADERS_BASE)
+                    if r.status_code == 200:
+                        CACHE_CHUNKS = []
+                        self.send_response(200)
+                        self.send_header('Content-type','video/mp2t')
+                        self.end_headers()
+                        for chunk in r.iter_content(300000):
+                            try:
+                                self.wfile.write(chunk)
+                                CACHE_CHUNKS.append(chunk)
+                            except:
+                                pass
+                        break
+                    else:
+                        if CACHE_CHUNKS:
+                            self.send_response(200)
+                            self.send_header('Content-type','video/mp2t')
+                            self.end_headers()
+                            try:
+                                self.wfile.write(CACHE_CHUNKS[-1])
+                            except:
+                                pass
+                except:
+                    pass
+        elif '.m3u8' in url or '.php' in url:
+            if not URL_BASE:
+                URL_BASE = self.base_url(url)
+                LAST_URL = url
+            elif URL_BASE:
+                if 'http' in url:
+                    last_parse = urlparse(LAST_URL)
+                    last_host = '%s://%s'%(last_parse.scheme,last_parse.netloc)
+                    url_parse = urlparse(url)
+                    url_host = '%s://%s'%(url_parse.scheme,url_parse.netloc)
+                    if last_host != url_host:
+                        URL_BASE = self.base_url(url)
+            if not 'http' in url:
+                if url.startswith('/'):
+                    url = url[1:]
+                url = URL_BASE + url
+            for i in range(7):
+                if STOP_SERVER:
+                    break
+                try:
+                    r = requests.get(url, headers=HEADERS_BASE, timeout=3)
+                    if r.status_code == 200:
+                        src = r.text
+                        if 'http' in src:
+                            url_proxy = 'http://%s:%s/?url=http'%(HOST_NAME,PORT_NUMBER)
+                            src = src.replace('http',url_proxy)
+                        if '/live/' in url and url.count('/') == 6:
+                            CACHE_M3U8 = self.make_m3u8(src)
+                        src = src.encode('utf-8')
+                        self.send_response(200)
+                        self.send_header('Content-Type', 'application/vnd.apple.mpegurl')
+                        self.end_headers()
+                        self.wfile.write(src)
+                        break
+                    else:
+                        if '/live/' in url and url.count('/') == 6 and CACHE_M3U8:
+                            src = CACHE_M3U8
+                            src = src.encode('utf-8')
+                            self.send_response(200)
+                            self.send_header('Content-Type', 'application/vnd.apple.mpegurl')
+                            self.end_headers()
+                            self.wfile.write(src)
+                            break
+
+                except:
+                    pass
+
+
+        elif '.ts' in url:
+            if url.startswith('/') and not '/hl' in url:
+                url = url[1:]
+                ts = URL_BASE + url
+            elif url.startswith('/'):
+                url = url[1:]
+                if 'https' in URL_BASE:
+                    ts = 'https://' + URL_BASE.split('/')[2] + '/' + url
+                else:
+                    ts = 'http://' + URL_BASE.split('/')[2] + '/' + url
+            for i in range(7):
+                if STOP_SERVER:
+                    break
+                try:
+                    r = requests.get(ts, headers=HEADERS_BASE)
+                    if r.status_code == 200:
+                        CACHE_CHUNKS = []
+                        self.send_response(200)
+                        self.send_header('Content-type','video/mp2t')
+                        self.end_headers()
+                        for chunk in r.iter_content(30000):
+                            try:
+                                self.wfile.write(chunk)
+                                CACHE_CHUNKS.append(chunk)
+                            except:
+                                pass
+                        break
+                    else:
+                        if CACHE_CHUNKS:
+                            self.send_response(200)
+                            self.send_header('Content-type','video/mp2t')
+                            self.end_headers()
+                            try:
+                                self.wfile.write(CACHE_CHUNKS[-1])
+                            except:
+                                pass
+
+                except:
+                    pass
+        elif url == '/':
+            content = 'PROXY'
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(content.encode('utf-8'))
+        elif url == '/stop':
+            self.send_response(200)
+            self.end_headers()
+            STOP_SERVER = True
+            def shutdown(server):
+                server.shutdown()
+                try:
+                    server.server_close()
+                except:
+                    pass
+            t = threading.Thread(target=shutdown, args=(self.server, ))
+            t.start()
+        else:
+            if url.startswith('/') and not '/hl' in url:
+                url = url[1:]
+                ts = URL_BASE + url
+            elif url.startswith('/'):
+                url = url[1:]
+                if 'https' in URL_BASE:
+                    ts = 'https://' + URL_BASE.split('/')[2] + '/' + url
+                else:
+                    ts = 'http://' + URL_BASE.split('/')[2] + '/' + url
+            for i in range(4):
+                if STOP_SERVER:
+                    break
+                try:
+                    r = requests.get(ts, headers=HEADERS_BASE)
+                    if r.status_code == 200:
+                        CACHE_CHUNKS = []
+                        self.send_response(200)
+                        self.send_header('Content-type','video/mp2t')
+                        self.end_headers()
+                        for chunk in r.iter_content(30000):
+                            try:
+                                self.wfile.write(chunk)
+                                CACHE_CHUNKS.append(chunk)
+                            except:
+                                pass
+                        break
+                    else:
+                        if CACHE_CHUNKS:
+                            self.send_response(200)
+                            self.send_header('Content-type','video/mp2t')
+                            self.end_headers()
+                            try:
+                                self.wfile.write(CACHE_CHUNKS[-1])
+                            except:
+                                pass
+
+                except:
+                    pass
+
+    def do_HEAD(self):
+        global STOP_SERVER
+        self.send_response(200)
+        self.end_headers()
+        if self.path == '/stop':
+            STOP_SERVER = True
+            def shutdown(server):
+                server.shutdown()
+                try:
+                    server.server_close()
+                except:
+                    pass
+            t = threading.Thread(target=shutdown, args=(self.server, ))
+            t.start()
+
+
+    def do_GET(self):
+        global URL_BASE
+        global LAST_URL
+        global HEADERS_BASE
+        global STOP_SERVER
+        global CACHE_CHUNKS
+        global CACHE_M3U8
+        if self.path == '/reset':
+            URL_BASE = ''
+            LAST_URL = ''
+            HEADERS_BASE = {}
+            CACHE_CHUNKS = []
+            CACHE_M3U8 = ''
+            self.send_response(200)
+            self.end_headers()
+        else:
+            url_path = unquote(self.path)
+            if '.m3u8' in url_path:
+                self.set_headers(url_path)
+            url_parts = urlparse(url_path)
+            query_params = parse_qs(url_parts.query)
+            if 'url' in query_params:
+                url = url_path.split('url=')[1]
+                try:
+                    url = url.split('|')[0]
+                except:
+                    pass
+                try:
+                    url = url.split('%7C')[0]
+                except:
+                    pass
+                url = self.convert_to_m3u8(url)
+            else:
+                url = url_path
+            self.parse_stream(url)
+
+
+def serve_forever(httpd):
+    with httpd:
+        httpd.serve_forever()
+
+def monitor():
+    try:
+        try:
+            from kodi_six import xbmc
+        except:
+            import xbmc
+        monitor = xbmc.Monitor()
+        while not monitor.waitForAbort(3):
+            pass
+        url = 'http://'+HOST_NAME+':'+str(PORT_NUMBER)+'/stop'
+        try:
+            r = requests.head(url,timeout=3)
+        except:
+            pass
+    except:
+        pass
+
+
+class code:
+    def __init__(self):
+        try:
+            self.httpd = HTTPServer(('', PORT_NUMBER), ProxyHandler)
+            self.server_instance = True
+        except:
+            self.server_instance = False
+        if self.server_instance:
+            try:
+                self.server = threading.Thread(target=serve_forever, args=(self.httpd, ))
+                self.server_thread = True
+            except:
+                self.server_thread = False
+        else:
+            self.server_thread = False
+
+    def in_use(self):
+        url = 'http://'+HOST_NAME+':'+str(PORT_NUMBER)+'/check'
+        use = False
+        try:
+            r = requests.head(url,timeout=1)
+            if r.status_code == 200:
+                use = True
+        except:
+            pass
+        return use
+
+    def reset(self):
+        url = 'http://'+HOST_NAME+':'+str(PORT_NUMBER)+'/reset'
+        try:
+            r = requests.get(url,timeout=3)
+        except:
+            pass
+
+    def init(self):
+        if not self.in_use():
+            if self.server_thread:
+                self.server.start()
+                t = threading.Thread(target=monitor)
+                t.start()
+        else:
+            self.reset()
+        time.sleep(3)
+
+    def stop(self):
+        url = 'http://'+HOST_NAME+':'+str(PORT_NUMBER)+'/stop'
+        try:
+            r = requests.head(url,timeout=3)
+        except:
+            pass
+def startserver():
+        proxy = code()
+        proxy.init()
+#startserver()
+
+
+def PlayF4M(url):
+    startserver()
+    plugin_url = 'http://127.0.0.1:3000/?url='
+    hls_url = url
+    plugin_full_url = plugin_url + urllib.parse.quote_plus(hls_url)
+    list_item = xbmcgui.ListItem(path=plugin_full_url)
+    xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, list_item)
+    setViewM()
     
 def PlayFFmpeg(name, url, iconimage=None, info=''):
 	if ffmpeg_opt == "true":
@@ -10428,5 +10912,8 @@ elif mode==544:
 elif mode==545:
 	Paylistplay4()
 	xbmc.executebuiltin('PlayerControl(RepeatOff)')
+elif mode == 555:
+	PlayF4M(url, isFolder=False)
+	xbmc.executebuiltin('PlayerControl(RepeatOne)')
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
 #checkintegrity25852
