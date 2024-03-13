@@ -15,7 +15,7 @@ import time, datetime
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
-Versao = "23.54.00"
+Versao = "23.55.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3716,13 +3716,20 @@ def PlayTVCB(): #103
 			PlayFFmpeg(name, unpack1+"|Referer=https://player.aovivotv.xyz/&User-Agent=Mozilla%2F5.0+%28Windows+NT+10.0%3B+Win64%3B+x64%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F94.0.4606.71+Safari%2F537.36", iconimage, name)
 	except:
 		xbmcgui.Dialog().ok('Play XD', 'Canal indisponível no momento')'''
+def natural_sort_key(s):
+    return [int(text) if text.isdigit() else text.lower() for text in re.split(r'(\d+)', s)]
 def TVCB(x): #102
 	url = 'https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/tvs3'
 	link = requests.get(url).text
 	decode = base64.b64decode(link).decode('utf-8')
 	base = re.compile('tvg-name="(.+?)".+?logo="(.+?)".+\s(.+)').findall(decode)
-	for name2, img2, url2 in base:
-		AddDir('[B]'+name2+'[/B]', url2, 103, img2, img2, isFolder=False, IsPlayable=True, info='\xa0')
+	data = [(name2, img2, url2) for name2, img2, url2 in base]
+	data_sorted = sorted(data, key=lambda x: natural_sort_key(x[0]))
+	for name2, img2, url2 in data_sorted:
+		if 'AS TERRIVEIS' in name2 or 'AEROPORTO' in name2 or'24H' in name2 or '3 PALAVRINHAS' in name2 or '44 GATOS' in name2 or 'A DIARISTA' in name2 or 'A VIDA SECRETA' in name2: False
+		else:
+			AddDir('[B]'+name2+'[/B]', url2, 103, img2, img2, isFolder=False, IsPlayable=True, info='\xa0')
+
 
 def PlayTVCB(): #103
 	PlayF4M(url+'.m3u8|User-Agent=XCIPTV-v5.0.1')
@@ -8857,7 +8864,7 @@ def FOXPLAY(): #116
     source = requests.get(play, headers=headers).text
     fuente = re.findall('"cmd":"ffmpeg (.*?)"', source)[0]
     player = fuente.replace("\\", "")
-    PlayFFmpeg(name, player+'|User-Agent=Lavf53,32.100', iconimage, '')
+    PlayFFmpeg(name, 'http://127.0.0.1:5555/?url='+player+'.m3u8|User-Agent=Lavf53,32.100', iconimage, '')
         
 '''def TVCB5(): #111
     url1 = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/rede.txt').text
