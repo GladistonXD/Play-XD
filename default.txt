@@ -15,7 +15,7 @@ import time, datetime
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
-Versao = "23.55.00"
+Versao = "23.56.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3718,21 +3718,54 @@ def PlayTVCB(): #103
 		xbmcgui.Dialog().ok('Play XD', 'Canal indisponível no momento')'''
 def natural_sort_key(s):
     return [int(text) if text.isdigit() else text.lower() for text in re.split(r'(\d+)', s)]
-def TVCB(x): #102
-	url = 'https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/tvs3'
-	link = requests.get(url).text
-	decode = base64.b64decode(link).decode('utf-8')
-	base = re.compile('tvg-name="(.+?)".+?logo="(.+?)".+\s(.+)').findall(decode)
-	data = [(name2, img2, url2) for name2, img2, url2 in base]
-	data_sorted = sorted(data, key=lambda x: natural_sort_key(x[0]))
-	for name2, img2, url2 in data_sorted:
-		if 'AS TERRIVEIS' in name2 or 'AEROPORTO' in name2 or'24H' in name2 or '3 PALAVRINHAS' in name2 or '44 GATOS' in name2 or 'A DIARISTA' in name2 or 'A VIDA SECRETA' in name2: False
-		else:
-			AddDir('[B]'+name2+'[/B]', url2, 103, img2, img2, isFolder=False, IsPlayable=True, info='\xa0')
+def TVCB(x):
+    url = 'https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/tvs3'
+    link = requests.get(url).text
+    decode = base64.b64decode(link).decode('utf-8')
+    base = re.compile('tvg-name="(.+?)".+?logo="(.+?)".+\s(.+)').findall(decode)
+    
+    channel_dict = {}
+    for name, img, url in base:
+        base_name_match = re.search('(.+?)(FHD|HD|SD|UHD|H265.HEVC)', name)
+        if base_name_match:
+            base_name = base_name_match.group(1)
+        else:
+            base_name = name 
+        if base_name not in channel_dict:
+            channel_dict[base_name] = {'channels': [], 'category_img': img}
+        channel_dict[base_name]['channels'].append((name, img, url))
 
+    for base_name, data in sorted(channel_dict.items(), key=lambda x: natural_sort_key(x[0])):
+        category_img = data['category_img']
+        channels = data['channels']
+        num_items = len(channels)
+        if num_items == 1:
+            name, img, url2 = channels[0]
+            AddDir('[B]'+base_name+'[/B]', url2, 556, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0')
+        else:
+            for i, (name, img, url) in enumerate(channels):
+                if i == 0:
+                    channels[i] = (name, category_img, url)
+            AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 103, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0')
 
 def PlayTVCB(): #103
-	PlayF4M(url+'.m3u8|User-Agent=XCIPTV-v5.0.1')
+	listar = []
+	listal = []
+	base = re.compile("'(.+?)'.+?(http:..5ce.+?)'").findall(str(url))
+	if base:
+		for name2, url2 in base:
+			listal.append(url2)
+			listar.append(name2)
+		if len(listal) <1:
+			xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
+			sys.exit(int(sys.argv[1]))
+		d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+		if d!= -1:
+			url2x = listal[d]
+			PlayF4M(listar[d], url2x+'.m3u8|User-Agent=XCIPTV-v5.0.1')
+
+def PlayTVCBX(): #556
+	PlayF4M(name, url+'.m3u8|User-Agent=XCIPTV-v5.0.1')
     
 ##########################################################################################
 ###########################################################################################
@@ -9950,12 +9983,13 @@ def startserver():
 #startserver()
 
 
-def PlayF4M(url):
+def PlayF4M(name, url):
     startserver()
     plugin_url = 'http://127.0.0.1:3000/?url='
     hls_url = url
     plugin_full_url = plugin_url + urllib.parse.quote_plus(hls_url)
-    list_item = xbmcgui.ListItem(path=plugin_full_url)
+    list_item = xbmcgui.ListItem(name, path=plugin_full_url)
+    list_item.setInfo(type="Video", infoLabels={"mediatype": "video", "Title": name})
     xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, list_item)
     setViewM()
     
@@ -10921,6 +10955,9 @@ elif mode==545:
 	xbmc.executebuiltin('PlayerControl(RepeatOff)')
 elif mode == 555:
 	PlayF4M(url, isFolder=False)
+	xbmc.executebuiltin('PlayerControl(RepeatOne)')
+elif mode == 556:
+	PlayTVCBX()
 	xbmc.executebuiltin('PlayerControl(RepeatOne)')
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
 #checkintegrity25852
