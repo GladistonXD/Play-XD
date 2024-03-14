@@ -15,7 +15,7 @@ import time, datetime
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
-Versao = "23.56.00"
+Versao = "23.57.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3726,7 +3726,7 @@ def TVCB(x):
     
     channel_dict = {}
     for name, img, url in base:
-        base_name_match = re.search('(.+?)(FHD|HD|SD|UHD|H265.HEVC)', name)
+        base_name_match = re.search('(.+?)(FHD|HD|SD|UHD|H265)', name)
         if base_name_match:
             base_name = base_name_match.group(1)
         else:
