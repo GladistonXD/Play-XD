@@ -3766,6 +3766,7 @@ def PlayTVCB(): #103
 			PlayF4M(listar[d], url2x+'.m3u8|'+comp[0][1])
 
 def PlayTVCBX(): #556
+	comp = re.compile('com=(.+?) AA=(.+)').findall(background)
 	PlayF4M(name, url+'.m3u8|'+comp[0][1])
     
 ##########################################################################################
