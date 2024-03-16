@@ -15,7 +15,7 @@ import time, datetime
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
-Versao = "23.57.00"
+Versao = "23.58.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -194,9 +194,9 @@ def Categories(): #70
 # --------------  Menu
 def MCanais(): #-1
     #AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](REDPLAY)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    #AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](TOUROBOX)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](AOVIVOTV²)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](SABTOOHTV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](R98K)[/B][/COLOR]"  , "", 91, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
@@ -3741,17 +3741,18 @@ def TVCB(x):
         num_items = len(channels)
         if num_items == 1:
             name, img, url2 = channels[0]
-            AddDir('[B]'+base_name+'[/B]', url2, 556, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0')
+            AddDir('[B]'+base_name+'[/B]', url2, 556, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background="com=5ce AA=User-Agent=XCIPTV-v5.0.1")
         else:
             for i, (name, img, url) in enumerate(channels):
                 if i == 0:
                     channels[i] = (name, category_img, url)
-            AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 103, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0')
+            AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 103, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background="com=5ce AA=User-Agent=XCIPTV-v5.0.1")
 
 def PlayTVCB(): #103
 	listar = []
 	listal = []
-	base = re.compile("'(.+?)'.+?(http:..5ce.+?)'").findall(str(url))
+	comp = re.compile('com=(.+?) AA=(.+)').findall(background)
+	base = re.compile("'(.+?)'.+?(http:.."+comp[0][0]+".+?)'").findall(str(url))
 	if base:
 		for name2, url2 in base:
 			listal.append(url2)
@@ -3762,10 +3763,10 @@ def PlayTVCB(): #103
 		d = xbmcgui.Dialog().select("Selecione a resolução", listar)
 		if d!= -1:
 			url2x = listal[d]
-			PlayF4M(listar[d], url2x+'.m3u8|User-Agent=XCIPTV-v5.0.1')
+			PlayF4M(listar[d], url2x+'.m3u8|'+comp[0][1])
 
 def PlayTVCBX(): #556
-	PlayF4M(name, url+'.m3u8|User-Agent=XCIPTV-v5.0.1')
+	PlayF4M(name, url+'.m3u8|'+comp[0][1])
     
 ##########################################################################################
 ###########################################################################################
@@ -8849,13 +8850,43 @@ def POY1PLAY(): #114
     player = fuente.replace("\\", "")
     PlayFFmpeg(name, player, iconimage, '')'''
     
-def POY1(): #113
+'''def POY1(): #113
     url1 = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/TouroBox').text
     url1x = re.compile('logo="(.+?)".+?,(.+)\s(.+)').findall(url1)
     for img2, name2,url2 in url1x:
         url2 = url2.replace('#','Tourobox1-VTpgsnOoHj/28QmTPho90')
-        AddDir("[B]"+name2+"[/B]", url2, 114,img2, img2, isFolder=False, IsPlayable=True, background=name2, info='\xa0')
-        
+        AddDir("[B]"+name2+"[/B]", url2, 114,img2, img2, isFolder=False, IsPlayable=True, background=name2, info='\xa0')'''
+def POY1(): #113
+    url = 'https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/tvs4'
+    link = requests.get(url).text
+    decode = base64.b64decode(link).decode('utf-8')
+    base = re.compile('tvg-name="(.+?)".+?logo="(.+?)".+\s(.+)').findall(decode)
+    
+    channel_dict = {}
+    for name, img, url in base:
+        name = name+' '
+        base_name_match = re.search('(.+?)(FHD|HD|SD|UHD|H265|Alternativo|LEG|LG)', name)
+        if base_name_match:
+            base_name = base_name_match.group(1)
+        else:
+            base_name = name 
+        if base_name not in channel_dict:
+            channel_dict[base_name] = {'channels': [], 'category_img': img}
+        channel_dict[base_name]['channels'].append((name, img, url))
+
+    for base_name, data in sorted(channel_dict.items(), key=lambda x: natural_sort_key(x[0])):
+        category_img = data['category_img']
+        channels = data['channels']
+        num_items = len(channels)
+        if num_items == 1:
+            name, img, url2 = channels[0]
+            AddDir('[B]'+base_name+'[/B]', url2, 556, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background="com=dns AA=User-Agent=FooBar/1.2.3")
+        else:
+            for i, (name, img, url) in enumerate(channels):
+                if i == 0:
+                    channels[i] = (name, category_img, url)
+            AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 103, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background="com=dns AA=User-Agent=FooBar/1.2.3")
+
 def POY1PLAY(): #114
     PlayFFmpeg(name, url+"|User-Agent=20216c020ec2834c-1.1.21&Icy-MetaData=1&Accept-Encoding=identity", iconimage, '')
     
