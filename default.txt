@@ -15,7 +15,7 @@ import time, datetime
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
-Versao = "23.59.00"
+Versao = "23.60.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -8861,12 +8861,12 @@ def POY1(): #113
     url = 'https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/tvs4'
     link = requests.get(url).text
     decode = base64.b64decode(link).decode('utf-8')
-    base = re.compile('tvg-name="(.+?)".+?logo="(.+?)".+\s(.+)').findall(decode)
+    base = re.compile('logo="(.+?)".+?,(.+)\s(.+)').findall(decode)
     
     channel_dict = {}
-    for name, img, url in base:
-        name = name+' '
-        base_name_match = re.search('(.+?)(FHD|HD|SD|UHD|H265|Alternativo|LEG|LG)', name)
+    for img, name, url in base:
+        #name = name+' '
+        base_name_match = re.search('(.+?)(FHD|HD|SD|4K)', name)
         if base_name_match:
             base_name = base_name_match.group(1)
         else:
@@ -8881,12 +8881,12 @@ def POY1(): #113
         num_items = len(channels)
         if num_items == 1:
             name, img, url2 = channels[0]
-            AddDir('[B]'+base_name+'[/B]', url2, 556, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background="com=dns AA=User-Agent=FooBar/1.2.3")
+            AddDir('[B]'+base_name+'[/B]', url2, 556, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background="com=esrv....../E AA=User-Agent=FooBar/1.2.3")
         else:
-            for i, (name, img, url) in enumerate(channels):
+            for i, (name,img, url) in enumerate(channels):
                 if i == 0:
                     channels[i] = (name, category_img, url)
-            AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 103, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background="com=dns AA=User-Agent=FooBar/1.2.3")
+            AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 103, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background="com=esrv....../E AA=User-Agent=FooBar/1.2.3")
 
 def POY1PLAY(): #114
     PlayFFmpeg(name, url+"|User-Agent=20216c020ec2834c-1.1.21&Icy-MetaData=1&Accept-Encoding=identity", iconimage, '')
