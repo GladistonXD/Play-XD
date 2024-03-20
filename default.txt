@@ -15,7 +15,7 @@ import time, datetime
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
-Versao = "23.60.00"
+Versao = "23.61.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -193,10 +193,10 @@ def Categories(): #70
 	setViewM()
 # --------------  Menu
 def MCanais(): #-1
-    #AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](REDPLAY)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](AOVIVOTV²)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](AOVIVOTV²)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](AOVIVOTV³)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](SABTOOHTV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](R98K)[/B][/COLOR]"  , "", 91, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
@@ -8628,13 +8628,13 @@ def RedOndemand(): #98
     auth = encr['output'].swapcase()
     return auth'''
 
-def TVCB4(): #108
+'''def TVCB4(): #108
 	AddDir('[B][COLOR red]|||[/COLOR][COLOR white]|||[/COLOR][COLOR red]|||[/COLOR][COLOR red] Filmes e Séries[/B][/COLOR]', '', 98, 'https://uploaddeimagens.com.br/images/004/002/176/full/filmeseseries.png', 'https://uploaddeimagens.com.br/images/004/002/176/full/filmeseseries.png', isFolder=True, IsPlayable=True, info='[B]Filmes e Séries OnDemand[/B]')
 	link = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/redplus%2B').text
 	base = re.compile('Nome: (.+)\sUrl: (.+)\sImagem: (.+)').findall(link)
 	for name2, url2, img2 in base:
 		name2 = name2.replace('HD+','[COLOR springgreen]HD+[/COLOR]').replace('HD','[COLOR springgreen]HD[/COLOR]').replace('4K','[COLOR springgreen]4K[/COLOR]')
-		AddDir('[B]'+name2+'[/B]', url2, 109, img2, img2, isFolder=False, IsPlayable=True, info='\xa0')
+		AddDir('[B]'+name2+'[/B]', url2, 109, img2, img2, isFolder=False, IsPlayable=True, info='\xa0')'''
 	#try:
 	#	header = 'UkVETElORUNMSUVOVCBSRUQzNjAgVjAuMS41Mg=='
 	#	header = base64.b64decode(header).decode('utf-8')
@@ -8657,6 +8657,39 @@ def TVCB4(): #108
 	#					pass
 	#except:
 	#	AddDir('[B]Canais offline, tente novamente mais tarde...[/B]', '', 50, 'https://uploaddeimagens.com.br/images/004/090/947/full/pngwing.com.png', 'https://uploaddeimagens.com.br/images/004/090/947/full/pngwing.com.png', isFolder=False, info='[B][/B]')'''
+
+def TVCB4(): #108
+    url = 'https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/tvs5'
+    link = requests.get(url).text
+    decode = base64.b64decode(link).decode('utf-8')
+    base = re.compile('tvg-name="(.+?)".+?logo="(.+?)".+\s(.+)').findall(decode)
+    
+    channel_dict = {}
+    for name, img, url in base:
+        name = name+' '
+        base_name_match = re.search('(.+?)(FHD|HD|SD|4K|LEG|H265|Alternativo HD|Alternativo)', name)
+        if base_name_match:
+            base_name = base_name_match.group(1)
+        else:
+            base_name = name 
+        if base_name not in channel_dict:
+            channel_dict[base_name] = {'channels': [], 'category_img': img}
+        channel_dict[base_name]['channels'].append((name, img, url))
+
+    for base_name, data in sorted(channel_dict.items(), key=lambda x: natural_sort_key(x[0])):
+        category_img = data['category_img']
+        channels = data['channels']
+        num_items = len(channels)
+        if num_items == 1:
+            name, img, url2 = channels[0]
+            AddDir('[B]'+base_name+'[/B]', url2, 556, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background="com=dns AA=User-Agent=FooBar/1.2.3")
+        else:
+            for i, (name,img, url) in enumerate(channels):
+                if i == 0:
+                    channels[i] = (name, category_img, url)
+            AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 103, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background="com=dns AA=User-Agent=FooBar/1.2.3")
+
+
 def TVCB4PLAY(): #109
 	PlayFFmpeg(name, url+'|User-Agent=Rediptv Plus 2.0.17', iconimage)
 	#try:
