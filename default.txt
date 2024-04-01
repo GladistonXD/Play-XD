@@ -15,7 +15,7 @@ import time, datetime
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
-Versao = "23.61.00"
+Versao = "23.62.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -5902,7 +5902,7 @@ def Comandotoplayer(): #519
 			sys.exit(int(sys.argv[1]))
 		d = xbmcgui.Dialog().select("Selecione a resolução", listar)
 		if d!= -1:
-			url2x = listal[d]
+			url2x = listal[d].replace(' ','')
 			PlayUrl(name,"plugin://plugin.video.elementum/play?show=''&uri="+url2x, subs=[cachefolder+"Legendas/Elsubtitle (Brasil)-pt.forced.srt", cachefolder+"Legendas/Legendei (Brasil)-pt.srt", cachefolder+"Legendas/OpenSubtitles (Brasil)-pt.srt", cachefolder+"Legendas/Baixarlegenda (Brasil)-pt.srt"])
 			try:
 				popup = re.compile("(\w.+?)([(])").findall(background.replace(',',''))
@@ -6447,7 +6447,7 @@ def Comandotoserieplay(): #525
 			sys.exit(int(sys.argv[1]))
 		d = xbmcgui.Dialog().select("Selecione a resolução", listar)
 		if d!= -1:
-			url2x = listal[d]
+			url2x = listal[d].replace(' ','')
 			PlayUrl(name,"plugin://plugin.video.elementum/play?show=''&uri="+url2x, sub=cachefolder+"Legendas/Legendei (Brasil)-pt.srt")
 			try:
 				dir = cachefolder+'Legendas'
