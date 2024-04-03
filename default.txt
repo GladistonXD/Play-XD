@@ -15,7 +15,7 @@ import time, datetime
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
-Versao = "23.62.00"
+Versao = "23.63.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -9589,7 +9589,7 @@ def PlayUrl(name, url, iconimage=None, info='', sub='', subs='', metah=''):
 	xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, listitem)
 
 HOST_NAME = '127.0.0.1'
-PORT_NUMBER = 3000
+PORT_NUMBER = 55335
 
 global URL_BASE
 global LAST_URL
@@ -10050,7 +10050,7 @@ def startserver():
 
 def PlayF4M(name, url):
     startserver()
-    plugin_url = 'http://127.0.0.1:3000/?url='
+    plugin_url = 'http://127.0.0.1:55335/?url='
     hls_url = url
     plugin_full_url = plugin_url + urllib.parse.quote_plus(hls_url)
     list_item = xbmcgui.ListItem(name, path=plugin_full_url)
