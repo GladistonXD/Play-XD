@@ -15,7 +15,7 @@ import time, datetime
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
-Versao = "23.63.00"
+Versao = "23.64.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3537,14 +3537,16 @@ def Busca(): # 160
 			#p= 1
 			AddDir("[B][COLOR mediumpurple]|||[/COLOR][COLOR white]|||[/COLOR][COLOR mediumpurple]|||[/COLOR][COLOR mediumpurple] [ComandoHdTorrents] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
 			#l +=1
-			link = requests.get("https://yifyfilmes.com/?s="+d.replace('%2B','+'),headers={'Referer':'https://yifyfilmes.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','').replace('&#124;','|').replace('src="data:','')
+			link = requests.get("https://www.torrentdosfilmeshd.xyz/?s="+d.replace('%2B','+'),headers={'Referer':'https://www.torrentdosfilmeshd.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','').replace('&#124;','|').replace('src="data:','')
 			#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 			#arquivo.write(link)
 			#arquivo.close()
-			match = re.compile('"item"><a href="(.+?)".+?title="(.+?)".+?img.src="(.+?)"').findall(link)
-			for link,name2, image2 in match:
+			#match = re.compile('"item"><a href="(.+?)".+?title="(.+?)".+?img.src="(.+?)"').findall(link)
+			match = re.compile('title"><a href="(.+?)">(.+?)<.+?src="(.+?)".+?Baixar.(.+?):').findall(link)
+			#for link,name2, image2 in match:
+			for link,name2, image2, genero in match:
 				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-				if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2:
+				if "Serie" in genero or "Anime" in genero or "Temporada" in name2 or "Completo" in name2:
 					AddDir("[COLOR mediumpurple]" +name2.replace(" Torrent","").replace(" –","").replace(' Download','')+"[/COLOR]", link, 174, image2, image2, isFolder=True, info='\xa0')
 				else:
 					AddDir("[COLOR mediumpurple]" +name2.replace(" Torrent","").replace(" –","").replace(' Download','')+"[/COLOR]", link, 1711, image2, image2, isFolder=True, info='\xa0')
@@ -3858,11 +3860,12 @@ def MoviesFO(): #170
 		l= int(pagina)*5
 		for x in range(0, 5):
 			l +=1
-			link = requests.get("https://yifyfilmes.com/category/"+Clistafo0[int(Catfo)]+"/page/"+str(l)+"/",headers={'Referer':'https://yifyfilmes.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
-			match = re.compile('"item"><a href="(.+?)".+?title="(.+?)".+?img.src="(.+?)"').findall(html.unescape(link.text.encode("utf-8").decode().replace('src="data:', '').replace('\n', '').replace('\r', '')))
-			for link, name2, image2 in match:
-				#if "Serie" in genero or "Anime" in genero or "Temporada" in name2 or "Completo" in name2: False
-				if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2: False
+			link = requests.get("https://www.torrentdosfilmeshd.xyz/genero/"+Clistafo0[int(Catfo)]+"/page/"+str(l)+"/",headers={'Referer':'https://www.torrentdosfilmeshd.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+			match = re.compile('title"><a href="(.+?)">(.+?)<.+?src="(.+?)".+?Baixar.(.+?):').findall(html.unescape(link.text.encode("utf-8").decode().replace('\n', '').replace('\r', '')))
+			for link, name2, image2, genero in match:
+			#for link, name2, image2 in match:
+				if "Serie" in genero or "Anime" in genero or "Temporada" in name2 or "Completo" in name2: False
+				#if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2: False
 				else:
 					AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Download',''), link, 1711, image2, image2, isFolder=True, info='\xa0')
 		AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserTR", info='\xa0')
@@ -3880,7 +3883,7 @@ def GetMFO1(): #171
 	except:
 		pass
 	try:
-		link = requests.get(url,headers={'Referer':'https://yifyfilmes.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		link = requests.get(url,headers={'Referer':'https://www.torrentdosfilmeshd.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
 		#arquivo.close()
@@ -3926,7 +3929,7 @@ def GetMFO1(): #171
 		except:
 			pass
 			try:
-				#link = requests.get(url,headers={'Referer':'https://yifyfilmes.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				#link = requests.get(url,headers={'Referer':'https://www.torrentdosfilmeshd.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 				#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 				#arquivo.write(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
 				#arquivo.close()
@@ -4997,9 +5000,9 @@ def comandoseries(): #173
 	for x in range(0, 4):
 		try:
 			y +=1
-			link = requests.get("https://yifyfilmes.com/category/series/page/"+str(y)+"/",headers={'Referer':'https://yifyfilmes.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-			match = re.compile('"item"><a href="(.+?)".+?title="(.+?)".+?img.src="(.+?)"').findall(html.unescape(link.replace('src="data:','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('\n', '').replace('\r', '')))
-			for link, name2, image2 in match:
+			link = requests.get("https://www.torrentdosfilmeshd.xyz/genero/series/page/"+str(y)+"/",headers={'Referer':'https://www.torrentdosfilmeshd.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+			match = re.compile('title"><a href="(.+?)">(.+?)<.+?src="(.+?)".+?Baixar.(.+?):').findall(html.unescape(link.replace('src="data:','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('\n', '').replace('\r', '')))
+			for link, name2, image2, genero in match:
 				AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Downloads',''), link, 174, image2, image2, isFolder=True, info='\xa0')
 		except:
 			pass
@@ -5007,7 +5010,7 @@ def comandoseries(): #173
 
 def comandomenu1(): #174
 	#try:
-		link = requests.get(url,headers={'Referer':'https://yifyfilmes.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		link = requests.get(url,headers={'Referer':'https://www.torrentdosfilmeshd.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(link.replace('\n','').replace('\r','').replace('﻿','').replace('​​','').replace('»<b>','<strong>::').replace('«</strong>','::').replace('»<b>','<strong>:: ').replace('«</strong>','::').replace('**FIM DE TEMPORADA**','><h2'))
 		#arquivo.close()
