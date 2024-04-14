@@ -15,7 +15,7 @@ import time, datetime
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
-Versao = "23.64.00"
+Versao = "23.65.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -193,10 +193,10 @@ def Categories(): #70
 	setViewM()
 # --------------  Menu
 def MCanais(): #-1
-    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](AOVIVOTV²)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](AOVIVOTV³)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    #AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](AOVIVOTV)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](AOVIVOTV¹)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](AOVIVOTV²)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](SABTOOHTV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](R98K)[/B][/COLOR]"  , "", 91, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
@@ -3725,10 +3725,11 @@ def TVCB(x):
     link = requests.get(url).text
     decode = base64.b64decode(link).decode('utf-8')
     base = re.compile('tvg-name="(.+?)".+?logo="(.+?)".+\s(.+)').findall(decode)
+    backgru = re.compile('background=(.+)').findall(decode)[0]
     
     channel_dict = {}
     for name, img, url in base:
-        base_name_match = re.search('(.+?)(FHD|HD|SD|UHD|H265)', name)
+        base_name_match = re.search('(.+?)(FHD|HD|SD|UHD|H265|4K|LEG)', name)
         if base_name_match:
             base_name = base_name_match.group(1)
         else:
@@ -3743,12 +3744,12 @@ def TVCB(x):
         num_items = len(channels)
         if num_items == 1:
             name, img, url2 = channels[0]
-            AddDir('[B]'+base_name+'[/B]', url2, 556, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background="com=5ce AA=User-Agent=XCIPTV-v5.0.1")
+            AddDir('[B]'+base_name+'[/B]', url2, 556, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background=backgru)
         else:
             for i, (name, img, url) in enumerate(channels):
                 if i == 0:
                     channels[i] = (name, category_img, url)
-            AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 103, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background="com=5ce AA=User-Agent=XCIPTV-v5.0.1")
+            AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 103, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background=backgru)
 
 def PlayTVCB(): #103
 	listar = []
@@ -8666,6 +8667,7 @@ def TVCB4(): #108
     link = requests.get(url).text
     decode = base64.b64decode(link).decode('utf-8')
     base = re.compile('tvg-name="(.+?)".+?logo="(.+?)".+\s(.+)').findall(decode)
+    backgru = re.compile('background=(.+)').findall(decode)[0]
     
     channel_dict = {}
     for name, img, url in base:
@@ -8685,12 +8687,12 @@ def TVCB4(): #108
         num_items = len(channels)
         if num_items == 1:
             name, img, url2 = channels[0]
-            AddDir('[B]'+base_name+'[/B]', url2, 556, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background="com=dns AA=User-Agent=FooBar/1.2.3")
+            AddDir('[B]'+base_name+'[/B]', url2, 556, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background=backgru)
         else:
             for i, (name,img, url) in enumerate(channels):
                 if i == 0:
                     channels[i] = (name, category_img, url)
-            AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 103, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background="com=dns AA=User-Agent=FooBar/1.2.3")
+            AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 103, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background=backgru)
 
 
 def TVCB4PLAY(): #109
@@ -8898,11 +8900,12 @@ def POY1(): #113
     link = requests.get(url).text
     decode = base64.b64decode(link).decode('utf-8')
     base = re.compile('logo="(.+?)".+?,(.+)\s(.+)').findall(decode)
+    backgru = re.compile('background=(.+)').findall(decode)[0]
     
     channel_dict = {}
     for img, name, url in base:
         #name = name+' '
-        base_name_match = re.search('(.+?)(FHD|HD|SD|4K)', name)
+        base_name_match = re.search('(.+?)(FHD|HD|SD|UHD|H265|4K|LEG)', name)
         if base_name_match:
             base_name = base_name_match.group(1)
         else:
@@ -8917,12 +8920,12 @@ def POY1(): #113
         num_items = len(channels)
         if num_items == 1:
             name, img, url2 = channels[0]
-            AddDir('[B]'+base_name+'[/B]', url2, 556, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background="com=esrv....../E AA=User-Agent=FooBar/1.2.3")
+            AddDir('[B]'+base_name+'[/B]', url2, 556, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background=backgru)
         else:
             for i, (name,img, url) in enumerate(channels):
                 if i == 0:
                     channels[i] = (name, category_img, url)
-            AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 103, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background="com=esrv....../E AA=User-Agent=FooBar/1.2.3")
+            AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 103, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background=backgru)
 
 def POY1PLAY(): #114
     PlayFFmpeg(name, url+"|User-Agent=20216c020ec2834c-1.1.21&Icy-MetaData=1&Accept-Encoding=identity", iconimage, '')
