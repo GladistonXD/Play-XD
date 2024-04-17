@@ -15,7 +15,9 @@ import time, datetime
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
-Versao = "23.66.00"
+import tempfile
+
+Versao = "23.67.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -30,6 +32,18 @@ cachefolder   = addonfolder + '/resources/'
 libDir = os.path.join(addonDir, 'resources', 'lib')
 sys.path.insert(0, libDir)
 
+try:
+    import pyaes
+except:
+    addonlocal = xbmcvfs.translatePath("special://home/addons")
+    addon_zip_url = "https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/script.module.pyaes-1.6.1+matrix.zip"
+    response = requests.get(addon_zip_url)
+    if response.status_code == 200:
+        with open(cachefolder+"addon.zip", "wb") as f:
+            f.write(response.content)
+        with zipfile.ZipFile(cachefolder+"addon.zip", "r") as zip_ref:
+            zip_ref.extractall(addonlocal)
+        os.remove(cachefolder+"addon.zip")
 #import common
 #addon_data_dir = xbmcvfs.translatePath(Addon.getAddonInfo("profile"))
 #cacheDir = os.path.join('addon_data_dir', "cache")
@@ -8968,7 +8982,7 @@ def FOXPLAY(): #116
     source = requests.get(play, headers=headers).text
     fuente = re.findall('"cmd":"ffmpeg (.*?)"', source)[0]
     player = fuente.replace("\\", "")
-    PlayFFmpeg(name, 'http://127.0.0.1:5555/?url='+player+'.m3u8|User-Agent=Lavf53,32.100', iconimage, '')
+    PlayFFmpeg(name, player+'.m3u8|User-Agent=Lavf53,32.100', iconimage, '')
         
 '''def TVCB5(): #111
     url1 = requests.get('https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/rede.txt').text
@@ -9603,7 +9617,9 @@ global HEADERS_BASE
 global STOP_SERVER
 global CACHE_CHUNKS
 global CACHE_M3U8
+global ONOFF
 URL_BASE = ''
+ONOFF = ''
 LAST_URL = ''
 HEADERS_BASE = {}
 STOP_SERVER = False
@@ -9613,7 +9629,6 @@ CACHE_M3U8 = ''
 class ProxyHandler(BaseHTTPRequestHandler):
 
     def basename(self,p):
-        """Returns the final component of a pathname"""
         i = p.rfind('/') + 1
         return p[i:]
 
@@ -9741,6 +9756,9 @@ class ProxyHandler(BaseHTTPRequestHandler):
         global STOP_SERVER
         global CACHE_CHUNKS
         global CACHE_M3U8
+        global kays
+        global keyn1
+        global ONOFF
         try:
             url = url.split('|')[0]
         except:
@@ -9807,6 +9825,16 @@ class ProxyHandler(BaseHTTPRequestHandler):
                             src = src.replace('http',url_proxy)
                         if '/live/' in url and url.count('/') == 6:
                             CACHE_M3U8 = self.make_m3u8(src)
+                            CACHE_M3U8 = src
+                            print(CACHE_M3U8)
+                        try:
+                            kays = re.compile('URI="(.+?)",IV=0x(.+)').findall(src)
+                            keyn1 = requests.get('http://' + URL_BASE.split('/')[2] + kays[0][0], headers=HEADERS_BASE)
+                            src = re.sub('#EXT-X-KEY.+', '#EXT-X-MEDIA-SEQUENCE:487', src)
+                            ONOFF = 'On'
+                        except:
+                            pass
+                            ONOFF = 'Off'
                         src = src.encode('utf-8')
                         self.send_response(200)
                         self.send_header('Content-Type', 'application/vnd.apple.mpegurl')
@@ -9815,6 +9843,7 @@ class ProxyHandler(BaseHTTPRequestHandler):
                         break
                     else:
                         if '/live/' in url and url.count('/') == 6 and CACHE_M3U8:
+                            print(url)
                             src = CACHE_M3U8
                             src = src.encode('utf-8')
                             self.send_response(200)
@@ -9842,7 +9871,28 @@ class ProxyHandler(BaseHTTPRequestHandler):
                     break
                 try:
                     r = requests.get(ts, headers=HEADERS_BASE)
-                    if r.status_code == 200:
+                    if 'On' in ONOFF:
+                        key = bytes(keyn1.content)
+                        iv = bytes.fromhex(kays[0][1])
+                        def decrypt_aes_cbc(key, iv, ciphertext):
+                            aes = pyaes.AESModeOfOperationCBC(key, iv=iv)
+                            plaintext_blocks = []
+                            for i in range(0, len(ciphertext), 16):
+                                block = ciphertext[i:i + 16]
+                                plaintext_blocks.append(aes.decrypt(block))
+                            plaintext = b"".join(plaintext_blocks)
+                            return plaintext.rstrip(b"\0")
+                        ciphertext = r.content
+                        rx = decrypt_aes_cbc(key, iv, ciphertext)
+                        if rx:
+                            CACHE_CHUNKS = []
+                            self.send_response(200)
+                            self.send_header('Content-type','video/mp2t')
+                            self.end_headers()
+                            if rx:
+                                self.wfile.write(rx)
+                            break
+                    elif r.status_code == 200:
                         CACHE_CHUNKS = []
                         self.send_response(200)
                         self.send_header('Content-type','video/mp2t')
@@ -9852,7 +9902,7 @@ class ProxyHandler(BaseHTTPRequestHandler):
                                 self.wfile.write(chunk)
                                 CACHE_CHUNKS.append(chunk)
                             except:
-                                pass
+                                 pass
                         break
                     else:
                         if CACHE_CHUNKS:
