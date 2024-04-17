@@ -17,7 +17,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.67.00"
+Versao = "23.68.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -35,15 +35,7 @@ sys.path.insert(0, libDir)
 try:
     import pyaes
 except:
-    addonlocal = xbmcvfs.translatePath("special://home/addons")
-    addon_zip_url = "https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/script.module.pyaes-1.6.1+matrix.zip"
-    response = requests.get(addon_zip_url)
-    if response.status_code == 200:
-        with open(cachefolder+"addon.zip", "wb") as f:
-            f.write(response.content)
-        with zipfile.ZipFile(cachefolder+"addon.zip", "r") as zip_ref:
-            zip_ref.extractall(addonlocal)
-        os.remove(cachefolder+"addon.zip")
+    pass
 #import common
 #addon_data_dir = xbmcvfs.translatePath(Addon.getAddonInfo("profile"))
 #cacheDir = os.path.join('addon_data_dir', "cache")
@@ -9872,6 +9864,7 @@ class ProxyHandler(BaseHTTPRequestHandler):
                 try:
                     r = requests.get(ts, headers=HEADERS_BASE)
                     if 'On' in ONOFF:
+                        xbmc.executebuiltin('InstallAddon(script.module.pyaes)')
                         key = bytes(keyn1.content)
                         iv = bytes.fromhex(kays[0][1])
                         def decrypt_aes_cbc(key, iv, ciphertext):
