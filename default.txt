@@ -17,7 +17,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.70.00"
+Versao = "23.71.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3539,7 +3539,7 @@ def Busca(): # 160
 			#p= 1
 			AddDir("[B][COLOR mediumpurple]|||[/COLOR][COLOR white]|||[/COLOR][COLOR mediumpurple]|||[/COLOR][COLOR mediumpurple] [ComandoHdTorrents] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
 			#l +=1
-			link = requests.get("https://www.torrentdosfilmeshd.xyz/?s="+d.replace('%2B','+'),headers={'Referer':'https://www.torrentdosfilmeshd.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','').replace('&#124;','|').replace('src="data:','').replace('	','')
+			link = requests.get("https://torrentdosfilmeshd2.org/?s="+d.replace('%2B','+'),headers={'Referer':'https://torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','').replace('&#124;','|').replace('src="data:','').replace('	','')
 			#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 			#arquivo.write(link)
 			#arquivo.close()
@@ -3863,7 +3863,7 @@ def MoviesFO(): #170
 		l= int(pagina)*5
 		for x in range(0, 5):
 			l +=1
-			link = requests.get("https://www.torrentdosfilmeshd.xyz/genero/"+Clistafo0[int(Catfo)]+"/page/"+str(l)+"/",headers={'Referer':'https://www.torrentdosfilmeshd.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+			link = requests.get("https://torrentdosfilmeshd2.org/category/"+Clistafo0[int(Catfo)]+"/page/"+str(l)+"/",headers={'Referer':'https://torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
 			match = re.compile('"title"><a href="(.+?)".+?>(.+?)<.+?src="(.+?)".+?Baixar.(.+?):').findall(html.unescape(link.text.encode("utf-8").decode().replace('\n', '').replace('\r', '').replace('	','')))
 			for link, name2, image2, genero in match:
 			#for link, name2, image2 in match:
@@ -3886,7 +3886,7 @@ def GetMFO1(): #171
 	except:
 		pass
 	try:
-		link = requests.get(url,headers={'Referer':'https://www.torrentdosfilmeshd.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		link = requests.get(url,headers={'Referer':'https://torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
 		#arquivo.close()
@@ -3932,7 +3932,7 @@ def GetMFO1(): #171
 		except:
 			pass
 			try:
-				#link = requests.get(url,headers={'Referer':'https://www.torrentdosfilmeshd.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				#link = requests.get(url,headers={'Referer':'https://torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 				#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 				#arquivo.write(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
 				#arquivo.close()
@@ -5003,7 +5003,7 @@ def comandoseries(): #173
 	for x in range(0, 4):
 		try:
 			y +=1
-			link = requests.get("https://www.torrentdosfilmeshd.xyz/genero/series/page/"+str(y)+"/",headers={'Referer':'https://www.torrentdosfilmeshd.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+			link = requests.get("https://torrentdosfilmeshd2.org/category/series/page/"+str(y)+"/",headers={'Referer':'https://torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 			match = re.compile('"title"><a href="(.+?)".+?>(.+?)<.+?src="(.+?)".+?Baixar.(.+?):').findall(html.unescape(link.replace('src="data:','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('\n', '').replace('\r', '').replace('	','')))
 			for link, name2, image2, genero in match:
 				AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Downloads',''), link, 174, image2, image2, isFolder=True, info='\xa0')
@@ -5013,7 +5013,7 @@ def comandoseries(): #173
 
 def comandomenu1(): #174
 	#try:
-		link = requests.get(url,headers={'Referer':'https://www.torrentdosfilmeshd.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		link = requests.get(url,headers={'Referer':'https://torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(link.replace('\n','').replace('\r','').replace('﻿','').replace('​​','').replace('»<b>','<strong>::').replace('«</strong>','::').replace('»<b>','<strong>:: ').replace('«</strong>','::').replace('**FIM DE TEMPORADA**','><h2'))
 		#arquivo.close()
