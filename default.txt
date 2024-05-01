@@ -3864,7 +3864,7 @@ def MoviesFO(): #170
 		for x in range(0, 5):
 			l +=1
 			link = requests.get("https://torrentdosfilmeshd2.org/category/"+Clistafo0[int(Catfo)]+"/page/"+str(l)+"/",headers={'Referer':'https://torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
-			match = re.compile('"title"><a href="(.+?)".+?>(.+?)<.+?src="(.+?)".+?Baixar.(.+?):').findall(html.unescape(link.text.encode("utf-8").decode().replace('\n', '').replace('\r', '').replace('	','')))
+			match = re.compile('"title"><a href="(.+?)".+?>(.+?)<.+?src="(.+?)".+?Baix...(.+?):').findall(html.unescape(link.text.encode("utf-8").decode().replace('\n', '').replace('\r', '').replace('	','')))
 			for link, name2, image2, genero in match:
 			#for link, name2, image2 in match:
 				if "Serie" in genero or "Anime" in genero or "Temporada" in name2 or "Completo" in name2: False
@@ -5004,7 +5004,7 @@ def comandoseries(): #173
 		try:
 			y +=1
 			link = requests.get("https://torrentdosfilmeshd2.org/category/series/page/"+str(y)+"/",headers={'Referer':'https://torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-			match = re.compile('"title"><a href="(.+?)".+?>(.+?)<.+?src="(.+?)".+?Baixar.(.+?):').findall(html.unescape(link.replace('src="data:','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('\n', '').replace('\r', '').replace('	','')))
+			match = re.compile('"title"><a href="(.+?)".+?>(.+?)<.+?src="(.+?)".+?Baix...(.+?):').findall(html.unescape(link.replace('src="data:','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('\n', '').replace('\r', '').replace('	','')))
 			for link, name2, image2, genero in match:
 				AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Downloads',''), link, 174, image2, image2, isFolder=True, info='\xa0')
 		except:
