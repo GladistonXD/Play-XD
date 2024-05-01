@@ -17,7 +17,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.71.00"
+Versao = "23.72.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3544,7 +3544,7 @@ def Busca(): # 160
 			#arquivo.write(link)
 			#arquivo.close()
 			#match = re.compile('"item"><a href="(.+?)".+?title="(.+?)".+?img.src="(.+?)"').findall(link)
-			match = re.compile('"title"><a href="(.+?)".+?>(.+?)<.+?src="(.+?)".+?Baixar.(.+?):').findall(link)
+			match = re.compile('"title"><a href="(.+?)".+?>(.+?)<.+?src="(.+?)".+?Baix...(.+?):').findall(link)
 			#for link,name2, image2 in match:
 			for link,name2, image2, genero in match:
 				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
