@@ -17,7 +17,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.72.00"
+Versao = "23.73.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -223,7 +223,7 @@ def MFilmes(): #-2
 	AddDir("[COLOR lightgreen][B]Filmes Comando.to[/B][/COLOR]" , "", 518, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", info='\xa0')
 	AddDir("[COLOR mediumpurple][B]Filmes ComandoHDTorrents[/B][/COLOR]" , "", 170, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='\xa0')
 	AddDir("[COLOR yellow][B]Filmes Pirate-Filmes[/B][/COLOR]" , "", 186, "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", info='\xa0')
-	AddDir("[COLOR deepskyblue][B]Filmes FilmesViaTorrent[/B][/COLOR]" , "", 530, "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", info='\xa0')	
+	#AddDir("[COLOR deepskyblue][B]Filmes FilmesViaTorrent[/B][/COLOR]" , "", 530, "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", info='\xa0')	
 	#AddDir("[COLOR mediumvioletred][B]Filmes ComoEuBaixo[/B][/COLOR]" , "", 526, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='\xa0')
 	#AddDir("[COLOR salmon][B]Filmes DosTorrents[/B][/COLOR]" , "", 5261, "https://uploaddeimagens.com.br/images/003/565/308/full/Spider.png", "https://uploaddeimagens.com.br/images/003/565/308/full/Spider.png", info='\xa0')
 	#AddDir("[COLOR lightgreen][B]Filmes Max[/B][/COLOR]" , "", 465, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", info='\xa0')
@@ -238,7 +238,7 @@ def MSeries(): #-3
 	AddDir("[B][COLOR lightgreen]Séries Comando.to[/COLOR][/B]", "config" , 522,"https://uploaddeimagens.com.br/images/003/583/194/full/serie4.png", "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg", isFolder=True, info='\xa0')
 	AddDir("[B][COLOR mediumpurple]Séries ComandoHDTorrents[/COLOR][/B]", "config" , 173,"https://uploaddeimagens.com.br/images/003/583/192/full/serie2.png", "https://tconline.com.br/wp-content/uploads/2020/02/8.1-VS250220A.jpg", isFolder=True, info='\xa0')
 	AddDir("[B][COLOR yellow]Séries Filme-Pirate[/COLOR][/B]", "config" , 250,"https://uploaddeimagens.com.br/images/003/583/191/original/serie1.png", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='\xa0')
-	AddDir("[B][COLOR deepskyblue]Séries FilmesViaTorrent[/COLOR][/B]", "config" , 533,"https://uploaddeimagens.com.br/images/003/583/193/full/serie3.png", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='\xa0')
+	#AddDir("[B][COLOR deepskyblue]Séries FilmesViaTorrent[/COLOR][/B]", "config" , 533,"https://uploaddeimagens.com.br/images/003/583/193/full/serie3.png", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='\xa0')
 	#AddDir("[B][COLOR salmon]Séries DosTorrents[/COLOR][/B]", "config" , 5291,"https://uploaddeimagens.com.br/images/003/583/195/full/serie5.png", "https://jbt-en-images.s3.ap-south-1.amazonaws.com/wp-content/uploads/2021/10/05100134/lost-in-space-s3.jpg", isFolder=True, info='\xa0')
 	#AddDir("[B][COLOR mediumvioletred]Séries ComoEuBaixo[/COLOR][/B]", "config" , 529,"https://uploaddeimagens.com.br/images/003/883/514/full/BreakingBad-7277.png", "https://uploaddeimagens.com.br/images/003/883/514/full/BreakingBad-7277.png", isFolder=True, info='\xa0')
 	#AddDir("[B][COLOR lightgreen]Séries Max[/COLOR][/B]", "config" , 468,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='\xa0')
@@ -3534,7 +3534,7 @@ def Busca(): # 160
 		pass
 	if (progress.iscanceled()):
 		sys.exit(int(sys.argv[1]))
-	progress.update(30, "ComandoHdTorrents")        
+	progress.update(40, "ComandoHdTorrents")        
 	try:
 			#p= 1
 			AddDir("[B][COLOR mediumpurple]|||[/COLOR][COLOR white]|||[/COLOR][COLOR mediumpurple]|||[/COLOR][COLOR mediumpurple] [ComandoHdTorrents] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
@@ -3556,7 +3556,7 @@ def Busca(): # 160
 		pass
 	if (progress.iscanceled()):
 		sys.exit(int(sys.argv[1]))
-	progress.update(60, "Pirate-Torrent")
+	progress.update(70, "Pirate-Torrent")
 	try:
 			#p= 1
 			AddDir("[B][COLOR yellow]|||[/COLOR][COLOR white]|||[/COLOR][COLOR yellow]|||[/COLOR][COLOR yellow] [Pirate-Torrent] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
@@ -3570,7 +3570,7 @@ def Busca(): # 160
 					AddDir("[COLOR yellow]"+name2.replace("Torrent ","").replace(" –","").replace('Download','')+"[/COLOR]", link, 187, image2, image2, isFolder=True, info='\xa0')
 	except:
 		pass
-	if (progress.iscanceled()):
+	'''if (progress.iscanceled()):
 		sys.exit(int(sys.argv[1]))
 	progress.update(80, "FilmesViaTorrent")
 	try:
@@ -3589,7 +3589,7 @@ def Busca(): # 160
 					else:
 						AddDir("[COLOR deepskyblue]" +name2+" ("+dubleg.replace("Dubleg","Dublado & Legendado")+")"+"[/COLOR]", link, 531, "https:"+img2.replace("w185","original"), "https:"+img2.replace("w185","original"), isFolder=True, IsPlayable=True, info="[COLOR][/COLOR]")
 	except:
-		pass
+		pass'''
 
 	'''if (progress.iscanceled()):
 		sys.exit(int(sys.argv[1]))
@@ -3864,13 +3864,13 @@ def MoviesFO(): #170
 		for x in range(0, 5):
 			l +=1
 			link = requests.get("https://torrentdosfilmeshd2.org/category/"+Clistafo0[int(Catfo)]+"/page/"+str(l)+"/",headers={'Referer':'https://torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
-			match = re.compile('"title"><a href="(.+?)".+?>(.+?)<.+?src="(.+?)".+?Baix...(.+?):').findall(html.unescape(link.text.encode("utf-8").decode().replace('\n', '').replace('\r', '').replace('	','')))
-			for link, name2, image2, genero in match:
+			match = re.compile('"title"><a href="(.+?)".+?>(.+?)<.+?src="(.+?)".+?Baix...(.+?):.+?IMD.+?:(.+?)<').findall(html.unescape(link.text.encode("utf-8").decode().replace('\n', '').replace('\r', '').replace('	','')))
+			for link, name2, image2, genero, nota in match:
 			#for link, name2, image2 in match:
 				if "Serie" in genero or "Anime" in genero or "Temporada" in name2 or "Completo" in name2: False
 				#if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2: False
 				else:
-					AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Download',''), link, 1711, image2, image2, isFolder=True, info='\xa0')
+					AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Download',''), link, 1711, image2, image2, isFolder=True, info='[COLOR yellow]\nIMDb:[/COLOR]'+nota.replace(' ','').replace('–','Sem nota').replace('</b>','').replace('/10',''))
 		AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserTR", info='\xa0')
 	except:
 		pass
