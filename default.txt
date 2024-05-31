@@ -17,7 +17,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.74.00"
+Versao = "23.75.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -5856,7 +5856,7 @@ def Comandotomenu2(): #519
 	except:
 		pass
 	try:
-		link = requests.get(url,headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('<strong>DUAL ÁUDIO</strong>','<strong>:: DUAL ÁUDIO ::</strong>').replace('<strong>DUBLADO OFICIAL</strong>','<strong>:: DUBLADO OFICIAL ::</strong>').replace('<strong>DUBLADO NÃO OFICIAL</strong>','<strong>:: DUBLADO NÃO OFICIAL ::</strong>').replace('<strong>LEGENDADO</strong>','<strong>:: LEGENDADO ::</strong>').replace('<strong>DUBLADO</strong>','<strong>:: DUBLADO ::</strong>')
+		link = requests.get(url,headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('<strong>DUAL ÁUDIO</strong>','<strong>:: DUAL ÁUDIO ::</strong>').replace('DUAL ÁUDIO',':: DUAL ÁUDIO ::').replace('<strong>DUBLADO OFICIAL</strong>','<strong>:: DUBLADO OFICIAL ::</strong>').replace('<strong>DUBLADO NÃO OFICIAL</strong>','<strong>:: DUBLADO NÃO OFICIAL ::</strong>').replace('<strong>LEGENDADO</strong>','<strong>:: LEGENDADO ::</strong>').replace('<strong>DUBLADO</strong>','<strong>:: DUBLADO ::</strong>')
 		#arquivo = open(cachefolder + "TuaSerie2.txt", "w+")
 		#arquivo.write(link.replace('\n','').replace('\r','').replace("</a></strong></p><p><","<strong>:: SELECIONE A OPÇÃO ::</strong>").replace('blank">K-Lite-Codec-Pack</a></strong></p><h2 style="text-align: center;">','<strong>:: SELECIONE A OPÇÃO ::</strong></a></strong></p> style="text-align: center;">').replace("</a></p><h2","").replace('/> style="text-align: center;">','<p style="text-align: center;"><strong>').replace('</strong></a></strong></p> style="text-align: center;">','<p style="text-align: center;"><strong>').replace('" width="300" height="125" /></p><p>','<p style="text-align: center;"><strong>Completo').replace('DVDRip (<strong style="font-style: italic;">','<strong>:: SELECIONE A OPÇÃO ::</strong></a></strong></p> style="text-align: center;">').replace('</strong>)</h4><p>','<p style="text-align: center;"><strong>Completo').replace("<strong>BAIXAR FILME</strong>",'<strong>:: SELECIONE A OPÇÃO ::</strong></a></strong></p> style="text-align: center;">').replace('LEGENDA</a></p></div><div style="text-align: center;">','<p style="text-align: center;"><strong>Completo').replace("MULTI ÁUDIO","[COLOR springgreen][B]Multi Áudio[/B][/COLOR]").replace("</strong></p><p>720p</p></div>","<strong>:: 720 ::</a></div>").replace("</a></strong></p></div>","<strong>:: Dublado ::</a></div>"))
 		#arquivo.close()
