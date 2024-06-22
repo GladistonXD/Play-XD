@@ -3870,7 +3870,7 @@ def MoviesFO(): #170
 				if "Serie" in genero or "Anime" in genero or "Temporada" in name2 or "Completo" in name2: False
 				#if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2: False
 				else:
-					AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Download',''), link, 1711, image2, image2, isFolder=True, info='[COLOR yellow]\nIMDb:[/COLOR]'+nota.replace(' ','').replace('–','Sem nota').replace('</b>','').replace('/10',''))
+					AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Download',''), link, 1711, image2, image2, isFolder=True, info='[COLOR yellow]\nIMDb: [/COLOR]'+nota.replace(' ','').replace('–','Sem nota').replace('/b>','').replace('/10',''))
 		AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserTR", info='\xa0')
 	except:
 		pass
