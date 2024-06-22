@@ -17,7 +17,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.75.00"
+Versao = "23.76.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3539,16 +3539,16 @@ def Busca(): # 160
 			#p= 1
 			AddDir("[B][COLOR mediumpurple]|||[/COLOR][COLOR white]|||[/COLOR][COLOR mediumpurple]|||[/COLOR][COLOR mediumpurple] [ComandoHdTorrents] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
 			#l +=1
-			link = requests.get("https://torrentdosfilmeshd2.org/?s="+d.replace('%2B','+'),headers={'Referer':'https://torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','').replace('&#124;','|').replace('src="data:','').replace('	','')
+			link = requests.get("https://www.torrentdosfilmeshd2.org/?s="+d.replace('%2B','+'),headers={'Referer':'https://www.torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','').replace('&#124;','|').replace('src="data:','').replace('	','')
 			#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 			#arquivo.write(link)
 			#arquivo.close()
 			#match = re.compile('"item"><a href="(.+?)".+?title="(.+?)".+?img.src="(.+?)"').findall(link)
-			match = re.compile('"title"><a href="(.+?)".+?>(.+?)<.+?src="(.+?)".+?Baix...(.+?):').findall(link)
+			match = re.compile('<div class="item"><a href="(.+?)".+?title="(.+?)".+?src="(.+?)"').findall(link)
 			#for link,name2, image2 in match:
-			for link,name2, image2, genero in match:
+			for link,name2, image2 in match:
 				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-				if "Serie" in genero or "Anime" in genero or "Temporada" in name2 or "Completo" in name2:
+				if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2:
 					AddDir("[COLOR mediumpurple]" +name2.replace(" Torrent","").replace(" –","").replace(' Download','')+"[/COLOR]", link, 174, image2, image2, isFolder=True, info='\xa0')
 				else:
 					AddDir("[COLOR mediumpurple]" +name2.replace(" Torrent","").replace(" –","").replace(' Download','')+"[/COLOR]", link, 1711, image2, image2, isFolder=True, info='\xa0')
@@ -3863,8 +3863,8 @@ def MoviesFO(): #170
 		l= int(pagina)*5
 		for x in range(0, 5):
 			l +=1
-			link = requests.get("https://torrentdosfilmeshd2.org/category/"+Clistafo0[int(Catfo)]+"/page/"+str(l)+"/",headers={'Referer':'https://torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
-			match = re.compile('"title"><a href="(.+?)".+?>(.+?)<.+?src="(.+?)".+?Baix...(.+?):.+?IMD.+?:(.+?)<').findall(html.unescape(link.text.encode("utf-8").decode().replace('\n', '').replace('\r', '').replace('	','')))
+			link = requests.get("https://comandofilmes.org/category/"+Clistafo0[int(Catfo)]+"/page/"+str(l)+"/",headers={'Referer':'https://comandofilmes.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+			match = re.compile('<h1 class="post-title">\s.+<a href="(.+?)".+\s.+\s.+\s.+\s.+\s.+\s.+\s.+?title="Baixar (.+?)".+?src="(.+?)".+\s.+\s.+?Baixar.(.+?):.+\s.+\s.+?IMD.+?:.(.+?)<').findall(html.unescape(link.text.encode("utf-8").decode()))
 			for link, name2, image2, genero, nota in match:
 			#for link, name2, image2 in match:
 				if "Serie" in genero or "Anime" in genero or "Temporada" in name2 or "Completo" in name2: False
@@ -3886,7 +3886,7 @@ def GetMFO1(): #171
 	except:
 		pass
 	try:
-		link = requests.get(url,headers={'Referer':'https://torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		link = requests.get(url.replace('comandofilmes.org','www.torrentdosfilmeshd2.org'),headers={'Referer':'https://www.torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
 		#arquivo.close()
@@ -3932,7 +3932,7 @@ def GetMFO1(): #171
 		except:
 			pass
 			try:
-				#link = requests.get(url,headers={'Referer':'https://torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				#link = requests.get(url,headers={'Referer':'https://comandofilmes.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 				#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 				#arquivo.write(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
 				#arquivo.close()
@@ -5003,17 +5003,17 @@ def comandoseries(): #173
 	for x in range(0, 4):
 		try:
 			y +=1
-			link = requests.get("https://torrentdosfilmeshd2.org/category/series/page/"+str(y)+"/",headers={'Referer':'https://torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-			match = re.compile('"title"><a href="(.+?)".+?>(.+?)<.+?src="(.+?)".+?Baix...(.+?):').findall(html.unescape(link.replace('src="data:','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('\n', '').replace('\r', '').replace('	','')))
-			for link, name2, image2, genero in match:
-				AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Downloads',''), link, 174, image2, image2, isFolder=True, info='\xa0')
+			link = requests.get("https://comandofilmes.org/category/series/page/"+str(y)+"/",headers={'Referer':'https://comandofilmes.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+			match = re.compile('<h1 class="post-title">\s.+<a href="(.+?)".+\s.+\s.+\s.+\s.+\s.+\s.+\s.+?title="Baixar (.+?)".+?src="(.+?)"').findall(html.unescape(link.replace('src="data:','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('	','')))
+			for link, name2, image2 in match:
+				AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Download',''), link, 174, image2, image2, isFolder=True, info='\xa0')
 		except:
 			pass
 	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserCM", info='\xa0')
 
 def comandomenu1(): #174
 	#try:
-		link = requests.get(url,headers={'Referer':'https://torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		link = requests.get(url.replace('comandofilmes.org','www.torrentdosfilmeshd2.org'),headers={'Referer':'https://www.torrentdosfilmeshd2.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(link.replace('\n','').replace('\r','').replace('﻿','').replace('​​','').replace('»<b>','<strong>::').replace('«</strong>','::').replace('»<b>','<strong>:: ').replace('«</strong>','::').replace('**FIM DE TEMPORADA**','><h2'))
 		#arquivo.close()
@@ -5028,7 +5028,8 @@ def comandomenu1(): #174
 	#	pass
 
 def comandomenu2(): #177
-	urlx = re.sub('<p style="text-align: center;"><strong>.+?Completa<\/strong><\/p><p style="text-align: center;"><strong>EPISÓDIO .+?<', '<p style="text-align: center;"><strong>EPISÓDIO 01: <', url)
+	urlx1 = re.sub('<p style="text-align: center;"><strong>.+?Completa<\/strong><\/p><p style="text-align: center;"><strong>EPISÓDIO .+?<', '<p style="text-align: center;"><strong>EPISÓDIO 01: <', url)
+	urlx = re.sub('id.{1,412}Assistir Online.+?<.p>', '', urlx1)
 	urlx = re.sub('<p style="text-align: center;"><strong>.+?Completa<\/strong><\/p><p style="text-align: center;"><strong>EPISÓDIOS .+?<', '<p style="text-align: center;"><strong>EPISÓDIOS 01 ao...: <', urlx)
 	urlx = urlx.replace('| Episodio </strong><strong>','<p style="text-align:.center;"><strong>').replace('</a> <p style="text-align:.center;">','</p> <p style="text-align:.center;">')
 	try:
@@ -5037,10 +5038,10 @@ def comandomenu2(): #177
 		#arquivo.close()
         #(TEM.+?|Tem.+?|EPI.+?|Epi.+?)<.+?href="(.+?<.p)
 		try:
-			match = re.compile('<p style="text-align:.center;"><strong>(.+?)<.+?href=".+?(id.+?)<\/p>').findall(urlx.replace('<p><strong>','<p style="text-align: center;"><strong>').replace('<p style="text-align: center;"><b>','<p style="text-align: center;"><strong>').replace('<div style="text-align: center;"><strong>','<p style="text-align:.center;"><strong>').replace('o </b>','o ').replace('</div><div style="text-align: center;">','<p style="text-align:.center;"><strong>').replace('</a></strong>','</a></p').replace('center;"><b>Episódio','><strong>Episódio').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('</b>',''))
+			match = re.compile('<p style="text-align:.center;"><strong>(.+?)<.+?href=".+?(id.+?)<\/p>').findall(urlx.replace('<p><strong>','<p style="text-align: center;"><strong>').replace('<p style="text-align: center;"><b>','<p style="text-align: center;"><strong>').replace('<div style="text-align: center;"><strong>','<p style="text-align:.center;"><strong>').replace('o </b>','o ').replace('</div><div style="text-align: center;">','<p style="text-align:.center;"><strong>').replace('</a></strong>','</a></p').replace('center;"><b>Episódio','><strong>Episódio').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('</b>','').replace('"Assistir Online</a></strong></p>',''))
 			teste = match[0]
 		except:
-			match = re.compile('<p style="text-align:.center;"><strong>(.+?)<.+?href=".+?(id.+?)<\/p>').findall(urlx.replace('<p><strong>','<p style="text-align: center;"><strong>').replace('<p style="text-align: center;"><b>','<p style="text-align: center;"><strong>').replace('<div style="text-align: center;"><strong>','<p style="text-align:.center;"><strong>').replace('o </b>','o ').replace('</div><div style="text-align: center;">','<p style="text-align:.center;"><strong>').replace('</a></strong>','</a></p').replace('center;"><b>Episódio','><strong>Episódio').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('</b>',''))
+			match = re.compile('<p style="text-align:.center;"><strong>(.+?)<.+?href=".+?(id.+?)<\/p>').findall(urlx.replace('<p><strong>','<p style="text-align: center;"><strong>').replace('<p style="text-align: center;"><b>','<p style="text-align: center;"><strong>').replace('<div style="text-align: center;"><strong>','<p style="text-align:.center;"><strong>').replace('o </b>','o ').replace('</div><div style="text-align: center;">','<p style="text-align:.center;"><strong>').replace('</a></strong>','</a></p').replace('center;"><b>Episódio','><strong>Episódio').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('</b>','').replace('"Assistir Online</a></strong></p>',''))
 			matchoff = match[0]
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(str(match))
