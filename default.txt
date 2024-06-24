@@ -17,7 +17,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.77.00"
+Versao = "23.78.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1576,8 +1576,8 @@ def FilmesHDPlay(): #532
 			except:
 				devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 				url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-		dev2 = re.compile("'(.+srt)'").findall(url3)
-		teste3 = 'https://www.elsubtitle.com' + dev2[0]
+		dev2 = re.compile('[^"\']*\.srt').findall(url3)
+		teste3 = 'https://www.elsubtitle.com/' + dev2[0]
 
 		path = cachefolder+"Legendas/"
 		try:
@@ -4118,8 +4118,8 @@ def PlayMFO1(): #172
 					except:
 						devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-				dev2 = re.compile("'(.+srt)'").findall(url3)
-				teste3 = 'https://www.elsubtitle.com' + dev2[0]
+				dev2 = re.compile('[^"\']*\.srt').findall(url3)
+				teste3 = 'https://www.elsubtitle.com/' + dev2[0]
 
 				path = cachefolder+"Legendas/"
 				try:
@@ -4562,8 +4562,8 @@ def PlayPR(): #188
 					except:
 						devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-				dev2 = re.compile("'(.+srt)'").findall(url3)
-				teste3 = 'https://www.elsubtitle.com' + dev2[0]
+				dev2 = re.compile('[^"\']*\.srt').findall(url3)
+				teste3 = 'https://www.elsubtitle.com/' + dev2[0]
 
 				path = cachefolder+"Legendas/"
 				try:
@@ -6060,8 +6060,8 @@ def Comandotoplayer(): #519
 						url4 = re.compile('subtitles-download-p2.+?>\s.+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)"').findall(url3)
 						for rawurlencode, sublanguage, downloadtext, worktitle, workyear, workid in url4:
 							url3 = requests.post('https://www.elsubtitle.com/subtitles-download-p2/',data={'rawurlencode': rawurlencode, 'sublanguage': sublanguage, 'downloadtext': downloadtext,'worktitle': worktitle,'workyear': workyear, 'workid': workid},headers={'Referer': 'https://www.elsubtitle.com/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-				dev2 = re.compile("'(.+srt)'").findall(url3)
-				teste3 = 'https://www.elsubtitle.com' + dev2[0]
+				dev2 = re.compile('[^"\']*\.srt').findall(url3)
+				teste3 = 'https://www.elsubtitle.com/' + dev2[0]
 
 				path = cachefolder+"Legendas/"
 				try:
@@ -6793,8 +6793,8 @@ def DosTorrentsPlay(): #528
 					except:
 						devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-				dev2 = re.compile("'(.+srt)'").findall(url3)
-				teste3 = 'https://www.elsubtitle.com' + dev2[0]
+				dev2 = re.compile('[^"\']*\.srt').findall(url3)
+				teste3 = 'https://www.elsubtitle.com/' + dev2[0]
 
 				path = cachefolder+"Legendas/"
 				try:
@@ -7182,8 +7182,8 @@ def DosTorrentsPlay1(): #5281
 					except:
 						devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-				dev2 = re.compile("'(.+srt)'").findall(url3)
-				teste3 = 'https://www.elsubtitle.com' + dev2[0]
+				dev2 = re.compile('[^"\']*\.srt').findall(url3)
+				teste3 = 'https://www.elsubtitle.com/' + dev2[0]
 
 				path = cachefolder+"Legendas/"
 				try:
