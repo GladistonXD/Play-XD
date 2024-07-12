@@ -17,7 +17,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.80.00"
+Versao = "23.81.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -195,9 +195,9 @@ def Categories(): #70
 	setViewM()
 # --------------  Menu
 def MCanais(): #-1
-    #AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](AOVIVOTV¹)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](AOVIVOTV¹)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](AOVIVOTV²)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](AOVIVOTV¹)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](AOVIVOTV²)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](AOVIVOTV³)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](SABTOOHTV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
@@ -8671,7 +8671,7 @@ def RedOndemand(): #98
 	#except:
 	#	AddDir('[B]Canais offline, tente novamente mais tarde...[/B]', '', 50, 'https://uploaddeimagens.com.br/images/004/090/947/full/pngwing.com.png', 'https://uploaddeimagens.com.br/images/004/090/947/full/pngwing.com.png', isFolder=False, info='[B][/B]')'''
 
-def TVCB4(): #108
+'''def TVCB4(): #108
     url = 'https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/tvs5'
     link = requests.get(url).text
     decode = base64.b64decode(link).decode('utf-8')
@@ -8701,8 +8701,62 @@ def TVCB4(): #108
             for i, (name,img, url) in enumerate(channels):
                 if i == 0:
                     channels[i] = (name, category_img, url)
-            AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 103, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background=backgru)
+            AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 103, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background=backgru)'''
+def TVCB4(): #108
+    url = 'https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/tvs6'
+    link = requests.get(url).text
+    decode = base64.b64decode(link).decode('utf-8')
+    base = re.compile('tvg-name="(.+?)".+?logo="(.+?)".+\s(.+)').findall(decode)
+    backgru = re.compile('background=(.+)').findall(decode)[0]
+   
+    channel_dict = {}
+    for name, img, url in base:
+        name = name+' '
+        base_name_match = re.search('(.+?)(FHD|HD|SD|4K|LEG|H265|Alternativo HD|Alternativo)', name)
+        if base_name_match:
+            base_name = base_name_match.group(1)
+        else:
+            base_name = name 
+        if base_name not in channel_dict:
+            channel_dict[base_name] = {'channels': [], 'category_img': img}
+        channel_dict[base_name]['channels'].append((name, img, url))
 
+    for base_name, data in sorted(channel_dict.items(), key=lambda x: natural_sort_key(x[0])):
+        category_img = data['category_img']
+        channels = data['channels']
+        num_items = len(channels)
+        if num_items == 1:
+            name, img, url2 = channels[0]
+            AddDir('[B]'+base_name+'[/B]', url2, 558, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background=backgru)
+        else:
+            for i, (name,img, url) in enumerate(channels):
+                if i == 0:
+                    channels[i] = (name, category_img, url)
+            AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 557, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background=backgru)
+
+def PlayTVDIRECT(): #557
+	listar = []
+	listal = []
+	#arquivo = open(cachefolder + "testeplayer.txt", "w+")
+	#arquivo.write(str(url))
+	#arquivo.close()
+	comp = re.compile('com=(.+?) AA=(.+)').findall(background)
+	base = re.compile("'(.+?)'.+?'.+?(http:.."+comp[0][0]+".+?)'").findall(str(url))
+	if base:
+		for name2, url2 in base:
+			listal.append(url2)
+			listar.append(name2)
+		if len(listal) <1:
+			xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
+			sys.exit(int(sys.argv[1]))
+		d = xbmcgui.Dialog().select("Selecione a resolução", listar)
+		if d!= -1:
+			url2x = listal[d]
+			PlayUrl(listar[d], url2x+'|'+comp[0][1])
+
+def PlayTVDIRECT2(): #558
+	comp = re.compile('com=(.+?) AA=(.+)').findall(background)
+	PlayUrl(name, url+'|'+comp[0][1])
 
 def TVCB4PLAY(): #109
 	PlayFFmpeg(name, url+'|User-Agent=Rediptv Plus 2.0.17', iconimage)
@@ -11334,6 +11388,12 @@ elif mode == 555:
 	xbmc.executebuiltin('PlayerControl(RepeatOne)')
 elif mode == 556:
 	PlayTVCBX()
+	xbmc.executebuiltin('PlayerControl(RepeatOne)')
+elif mode == 557:
+	PlayTVDIRECT()
+	xbmc.executebuiltin('PlayerControl(RepeatOne)')
+elif mode == 558:
+	PlayTVDIRECT2()
 	xbmc.executebuiltin('PlayerControl(RepeatOne)')
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
 #checkintegrity25852
