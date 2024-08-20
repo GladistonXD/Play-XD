@@ -3886,7 +3886,7 @@ def GetMFO1(): #171
 	except:
 		pass
 	try:
-		url1 = re.sub('-torrent.+', '-torrent-dublado-download', url)
+		url1 = re.sub('-torrent.+', '-torrent-download', url)
 		link = requests.get(url1.replace('comandofilmeshd.site','galaxytorrent.org'),headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(url.replace('comandofilmeshd.site','galaxytorrent.org').replace('-torrent','-torrent-dublado-download'))
