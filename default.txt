@@ -17,7 +17,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.82.00"
+Versao = "23.83.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -196,9 +196,9 @@ def Categories(): #70
 # --------------  Menu
 def MCanais(): #-1
     AddDir("[COLOR yellow][B]Opção 1  [COLOR lightskyblue][B](AOVIVOTV¹)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](AOVIVOTV²)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](AOVIVOTV³)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
-    AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    #AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](AOVIVOTV²)[/B][/COLOR]" , "", 108, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    #AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](AOVIVOTV³)[/B][/COLOR]", "", 102, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
+    AddDir("[COLOR yellow][B]Opção 2  [COLOR lightskyblue][B](FOXTV)[/B][/COLOR]", "", 115, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 3  [COLOR lightskyblue][B](REDECANAIS)[/B][/COLOR]" , "", 111, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](SABTOOHTV)[/B][/COLOR]", "", 113, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
     #AddDir("[COLOR yellow][B]Opção 4  [COLOR lightskyblue][B](R98K)[/B][/COLOR]"  , "", 91, "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", "https://uploaddeimagens.com.br/images/002/595/851/original/CanaisTV55.jpg", info='\xa0')
@@ -3539,7 +3539,7 @@ def Busca(): # 160
 			#p= 1
 			AddDir("[B][COLOR mediumpurple]|||[/COLOR][COLOR white]|||[/COLOR][COLOR mediumpurple]|||[/COLOR][COLOR mediumpurple] [ComandoHdTorrents] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
 			#l +=1
-			link = requests.get("https://primetorrents.net/?s="+d.replace('%2B','+'),headers={'Referer':'https://primetorrents.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','').replace('&#124;','|').replace('src="data:','').replace('	','')
+			link = requests.get("https://galaxytorrent.org/?s="+d.replace('%2B','+'),headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','').replace('&#124;','|').replace('src="data:','').replace('	','')
 			#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 			#arquivo.write(link)
 			#arquivo.close()
@@ -3863,7 +3863,7 @@ def MoviesFO(): #170
 		l= int(pagina)*5
 		for x in range(0, 5):
 			l +=1
-			link = requests.get("https://comandofilmes.org/category/"+Clistafo0[int(Catfo)]+"/page/"+str(l)+"/",headers={'Referer':'https://comandofilmes.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+			link = requests.get("https://comandofilmeshd.site/category/"+Clistafo0[int(Catfo)]+"/page/"+str(l)+"/",headers={'Referer':'https://comandofilmeshd.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
 			match = re.compile('<h1 class="post-title">\s.+<a href="(.+?)".+\s.+\s.+\s.+\s.+\s.+\s.+\s.+?title="Baixar (.+?)".+?src="(.+?)".+\s.+\s.+?Baixar.(.+?):.+\s.+\s.+?IMD.+?:.(.+?)<').findall(html.unescape(link.text.encode("utf-8").decode()))
 			for link, name2, image2, genero, nota in match:
 			#for link, name2, image2 in match:
@@ -3887,9 +3887,9 @@ def GetMFO1(): #171
 		pass
 	try:
 		url1 = re.sub('-torrent.+', '-torrent-dublado-download', url)
-		link = requests.get(url1.replace('comandofilmes.org','primetorrents.net'),headers={'Referer':'https://primetorrents.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		link = requests.get(url1.replace('comandofilmeshd.site','galaxytorrent.org'),headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
-		#arquivo.write(url.replace('comandofilmes.org','primetorrents.net').replace('-torrent','-torrent-dublado-download'))
+		#arquivo.write(url.replace('comandofilmeshd.site','galaxytorrent.org').replace('-torrent','-torrent-dublado-download'))
 		#arquivo.close()
 		try:
 			genero = re.compile('<b>Baixar.(.+?):<.b>').findall(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('	','')))[0]
@@ -3933,7 +3933,7 @@ def GetMFO1(): #171
 		except:
 			pass
 			try:
-				#link = requests.get(url,headers={'Referer':'https://comandofilmes.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				#link = requests.get(url,headers={'Referer':'https://comandofilmeshd.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 				#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 				#arquivo.write(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
 				#arquivo.close()
@@ -5004,7 +5004,7 @@ def comandoseries(): #173
 	for x in range(0, 4):
 		try:
 			y +=1
-			link = requests.get("https://comandofilmes.org/category/series/page/"+str(y)+"/",headers={'Referer':'https://comandofilmes.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+			link = requests.get("https://comandofilmeshd.site/category/series/page/"+str(y)+"/",headers={'Referer':'https://comandofilmeshd.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 			match = re.compile('<h1 class="post-title">\s.+<a href="(.+?)".+\s.+\s.+\s.+\s.+\s.+\s.+\s.+?title="Baixar (.+?)".+?src="(.+?)"').findall(html.unescape(link.replace('src="data:','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('	','')))
 			for link, name2, image2 in match:
 				AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Download',''), link, 174, image2, image2, isFolder=True, info='\xa0')
@@ -5014,8 +5014,8 @@ def comandoseries(): #173
 
 def comandomenu1(): #174
 	#try:
-		url1 = re.sub('-torrent.+', '-torrent-dublado-download', url)
-		link = requests.get(url1.replace('comandofilmes.org','primetorrents.net'), headers={'Referer':'https://primetorrents.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		url1 = re.sub('-torrent.+', '-torrent-download', url)
+		link = requests.get(url1.replace('comandofilmeshd.site','galaxytorrent.org'), headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(link.replace('\n','').replace('\r','').replace('﻿','').replace('​​','').replace('»<b>','<strong>::').replace('«</strong>','::').replace('»<b>','<strong>:: ').replace('«</strong>','::').replace('**FIM DE TEMPORADA**','><h2'))
 		#arquivo.close()
@@ -5030,10 +5030,11 @@ def comandomenu1(): #174
 	#	pass
 
 def comandomenu2(): #177
-	urlx1 = re.sub('<p style="text-align: center;"><strong>.+?Completa<\/strong><\/p><p style="text-align: center;"><strong>EPISÓDIO .+?<', '<p style="text-align: center;"><strong>EPISÓDIO 01: <', url)
-	urlx = re.sub('id.{1,412}Assistir Online.+?<.p>', '', urlx1)
-	urlx = re.sub('<p style="text-align: center;"><strong>.+?Completa<\/strong><\/p><p style="text-align: center;"><strong>EPISÓDIOS .+?<', '<p style="text-align: center;"><strong>EPISÓDIOS 01 ao...: <', urlx)
-	urlx = urlx.replace('| Episodio </strong><strong>','<p style="text-align:.center;"><strong>').replace('</a> <p style="text-align:.center;">','</p> <p style="text-align:.center;">')
+	#urlx1 = re.sub('<p style="text-align: center;"><strong>.+?Completa<\/strong><\/p><p style="text-align: center;"><strong>EPISÓDIO .+?<', '<p style="text-align: center;"><strong>EPISÓDIO 01: <', url)
+	#urlx = re.sub('id.{1,412}Assistir Online.+?<.p>', '', urlx1)
+	#urlx = re.sub('<p style="text-align: center;"><strong>.+?Completa<\/strong><\/p><p style="text-align: center;"><strong>EPISÓDIOS .+?<', '<p style="text-align: center;"><strong>EPISÓDIOS 01 ao...: <', urlx)
+	#urlx = urlx.replace('| Episodio </strong><strong>','<p style="text-align:.center;"><strong>').replace('</a> <p style="text-align:.center;">','</p> <p style="text-align:.center;">')
+	urlx = url
 	try:
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(urlx.replace('<p><strong>','<p style="text-align: center;"><strong>').replace('<p style="text-align: center;"><b>','<p style="text-align: center;"><strong>').replace('<div style="text-align: center;"><strong>','<p style="text-align:.center;"><strong>').replace('o </b>','o ').replace('</div><div style="text-align: center;">','<p style="text-align:.center;"><strong>').replace('</a></strong>','</a></p').replace('center;"><b>Episódio','><strong>Episódio').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('</b>',''))
@@ -8705,7 +8706,7 @@ def RedOndemand(): #98
                     channels[i] = (name, category_img, url)
             AddDir('[B]'+base_name+'[/B][COLOR yellow][B]({} OPÇÕES)[/B][/COLOR]'.format(num_items), channels, 103, category_img, category_img, isFolder=False, IsPlayable=True, info='\xa0', background=backgru)'''
 def TVCB4(): #108
-    url = 'https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/tvs6'
+    url = 'https://raw.githubusercontent.com/GladistonXD/Filmes-2017/master/tvs5-back'
     link = requests.get(url).text
     decode = base64.b64decode(link).decode('utf-8')
     base = re.compile('tvg-name="(.+?)".+?logo="(.+?)".+\s(.+)').findall(decode)
