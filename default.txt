@@ -17,7 +17,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.83.00"
+Versao = "23.84.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1443,7 +1443,7 @@ def FilmesHD(): #530
 		l= int(cPageFHD)*4
 		for x in range(0, 4):
 			l +=1
-			link = OpenURL("https://filmesviatorrents.site/"+ClistaFHD10[int(CatHD)]+"/page/"+ str(l) +"/?tr_post_type=1",headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).replace('\n','').replace('\r','').replace("  ","").replace("Dub & Leg","Dubleg")
+			link = OpenURL("https://filmesviatorrents.site/"+ClistaFHD10[int(CatHD)]+"/page/"+ str(l) +"/?tr_post_type=1",headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).replace('\n','').replace('\r','').replace("  ","").replace("Dub & Leg","Dubleg")
 			match = re.compile('TPost C"><a href="(.+?)">.+?src="(.+?)".alt=".+? (.+?)".+?ClB">(\w+).{1,99}<div class="mi').findall(link)
 			if match:
 				for link, img2, name2,dubleg in match:
@@ -1466,7 +1466,7 @@ def FilmesHDmenu(): #531
 	except:
 		pass
 	try:	
-		link = requests.get(url,headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+		link = requests.get(url,headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 		sinopse = re.compile("Description.+?p>(.+?)<").findall(link.text)
 		filmes = re.compile("(Filmes via Torrent<.a> &gt;.<span.class)").findall(link.text)
 		filmes = filmes[0]
@@ -1547,7 +1547,7 @@ def FilmesHDPlay(): #532
 		except:
 			urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
 			leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
-		leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
 	except:
 		pass
@@ -1556,26 +1556,26 @@ def FilmesHDPlay(): #532
 		#leg4x = leg4[0][:-1].split(' ')
 		#notific = (['\w'+name[1:]+'' for name in leg4x])
 		#leg4xx = ' '.join(notific)
-		url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		try:
 			dev1x = re.compile('href=".{1,400}' + leg4[0][:-1] + '.-.\(').findall(url5)
 			off1 = dev1x[0]
 		except:
 			dev1x = re.compile('href=".{1,400}' + leg4[0][:-1] + '.-.\(').findall(url5)
 		dev1 = re.compile('href="(.title.+?)"').findall(dev1x[0])
-		url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		try:
 			devx = re.compile('Brazil.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 			off = devx[0]
-			url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-br', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+			url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-br', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		except:
 			try:
 				devx = re.compile('Portugal.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 				off = devx[0]
-				url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 			except:
 				devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
-				url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		dev2 = re.compile('[^"\']*\.srt').findall(url3)
 		teste3 = 'https://www.elsubtitle.com/' + dev2[0]
 
@@ -1584,7 +1584,7 @@ def FilmesHDPlay(): #532
 			os.remove(cachefolder+'Legendas/Elsubtitle (Brasil)-pt.forced.srt')
 		except:
 			pass
-		response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+		response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 		with open(cachefolder+'Legendas/Elsubtitle (Brasil)-pt.forced.srt', 'wb')as file: file.write(response.content)
 		try:
 			local = os.path.abspath(cachefolder+"Legendas")
@@ -1615,10 +1615,10 @@ def FilmesHDPlay(): #532
 				#arquivo = open(cachefolder + "LegendaT.txt", "w+")
 				#arquivo.write(leg4[0])
 				#arquivo.close()
-		url5 = requests.get("https://legendei.top/?s="+leg4[0],headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n','').replace('\r','')
+		url5 = requests.get("https://legendei.top/?s="+leg4[0],headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text#.replace('\n','').replace('\r','')
 		teste = re.compile('thumbnail">\s\s.+?href="(.+?)".+?title.+?'+leg4[0][:-1]+'\s[(]').findall(url5)
 		teste = teste[0]
-		teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 		teste3 = teste3[0]
 
@@ -1627,7 +1627,7 @@ def FilmesHDPlay(): #532
 			os.remove(cachefolder+'Legendas/Legendei (Brasil)-pt.srt')
 		except:
 			pass
-		response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+		response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 		file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -1703,7 +1703,7 @@ def FilmesHDPlay(): #532
 	except:
 		pass'''
 	try:
-		link = requests.get("https://www.opensubtitles.org/pb/search2/sublanguageid-pob/moviename-"+leg4[0].replace(' ','+'),headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+		link = requests.get("https://www.opensubtitles.org/pb/search2/sublanguageid-pob/moviename-"+leg4[0].replace(' ','+'),headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 		link2 = re.compile('href=".pb.search.sublanguageid-pob.(idmovie-\w+)">'+leg4[0][:-1]+'[(]').findall(link.text.replace('\n','').replace('\r',''))
 		try:
 			link3 = "https://www.opensubtitles.org/pb/search/"+link2[0]+"/sublanguageid-pob"
@@ -1729,7 +1729,7 @@ def FilmesHDPlay(): #532
 			os.remove(cachefolder+'Legendas/OpenSubtitles (Brasil)-pt.srt')
 		except:
 			pass
-		response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+		response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 		file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -1760,9 +1760,9 @@ def FilmesHDPlay(): #532
 	except:
 		pass
 	try:
-		link = requests.get("https://www.baixarlegenda.net/?s="+popup[:-1].replace(' ','+'), headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n', '').replace('\r', '')
+		link = requests.get("https://www.baixarlegenda.net/?s="+popup[:-1].replace(' ','+'), headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text#.replace('\n', '').replace('\r', '')
 		match = re.compile('title">'+popup[:-1]+'<.+?<.span> <.div> <a href="(.+?)"').findall(link)
-		link2 = requests.get(match[0], headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		link2 = requests.get(match[0], headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		match2 = re.compile('href="(.+?)" class="btn sm rnd blk">Download').findall(link2.replace('#038;',''))
 		download = match2[0]
 		path = cachefolder+"Legendas/"
@@ -1770,7 +1770,7 @@ def FilmesHDPlay(): #532
 					os.remove(cachefolder+'Legendas/Baixarlegenda (Brasil)-pt.srt')
 		except:
 					pass
-		response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.baixarlegenda.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+		response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.baixarlegenda.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 		file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -1825,7 +1825,7 @@ def Filmesviatorrent(): # 533
 	for x in range(0, 4):
 		try:
 			y +=1
-			link = requests.get("https://filmesviatorrents.site/series-torrent/page/"+ str(y) +"/",headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+			link = requests.get("https://filmesviatorrents.site/series-torrent/page/"+ str(y) +"/",headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 			match = re.compile('<a href="(.+?)">\s.+\s.+\s.+src="(.+?)".+?alt="Imagem (.+?)"').findall(link.text)
 			if match:
 				for link, img2, name2 in match:
@@ -1837,7 +1837,7 @@ def Filmesviatorrent(): # 533
     
 def Filmesviatorrentmenu1(): #534
 	try:	
-		link = requests.get(url,headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+		link = requests.get(url,headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 		#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 		#arquivo.write(link.text.replace("<b>","\n<b>"))
 		#arquivo.close()
@@ -1850,7 +1850,7 @@ def Filmesviatorrentmenu1(): #534
 				AddDir(name2, link, 535, iconimage, iconimage, isFolder=True, IsPlayable=False, info="[COLOR][/COLOR]")
 	except:
 		pass
-		link = requests.get(url,headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+		link = requests.get(url,headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 		#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 		#arquivo.write(link.text.replace("<b>","\n<b>"))
 		#arquivo.close()
@@ -1932,11 +1932,11 @@ def Filmesviatorrentplay(): #536
 					xbmc.executebuiltin("Notification({0}, {1}, 20000, {2})".format(recom2, "[COLOR red][B]Buscando Legendas Externas...[/B][/COLOR]", iconimage))
 				except:
 					pass
-				url5 = requests.get("https://legendei.top/?s="+recom2,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				url5 = requests.get("https://legendei.top/?s="+recom2,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				teste = re.compile('thumbnail.+\s.+?href="(.+?)"').findall(url5)
 				teste = teste[0]
 				try:
-					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 					teste3 = teste3[0]
 				except:
@@ -1947,7 +1947,7 @@ def Filmesviatorrentplay(): #536
 					os.remove(cachefolder+'Legendas/Legendei (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -3521,8 +3521,8 @@ def Busca(): # 160
 			#p= 1
 			AddDir("[B][COLOR lightgreen]|||[/COLOR][COLOR white]|||[/COLOR][COLOR lightgreen]|||[/COLOR][COLOR lightgreen] [Comando.to] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
 			#l +=1
-			link = requests.get("https://comando.la/?s="+d.replace('%2B','+'),headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-			#link2 = re.compile("Results for(.+?)Clientes").findall(link.replace('\n','').replace('\r',''))#.replace("Baixar Série:</b> ","").replace("«</b></span><br /><b>",">").replace("«</b><b> </b></span><br /><b>Título Traduzido</b>: ",">").replace("«</strong></span><br /><b>",">").replace("«</b><b> </b></span><br /><strong>Título Traduzido</strong>: ",">").replace('Título Traduzido:</b> ',"").replace(">>",">").replace('<a href="https://comando.la/category/',"").replace("Titulo original:</b> ","").replace("Titulo Traduzido:</b> ","").replace("Titulo original :</b> ","").replace("Baixar Filme:</b> ",""))
+			link = requests.get("https://comandotorrents.to/?s="+d.replace('%2B','+'),headers={'Referer':'https://comandotorrents.to/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
+			#link2 = re.compile("Results for(.+?)Clientes").findall(link.replace('\n','').replace('\r',''))#.replace("Baixar Série:</b> ","").replace("«</b></span><br /><b>",">").replace("«</b><b> </b></span><br /><b>Título Traduzido</b>: ",">").replace("«</strong></span><br /><b>",">").replace("«</b><b> </b></span><br /><strong>Título Traduzido</strong>: ",">").replace('Título Traduzido:</b> ',"").replace(">>",">").replace('<a href="https://comandotorrents.to/category/',"").replace("Titulo original:</b> ","").replace("Titulo Traduzido:</b> ","").replace("Titulo original :</b> ","").replace("Baixar Filme:</b> ",""))
 			link2 = re.compile("Results for(.+)").findall(link.replace('\n','').replace('\r',''))
 			match = re.compile('"headline" ><a href="(.+?)">(.+?)<.+?" src="(.+?)"').findall(link2[0])
 			for link, name2, image2 in match:
@@ -3539,7 +3539,7 @@ def Busca(): # 160
 			#p= 1
 			AddDir("[B][COLOR mediumpurple]|||[/COLOR][COLOR white]|||[/COLOR][COLOR mediumpurple]|||[/COLOR][COLOR mediumpurple] [ComandoHdTorrents] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
 			#l +=1
-			link = requests.get("https://galaxytorrent.org/?s="+d.replace('%2B','+'),headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','').replace('&#124;','|').replace('src="data:','').replace('	','')
+			link = requests.get("https://galaxytorrent.org/?s="+d.replace('%2B','+'),headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','').replace('&#124;','|').replace('src="data:','').replace('	','')
 			#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 			#arquivo.write(link)
 			#arquivo.close()
@@ -3561,7 +3561,7 @@ def Busca(): # 160
 			#p= 1
 			AddDir("[B][COLOR yellow]|||[/COLOR][COLOR white]|||[/COLOR][COLOR yellow]|||[/COLOR][COLOR yellow] [Pirate-Torrent] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
 			#l +=1
-			link = requests.get("https://thepiratetorrents.org/?s="+d.replace('%2B','+'),headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+			link = requests.get("https://thepiratetorrents.org/?s="+d.replace('%2B','+'),headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile('<\/i><a href="(.+?)#.+?title="(.+?)".+?src="(.+?)".+?Duração:.+?>(.+?)<').findall(link)
 			for link, name2, image2, ep in match:
 				if "Temporada" in name2 or "EPISÓDIO" in name2 or "TEMPORADA" in name2 or 'EP' in ep:
@@ -3579,7 +3579,7 @@ def Busca(): # 160
 		l= 0
 		for x in range(0, 1):
 			l +=1
-			link = OpenURL("https://filmesviatorrents.site/?s="+d.replace('%2B','+'),headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).replace('\n','').replace('\r','').replace("  ","").replace("Dub & Leg","Dubleg")
+			link = OpenURL("https://filmesviatorrents.site/?s="+d.replace('%2B','+'),headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).replace('\n','').replace('\r','').replace("  ","").replace("Dub & Leg","Dubleg")
 			match = re.compile('TPost C"><a href="(.+?)">.+?src="(.+?)".alt=".+? (.+?)".+?ClB">(\w+).{1,99}<div class="mi').findall(link)
 			if match:
 				for link, img2, name2,dubleg in match:
@@ -3598,7 +3598,7 @@ def Busca(): # 160
 			#p= 1
 			AddDir("[B][COLOR salmon]|||[/COLOR][COLOR white]|||[/COLOR][COLOR salmon]|||[/COLOR][COLOR salmon] [DosTorrents] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
 			#l +=1
-			link = requests.get("https://comandotorrent4k.net/?s="+d, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+			link = requests.get("https://comandotorrent4k.net/?s="+d, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile('headline.+?<a href="(.+?)">(.+?)<.+?src="(.+?)"').findall(link)
 			for link, name2, image2 in match:
 				if "Temporada" in name2 or "Completo" in name2:
@@ -3615,7 +3615,7 @@ def Busca(): # 160
 		l= 0
 		for x in range(0, 2):
 			l +=1
-			link = requests.get("https://comoeubaixo.com/"+d.replace('%2B','%20')+'/'+str(l)+'/', headers={'Referer':'https://comoeubaixo.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+			link = requests.get("https://comoeubaixo.com/"+d.replace('%2B','%20')+'/'+str(l)+'/', headers={'Referer':'https://comoeubaixo.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile("middle'>	<a href='(.+?)'.+?src='(.+?)'.+?title.+?title.+?'>(.+?)<.+?strong>(.+?)<.+?Servidores<\/strong>:.(.+?)<").findall(link)
 			for link,image2, name2, nome3, tipo in match:
 				if not 'Torrent' in tipo: False
@@ -3630,7 +3630,7 @@ def Busca(): # 160
 			#p= 1
 			AddDir("[B][COLOR salmon]|||[/COLOR][COLOR white]|||[/COLOR][COLOR salmon]|||[/COLOR][COLOR salmon] [DosTorrents] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
 			#l +=1
-			link = requests.get("https://comandotorrent4k.net/?s="+d, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+			link = requests.get("https://comandotorrent4k.net/?s="+d, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile('headline" ><a href="(.+?)">(.+?)<.+?src="(.+?)"').findall(link)
 			for link, name2, image2 in match:
 				if "Temporada" in name2 or "Completo" in name2:
@@ -3646,7 +3646,7 @@ def Busca(): # 160
 			#p= 1
 			AddDir("[B][COLOR salmon]|||[/COLOR][COLOR white]|||[/COLOR][COLOR salmon]|||[/COLOR][COLOR salmon] [DosTorrents] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
 			#l +=1
-			link = requests.get("https://www.thepiratefilmetorrent.me/?s="+d,headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+			link = requests.get("https://www.thepiratefilmetorrent.me/?s="+d,headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile('headline">.+?href="(.+?)".+?title="(.+?)".src="(.+?)"').findall(link)
 			for link, name2, image2 in match:
 				if "Temporada" in name2 or "Completo" in name2:
@@ -3863,7 +3863,7 @@ def MoviesFO(): #170
 		l= int(pagina)*5
 		for x in range(0, 5):
 			l +=1
-			link = requests.get("https://comandofilmeshd.site/category/"+Clistafo0[int(Catfo)]+"/page/"+str(l)+"/",headers={'Referer':'https://comandofilmeshd.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+			link = requests.get("https://comandofilmeshd.site/category/"+Clistafo0[int(Catfo)]+"/page/"+str(l)+"/",headers={'Referer':'https://comandofilmeshd.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 			match = re.compile('<h1 class="post-title">\s.+<a href="(.+?)".+\s.+\s.+\s.+\s.+\s.+\s.+\s.+?title="Baixar (.+?)".+?src="(.+?)".+\s.+\s.+?Baixar.(.+?):.+\s.+\s.+?IMD.+?:.(.+?)<').findall(html.unescape(link.text.encode("utf-8").decode()))
 			for link, name2, image2, genero, nota in match:
 			#for link, name2, image2 in match:
@@ -3887,7 +3887,7 @@ def GetMFO1(): #171
 		pass
 	try:
 		url1 = re.sub('-torrent.+', '-torrent-download', url)
-		link = requests.get(url1.replace('comandofilmeshd.site','galaxytorrent.org'),headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		link = requests.get(url1.replace('comandofilmeshd.site','galaxytorrent.org'),headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(url.replace('comandofilmeshd.site','galaxytorrent.org').replace('-torrent','-torrent-dublado-download'))
 		#arquivo.close()
@@ -3933,7 +3933,7 @@ def GetMFO1(): #171
 		except:
 			pass
 			try:
-				#link = requests.get(url,headers={'Referer':'https://comandofilmeshd.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				#link = requests.get(url,headers={'Referer':'https://comandofilmeshd.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 				#arquivo.write(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
 				#arquivo.close()
@@ -4048,7 +4048,7 @@ def PlayMFO1(): #172
 								except:
 									urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
 									leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
-								leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+								leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 								leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
 							except:
 								pass
@@ -4057,7 +4057,7 @@ def PlayMFO1(): #172
 					leg4x = leg4[0][:-1].split(' ')
 					notific = (['\w'+name[1:]+'' for name in leg4x])
 					leg4xx = ' '.join(notific)
-					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					try:
 						dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0]).findall(url5.replace(':','').replace("'",''))
 						off1 = dev1x[0]
@@ -4083,7 +4083,7 @@ def PlayMFO1(): #172
 					except:
 						urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
 						leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
-					leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
 				except:
 					pass
@@ -4092,7 +4092,7 @@ def PlayMFO1(): #172
 					leg4x = leg4[0][:-1].split(' ')
 					notific = (['\w'+name[1:]+'' for name in leg4x])
 					leg4xx = ' '.join(notific)
-					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					try:
 						dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0]).findall(url5)
 						off1 = dev1x[0]
@@ -4106,19 +4106,19 @@ def PlayMFO1(): #172
 					pass
 			try:
 				dev1 = re.compile('href="(.title.+?)"').findall(dev1x[0])
-				url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				try:
 					devx = re.compile('Brazil.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 					off = devx[0]
-					url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-br', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-br', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				except:
 					try:
 						devx = re.compile('Portugal.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						off = devx[0]
-						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					except:
 						devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
-						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				dev2 = re.compile('[^"\']*\.srt').findall(url3)
 				teste3 = 'https://www.elsubtitle.com/' + dev2[0]
 
@@ -4127,7 +4127,7 @@ def PlayMFO1(): #172
 					os.remove(cachefolder+'Legendas/Elsubtitle (Brasil)-pt.forced.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 				with open(cachefolder+'Legendas/Elsubtitle (Brasil)-pt.forced.srt', 'wb')as file: file.write(response.content)
 				try:
 					local = os.path.abspath(cachefolder+"Legendas")
@@ -4158,10 +4158,10 @@ def PlayMFO1(): #172
 				#arquivo = open(cachefolder + "LegendaT.txt", "w+")
 				#arquivo.write(leg4[0])
 				#arquivo.close()
-				url5 = requests.get("https://legendei.top/?s="+leg4[0].replace(':',''),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n','').replace('\r','')
+				url5 = requests.get("https://legendei.top/?s="+leg4[0].replace(':',''),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text#.replace('\n','').replace('\r','')
 				teste = re.compile('thumbnail">\s\s.+?href="(.+?)".+?title.+?'+leg4[0][:-1].replace(':','')+'\s[(]').findall(url5.replace(':',''))
 				teste = teste[0]
-				teste2 = requests.get(teste.replace('https//','https://'),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				teste2 = requests.get(teste.replace('https//','https://'),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 				teste3 = teste3[0]
 
@@ -4170,7 +4170,7 @@ def PlayMFO1(): #172
 					os.remove(cachefolder+'Legendas/Legendei (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -4246,7 +4246,7 @@ def PlayMFO1(): #172
 			except:
 				pass'''
 			try:
-				link = requests.get("https://www.opensubtitles.org/pb/search2/sublanguageid-pob/moviename-"+leg4[0].replace(' ','+').replace(':',''),headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				link = requests.get("https://www.opensubtitles.org/pb/search2/sublanguageid-pob/moviename-"+leg4[0].replace(' ','+').replace(':',''),headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 				link2 = re.compile('href=".pb.search.sublanguageid-pob.(idmovie-\w+)">'+leg4[0][:-1].replace(':','')+'[(]').findall(link.text.replace('\n','').replace('\r','').replace(':','').encode('ascii', 'ignore').decode())
 				try:
 					link3 = "https://www.opensubtitles.org/pb/search/"+link2[0]+"/sublanguageid-pob"
@@ -4272,7 +4272,7 @@ def PlayMFO1(): #172
 					os.remove(cachefolder+'Legendas/OpenSubtitles (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -4303,9 +4303,9 @@ def PlayMFO1(): #172
 			except:
 				pass
 			try:
-				link = requests.get("https://www.baixarlegenda.net/?s="+popup[:-1].replace(' ','+'), headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n', '').replace('\r', '')
+				link = requests.get("https://www.baixarlegenda.net/?s="+popup[:-1].replace(' ','+'), headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text#.replace('\n', '').replace('\r', '')
 				match = re.compile('title">'+popup[:-1]+'<.+?<.span> <.div> <a href="(.+?)"').findall(link)
-				link2 = requests.get(match[0], headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				link2 = requests.get(match[0], headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				match2 = re.compile('href="(.+?)" class="btn sm rnd blk">Download').findall(link2.replace('#038;',''))
 				download = match2[0]
 				path = cachefolder+"Legendas/"
@@ -4313,7 +4313,7 @@ def PlayMFO1(): #172
 					os.remove(cachefolder+'Legendas/Baixarlegenda (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.baixarlegenda.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.baixarlegenda.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -4369,7 +4369,7 @@ def MoviesPR(): #186
 		l= int(cPagepr1)*6
 		for x in range(0, 6):
 			l +=1
-			link = requests.get("https://thepiratetorrents.org/category/genero/"+Clistapr0[int(Catpr)]+"/page/"+str(l)+"/",headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+			link = requests.get("https://thepiratetorrents.org/category/genero/"+Clistapr0[int(Catpr)]+"/page/"+str(l)+"/",headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile('<\/i><a href="(.+?)#.+?title="(.+?)".+?src="(.+?)".+?Duração:.+?>(.+?)<').findall(link)
 			for link, name2, image2, ep in match:
 				if "Temporada" in name2 or "EPISÓDIO" in name2 or "TEMPORADA" in name2 or 'EP' in ep: False
@@ -4384,7 +4384,7 @@ def MoviesPR(): #186
 		
 def MenuPR(): #187
 	try:
-		brevelink = requests.get(url,headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+		brevelink = requests.get(url,headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 		breve = re.compile('">(EM BREVE)<.span>').findall(brevelink)
 		breve = breve[0]
 		AddDir("[COLOR red][B]*EM BREVE (AINDA NÃO DISPONIVEL)*[/B][/COLOR]", '', '', iconimage, iconimage, isFolder=False, IsPlayable=True, info='Filme ainda não está disponivel, provavelmente ainda nos cinemas')
@@ -4400,7 +4400,7 @@ def MenuPR(): #187
 	except:
 		pass
 	try:
-		link = requests.get(url,headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+		link = requests.get(url,headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 		#arquivo = open(cachefolder + "pirate.txt", "w+")
 		#arquivo.write(url)
 		#arquivo.close()
@@ -4492,7 +4492,7 @@ def PlayPR(): #188
 								except:
 									urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
 									leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
-								leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+								leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 								leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
 							except:
 								pass
@@ -4501,7 +4501,7 @@ def PlayPR(): #188
 					leg4x = leg4[0][:-1].split(' ')
 					notific = (['\w'+name[1:]+'' for name in leg4x])
 					leg4xx = ' '.join(notific)
-					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					try:
 						dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0]).findall(url5.replace(':','').replace("'",''))
 						off1 = dev1x[0]
@@ -4527,7 +4527,7 @@ def PlayPR(): #188
 					except:
 						urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
 						leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
-					leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
 				except:
 					pass
@@ -4536,7 +4536,7 @@ def PlayPR(): #188
 					leg4x = leg4[0][:-1].split(' ')
 					notific = (['\w'+name[1:]+'' for name in leg4x])
 					leg4xx = ' '.join(notific)
-					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					try:
 						dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0]).findall(url5)
 						off1 = dev1x[0]
@@ -4550,19 +4550,19 @@ def PlayPR(): #188
 					pass
 			try:
 				dev1 = re.compile('href="(.title.+?)"').findall(dev1x[0])
-				url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				try:
 					devx = re.compile('Brazil.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 					off = devx[0]
-					url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-br', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-br', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				except:
 					try:
 						devx = re.compile('Portugal.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						off = devx[0]
-						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					except:
 						devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
-						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				dev2 = re.compile('[^"\']*\.srt').findall(url3)
 				teste3 = 'https://www.elsubtitle.com/' + dev2[0]
 
@@ -4571,7 +4571,7 @@ def PlayPR(): #188
 					os.remove(cachefolder+'Legendas/Elsubtitle (Brasil)-pt.forced.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 				with open(cachefolder+'Legendas/Elsubtitle (Brasil)-pt.forced.srt', 'wb')as file: file.write(response.content)
 				try:
 					local = os.path.abspath(cachefolder+"Legendas")
@@ -4602,10 +4602,10 @@ def PlayPR(): #188
 				#arquivo = open(cachefolder + "LegendaT.txt", "w+")
 				#arquivo.write(leg4[0])
 				#arquivo.close()
-				url5 = requests.get("https://legendei.top/?s="+leg4[0].replace(':',''),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n','').replace('\r','')
+				url5 = requests.get("https://legendei.top/?s="+leg4[0].replace(':',''),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text#.replace('\n','').replace('\r','')
 				teste = re.compile('thumbnail">\s\s.+?href="(.+?)".+?title.+?'+leg4[0][:-1].replace(':','')+'\s[(]').findall(url5.replace(':',''))
 				teste = teste[0]
-				teste2 = requests.get(teste.replace('https//','https://'),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				teste2 = requests.get(teste.replace('https//','https://'),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 				teste3 = teste3[0]
 
@@ -4614,7 +4614,7 @@ def PlayPR(): #188
 					os.remove(cachefolder+'Legendas/Legendei (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -4690,7 +4690,7 @@ def PlayPR(): #188
 			except:
 				pass'''
 			try:
-				link = requests.get("https://www.opensubtitles.org/pb/search2/sublanguageid-pob/moviename-"+leg4[0].replace(' ','+').replace(':',''),headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				link = requests.get("https://www.opensubtitles.org/pb/search2/sublanguageid-pob/moviename-"+leg4[0].replace(' ','+').replace(':',''),headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 				link2 = re.compile('href=".pb.search.sublanguageid-pob.(idmovie-\w+)">'+leg4[0][:-1].replace(':','')+'[(]').findall(link.text.replace('\n','').replace('\r','').replace(':','').encode('ascii', 'ignore').decode())
 				try:
 					link3 = "https://www.opensubtitles.org/pb/search/"+link2[0]+"/sublanguageid-pob"
@@ -4716,7 +4716,7 @@ def PlayPR(): #188
 					os.remove(cachefolder+'Legendas/OpenSubtitles (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -4747,9 +4747,9 @@ def PlayPR(): #188
 			except:
 				pass
 			try:
-				link = requests.get("https://www.baixarlegenda.net/?s="+popup[:-1].replace(' ','+'), headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n', '').replace('\r', '')
+				link = requests.get("https://www.baixarlegenda.net/?s="+popup[:-1].replace(' ','+'), headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text#.replace('\n', '').replace('\r', '')
 				match = re.compile('title">'+popup[:-1]+'<.+?<.span> <.div> <a href="(.+?)"').findall(link)
-				link2 = requests.get(match[0], headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				link2 = requests.get(match[0], headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				match2 = re.compile('href="(.+?)" class="btn sm rnd blk">Download').findall(link2.replace('#038;',''))
 				download = match2[0]
 				path = cachefolder+"Legendas/"
@@ -4757,7 +4757,7 @@ def PlayPR(): #188
 					os.remove(cachefolder+'Legendas/Baixarlegenda (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.baixarlegenda.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.baixarlegenda.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -4811,7 +4811,7 @@ def Pirateserie(): #250
 	for x in range(0, 4):
 		try:
 			y +=1
-			link = requests.get("https://thepiratetorrents.org/category/series/page/"+str(y)+"/",headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+			link = requests.get("https://thepiratetorrents.org/category/series/page/"+str(y)+"/",headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile('<\/i><a href="(.+?)#.+?title="(.+?)".+?src="(.+?)"').findall(link)
 			for link, name2, image2 in match:
 				AddDir(name2.replace("Torrent ","").replace(" –",""), link, 251, image2, image2, isFolder=True, info='\xa0')
@@ -4821,7 +4821,7 @@ def Pirateserie(): #250
 
 def Piratemenu(): #251
 	try:
-		link = requests.get(url,headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+		link = requests.get(url,headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 		#arquivo = open(cachefolder + "netcine.txt", "w+")
 		#arquivo.write(link.replace('Versão Legendado:',':: LEGENDADO ::').replace('Versão Dual Áudio / Dublado:',':: DUAL ÁUDIO / DUBLADO ::').replace('color: #ff0000;">','><h2').replace('﻿',''))
 		#arquivo.close()
@@ -4832,7 +4832,7 @@ def Piratemenu(): #251
 			AddDir(title2, "https://"+link, 252, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 	except:
 		pass
-		#link = requests.get(url,headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n','').replace('\r','')
+		#link = requests.get(url,headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text#.replace('\n','').replace('\r','')
 		match = re.compile('DOWNLOAD.+?<strong>(.+?)<(.+?)><h2').findall(link.replace('﻿',''))
 		for title2, link in match:
 			if ":: LEGENDADO ::" in title2 or ":: DUAL ÁUDIO / DUBLADO ::" in title2 or "OBS:" in title2: False
@@ -4936,11 +4936,11 @@ def Pirateplay(): #253
 					xbmc.executebuiltin("Notification({0}, {1}, 20000, {2})".format(recom2, "[COLOR red][B]Buscando Legendas Externas...[/B][/COLOR]", iconimage))
 				except:
 					pass
-				url5 = requests.get("https://legendei.top/?s="+recom2,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				url5 = requests.get("https://legendei.top/?s="+recom2,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				teste = re.compile('thumbnail.+\s.+?href="(.+?)"').findall(url5)
 				teste = teste[0]
 				try:
-					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 					teste3 = teste3[0]
 				except:
@@ -4951,7 +4951,7 @@ def Pirateplay(): #253
 					os.remove(cachefolder+'Legendas/Legendei (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -5004,7 +5004,7 @@ def comandoseries(): #173
 	for x in range(0, 4):
 		try:
 			y +=1
-			link = requests.get("https://comandofilmeshd.site/category/series/page/"+str(y)+"/",headers={'Referer':'https://comandofilmeshd.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+			link = requests.get("https://comandofilmeshd.site/category/series/page/"+str(y)+"/",headers={'Referer':'https://comandofilmeshd.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 			match = re.compile('<h1 class="post-title">\s.+<a href="(.+?)".+\s.+\s.+\s.+\s.+\s.+\s.+\s.+?title="Baixar (.+?)".+?src="(.+?)"').findall(html.unescape(link.replace('src="data:','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('	','')))
 			for link, name2, image2 in match:
 				AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Download',''), link, 174, image2, image2, isFolder=True, info='\xa0')
@@ -5015,7 +5015,7 @@ def comandoseries(): #173
 def comandomenu1(): #174
 	#try:
 		url1 = re.sub('-torrent.+', '-torrent-download', url)
-		link = requests.get(url1.replace('comandofilmeshd.site','galaxytorrent.org'), headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		link = requests.get(url1.replace('comandofilmeshd.site','galaxytorrent.org'), headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 		#arquivo.write(link.replace('\n','').replace('\r','').replace('﻿','').replace('​​','').replace('»<b>','<strong>::').replace('«</strong>','::').replace('»<b>','<strong>:: ').replace('«</strong>','::').replace('**FIM DE TEMPORADA**','><h2'))
 		#arquivo.close()
@@ -5194,15 +5194,15 @@ def comandoplay(): #178
 				cutsnum = re.compile('S[0-9]([0-9])').findall(recom2)[0]
 				seasonnum = cuts+' '+cutsnum+'ª'
 				try:
-					url5 = requests.get("https://legendei.top/?s=" + recom2, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url5 = requests.get("https://legendei.top/?s=" + recom2, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					teste = re.compile('thumbnail.+\s.+?href="(.+?)".+?title="'+cuts).findall(url5.replace('Permanent Link to ',''))
 					teste = teste[0]
 				except:
-					url5 = requests.get("https://legendei.top/?s=" + seasonnum, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url5 = requests.get("https://legendei.top/?s=" + seasonnum, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					teste = re.compile('thumbnail.+\s.+?href="(.+?)".+?title="' + cuts).findall(url5.replace('Permanent Link to ', ''))
 					teste = teste[0]
 				try:
-					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 					teste3 = teste3[0]
 				except:
@@ -5213,7 +5213,7 @@ def comandoplay(): #178
 					os.remove(cachefolder+'Legendas/Legendei (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -5345,15 +5345,15 @@ def Paylistplay(): #542
 				cutsnum = re.compile('S[0-9]([0-9])').findall(recom2)[0]
 				seasonnum = cuts+' '+cutsnum+'ª'
 				try:
-					url5 = requests.get("https://legendei.top/?s=" + recom2, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url5 = requests.get("https://legendei.top/?s=" + recom2, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					teste = re.compile('thumbnail.+\s.+?href="(.+?)".+?title="'+cuts).findall(url5.replace('Permanent Link to ',''))
 					teste = teste[0]
 				except:
-					url5 = requests.get("https://legendei.top/?s=" + seasonnum, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url5 = requests.get("https://legendei.top/?s=" + seasonnum, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					teste = re.compile('thumbnail.+\s.+?href="(.+?)".+?title="' + cuts).findall(url5.replace('Permanent Link to ', ''))
 					teste = teste[0]
 				try:
-					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 					teste3 = teste3[0]
 				except:
@@ -5364,7 +5364,7 @@ def Paylistplay(): #542
 					os.remove(cachefolder+'Legendas/Legendei (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -5543,15 +5543,15 @@ def Paylistplay2(): #543
 					cutsnum = re.compile('S[0-9]([0-9])').findall(recom2)[0]
 					seasonnum = cuts+' '+cutsnum+'ª'
 					try:
-						url5 = requests.get("https://legendei.top/?s=" + recom2, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url5 = requests.get("https://legendei.top/?s=" + recom2, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 						teste = re.compile('thumbnail.+\s.+?href="(.+?)".+?title="'+cuts).findall(url5.replace('Permanent Link to ',''))
 						teste = teste[0]
 					except:
-						url5 = requests.get("https://legendei.top/?s=" + seasonnum, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url5 = requests.get("https://legendei.top/?s=" + seasonnum, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 						teste = re.compile('thumbnail.+\s.+?href="(.+?)".+?title="' + cuts).findall(url5.replace('Permanent Link to ', ''))
 						teste = teste[0]
 					try:
-						teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 						teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 						teste3 = teste3[0]
 					except:
@@ -5562,7 +5562,7 @@ def Paylistplay2(): #543
 						os.remove(cachefolder+'Legendas/Legendei (Brasil)-pt.srt')
 					except:
 						pass
-					response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+					response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 	
 					file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -5706,15 +5706,15 @@ def Paylistplay2(): #543
 					cutsnum = re.compile('S[0-9]([0-9])').findall(recom2)[0]
 					seasonnum = cuts+' '+cutsnum+'ª'
 					try:
-						url5 = requests.get("https://legendei.top/?s=" + recom2, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url5 = requests.get("https://legendei.top/?s=" + recom2, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 						teste = re.compile('thumbnail.+\s.+?href="(.+?)".+?title="'+cuts).findall(url5.replace('Permanent Link to ',''))
 						teste = teste[0]
 					except:
-						url5 = requests.get("https://legendei.top/?s=" + seasonnum, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url5 = requests.get("https://legendei.top/?s=" + seasonnum, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 						teste = re.compile('thumbnail.+\s.+?href="(.+?)".+?title="' + cuts).findall(url5.replace('Permanent Link to ', ''))
 						teste = teste[0]
 					try:
-						teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 						teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 						teste3 = teste3[0]
 					except:
@@ -5725,7 +5725,7 @@ def Paylistplay2(): #543
 						os.remove(cachefolder+'Legendas/Legendei (Brasil)-pt.srt')
 					except:
 						pass
-					response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})	
+					response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})	
 
 					file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -5824,7 +5824,7 @@ def Comandotomenu(): #518
 						l= int(cPageMEG)*4
 						for x in range(0, 4):
 							l +=1
-							link = requests.get("https://comando.la/"+"/page/"+str(l)+"/",headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+							link = requests.get("https://comandotorrents.to/"+"/page/"+str(l)+"/",headers={'Referer':'https://comandotorrents.to/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 							match = re.compile('"headline" ><a href="(.+?)">(.+?)<.+?" src="(.+?)".+?>([0-9].+?)<').findall(link.replace('>: ','>'))
 							for link, name2, image2, imdb in match:
 								if "Temporada" in name2 or "Completo" in name2 or "Minissérie" in name2: False
@@ -5835,8 +5835,8 @@ def Comandotomenu(): #518
 					except:
 						pass
 				#AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="FIXADOS", info='\xa0')
-			elemento = "https://comando.la/category/"+ClistaMEG10[int(CatMG)]+"/page/"+str(l)+"/"
-			link = requests.get(elemento.replace('page/1/',''),headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+			elemento = "https://comandotorrents.to/category/"+ClistaMEG10[int(CatMG)]+"/page/"+str(l)+"/"
+			link = requests.get(elemento.replace('page/1/',''),headers={'Referer':'https://comandotorrents.to/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 			link2 = re.compile("Categoria:(.+?)Página").findall(link.replace('\n','').replace('\r',''))
 			#arquivo = open(cachefolder + "TuaSerie2.txt", "w+")
 			#arquivo.write(html.unescape(link2[0]))
@@ -5866,7 +5866,7 @@ def Comandotomenu2(): #519
 	except:
 		pass
 	try:
-		link = requests.get(url,headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('<strong>DUAL ÁUDIO</strong>','<strong>:: DUAL ÁUDIO ::</strong>').replace('DUAL ÁUDIO',':: DUAL ÁUDIO ::').replace('<strong>DUBLADO OFICIAL</strong>','<strong>:: DUBLADO OFICIAL ::</strong>').replace('<strong>DUBLADO NÃO OFICIAL</strong>','<strong>:: DUBLADO NÃO OFICIAL ::</strong>').replace('<strong>LEGENDADO</strong>','<strong>:: LEGENDADO ::</strong>').replace('<strong>DUBLADO</strong>','<strong>:: DUBLADO ::</strong>')
+		link = requests.get(url,headers={'Referer':'https://comandotorrents.to/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('<strong>DUAL ÁUDIO</strong>','<strong>:: DUAL ÁUDIO ::</strong>').replace('DUAL ÁUDIO',':: DUAL ÁUDIO ::').replace('<strong>DUBLADO OFICIAL</strong>','<strong>:: DUBLADO OFICIAL ::</strong>').replace('<strong>DUBLADO NÃO OFICIAL</strong>','<strong>:: DUBLADO NÃO OFICIAL ::</strong>').replace('<strong>LEGENDADO</strong>','<strong>:: LEGENDADO ::</strong>').replace('<strong>DUBLADO</strong>','<strong>:: DUBLADO ::</strong>')
 		#arquivo = open(cachefolder + "TuaSerie2.txt", "w+")
 		#arquivo.write(link.replace('\n','').replace('\r','').replace("</a></strong></p><p><","<strong>:: SELECIONE A OPÇÃO ::</strong>").replace('blank">K-Lite-Codec-Pack</a></strong></p><h2 style="text-align: center;">','<strong>:: SELECIONE A OPÇÃO ::</strong></a></strong></p> style="text-align: center;">').replace("</a></p><h2","").replace('/> style="text-align: center;">','<p style="text-align: center;"><strong>').replace('</strong></a></strong></p> style="text-align: center;">','<p style="text-align: center;"><strong>').replace('" width="300" height="125" /></p><p>','<p style="text-align: center;"><strong>Completo').replace('DVDRip (<strong style="font-style: italic;">','<strong>:: SELECIONE A OPÇÃO ::</strong></a></strong></p> style="text-align: center;">').replace('</strong>)</h4><p>','<p style="text-align: center;"><strong>Completo').replace("<strong>BAIXAR FILME</strong>",'<strong>:: SELECIONE A OPÇÃO ::</strong></a></strong></p> style="text-align: center;">').replace('LEGENDA</a></p></div><div style="text-align: center;">','<p style="text-align: center;"><strong>Completo').replace("MULTI ÁUDIO","[COLOR springgreen][B]Multi Áudio[/B][/COLOR]").replace("</strong></p><p>720p</p></div>","<strong>:: 720 ::</a></div>").replace("</a></strong></p></div>","<strong>:: Dublado ::</a></div>"))
 		#arquivo.close()
@@ -5982,7 +5982,7 @@ def Comandotoplayer(): #519
 								except:
 									urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
 									leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
-								leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+								leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 								leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
 							except:
 								pass
@@ -5991,7 +5991,7 @@ def Comandotoplayer(): #519
 					leg4x = leg4[0][:-1].split(' ')
 					notific = (['\w'+name[1:]+'' for name in leg4x])
 					leg4xx = ' '.join(notific)
-					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					try:
 						dev1x = re.compile('href=".{1,400}' + leg4xx + '.+?.-.\(' + backcut[0]).findall(url5.replace(':','').replace("'",''))
 						off1 = dev1x[0]
@@ -6017,7 +6017,7 @@ def Comandotoplayer(): #519
 					except:
 						urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
 						leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
-					leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
 				except:
 					pass
@@ -6026,7 +6026,7 @@ def Comandotoplayer(): #519
 					leg4x = leg4[0][:-1].split(' ')
 					notific = (['\w'+name[1:]+'' for name in leg4x])
 					leg4xx = ' '.join(notific)
-					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					try:
 						dev1x = re.compile('href=".{1,400}' + leg4xx + '.+?.-.\(' + backcut[0]).findall(url5)
 						off1 = dev1x[0]
@@ -6043,28 +6043,28 @@ def Comandotoplayer(): #519
 				#arquivo = open(cachefolder + "movies.txt", "w+")
 				#arquivo.write(dev1[0])
 				#arquivo.close()
-				url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				try:
 					devx = re.compile('Brazil.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 					off = devx[0]
-					url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-br', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-br', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					url4 = re.compile('subtitles-download-p2.+?>\s.+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)"').findall(url3)
 					for rawurlencode, sublanguage, downloadtext, worktitle, workyear, workid in url4:
-						url3 = requests.post('https://www.elsubtitle.com/subtitles-download-p2/',data={'rawurlencode': rawurlencode, 'sublanguage': sublanguage, 'downloadtext': downloadtext,'worktitle': worktitle,'workyear': workyear, 'workid': workid},headers={'Referer': 'https://www.elsubtitle.com/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url3 = requests.post('https://www.elsubtitle.com/subtitles-download-p2/',data={'rawurlencode': rawurlencode, 'sublanguage': sublanguage, 'downloadtext': downloadtext,'worktitle': worktitle,'workyear': workyear, 'workid': workid},headers={'Referer': 'https://www.elsubtitle.com/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				except:
 					try:
 						devx = re.compile('Portugal.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						off = devx[0]
-						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 						url4 = re.compile('subtitles-download-p2.+?>\s.+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)"').findall(url3)
 						for rawurlencode, sublanguage, downloadtext, worktitle, workyear, workid in url4:
-							url3 = requests.post('https://www.elsubtitle.com/subtitles-download-p2/',data={'rawurlencode': rawurlencode, 'sublanguage': sublanguage, 'downloadtext': downloadtext,'worktitle': worktitle,'workyear': workyear, 'workid': workid},headers={'Referer': 'https://www.elsubtitle.com/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+							url3 = requests.post('https://www.elsubtitle.com/subtitles-download-p2/',data={'rawurlencode': rawurlencode, 'sublanguage': sublanguage, 'downloadtext': downloadtext,'worktitle': worktitle,'workyear': workyear, 'workid': workid},headers={'Referer': 'https://www.elsubtitle.com/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					except:
 						devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
-						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 						url4 = re.compile('subtitles-download-p2.+?>\s.+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)".+?value="(.+?)"').findall(url3)
 						for rawurlencode, sublanguage, downloadtext, worktitle, workyear, workid in url4:
-							url3 = requests.post('https://www.elsubtitle.com/subtitles-download-p2/',data={'rawurlencode': rawurlencode, 'sublanguage': sublanguage, 'downloadtext': downloadtext,'worktitle': worktitle,'workyear': workyear, 'workid': workid},headers={'Referer': 'https://www.elsubtitle.com/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+							url3 = requests.post('https://www.elsubtitle.com/subtitles-download-p2/',data={'rawurlencode': rawurlencode, 'sublanguage': sublanguage, 'downloadtext': downloadtext,'worktitle': worktitle,'workyear': workyear, 'workid': workid},headers={'Referer': 'https://www.elsubtitle.com/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				dev2 = re.compile('[^"\']*\.srt').findall(url3)
 				teste3 = 'https://www.elsubtitle.com/' + dev2[0]
 
@@ -6073,7 +6073,7 @@ def Comandotoplayer(): #519
 					os.remove(cachefolder+'Legendas/Elsubtitle (Brasil)-pt.forced.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 				with open(cachefolder+'Legendas/Elsubtitle (Brasil)-pt.forced.srt', 'wb')as file: file.write(response.content)
 				try:
 					local = os.path.abspath(cachefolder+"Legendas")
@@ -6104,13 +6104,13 @@ def Comandotoplayer(): #519
 				#arquivo = open(cachefolder + "LegendaT.txt", "w+")
 				#arquivo.write(leg4[0])
 				#arquivo.close()
-				url5 = requests.get("https://legendei.top/?s="+leg4[0].replace(':','').replace('(',''),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n','').replace('\r','')
+				url5 = requests.get("https://legendei.top/?s="+leg4[0].replace(':','').replace('(',''),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text#.replace('\n','').replace('\r','')
 				leg1x1 = leg4[0][:-2].replace(':', '').replace('(','').split(' ')
 				notific1 = (['\w' + name[1:] + '' for name in leg1x1])
 				cut1 = ' '.join(notific1)
 				teste = re.compile('thumbnail">\s\s.+?href="(.+?)".+?title.+?'+cut1+'\s[(]').findall(url5.replace(':',''))
 				teste = teste[0]
-				teste2 = requests.get(teste.replace('https//','https://'),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				teste2 = requests.get(teste.replace('https//','https://'),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 				teste3 = teste3[0]
 
@@ -6119,7 +6119,7 @@ def Comandotoplayer(): #519
 					os.remove(cachefolder+'Legendas/Legendei (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -6195,7 +6195,7 @@ def Comandotoplayer(): #519
 			except:
 				pass'''
 			try:
-				link = requests.get("https://www.opensubtitles.org/pb/search2/sublanguageid-pob/moviename-"+leg4[0].replace(' ','+').replace(':',''),headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				link = requests.get("https://www.opensubtitles.org/pb/search2/sublanguageid-pob/moviename-"+leg4[0].replace(' ','+').replace(':',''),headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 				link2 = re.compile('href=".pb.search.sublanguageid-pob.(idmovie-\w+)">'+leg4[0][:-1].replace(':','')+'[(]').findall(link.text.replace('\n','').replace('\r','').replace(':','').encode('ascii', 'ignore').decode())
 				try:
 					link3 = "https://www.opensubtitles.org/pb/search/"+link2[0]+"/sublanguageid-pob"
@@ -6221,7 +6221,7 @@ def Comandotoplayer(): #519
 					os.remove(cachefolder+'Legendas/OpenSubtitles (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -6252,9 +6252,9 @@ def Comandotoplayer(): #519
 			except:
 				pass
 			try:
-				link = requests.get("https://www.baixarlegenda.net/?s="+popup[:-1].replace(' ','+'), headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n', '').replace('\r', '')
+				link = requests.get("https://www.baixarlegenda.net/?s="+popup[:-1].replace(' ','+'), headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text#.replace('\n', '').replace('\r', '')
 				match = re.compile('title">'+popup[:-1]+'<.+?<.span> <.div> <a href="(.+?)"').findall(link)
-				link2 = requests.get(match[0], headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				link2 = requests.get(match[0], headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				match2 = re.compile('href="(.+?)" class="btn sm rnd blk">Download').findall(link2.replace('#038;',''))
 				download = match2[0]
 				path = cachefolder+"Legendas/"
@@ -6262,7 +6262,7 @@ def Comandotoplayer(): #519
 					os.remove(cachefolder+'Legendas/Baixarlegenda (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.baixarlegenda.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.baixarlegenda.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -6317,9 +6317,9 @@ def Comandotoserie(): #522
 	for x in range(0, 4):
 		try:
 			y +=1
-			urs = "https://comando.la/category/series/page/"+str(y)+"/"
-			link = requests.get(urs.replace('page/1/',''),headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
-			#link2 = re.compile("Categoria:(.+?)Clientes").findall(link.replace('\n','').replace('\r',''))#.replace("Baixar Série:</b> ","").replace("«</b></span><br /><b>",">").replace("«</b><b> </b></span><br /><b>Título Traduzido</b>: ",">").replace("«</strong></span><br /><b>",">").replace("«</b><b> </b></span><br /><strong>Título Traduzido</strong>: ",">").replace('Título Traduzido:</b> ',"").replace(">>",">").replace('<a href="https://comando.la/category/',"").replace("Titulo original:</b> ","").replace("Titulo Traduzido:</b> ","").replace("Titulo original :</b> ","").replace("Baixar Filme:</b> ",""))
+			urs = "https://comandotorrents.to/category/series/page/"+str(y)+"/"
+			link = requests.get(urs.replace('page/1/',''),headers={'Referer':'https://comandotorrents.to/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
+			#link2 = re.compile("Categoria:(.+?)Clientes").findall(link.replace('\n','').replace('\r',''))#.replace("Baixar Série:</b> ","").replace("«</b></span><br /><b>",">").replace("«</b><b> </b></span><br /><b>Título Traduzido</b>: ",">").replace("«</strong></span><br /><b>",">").replace("«</b><b> </b></span><br /><strong>Título Traduzido</strong>: ",">").replace('Título Traduzido:</b> ',"").replace(">>",">").replace('<a href="https://comandotorrents.to/category/',"").replace("Titulo original:</b> ","").replace("Titulo Traduzido:</b> ","").replace("Titulo original :</b> ","").replace("Baixar Filme:</b> ",""))
 			link2 = re.compile("Categoria:(.+)").findall(link.replace('\n','').replace('\r',''))
 			match = re.compile('"headline" ><a href="(.+?)">(.+?)<.+?" src="(.+?)"').findall(link2[0])
 			for link, name2, image2 in match:
@@ -6329,12 +6329,12 @@ def Comandotoserie(): #522
 	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserCMT", info='\xa0')
 
 def Comandotoserie2(): #523
-	link = requests.get(url,headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('DUAL ÁUDIO','<strong>:: DUAL ÁUDIO ::</strong>').replace('<strong>DUBLADO OFICIAL</strong>','<strong>:: DUBLADO OFICIAL ::</strong>').replace('DUBLADO NÃO OFICIAL','<strong>:: DUBLADO NÃO OFICIAL ::</strong>').replace('LEGENDADO','<strong>:: LEGENDADO ::</strong>').replace('<strong>DUBLADO</strong>','<strong>:: DUBLADO ::</strong>').replace('<strong> DUBLADO </strong>','<strong>:: DUBLADO ::</strong>')
+	link = requests.get(url,headers={'Referer':'https://comandotorrents.to/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('DUAL ÁUDIO','<strong>:: DUAL ÁUDIO ::</strong>').replace('<strong>DUBLADO OFICIAL</strong>','<strong>:: DUBLADO OFICIAL ::</strong>').replace('DUBLADO NÃO OFICIAL','<strong>:: DUBLADO NÃO OFICIAL ::</strong>').replace('LEGENDADO','<strong>:: LEGENDADO ::</strong>').replace('<strong>DUBLADO</strong>','<strong>:: DUBLADO ::</strong>').replace('<strong> DUBLADO </strong>','<strong>:: DUBLADO ::</strong>')
 	#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 	#arquivo.write(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('﻿',''))
 	#arquivo.close()
 	try:
-		#link = requests.get(url,headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		#link = requests.get(url,headers={'Referer':'https://comandotorrents.to/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 		#arquivo.write(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('<hr','<h2>').replace('﻿',''))
 		#arquivo.close()
@@ -6351,7 +6351,7 @@ def Comandotoserie2(): #523
 	except:
 		pass
 		try:
-			#link = requests.get(url,headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+			#link = requests.get(url,headers={'Referer':'https://comandotorrents.to/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 			#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 			#arquivo.write(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2"))
 			#arquivo.close()
@@ -6364,7 +6364,7 @@ def Comandotoserie2(): #523
 		except:
 			pass
 			try:
-				#link = requests.get(url,headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				#link = requests.get(url,headers={'Referer':'https://comandotorrents.to/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 				#arquivo.write(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2"))
 				#arquivo.close()
@@ -6376,7 +6376,7 @@ def Comandotoserie2(): #523
 						AddDir(title2, link, 524, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 			except:
 				pass
-				#link = requests.get(url,headers={'Referer':'https://comando.la/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				#link = requests.get(url,headers={'Referer':'https://comandotorrents.to/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 				#arquivo.write(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2"))
 				#arquivo.close()
@@ -6510,15 +6510,15 @@ def Comandotoserieplay(): #525
 				cutsnum = re.compile('S[0-9]([0-9])').findall(recom2)[0]
 				seasonnum = cuts+' '+cutsnum+'ª'
 				try:
-					url5 = requests.get("https://legendei.top/?s=" + recom2, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url5 = requests.get("https://legendei.top/?s=" + recom2, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					teste = re.compile('thumbnail.+\s.+?href="(.+?)".+?title="'+cuts).findall(url5.replace('Permanent Link to ',''))
 					teste = teste[0]
 				except:
-					url5 = requests.get("https://legendei.top/?s=" + seasonnum, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url5 = requests.get("https://legendei.top/?s=" + seasonnum, headers={'Referer': 'https://legendei.top/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					teste = re.compile('thumbnail.+\s.+?href="(.+?)".+?title="' + cuts).findall(url5.replace('Permanent Link to ', ''))
 					teste = teste[0]
 				try:
-					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 					teste3 = teste3[0]
 				except:
@@ -6529,7 +6529,7 @@ def Comandotoserieplay(): #525
 					os.remove(cachefolder+'Legendas/Legendei (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -6585,7 +6585,7 @@ def DosTorrents(): #526
 		l= int(cPage)*6
 		for x in range(0, 6):
 			l +=1
-			link = requests.get("https://comoeubaixo.com/filmes/"+Clista0[int(Cat)]+"/"+str(l)+"/", headers={'Referer':'https://comoeubaixo.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+			link = requests.get("https://comoeubaixo.com/filmes/"+Clista0[int(Cat)]+"/"+str(l)+"/", headers={'Referer':'https://comoeubaixo.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile("middle'>	<a href='(.+?)'.+?src='(.+?)'.+?title.+?title.+?'>(.+?)<.+?strong>(.+?)<.+?Servidores<\/strong>:.(.+?)<").findall(html.unescape(link))
 			for link,image2,name2, nome3, tipo in match:
 				if not 'Torrent' in tipo: False
@@ -6607,7 +6607,7 @@ def DosTorrents2(): #527
 	except:
 		pass
 	try:
-		link = requests.get(url, headers={'Referer':'https://comoeubaixo.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		link = requests.get(url, headers={'Referer':'https://comoeubaixo.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		#arquivo = open(cachefolder + "TuaSerie.txt", "w+")
 		#arquivo.write(link.replace('\n','').replace('\r',''))
 		#arquivo.close()
@@ -6727,7 +6727,7 @@ def DosTorrentsPlay(): #528
 								except:
 									urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
 									leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
-								leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+								leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 								leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
 							except:
 								pass
@@ -6736,7 +6736,7 @@ def DosTorrentsPlay(): #528
 					leg4x = leg4[0][:-1].split(' ')
 					notific = (['\w'+name[1:]+'' for name in leg4x])
 					leg4xx = ' '.join(notific)
-					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					try:
 						dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0]).findall(url5.replace(':','').replace("'",''))
 						off1 = dev1x[0]
@@ -6762,7 +6762,7 @@ def DosTorrentsPlay(): #528
 					except:
 						urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
 						leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
-					leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
 				except:
 					pass
@@ -6771,7 +6771,7 @@ def DosTorrentsPlay(): #528
 					leg4x = leg4[0][:-1].split(' ')
 					notific = (['\w'+name[1:]+'' for name in leg4x])
 					leg4xx = ' '.join(notific)
-					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					try:
 						dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0]).findall(url5)
 						off1 = dev1x[0]
@@ -6785,19 +6785,19 @@ def DosTorrentsPlay(): #528
 					pass
 			try:
 				dev1 = re.compile('href="(.title.+?)"').findall(dev1x[0])
-				url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				try:
 					devx = re.compile('Brazil.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 					off = devx[0]
-					url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-br', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-br', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				except:
 					try:
 						devx = re.compile('Portugal.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						off = devx[0]
-						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					except:
 						devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
-						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				dev2 = re.compile('[^"\']*\.srt').findall(url3)
 				teste3 = 'https://www.elsubtitle.com/' + dev2[0]
 
@@ -6806,7 +6806,7 @@ def DosTorrentsPlay(): #528
 					os.remove(cachefolder+'Legendas/Elsubtitle (Brasil)-pt.forced.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 				with open(cachefolder+'Legendas/Elsubtitle (Brasil)-pt.forced.srt', 'wb')as file: file.write(response.content)
 				try:
 					local = os.path.abspath(cachefolder+"Legendas")
@@ -6837,10 +6837,10 @@ def DosTorrentsPlay(): #528
 				#arquivo = open(cachefolder + "LegendaT.txt", "w+")
 				#arquivo.write(leg4[0])
 				#arquivo.close()
-				url5 = requests.get("https://legendei.top/?s="+leg4[0].replace(':',''),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n','').replace('\r','')
+				url5 = requests.get("https://legendei.top/?s="+leg4[0].replace(':',''),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text#.replace('\n','').replace('\r','')
 				teste = re.compile('thumbnail">\s\s.+?href="(.+?)".+?title.+?'+leg4[0][:-1].replace(':','')+'\s[(]').findall(url5.replace(':',''))
 				teste = teste[0]
-				teste2 = requests.get(teste.replace('https//','https://'),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				teste2 = requests.get(teste.replace('https//','https://'),headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 				teste3 = teste3[0]
 
@@ -6849,7 +6849,7 @@ def DosTorrentsPlay(): #528
 					os.remove(cachefolder+'Legendas/Legendei (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -6925,7 +6925,7 @@ def DosTorrentsPlay(): #528
 			except:
 				pass'''
 			try:
-				link = requests.get("https://www.opensubtitles.org/pb/search2/sublanguageid-pob/moviename-"+leg4[0].replace(' ','+').replace(':',''),headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				link = requests.get("https://www.opensubtitles.org/pb/search2/sublanguageid-pob/moviename-"+leg4[0].replace(' ','+').replace(':',''),headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 				link2 = re.compile('href=".pb.search.sublanguageid-pob.(idmovie-\w+)">'+leg4[0][:-1].replace(':','')+'[(]').findall(link.text.replace('\n','').replace('\r','').replace(':','').encode('ascii', 'ignore').decode())
 				try:
 					link3 = "https://www.opensubtitles.org/pb/search/"+link2[0]+"/sublanguageid-pob"
@@ -6951,7 +6951,7 @@ def DosTorrentsPlay(): #528
 					os.remove(cachefolder+'Legendas/OpenSubtitles (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -6982,9 +6982,9 @@ def DosTorrentsPlay(): #528
 			except:
 				pass
 			try:
-				link = requests.get("https://www.baixarlegenda.net/?s="+popup[:-1].replace(' ','+'), headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n', '').replace('\r', '')
+				link = requests.get("https://www.baixarlegenda.net/?s="+popup[:-1].replace(' ','+'), headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text#.replace('\n', '').replace('\r', '')
 				match = re.compile('title">'+popup[:-1]+'<.+?<.span> <.div> <a href="(.+?)"').findall(link)
-				link2 = requests.get(match[0], headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				link2 = requests.get(match[0], headers={'Referer': 'https://www.baixarlegenda.net/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				match2 = re.compile('href="(.+?)" class="btn sm rnd blk">Download').findall(link2.replace('#038;',''))
 				download = match2[0]
 				path = cachefolder+"Legendas/"
@@ -6992,7 +6992,7 @@ def DosTorrentsPlay(): #528
 					os.remove(cachefolder+'Legendas/Baixarlegenda (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.baixarlegenda.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.baixarlegenda.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -7046,7 +7046,7 @@ def DosTorrents1(): #5261
 		l= int(cPageQlf)*4
 		for x in range(0, 4):
 			l +=1
-			link = requests.get("https://comandotorrent4k.net/category/"+ClistaQUE10[int(CatQ1)]+"/page/"+str(l)+"/", headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+			link = requests.get("https://comandotorrent4k.net/category/"+ClistaQUE10[int(CatQ1)]+"/page/"+str(l)+"/", headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile('"headline".+?<a href="(.+?)">(.+?)<.+?src="(.+?)"').findall(html.unescape(link))
 			for link, name2, image2 in match:
 				if "Temporada" in name2 or "Completo" in name2 or "temporada" in name2 or "completo" in name2: False
@@ -7068,7 +7068,7 @@ def DosTorrents21(): #5271
 	except:
 		pass
 	try:
-		link = requests.get(url, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		link = requests.get(url, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		#arquivo = open(cachefolder + "TuaSerie.txt", "w+")
 		#arquivo.write(link.replace('\n','').replace('\r',''))
 		#arquivo.close()
@@ -7154,7 +7154,7 @@ def DosTorrentsPlay1(): #5281
 				except:
 					urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
 					leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
-				leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
 			except:
 				pass
@@ -7163,7 +7163,7 @@ def DosTorrentsPlay1(): #5281
 				leg4x = leg4[0][:-1].split(' ')
 				notific = (['\w'+name[1:]+'' for name in leg4x])
 				leg4xx = ' '.join(notific)
-				url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				try:
 					dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0]).findall(url5)
 					off1 = dev1x[0]
@@ -7174,19 +7174,19 @@ def DosTorrentsPlay1(): #5281
 					except:
 						dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0][:-2]).findall(url5)
 				dev1 = re.compile('href="(.title.+?)"').findall(dev1x[0])
-				url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				try:
 					devx = re.compile('Brazil.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 					off = devx[0]
-					url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-br', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-br', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				except:
 					try:
 						devx = re.compile('Portugal.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						off = devx[0]
-						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					except:
 						devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
-						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				dev2 = re.compile('[^"\']*\.srt').findall(url3)
 				teste3 = 'https://www.elsubtitle.com/' + dev2[0]
 
@@ -7195,7 +7195,7 @@ def DosTorrentsPlay1(): #5281
 					os.remove(cachefolder+'Legendas/Elsubtitle (Brasil)-pt.forced.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 				with open(cachefolder+'Legendas/Elsubtitle (Brasil)-pt.forced.srt', 'wb')as file: file.write(response.content)
 				try:
 					local = os.path.abspath(cachefolder+"Legendas")
@@ -7226,10 +7226,10 @@ def DosTorrentsPlay1(): #5281
 				#arquivo = open(cachefolder + "LegendaT.txt", "w+")
 				#arquivo.write(leg4[0])
 				#arquivo.close()
-				url5 = requests.get("https://legendei.top/?s="+leg4[0],headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n','').replace('\r','')
+				url5 = requests.get("https://legendei.top/?s="+leg4[0],headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text#.replace('\n','').replace('\r','')
 				teste = re.compile('thumbnail">\s\s.+?href="(.+?)".+?title.+?'+leg4[0][:-1]+'\s[(]').findall(url5)
 				teste = teste[0]
-				teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 				teste3 = teste3[0]
 
@@ -7238,7 +7238,7 @@ def DosTorrentsPlay1(): #5281
 					os.remove(cachefolder+'Legendas/Legendei (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -7314,7 +7314,7 @@ def DosTorrentsPlay1(): #5281
 			except:
 				pass'''
 			try:
-				link = requests.get("https://www.opensubtitles.org/pb/search2/sublanguageid-pob/moviename-"+leg4[0].replace(' ','+'),headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				link = requests.get("https://www.opensubtitles.org/pb/search2/sublanguageid-pob/moviename-"+leg4[0].replace(' ','+'),headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 				link2 = re.compile('href=".pb.search.sublanguageid-pob.(idmovie-\w+)">'+leg4[0][:-1]+'[(]').findall(link.text.replace('\n','').replace('\r',''))
 				try:
 					link3 = "https://www.opensubtitles.org/pb/search/"+link2[0]+"/sublanguageid-pob"
@@ -7340,7 +7340,7 @@ def DosTorrentsPlay1(): #5281
 					os.remove(cachefolder+'Legendas/OpenSubtitles (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(download, verify=False, stream=True,headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -7392,7 +7392,7 @@ def DosTorrentsPlay1(): #5281
 		l= int(cPage)*4
 		for x in range(0, 4):
 			l +=1
-			link = requests.get("https://www.thepiratefilmetorrent.me/category/"+Clista0[int(Cat)]+"/page/"+str(l)+"/",headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
+			link = requests.get("https://www.thepiratefilmetorrent.me/category/"+Clista0[int(Cat)]+"/page/"+str(l)+"/",headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile('headline">.+?href="(.+?)".+?title="(.+?)".src="(.+?)"').findall(html.unescape(link))
 			for link, name2, image2 in match:
 				if "Temporada" in name2 or "Completo" in name2 or "temporada" in name2 or "completo" in name2: False
@@ -7414,7 +7414,7 @@ def DosTorrents2(): #527
 	except:
 		pass
 	try:
-		link = requests.get(url,headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		link = requests.get(url,headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		match = re.compile('0000."><strong>(.+?)<.strong>(.+?)<span').findall(link.replace('\n','').replace('\r',''))
 		matchoff = match[0]
 		sinopse = re.compile('<.span>:<.strong>.(.+?)<.p>').findall(html.unescape(link))
@@ -7497,12 +7497,12 @@ def DosTorrentsPlay(): #528
 				except:
 					urlxx = requests.get('https://www.google.com/search?q=imdb+'+recom2.replace(' ','+')).text
 					leg2 = re.compile('url.q=https:..www.imdb.com(.title.\w+\/)').findall(urlxx)
-				leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				leg3 = requests.get("https://www.imdb.com"+leg2[0]+"ratings",headers={'Referer':'https://www.imdb.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				leg4 = re.compile('title. content="(.+?)[(]').findall(leg3)
-				url5 = requests.get("https://legendei.top/?s="+leg4[0],headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text#.replace('\n','').replace('\r','')
+				url5 = requests.get("https://legendei.top/?s="+leg4[0],headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text#.replace('\n','').replace('\r','')
 				teste = re.compile('thumbnail">\s\s.+?href="(.+?)".+?title.+?'+leg4[0][:-1]+'\s[(]').findall(url5)
 				teste = teste[0]
-				teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 				teste3 = teste3[0]
 
@@ -7585,7 +7585,7 @@ def DosTorrentsPlay(): #528
 			except:
 				pass
 			try:
-				link = requests.get("https://www.opensubtitles.org/pb/search2/sublanguageid-pob/moviename-"+leg4[0].replace(' ','+'),headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				link = requests.get("https://www.opensubtitles.org/pb/search2/sublanguageid-pob/moviename-"+leg4[0].replace(' ','+'),headers={'Referer':'https://www.opensubtitles.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 				link2 = re.compile('href=".pb.search.sublanguageid-pob.(idmovie-\w+)">'+leg4[0][:-1]+'[(]').findall(link.text.replace('\n','').replace('\r',''))
 				try:
 					link3 = "https://www.opensubtitles.org/pb/search/"+link2[0]+"/sublanguageid-pob"
@@ -7646,26 +7646,26 @@ def DosTorrentsPlay(): #528
 				leg4x = leg4[0][:-1].split(' ')
 				notific = (['\w'+name[1:]+'' for name in leg4x])
 				leg4xx = ' '.join(notific)
-				url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				url5 = requests.get('https://www.elsubtitle.com/search-results/?search_name='+leg4[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				try:
 					dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0][:-1]).findall(url5)
 					off1 = dev1x[0]
 				except:
 					dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0][:-2]).findall(url5)
 				dev1 = re.compile('href="(.title.+?)"').findall(dev1x[0])
-				url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				try:
 					devx = re.compile('Brazil.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 					off = devx[0]
-					url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-br', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-br', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				except:
 					try:
 						devx = re.compile('Portugal.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						off = devx[0]
-						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt-pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					except:
 						devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
-						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				dev2 = re.compile("'(.+srt)'").findall(url3)
 				teste3 = 'https://www.elsubtitle.com' + dev2[0]
 				dev2 = re.compile("'(.+srt)'").findall(url3)
@@ -7726,8 +7726,8 @@ def DosTorrentsSerie(): #529
 	for x in range(0, 6):
 		try:
 			y +=1
-			link = requests.get("https://comoeubaixo.com/series/"+str(y)+"/", headers={'Referer':'https://comoeubaixo.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
-			#link2 = re.compile("Categoria:(.+?)Clientes").findall(link.replace('\n','').replace('\r',''))#.replace("Baixar Série:</b> ","").replace("«</b></span><br /><b>",">").replace("«</b><b> </b></span><br /><b>Título Traduzido</b>: ",">").replace("«</strong></span><br /><b>",">").replace("«</b><b> </b></span><br /><strong>Título Traduzido</strong>: ",">").replace('Título Traduzido:</b> ',"").replace(">>",">").replace('<a href="https://comando.la/category/',"").replace("Titulo original:</b> ","").replace("Titulo Traduzido:</b> ","").replace("Titulo original :</b> ","").replace("Baixar Filme:</b> ",""))
+			link = requests.get("https://comoeubaixo.com/series/"+str(y)+"/", headers={'Referer':'https://comoeubaixo.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
+			#link2 = re.compile("Categoria:(.+?)Clientes").findall(link.replace('\n','').replace('\r',''))#.replace("Baixar Série:</b> ","").replace("«</b></span><br /><b>",">").replace("«</b><b> </b></span><br /><b>Título Traduzido</b>: ",">").replace("«</strong></span><br /><b>",">").replace("«</b><b> </b></span><br /><strong>Título Traduzido</strong>: ",">").replace('Título Traduzido:</b> ',"").replace(">>",">").replace('<a href="https://comandotorrents.to/category/',"").replace("Titulo original:</b> ","").replace("Titulo Traduzido:</b> ","").replace("Titulo original :</b> ","").replace("Baixar Filme:</b> ",""))
 			match = re.compile("middle'>	<a href='(.+?)'.+?src='(.+?)'.+?title.+?title.+?'>(.+?)<.+?strong>(.+?)<.+?Servidores<\/strong>:.(.+?)<").findall(link)
 			for link,image2,name2, nome3, tipo in match:
 				if not 'Torrent' in tipo: False
@@ -7739,7 +7739,7 @@ def DosTorrentsSerie(): #529
 
 def DosTorrentsSerie1(): #538
 	try:
-		link = requests.get(url, headers={'Referer':'https://comoeubaixo.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		link = requests.get(url, headers={'Referer':'https://comoeubaixo.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 		#arquivo.write(link.replace('</a><br>				','</a><br><'))
 		#arquivo.close()
@@ -7752,7 +7752,7 @@ def DosTorrentsSerie1(): #538
 	except:
 		pass
 		try:
-		    #link = requests.get(url, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		    #link = requests.get(url, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		    #arquivo = open(cachefolder + "Comandoto.txt", "w+")
 		    #arquivo.write(link)
 		    #arquivo.close()
@@ -7763,7 +7763,7 @@ def DosTorrentsSerie1(): #538
 				    AddDir(title2, link, 539, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 		except:
 			pass
-			#link = requests.get(url, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+			#link = requests.get(url, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 			#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 			#arquivo.write(link)
 			#arquivo.close()
@@ -7877,11 +7877,11 @@ def DosTorrentsSeriePlay(): #540
 					xbmc.executebuiltin("Notification({0}, {1}, 20000, {2})".format(recom2, "[COLOR red][B]Buscando Legendas Externas...[/B][/COLOR]", iconimage))
 				except:
 					pass
-				url5 = requests.get("https://legendei.top/?s="+recom2,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				url5 = requests.get("https://legendei.top/?s="+recom2,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				teste = re.compile('thumbnail.+\s.+?href="(.+?)"').findall(url5)
 				teste = teste[0]
 				try:
-					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 					teste3 = teste3[0]
 				except:
@@ -7892,7 +7892,7 @@ def DosTorrentsSeriePlay(): #540
 					os.remove(cachefolder+'Legendas/Legendei (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -7942,8 +7942,8 @@ def DosTorrentsSerie11(): #5291
 	for x in range(0, 4):
 		try:
 			y +=1
-			link = requests.get("https://comandotorrent4k.net/category/series/page/"+str(y)+"/", headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
-			#link2 = re.compile("Categoria:(.+?)Clientes").findall(link.replace('\n','').replace('\r',''))#.replace("Baixar Série:</b> ","").replace("«</b></span><br /><b>",">").replace("«</b><b> </b></span><br /><b>Título Traduzido</b>: ",">").replace("«</strong></span><br /><b>",">").replace("«</b><b> </b></span><br /><strong>Título Traduzido</strong>: ",">").replace('Título Traduzido:</b> ',"").replace(">>",">").replace('<a href="https://comando.la/category/',"").replace("Titulo original:</b> ","").replace("Titulo Traduzido:</b> ","").replace("Titulo original :</b> ","").replace("Baixar Filme:</b> ",""))
+			link = requests.get("https://comandotorrent4k.net/category/series/page/"+str(y)+"/", headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
+			#link2 = re.compile("Categoria:(.+?)Clientes").findall(link.replace('\n','').replace('\r',''))#.replace("Baixar Série:</b> ","").replace("«</b></span><br /><b>",">").replace("«</b><b> </b></span><br /><b>Título Traduzido</b>: ",">").replace("«</strong></span><br /><b>",">").replace("«</b><b> </b></span><br /><strong>Título Traduzido</strong>: ",">").replace('Título Traduzido:</b> ',"").replace(">>",">").replace('<a href="https://comandotorrents.to/category/',"").replace("Titulo original:</b> ","").replace("Titulo Traduzido:</b> ","").replace("Titulo original :</b> ","").replace("Baixar Filme:</b> ",""))
 			match = re.compile('headline".+?<a href="(.+?)">(.+?)<.+?src="(.+?)"').findall(link)
 			for link, name2, image2 in match:
 				AddDir(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…'), link, 5381, image2, image2, isFolder=True, info='\xa0')
@@ -7953,7 +7953,7 @@ def DosTorrentsSerie11(): #5291
 
 def DosTorrentsSerie111(): #5381
 	try:
-		link = requests.get(url, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		link = requests.get(url, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 		#arquivo.write(link.replace('\n','').replace('\r','').replace('</p><hr',"><h2"))
 		#arquivo.close()
@@ -7966,7 +7966,7 @@ def DosTorrentsSerie111(): #5381
 	except:
 		pass
 		try:
-		    #link = requests.get(url, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		    #link = requests.get(url, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		    #arquivo = open(cachefolder + "Comandoto.txt", "w+")
 		    #arquivo.write(link)
 		    #arquivo.close()
@@ -7977,7 +7977,7 @@ def DosTorrentsSerie111(): #5381
 				    AddDir(title2, link, 5391, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 		except:
 			pass
-			#link = requests.get(url, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+			#link = requests.get(url, headers={'Referer':'https://comandotorrent4k.net/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 			#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 			#arquivo.write(link)
 			#arquivo.close()
@@ -8085,11 +8085,11 @@ def DosTorrentsSeriePlay1(): #5401
 					xbmc.executebuiltin("Notification({0}, {1}, 20000, {2})".format(recom2, "[COLOR red][B]Buscando Legendas Externas...[/B][/COLOR]", iconimage))
 				except:
 					pass
-				url5 = requests.get("https://legendei.top/?s="+recom2,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				url5 = requests.get("https://legendei.top/?s="+recom2,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				teste = re.compile('thumbnail.+\s.+?href="(.+?)"').findall(url5)
 				teste = teste[0]
 				try:
-					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 					teste3 = teste3[0]
 				except:
@@ -8100,7 +8100,7 @@ def DosTorrentsSeriePlay1(): #5401
 					os.remove(cachefolder+'Legendas/Legendei (Brasil)-pt.srt')
 				except:
 					pass
-				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'})
+				response = requests.get(teste3, verify=False, stream=True,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
 
 				file = zipfile.ZipFile(io.BytesIO(response.content))
 
@@ -8149,8 +8149,8 @@ def DosTorrentsSeriePlay1(): #5401
 	for x in range(0, 4):
 		try:
 			y +=1
-			link = requests.get("https://www.thepiratefilmetorrent.me/category/series/page/"+str(y)+"/",headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text.replace('\n','').replace('\r','')
-			#link2 = re.compile("Categoria:(.+?)Clientes").findall(link.replace('\n','').replace('\r',''))#.replace("Baixar Série:</b> ","").replace("«</b></span><br /><b>",">").replace("«</b><b> </b></span><br /><b>Título Traduzido</b>: ",">").replace("«</strong></span><br /><b>",">").replace("«</b><b> </b></span><br /><strong>Título Traduzido</strong>: ",">").replace('Título Traduzido:</b> ',"").replace(">>",">").replace('<a href="https://comando.la/category/',"").replace("Titulo original:</b> ","").replace("Titulo Traduzido:</b> ","").replace("Titulo original :</b> ","").replace("Baixar Filme:</b> ",""))
+			link = requests.get("https://www.thepiratefilmetorrent.me/category/series/page/"+str(y)+"/",headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
+			#link2 = re.compile("Categoria:(.+?)Clientes").findall(link.replace('\n','').replace('\r',''))#.replace("Baixar Série:</b> ","").replace("«</b></span><br /><b>",">").replace("«</b><b> </b></span><br /><b>Título Traduzido</b>: ",">").replace("«</strong></span><br /><b>",">").replace("«</b><b> </b></span><br /><strong>Título Traduzido</strong>: ",">").replace('Título Traduzido:</b> ',"").replace(">>",">").replace('<a href="https://comandotorrents.to/category/',"").replace("Titulo original:</b> ","").replace("Titulo Traduzido:</b> ","").replace("Titulo original :</b> ","").replace("Baixar Filme:</b> ",""))
 			match = re.compile('headline">.+?href="(.+?)".+?title="(.+?)".src="(.+?)"').findall(link)
 			for link, name2, image2 in match:
 				AddDir(name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…'), link, 538, image2, image2, isFolder=True, info='\xa0')
@@ -8160,7 +8160,7 @@ def DosTorrentsSeriePlay1(): #5401
 
 def DosTorrentsSerie1(): #538
 	try:
-		link = requests.get(url,headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		link = requests.get(url,headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 		#arquivo.write(link.replace('\n','').replace('\r','').replace('</p><hr',"><h2"))
 		#arquivo.close()
@@ -8175,7 +8175,7 @@ def DosTorrentsSerie1(): #538
 	except:
 		pass
 		try:
-		    #link = requests.get(url,headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+		    #link = requests.get(url,headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		    #arquivo = open(cachefolder + "Comandoto.txt", "w+")
 		    #arquivo.write(link)
 		    #arquivo.close()
@@ -8187,7 +8187,7 @@ def DosTorrentsSerie1(): #538
 		except:
 			pass
 			try:
-				#link = requests.get(url,headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				#link = requests.get(url,headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 				#arquivo.write(link)
 				#arquivo.close()
@@ -8197,7 +8197,7 @@ def DosTorrentsSerie1(): #538
 						title2 = title2.replace("K-Lite-Codec-Pack","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]")
 						AddDir(title2, "TEMPORADA COMPLETA"+link+'".">720<.a><.p>', 539, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 			except:
-				#link = requests.get(url,headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				#link = requests.get(url,headers={'Referer':'https://www.thepiratefilmetorrent.me/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 				#arquivo.write(link)
 				#arquivo.close()
@@ -8303,11 +8303,11 @@ def DosTorrentsSeriePlay(): #540
 					xbmc.executebuiltin("Notification({0}, {1}, 20000, {2})".format(recom2, "[COLOR red][B]Buscando Legendas Externas...[/B][/COLOR]", iconimage))
 				except:
 					pass
-				url5 = requests.get("https://legendei.top/?s="+recom2,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+				url5 = requests.get("https://legendei.top/?s="+recom2,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				teste = re.compile('thumbnail.+\s.+?href="(.+?)"').findall(url5)
 				teste = teste[0]
 				try:
-					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0'}).text
+					teste2 = requests.get(teste,headers={'Referer':'https://legendei.top/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 					teste3 = re.compile('buttondown" href="(.+?)"').findall(teste2)
 					teste3 = teste3[0]
 				except:
@@ -9072,10 +9072,10 @@ def TVCB5PLAY(): #112
         title = " - "+title[0]
         url5 = "[B]"+'\n\n\n'+ir1+"[/B]" + ir2
         url6 = url5
-        PlayUrl(name+title, urlplay+"|Referer="+urlplax+"&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0", iconimage, url6)
+        PlayUrl(name+title, urlplay+"|Referer="+urlplax+"&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0", iconimage, url6)
     except IndexError as url2:
         pass
-        PlayUrl(name, urlplay+"|Referer="+urlplax+"&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0", iconimage, info)'''
+        PlayUrl(name, urlplay+"|Referer="+urlplax+"&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0", iconimage, info)'''
 
 # ----------------- Inicio Go Filmes
 def GenerosGO(): #219
