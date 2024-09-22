@@ -17,7 +17,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.84.00"
+Versao = "23.85.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -130,7 +130,7 @@ ClistaAS10=["0", "acao",                       "animacao",                      
 ClistaAS11=["[COLOR yellow][B]Lançamentos (Filmes|Séries)[/COLOR][/B]", "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]",          "[COLOR yellow][B]Suspense[/COLOR][/B]",                       "[COLOR yellow][B]Terror[/COLOR][/B]"]
 ClistaMX10=["filme", "genero/lancamentos", "genero/acao",                       "genero/animacao",                           "genero/comedia",                      "genero/faroeste",                                   "genero/fantasia",                                    "genero/drama",                                                         "genero/romance",                                                                "genero/documentario",                               "genero/misterio",                           "genero/terror"]
 ClistaMX11=["[COLOR yellow][B]Todos[/COLOR][/B]", "[COLOR yellow][B]Lançamentos[/COLOR][/B]", "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]",          "[COLOR yellow][B]Terror[/COLOR][/B]"]
-Clistapr0=["2024",                                                        "acao",                       "animacao",                           "comedia",                      "faroeste",                                   "fantasia",                                    "drama",                                                         "ficcao-cientifica",                                                                 "romance",                                                                "documentario",                               "aventura",                           "suspense",                                     "terror"]
+Clistapr0=["lancamento/2024",                                                        "generos/acao",                       "generos/animacao",                           "generos/comedia",                      "generos/faroeste",                                   "generos/fantasia",                                    "generos/drama",                                                         "generos/ficcao-cientifica",                                                                 "generos/romance",                                                                "generos/documentario",                               "generos/aventura",                           "generos/suspense",                                     "generos/terror"]
 Clistapr1=["[COLOR yellow][B]Lançamentos[/COLOR][/B]",                   "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]aventura[/COLOR][/B]",          "[COLOR yellow][B]Suspense[/COLOR][/B]",                       "[COLOR yellow][B]Terror[/COLOR][/B]"]
 def setViewS():
 	xbmcplugin.setContent(int(sys.argv[1]), 'tvshows')
@@ -3561,10 +3561,11 @@ def Busca(): # 160
 			#p= 1
 			AddDir("[B][COLOR yellow]|||[/COLOR][COLOR white]|||[/COLOR][COLOR yellow]|||[/COLOR][COLOR yellow] [Pirate-Torrent] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
 			#l +=1
-			link = requests.get("https://thepiratetorrents.org/?s="+d.replace('%2B','+'),headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
-			match = re.compile('<\/i><a href="(.+?)#.+?title="(.+?)".+?src="(.+?)".+?Duração:.+?>(.+?)<').findall(link)
-			for link, name2, image2, ep in match:
-				if "Temporada" in name2 or "EPISÓDIO" in name2 or "TEMPORADA" in name2 or 'EP' in ep:
+			link = requests.get("https://bludv.xyz/?s="+d.replace('%2B','+'),headers={'Referer':'https://bludv.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
+			match = re.compile('"title"><a href="(.+?)".title="(.+?)".+?src="(.+?)"').findall(link)
+			for link, name2, image2 in match:
+				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
+				if "Temporada" in name2 or "EPISÓDIO" in name2 or "TEMPORADA" in name2:
 					AddDir("[COLOR yellow]"+name2.replace("Torrent ","").replace(" –","").replace('Download','')+"[/COLOR]", link, 251, image2, image2, isFolder=True, info='\xa0')
 				else:
 					AddDir("[COLOR yellow]"+name2.replace("Torrent ","").replace(" –","").replace('Download','')+"[/COLOR]", link, 187, image2, image2, isFolder=True, info='\xa0')
@@ -4369,14 +4370,17 @@ def MoviesPR(): #186
 		l= int(cPagepr1)*6
 		for x in range(0, 6):
 			l +=1
-			link = requests.get("https://thepiratetorrents.org/category/genero/"+Clistapr0[int(Catpr)]+"/page/"+str(l)+"/",headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
-			match = re.compile('<\/i><a href="(.+?)#.+?title="(.+?)".+?src="(.+?)".+?Duração:.+?>(.+?)<').findall(link)
-			for link, name2, image2, ep in match:
-				if "Temporada" in name2 or "EPISÓDIO" in name2 or "TEMPORADA" in name2 or 'EP' in ep: False
+			link = requests.get("https://bludv.xyz/"+Clistapr0[int(Catpr)]+"/page/"+str(l)+"/",headers={'Referer':'https://bludv.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
+			match = re.compile('"title"><a href="(.+?)".title="(.+?)".+?data-src="(.+?)".+?noopener">(.+?)<').findall(link)
+			for link, name2, image2, imdb in match:
+				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
+				if "Temporada" in name2 or "EPISÓDIO" in name2 or "TEMPORADA" in name2: False
 				else:
-					AddDir(name2.replace("Torrent ","").replace(" –",""), link, 187, image2, image2, isFolder=True, info='\xa0')
+					imdb = imdb.replace('???','Sem nota')
+					#imdb1 = re.sub('\w\w\w\w','Sem nota',imdb)
+					AddDir(name2.replace("Torrent ","").replace(" –",""), link, 187, image2, image2, isFolder=True, info='[COLOR yellow]\nIMDb: [/COLOR]'+imdb.replace('–/10','Sem nota').replace('&#8211;/10','Sem nota'))
 				p += 1
-		if p >= 60:
+		if p >= 33:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPagepr1) + 2) +"][/B][/COLOR]", cPagepr1 , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPagepr1", info='\xa0')
 	except:
 		pass
@@ -4384,7 +4388,7 @@ def MoviesPR(): #186
 		
 def MenuPR(): #187
 	try:
-		brevelink = requests.get(url,headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
+		brevelink = requests.get(url,headers={'Referer':'https://bludv.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 		breve = re.compile('">(EM BREVE)<.span>').findall(brevelink)
 		breve = breve[0]
 		AddDir("[COLOR red][B]*EM BREVE (AINDA NÃO DISPONIVEL)*[/B][/COLOR]", '', '', iconimage, iconimage, isFolder=False, IsPlayable=True, info='Filme ainda não está disponivel, provavelmente ainda nos cinemas')
@@ -4400,17 +4404,19 @@ def MenuPR(): #187
 	except:
 		pass
 	try:
-		link = requests.get(url,headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
+		link = requests.get(url,headers={'Referer':'https://bludv.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 		#arquivo = open(cachefolder + "pirate.txt", "w+")
-		#arquivo.write(url)
+		#arquivo.write(link)
 		#arquivo.close()
-		match = re.compile('<strong>::.(.+?)::(.+?)<.noscript>').findall(link.replace('center;"><strong><','').replace(': </strong></p><hr /><p style="text-align: center;">','<strong>:: Escolha a opção :: <p style="text-align:.center;">').replace('_</p><p style="text-align: center;">','<strong>:: Escolha a opção :: <p style="text-align:.center;">'))
-		sinopse = re.compile('SINOPSE:<.span>.+?>(.+?)<.p>').findall(link)
-		for title2, link in match:
-			title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("MULTI ÁUDIO","[COLOR springgreen][B]Multi Áudio[/B][/COLOR]")
+		match = re.compile('<center><strong>(\w.+?)<\/strong><\/center>(.+?)<.br>').findall(link)
+		sinopse = re.compile('SINOPSE:.+?">(.+?)<').findall(link)
+		for title2x, link in match:
+			title3 = re.sub('.+LEGENDAD.+','LEGENDADO',title2x)
+			title2 = re.sub('.+DUAL.+','DUAL ÁUDIO',title3)
+			title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("MULTI ÁUDIO","[COLOR springgreen][B]Multi Áudio[/B][/COLOR]").replace('VERSÃO MKV ','')
 			if sinopse:
 				for info1 in sinopse:
-					AddDir(title2, link, 188, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
+					AddDir(title2, link, 188, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…'), background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
 			else:
 				AddDir(title2, link, 188, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
 	except:
@@ -4418,7 +4424,7 @@ def MenuPR(): #187
 def PlayPR(): #188
 	listar=[]
 	listal=[]
-	match = re.compile('<p style="text-align:.center;"><strong>(.+?)<.+?href="(.+?)"').findall(url)
+	match = re.compile('<strong><em>SERVIDOR PARA DOWNLOAD (.+?)<.+?href="(.+?)"').findall(url)
 	if match:
 		for name2, url2 in match:
 			listal.append(url2)
@@ -4811,9 +4817,10 @@ def Pirateserie(): #250
 	for x in range(0, 4):
 		try:
 			y +=1
-			link = requests.get("https://thepiratetorrents.org/category/series/page/"+str(y)+"/",headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
-			match = re.compile('<\/i><a href="(.+?)#.+?title="(.+?)".+?src="(.+?)"').findall(link)
-			for link, name2, image2 in match:
+			link = requests.get("https://bludv.xyz/series/page/"+str(y)+"/",headers={'Referer':'https://bludv.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
+			match = re.compile('"title"><a href="(.+?)".title="(.+?)".+?data-src="(.+?)".+?noopener">(.+?)<').findall(link)
+			for link, name2, image2, imdb in match:
+				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 				AddDir(name2.replace("Torrent ","").replace(" –",""), link, 251, image2, image2, isFolder=True, info='\xa0')
 		except:
 			pass
@@ -4821,18 +4828,20 @@ def Pirateserie(): #250
 
 def Piratemenu(): #251
 	try:
-		link = requests.get(url,headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
+		link = requests.get(url,headers={'Referer':'https://bludv.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 		#arquivo = open(cachefolder + "netcine.txt", "w+")
-		#arquivo.write(link.replace('Versão Legendado:',':: LEGENDADO ::').replace('Versão Dual Áudio / Dublado:',':: DUAL ÁUDIO / DUBLADO ::').replace('color: #ff0000;">','><h2').replace('﻿',''))
+		#arquivo.write(link)
 		#arquivo.close()
-		match = re.compile('<strong>::.(.+?)::(.+?)><h2').findall(link.replace('Versão Legendado:',':: LEGENDADO ::').replace('Versão Dual Áudio / Dublado:',':: DUAL ÁUDIO / DUBLADO ::').replace('color: #ff0000;">','><h2').replace('0p Dual Áudio / Dublado','<strong>:: DUAL ÁUDIO / DUBLADO ::').replace('﻿',''))
+		match = re.compile('00;"><strong><em>(.+?)<(.+?)<\/br><\/p><p>').findall(link.replace('Versão Legendado:',':: LEGENDADO ::').replace('Versão Dual Áudio / Dublado:',':: DUAL ÁUDIO / DUBLADO ::').replace('color: #ff0000;">','><h2').replace('0p Dual Áudio / Dublado','<strong>:: DUAL ÁUDIO / DUBLADO ::').replace('﻿',''))
 		match1 = match[0]
 		for title2, link in match:
-			title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]")
-			AddDir(title2, "https://"+link, 252, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
+			if 'ONLINE' in title2: False
+			else:
+				title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace('VERSÃO MKV ','')
+				AddDir(title2, "https://"+link, 252, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0')
 	except:
 		pass
-		#link = requests.get(url,headers={'Referer':'https://thepiratetorrents.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text#.replace('\n','').replace('\r','')
+		#link = requests.get(url,headers={'Referer':'https://bludv.xyz/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text#.replace('\n','').replace('\r','')
 		match = re.compile('DOWNLOAD.+?<strong>(.+?)<(.+?)><h2').findall(link.replace('﻿',''))
 		for title2, link in match:
 			if ":: LEGENDADO ::" in title2 or ":: DUAL ÁUDIO / DUBLADO ::" in title2 or "OBS:" in title2: False
@@ -4844,7 +4853,7 @@ def Piratemenu2(): #252
 	#arquivo.write(url.replace('—<br /> ','ter;">').replace('/strong></p><p>','ter;">Temporada Completa'))
 	#arquivo.close()
 	try:
-		match = re.compile('(Temporada.+?|Epi.+?)<a(.+?)<.a><.p>').findall(url.replace('—<br /> ','ter;">').replace('/strong></p><p>','ter;">Temporada Completa').replace('TEMPORADA','Temporada').replace('COMPLETA','completa'))
+		match = re.compile('<center><strong>(.+?):.+?(href=".+?<.a><.center>)').findall(url.replace('—<br /> ','ter;">').replace('/strong></p><p>','ter;">Temporada Completa').replace('TEMPORADA','Temporada').replace('COMPLETA','completa'))
 		match1 = match[0]
 		try:
 			url3 = ([name1 for name1, link in match])
@@ -5848,7 +5857,7 @@ def Comandotomenu(): #518
 					imdb1 = re.sub('\w\w\w\w','Sem nota',imdb)
 					AddDir(name2.replace(" Torrent","").replace(" –","").replace("Download","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…'), link, 519, image2.replace('#038;',''), image2.replace('#038;',''), isFolder=True, info='[COLOR yellow]\nIMDb: [/COLOR]'+imdb1.replace('–/10','Sem nota').replace('&#8211;/10','Sem nota'))
 				p += 1
-		if p >= 40:
+		if p >= 32:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageMEG) + 2) +"][/B][/COLOR]", cPageMEG , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageMEG", info='\xa0')
 	except:
 		pass
