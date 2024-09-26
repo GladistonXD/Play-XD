@@ -9977,7 +9977,8 @@ class ProxyHandler(BaseHTTPRequestHandler):
     def set_headers(self,url):
         global URL_BASE
         global HEADERS_BASE
-        headers_default = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0'}
+        #headers_default = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0'}
+        headers_default = {'User-Agent':'FooBar/1.2.3'}
         headers = {}
         if 'User-Agent' in url:
             try:
