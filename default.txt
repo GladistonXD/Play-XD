@@ -5,6 +5,7 @@ from urllib.parse import urlparse, quote_plus, parse_qs, unquote, unquote_plus
 from urllib.request import urlopen, Request
 import urllib.request, urllib.parse, urllib.error
 import urllib.parse
+import subprocess
 import requests
 import importlib
 import types
@@ -17,7 +18,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.86.00"
+Versao = "23.87.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -222,7 +223,7 @@ def MFilmes(): #-2
 	#AddDir("[COLOR blue][B]Filmes Nacional RedeCanais[/B][/COLOR]" , cPagenac, 92, "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", background="cPagenac", info='\xa0')
 	#AddDir("[COLOR lightgreen][B]Filmes Comando.to[/B][/COLOR]" , "", 518, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", info='\xa0')
 	AddDir("[COLOR mediumpurple][B]Filmes ComandoHDTorrents[/B][/COLOR]" , "", 170, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='\xa0')
-	AddDir("[COLOR yellow][B]Filmes Pirate-Filmes[/B][/COLOR]" , "", 186, "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", info='\xa0')
+	#AddDir("[COLOR yellow][B]Filmes Pirate-Filmes[/B][/COLOR]" , "", 186, "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", info='\xa0')
 	#AddDir("[COLOR deepskyblue][B]Filmes FilmesViaTorrent[/B][/COLOR]" , "", 530, "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", info='\xa0')	
 	#AddDir("[COLOR mediumvioletred][B]Filmes ComoEuBaixo[/B][/COLOR]" , "", 526, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='\xa0')
 	#AddDir("[COLOR salmon][B]Filmes DosTorrents[/B][/COLOR]" , "", 5261, "https://uploaddeimagens.com.br/images/003/565/308/full/Spider.png", "https://uploaddeimagens.com.br/images/003/565/308/full/Spider.png", info='\xa0')
@@ -235,9 +236,9 @@ def MSeries(): #-3
 	#AddDir("[COLOR blue][B]Animes RedeCanais[/B][/COLOR]" , cPageser, 140, "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", background="cPageser", info='\xa0')
 	#AddDir("[COLOR blue][B]Desenhos RedeCanais[/B][/COLOR]" , cPageani, 150, "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", background="cPageser", info='\xa0')
 	#AddDir("[B][COLOR cyan]Séries MMFilmes[/COLOR][/B]", "config" , 190,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='\xa0')
-	#AddDir("[B][COLOR lightgreen]Séries Comando.to[/COLOR][/B]", "config" , 522,"https://uploaddeimagens.com.br/images/003/583/194/full/serie4.png", "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg", isFolder=True, info='\xa0')
+	AddDir("[B][COLOR lightgreen]Séries Comando.to[/COLOR][/B]", "config" , 522,"https://uploaddeimagens.com.br/images/003/583/194/full/serie4.png", "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg", isFolder=True, info='\xa0')
 	AddDir("[B][COLOR mediumpurple]Séries ComandoHDTorrents[/COLOR][/B]", "config" , 173,"https://uploaddeimagens.com.br/images/003/583/192/full/serie2.png", "https://tconline.com.br/wp-content/uploads/2020/02/8.1-VS250220A.jpg", isFolder=True, info='\xa0')
-	AddDir("[B][COLOR yellow]Séries Filme-Pirate[/COLOR][/B]", "config" , 250,"https://uploaddeimagens.com.br/images/003/583/191/original/serie1.png", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='\xa0')
+	#AddDir("[B][COLOR yellow]Séries Filme-Pirate[/COLOR][/B]", "config" , 250,"https://uploaddeimagens.com.br/images/003/583/191/original/serie1.png", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='\xa0')
 	#AddDir("[B][COLOR deepskyblue]Séries FilmesViaTorrent[/COLOR][/B]", "config" , 533,"https://uploaddeimagens.com.br/images/003/583/193/full/serie3.png", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='\xa0')
 	#AddDir("[B][COLOR salmon]Séries DosTorrents[/COLOR][/B]", "config" , 5291,"https://uploaddeimagens.com.br/images/003/583/195/full/serie5.png", "https://jbt-en-images.s3.ap-south-1.amazonaws.com/wp-content/uploads/2021/10/05100134/lost-in-space-s3.jpg", isFolder=True, info='\xa0')
 	#AddDir("[B][COLOR mediumvioletred]Séries ComoEuBaixo[/COLOR][/B]", "config" , 529,"https://uploaddeimagens.com.br/images/003/883/514/full/BreakingBad-7277.png", "https://uploaddeimagens.com.br/images/003/883/514/full/BreakingBad-7277.png", isFolder=True, info='\xa0')
@@ -3518,10 +3519,38 @@ def Busca(): # 160
 		sys.exit(int(sys.argv[1]))
 	progress.update(0, "Comando.to")
 	try:
-			#p= 1
+			arquivo = open(cachefolder + 'cookie.txt', 'r')
+			cf_clearance = arquivo.read()
+			useragt = open(cachefolder + 'useragent.txt', 'r')
+			useragent = useragt.read()
+			headers = {
+			    'cookie': 'cf_clearance='+cf_clearance+';',
+			    'referer': 'https://comando.la/',
+			    'user-agent': useragent
+			}
+			try:
+				response = requests.get("https://comando.la/index", headers=headers)	   
+				if response.status_code == 403:
+					comando = ["python", f"{cachefolder}comandocookiearg.py", "-a", cachefolder, "-H", "True"]
+					subprocess.run(comando, shell=True)
+			except:
+				pass
+			arquivo1 = open(cachefolder + 'cookie.txt', 'r')
+			cf_clearanceup = arquivo1.read()
+			useragt1 = open(cachefolder + 'useragent.txt', 'r')
+			useragent1 = useragt1.read()
+			headers1 = {
+			    'cookie': 'cf_clearance='+cf_clearanceup+';',
+			    'referer': 'https://comando.la/',
+			    'user-agent': useragent1
+			}
 			AddDir("[B][COLOR lightgreen]|||[/COLOR][COLOR white]|||[/COLOR][COLOR lightgreen]|||[/COLOR][COLOR lightgreen] [Comando.to] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
 			#l +=1
-			link = requests.get("https://comandotorrents.to/?s="+d.replace('%2B','+'),headers={'Referer':'https://comandotorrents.to/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
+			link = requests.get("https://comando.la/?s="+d.replace('%2B','+'),headers=headers1)
+			if link.status_code == 403:
+				comando = ["python", f"{cachefolder}comandocookiearg.py", "-a", cachefolder, "-H", "False"]
+				subprocess.run(comando, shell=True)
+			link = link.text
 			#link2 = re.compile("Results for(.+?)Clientes").findall(link.replace('\n','').replace('\r',''))#.replace("Baixar Série:</b> ","").replace("«</b></span><br /><b>",">").replace("«</b><b> </b></span><br /><b>Título Traduzido</b>: ",">").replace("«</strong></span><br /><b>",">").replace("«</b><b> </b></span><br /><strong>Título Traduzido</strong>: ",">").replace('Título Traduzido:</b> ',"").replace(">>",">").replace('<a href="https://comandotorrents.to/category/',"").replace("Titulo original:</b> ","").replace("Titulo Traduzido:</b> ","").replace("Titulo original :</b> ","").replace("Baixar Filme:</b> ",""))
 			link2 = re.compile("Results for(.+)").findall(link.replace('\n','').replace('\r',''))
 			match = re.compile('"headline" ><a href="(.+?)">(.+?)<.+?" src="(.+?)"').findall(link2[0])
@@ -3534,7 +3563,7 @@ def Busca(): # 160
 		pass'''
 	if (progress.iscanceled()):
 		sys.exit(int(sys.argv[1]))
-	progress.update(0, "ComandoHdTorrents")        
+	progress.update(50, "ComandoHdTorrents")        
 	try:
 			#p= 1
 			AddDir("[B][COLOR mediumpurple]|||[/COLOR][COLOR white]|||[/COLOR][COLOR mediumpurple]|||[/COLOR][COLOR mediumpurple] [ComandoHdTorrents] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
@@ -3554,7 +3583,7 @@ def Busca(): # 160
 					AddDir("[COLOR mediumpurple]" +name2.replace(" Torrent","").replace(" –","").replace(' Download','')+"[/COLOR]", link, 1711, image2, image2, isFolder=True, info='\xa0')
 	except:
 		pass
-	if (progress.iscanceled()):
+	'''if (progress.iscanceled()):
 		sys.exit(int(sys.argv[1]))
 	progress.update(50, "Pirate-Torrent")
 	try:
@@ -3570,7 +3599,7 @@ def Busca(): # 160
 				else:
 					AddDir("[COLOR yellow]"+name2.replace("Torrent ","").replace(" –","").replace('Download','')+"[/COLOR]", link, 187, image2, image2, isFolder=True, info='\xa0')
 	except:
-		pass
+		pass'''
 	'''if (progress.iscanceled()):
 		sys.exit(int(sys.argv[1]))
 	progress.update(80, "FilmesViaTorrent")
@@ -5821,7 +5850,33 @@ def Paylistplay4(): #545
 
 ##### Alternativo: comandotorrents.fun
 def Comandotomenu(): #518
+	arquivo = open(cachefolder + 'cookie.txt', 'r')
+	cf_clearance = arquivo.read()
+	useragt = open(cachefolder + 'useragent.txt', 'r')
+	useragent = useragt.read()
 	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + ClistaMEG11[int(CatMG)] +"[/COLOR]", "url" ,233 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
+	headers = {
+	    'cookie': 'cf_clearance='+cf_clearance+';',
+	    'referer': 'https://comando.la/',
+	    'user-agent': useragent
+	}
+	try:
+		response = requests.get("https://comando.la/index", headers=headers)
+    
+		if response.status_code == 403:
+			comando = ["python", f"{cachefolder}comandocookiearg.py", "-a", cachefolder, "-H", "True"]
+			subprocess.run(comando, shell=True)
+	except:
+		pass
+	arquivo1 = open(cachefolder + 'cookie.txt', 'r')
+	cf_clearanceup = arquivo1.read()
+	useragt1 = open(cachefolder + 'useragent.txt', 'r')
+	useragent1 = useragt1.read()
+	headers1 = {
+	    'cookie': 'cf_clearance='+cf_clearanceup+';',
+	    'referer': 'https://comando.la/',
+	    'user-agent': useragent1
+	}
 	try:
 		p= 1
 		if int(cPageMEG) > 0:
@@ -5830,16 +5885,19 @@ def Comandotomenu(): #518
 		for x in range(0, 4):
 			l +=1
 			if 'Fixados' in ClistaMEG11[int(CatMG)]:
-				#pagina = "0" if not FIXADOS else FIXADOS
-				#if int(pagina) > 0:
-				#	AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="FIXADOS", info='\xa0')
-				#y= int(pagina)*4
-				#for x in range(0, 4):
 					try:
 						l= int(cPageMEG)*4
 						for x in range(0, 4):
 							l +=1
-							link = requests.get("https://comandotorrents.to/"+"/page/"+str(l)+"/",headers={'Referer':'https://comandotorrents.to/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
+							pages = "page/"+str(l)+"/"
+							link = requests.get("https://comando.la/"+pages.replace('page/1/',''),headers=headers1)
+							if link.status_code == 403:
+								comando = ["python", f"{cachefolder}comandocookiearg.py", "-a", cachefolder, "-H", "False"]
+								subprocess.run(comando, shell=True)
+							link = link.text.replace('\n','').replace('\r','')
+							#arquivo = open(cachefolder + "TuaSerie2.txt", "w+")
+							#arquivo.write(link)
+							#arquivo.close()
 							match = re.compile('"headline" ><a href="(.+?)">(.+?)<.+?" src="(.+?)".+?>([0-9].+?)<').findall(link.replace('>: ','>'))
 							for link, name2, image2, imdb in match:
 								if "Temporada" in name2 or "Completo" in name2 or "Minissérie" in name2: False
@@ -5850,8 +5908,17 @@ def Comandotomenu(): #518
 					except:
 						pass
 				#AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="FIXADOS", info='\xa0')
-			elemento = "https://comandotorrents.to/category/"+ClistaMEG10[int(CatMG)]+"/page/"+str(l)+"/"
-			link = requests.get(elemento.replace('page/1/',''),headers={'Referer':'https://comandotorrents.to/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
+			headers2 = {
+			    'cookie': 'cf_clearance='+cf_clearanceup+';',
+			    'referer': 'https://comando.la/',
+			    'user-agent': useragent1
+			}
+			elemento = "https://comando.la/category/"+ClistaMEG10[int(CatMG)]+"/page/"+str(l)+"/"
+			link = requests.get(elemento.replace('page/1/',''),headers=headers2)
+			if link.status_code == 403:
+				comando = ["python", f"{cachefolder}comandocookiearg.py", "-a", cachefolder, "-H", "False"]
+				subprocess.run(comando, shell=True)
+			link = link.text
 			link2 = re.compile("Categoria:(.+?)Página").findall(link.replace('\n','').replace('\r',''))
 			#arquivo = open(cachefolder + "TuaSerie2.txt", "w+")
 			#arquivo.write(html.unescape(link2[0]))
@@ -5869,6 +5936,31 @@ def Comandotomenu(): #518
 		pass
 
 def Comandotomenu2(): #519
+	arquivo = open(cachefolder + 'cookie.txt', 'r')
+	cf_clearance = arquivo.read()
+	useragt = open(cachefolder + 'useragent.txt', 'r')
+	useragent = useragt.read()
+	headers = {
+	    'cookie': 'cf_clearance='+cf_clearance+';',
+	    'referer': 'https://comando.la/',
+	    'user-agent': useragent
+	}
+	try:
+		response = requests.get("https://comando.la/index", headers=headers)
+		if response.status_code == 403:
+			comando = ["python", f"{cachefolder}comandocookiearg.py", "-a", cachefolder, "-H", "True"]
+			subprocess.run(comando, shell=True)
+	except:
+		pass
+	arquivo1 = open(cachefolder + 'cookie.txt', 'r')
+	cf_clearanceup = arquivo1.read()
+	useragt1 = open(cachefolder + 'useragent.txt', 'r')
+	useragent1 = useragt1.read()
+	headers1 = {
+	    'cookie': 'cf_clearance='+cf_clearanceup+';',
+	    'referer': 'https://comando.la/',
+	    'user-agent': useragent1
+	}
 	try:
 		you = re.compile("(\w.+?)[)]").findall(name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
 		trailer = requests.get("https://www.youtube.com/results?search_query="+ you[0].replace(" ","+").replace("(","")+"+Trailer"+"")
@@ -5881,7 +5973,11 @@ def Comandotomenu2(): #519
 	except:
 		pass
 	try:
-		link = requests.get(url,headers={'Referer':'https://comandotorrents.to/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('<strong>DUAL ÁUDIO</strong>','<strong>:: DUAL ÁUDIO ::</strong>').replace('DUAL ÁUDIO',':: DUAL ÁUDIO ::').replace('<strong>DUBLADO OFICIAL</strong>','<strong>:: DUBLADO OFICIAL ::</strong>').replace('<strong>DUBLADO NÃO OFICIAL</strong>','<strong>:: DUBLADO NÃO OFICIAL ::</strong>').replace('<strong>LEGENDADO</strong>','<strong>:: LEGENDADO ::</strong>').replace('<strong>DUBLADO</strong>','<strong>:: DUBLADO ::</strong>')
+		link = requests.get(url,headers=headers1)
+		if link.status_code == 403:
+			comando = ["python", f"{cachefolder}comandocookiearg.py", "-a", cachefolder, "-H", "False"]
+			subprocess.run(comando, shell=True)
+		link = link.text.replace('<strong>DUAL ÁUDIO</strong>','<strong>:: DUAL ÁUDIO ::</strong>').replace('DUAL ÁUDIO',':: DUAL ÁUDIO ::').replace('<strong>DUBLADO OFICIAL</strong>','<strong>:: DUBLADO OFICIAL ::</strong>').replace('<strong>DUBLADO NÃO OFICIAL</strong>','<strong>:: DUBLADO NÃO OFICIAL ::</strong>').replace('<strong>LEGENDADO</strong>','<strong>:: LEGENDADO ::</strong>').replace('<strong>DUBLADO</strong>','<strong>:: DUBLADO ::</strong>')
 		#arquivo = open(cachefolder + "TuaSerie2.txt", "w+")
 		#arquivo.write(link.replace('\n','').replace('\r','').replace("</a></strong></p><p><","<strong>:: SELECIONE A OPÇÃO ::</strong>").replace('blank">K-Lite-Codec-Pack</a></strong></p><h2 style="text-align: center;">','<strong>:: SELECIONE A OPÇÃO ::</strong></a></strong></p> style="text-align: center;">').replace("</a></p><h2","").replace('/> style="text-align: center;">','<p style="text-align: center;"><strong>').replace('</strong></a></strong></p> style="text-align: center;">','<p style="text-align: center;"><strong>').replace('" width="300" height="125" /></p><p>','<p style="text-align: center;"><strong>Completo').replace('DVDRip (<strong style="font-style: italic;">','<strong>:: SELECIONE A OPÇÃO ::</strong></a></strong></p> style="text-align: center;">').replace('</strong>)</h4><p>','<p style="text-align: center;"><strong>Completo').replace("<strong>BAIXAR FILME</strong>",'<strong>:: SELECIONE A OPÇÃO ::</strong></a></strong></p> style="text-align: center;">').replace('LEGENDA</a></p></div><div style="text-align: center;">','<p style="text-align: center;"><strong>Completo').replace("MULTI ÁUDIO","[COLOR springgreen][B]Multi Áudio[/B][/COLOR]").replace("</strong></p><p>720p</p></div>","<strong>:: 720 ::</a></div>").replace("</a></strong></p></div>","<strong>:: Dublado ::</a></div>"))
 		#arquivo.close()
@@ -6325,6 +6421,32 @@ def Comandotoplayer(): #519
 ########COMANDO.TO SERIE
 ###############################
 def Comandotoserie(): #522
+	arquivo = open(cachefolder + 'cookie.txt', 'r')
+	cf_clearance = arquivo.read()
+	useragt = open(cachefolder + 'useragent.txt', 'r')
+	useragent = useragt.read()
+	headers = {
+	    'cookie': 'cf_clearance='+cf_clearance+';',
+	    'referer': 'https://comando.la/',
+	    'user-agent': useragent
+	}
+	try:
+		response = requests.get("https://comando.la/index", headers=headers)
+    
+		if response.status_code == 403:
+			comando = ["python", f"{cachefolder}comandocookiearg.py", "-a", cachefolder, "-H", "True"]
+			subprocess.run(comando, shell=True)
+	except:
+		pass
+	arquivo1 = open(cachefolder + 'cookie.txt', 'r')
+	cf_clearanceup = arquivo1.read()
+	useragt1 = open(cachefolder + 'useragent.txt', 'r')
+	useragent1 = useragt1.read()
+	headers1 = {
+	    'cookie': 'cf_clearance='+cf_clearanceup+';',
+	    'referer': 'https://comando.la/',
+	    'user-agent': useragent1
+	}
 	pagina = "0" if not cPageserCMT else cPageserCMT
 	if int(pagina) > 0:
 		AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageserCMT", info='\xa0')
@@ -6332,8 +6454,12 @@ def Comandotoserie(): #522
 	for x in range(0, 4):
 		try:
 			y +=1
-			urs = "https://comandotorrents.to/category/series/page/"+str(y)+"/"
-			link = requests.get(urs.replace('page/1/',''),headers={'Referer':'https://comandotorrents.to/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
+			urs = "https://comando.la/category/series/page/"+str(y)+"/"
+			link = requests.get(urs.replace('page/1/',''),headers=headers1)
+			if link.status_code == 403:
+				comando = ["python", f"{cachefolder}comandocookiearg.py", "-a", cachefolder, "-H", "False"]
+				subprocess.run(comando, shell=True)
+			link = link.text
 			#link2 = re.compile("Categoria:(.+?)Clientes").findall(link.replace('\n','').replace('\r',''))#.replace("Baixar Série:</b> ","").replace("«</b></span><br /><b>",">").replace("«</b><b> </b></span><br /><b>Título Traduzido</b>: ",">").replace("«</strong></span><br /><b>",">").replace("«</b><b> </b></span><br /><strong>Título Traduzido</strong>: ",">").replace('Título Traduzido:</b> ',"").replace(">>",">").replace('<a href="https://comandotorrents.to/category/',"").replace("Titulo original:</b> ","").replace("Titulo Traduzido:</b> ","").replace("Titulo original :</b> ","").replace("Baixar Filme:</b> ",""))
 			link2 = re.compile("Categoria:(.+)").findall(link.replace('\n','').replace('\r',''))
 			match = re.compile('"headline" ><a href="(.+?)">(.+?)<.+?" src="(.+?)"').findall(link2[0])
@@ -6344,7 +6470,36 @@ def Comandotoserie(): #522
 	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserCMT", info='\xa0')
 
 def Comandotoserie2(): #523
-	link = requests.get(url,headers={'Referer':'https://comandotorrents.to/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('DUAL ÁUDIO','<strong>:: DUAL ÁUDIO ::</strong>').replace('<strong>DUBLADO OFICIAL</strong>','<strong>:: DUBLADO OFICIAL ::</strong>').replace('DUBLADO NÃO OFICIAL','<strong>:: DUBLADO NÃO OFICIAL ::</strong>').replace('LEGENDADO','<strong>:: LEGENDADO ::</strong>').replace('<strong>DUBLADO</strong>','<strong>:: DUBLADO ::</strong>').replace('<strong> DUBLADO </strong>','<strong>:: DUBLADO ::</strong>')
+	arquivo = open(cachefolder + 'cookie.txt', 'r')
+	cf_clearance = arquivo.read()
+	useragt = open(cachefolder + 'useragent.txt', 'r')
+	useragent = useragt.read()
+	headers = {
+	    'cookie': 'cf_clearance='+cf_clearance+';',
+	    'referer': 'https://comando.la/',
+	    'user-agent': useragent
+	}
+	try:
+		response = requests.get("https://comando.la/index", headers=headers)
+		if response.status_code == 403:
+			comando = ["python", f"{cachefolder}comandocookiearg.py", "-a", cachefolder, "-H", "True"]
+			subprocess.run(comando, shell=True)
+	except:
+		pass
+	arquivo1 = open(cachefolder + 'cookie.txt', 'r')
+	cf_clearanceup = arquivo1.read()
+	useragt1 = open(cachefolder + 'useragent.txt', 'r')
+	useragent1 = useragt1.read()
+	headers1 = {
+	    'cookie': 'cf_clearance='+cf_clearanceup+';',
+	    'referer': 'https://comando.la/',
+	    'user-agent': useragent1
+	}
+	link = requests.get(url,headers=headers1)
+	if link.status_code == 403:
+		comando = ["python", f"{cachefolder}comandocookiearg.py", "-a", cachefolder, "-H", "False"]
+		subprocess.run(comando, shell=True)
+	link = link.text.replace('DUAL ÁUDIO','<strong>:: DUAL ÁUDIO ::</strong>').replace('<strong>DUBLADO OFICIAL</strong>','<strong>:: DUBLADO OFICIAL ::</strong>').replace('DUBLADO NÃO OFICIAL','<strong>:: DUBLADO NÃO OFICIAL ::</strong>').replace('LEGENDADO','<strong>:: LEGENDADO ::</strong>').replace('<strong>DUBLADO</strong>','<strong>:: DUBLADO ::</strong>').replace('<strong> DUBLADO </strong>','<strong>:: DUBLADO ::</strong>')
 	#arquivo = open(cachefolder + "Comandoto.txt", "w+")
 	#arquivo.write(link.replace('\n','').replace('\r','').replace('sans-serif; font-size: 22px;"',"><h2").replace('><h3>','><h2>').replace('﻿',''))
 	#arquivo.close()
