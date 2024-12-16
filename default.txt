@@ -18,7 +18,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.87.00"
+Versao = "23.88.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -2636,7 +2636,7 @@ def MoviesNC(): #71 Netcine
 	except:
 		pass
 def ListMoviesNC(): #78
-    #urlx = requests.get("http://www.adorocinema.com/busca/?q="+ name.replace(" ","+"))
+    #urlx = requests.get("http://www.adorocinema.com/?q="+ name.replace(" ","+"))
     #url2x = re.compile('"id":"TW92aWU6(.+?)"').findall(urlx.text)
     #decode = base64.b64decode(url2x[0])
     #decode2 = str(decode).replace("b","").replace("'","")
@@ -3568,16 +3568,16 @@ def Busca(): # 160
 			#p= 1
 			AddDir("[B][COLOR mediumpurple]|||[/COLOR][COLOR white]|||[/COLOR][COLOR mediumpurple]|||[/COLOR][COLOR mediumpurple] [ComandoHdTorrents] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
 			#l +=1
-			link = requests.get("https://galaxytorrent.org/?s="+d.replace('%2B','+'),headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','').replace('&#124;','|').replace('src="data:','').replace('	','')
+			link = requests.get("https://comandofilmeshd.site/?s="+d.replace('%2B','+'),headers={'Referer':'https://comandofilmeshd.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','').replace('&#124;','|').replace('src="data:','').replace('	','')
 			#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 			#arquivo.write(link)
 			#arquivo.close()
 			#match = re.compile('"item"><a href="(.+?)".+?title="(.+?)".+?img.src="(.+?)"').findall(link)
-			match = re.compile('<div class="item"><a href="(.+?)".+?title="(.+?)".+?src="(.+?)"').findall(link)
+			match = re.compile('"post-title">        <a href="(.+?)".+?">(.+?)<.+?src="(.+?)".+?b>.+? (.+?):').findall(link)
 			#for link,name2, image2 in match:
-			for link,name2, image2 in match:
+			for link,name2,image2,tipo in match:
 				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-				if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2:
+				if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2 or 'Serie' in tipo or 'Anime' in tipo:
 					AddDir("[COLOR mediumpurple]" +name2.replace(" Torrent","").replace(" –","").replace(' Download','')+"[/COLOR]", link, 174, image2, image2, isFolder=True, info='\xa0')
 				else:
 					AddDir("[COLOR mediumpurple]" +name2.replace(" Torrent","").replace(" –","").replace(' Download','')+"[/COLOR]", link, 1711, image2, image2, isFolder=True, info='\xa0')
@@ -3916,7 +3916,7 @@ def GetMFO1(): #171
 	except:
 		pass
 	try:
-		link = requests.get(url,headers={'Referer':'https://galaxyfilmestorrent.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
+		link = requests.get(url,headers={'Referer':'https://comandofilmeshd.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		#url1 = re.sub('-torrent.+', '-torrent-download', url)
 		#link = requests.get(url1.replace('comandofilmeshd.site','galaxytorrent.org'),headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
@@ -5057,7 +5057,7 @@ def comandoseries(): #173
 
 def comandomenu1(): #174
 	#try:
-		link = requests.get(url,headers={'Referer':'https://galaxyfilmestorrent.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
+		link = requests.get(url,headers={'Referer':'https://comandofilmeshd.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		#url1 = re.sub('-torrent.+', '-torrent-download', url)
 		#link = requests.get(url1.replace('comandofilmeshd.site','galaxytorrent.org'), headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
