@@ -3996,7 +3996,7 @@ def PlayMFO1(): #172
 	#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 	#arquivo.write(url)
 	#arquivo.close()
-	match = re.compile('<strong>(.+?)<.+?href="(.+?)"').findall(url.replace('center;"><strong>ASSISTIR ONLINE',''))
+	match = re.compile('<strong>(.+?)<.+?href="(.+?)"').findall(url.replace('<strong>ASSISTIR ONLINE','').replace('<strong><br /><a href="https://',''))
 	#match = re.compile('<p style="text-align:.center;"><strong>(.+?)<.+?href="(.+?)"').findall(url.replace('center;"><strong>ASSISTIR ONLINE',''))
 	if match:
 		for name2, url2 in match:
