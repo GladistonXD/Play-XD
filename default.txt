@@ -1449,10 +1449,10 @@ def FilmesHD(): #530
 			match = re.compile('class="image"><a href="(.+?)".+?audio">(.+?)<.+?IMDb.+? (.+?)<.+?src="(.+?)".+?title="(.+?)"').findall(link2)
 			for link, dubleg, imdb, img2, name2,in match:
 				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-				#if "Temporada" in name2: False
-				#else:
-				imdb = imdb+'/10'
-				AddDir(name2+" ("+dubleg+")", link, 531, img2.replace("-240x340",""), img2.replace("-240x340",""), isFolder=True, IsPlayable=True, info='[COLOR yellow]\nIMDb: [/COLOR]'+imdb.replace('N/A /10','Sem nota'))
+				if "Temporada" in name2: False
+				else:
+					imdb = imdb+'/10'
+					AddDir(name2+" ("+dubleg+")", link, 531, img2.replace("-240x340",""), img2.replace("-240x340",""), isFolder=True, IsPlayable=True, info='[COLOR yellow]\nIMDb: [/COLOR]'+imdb.replace('N/A /10','Sem nota'))
 				p += 1
 		if p >= 80:
 			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageFHD) + 2) +"][/B][/COLOR]", cPageFHD , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageFHD", info='\xa0')
