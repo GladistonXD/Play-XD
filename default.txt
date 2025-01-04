@@ -1546,7 +1546,7 @@ def FilmesHDPlay(): #532
 				devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 				url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		dev2 = re.compile('[^"\']*\.srt').findall(url3)
-		teste3 = 'https://www.elsubtitle.com/' + dev2[0]
+		teste3 = 'https://www.elsubtitle.com/tmp_searcher/' + dev2[0]
 
 		path = cachefolder+"Legendas/"
 		try:
@@ -3031,9 +3031,9 @@ def PlayMRC2(): #96 Play filmes direto
 			except:
 				file=re.compile('[^"|\']+\.mp4[^"|\'|\n]*').findall(mp4)
 			file[0] = re.sub('\n', '', file[0])
-			arquivo = open(cachefolder + "RedeCanais.txt", "w+")
-			arquivo.write(file[0])
-			arquivo.close()
+			#arquivo = open(cachefolder + "RedeCanais.txt", "w+")
+			#arquivo.write(file[0])
+			#arquivo.close()
 			PlayUrl("[B][COLOR white]"+ name +" [/COLOR][/B]", file[0].replace("https://downoff.canais.org/https://downoff.canais.org//","https://downoff.canais.org/") +"|Referer=https://homeingles.fun&Connection=Keep-Alive&Accept-Language=en&User-Agent=Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100110 Firefox/11.0", iconimage, desc) #aqui
 		else:
 			AddDir("[B]Ocorreu um erro[/B]"  , "", 0, iconimage, iconimage, index=0, isFolder=False, IsPlayable=False, info="Erro")
@@ -3578,7 +3578,7 @@ def Busca(): # 160
 			#arquivo.write(link)
 			#arquivo.close()
 			#match = re.compile('"item"><a href="(.+?)".+?title="(.+?)".+?img.src="(.+?)"').findall(link)
-			match = re.compile('col-md-2">.+?<a href="(.+?)".+?<img src="(.+?)".+?overlay">(.+?)<.+?IMDb:.(.+?)<').findall(link.replace('                                        ','').replace(' ',''))
+			match = re.compile('col-md-2">.+?<a href="(.+?)".+?<img src="(.+?)".+?overlay">(.+?)<.+?IMDb:.(.+?)<').findall(link.replace('                                        ','').replace('',''))
 			#for link,name2, image2 in match:
 			for link,image2,name2,imdb in match:
 				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
@@ -4156,7 +4156,7 @@ def PlayMFO1(): #172
 						devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				dev2 = re.compile('[^"\']*\.srt').findall(url3)
-				teste3 = 'https://www.elsubtitle.com/' + dev2[0]
+				teste3 = 'https://www.elsubtitle.com/tmp_searcher/' + dev2[0]
 
 				path = cachefolder+"Legendas/"
 				try:
@@ -4565,6 +4565,9 @@ def PlayMFO1(): #172
 							dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0][:-2]).findall(url5.replace(':','').replace("'",''))
 				except:
 					pass
+				#arquivo = open(cachefolder + "movies.txt", "w+")
+				#arquivo.write(str(dev1x))
+				#arquivo.close()
 			else:
 				try:
 					re22 = re.compile("(\w.+?)([(])").findall(background)
@@ -4600,6 +4603,7 @@ def PlayMFO1(): #172
 							dev1x = re.compile('href=".{1,400}' + leg4xx + '.-.\(' + backcut[0][:-2]).findall(url5)
 				except:
 					pass
+
 			try:
 				dev1 = re.compile('href="(.title.+?)"').findall(dev1x[0])
 				url2 = requests.get('https://www.elsubtitle.com'+dev1[0],headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
@@ -4615,8 +4619,11 @@ def PlayMFO1(): #172
 					except:
 						devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
+				#arquivo = open(cachefolder + "movies.txt", "w+")
+				#arquivo.write(str(url3))
+				#arquivo.close()
 				dev2 = re.compile('[^"\']*\.srt').findall(url3)
-				teste3 = 'https://www.elsubtitle.com/' + dev2[0]
+				teste3 = 'https://www.elsubtitle.com/tmp_searcher/' + dev2[0]
 
 				path = cachefolder+"Legendas/"
 				try:
@@ -5068,7 +5075,7 @@ def PlayPR(): #188
 						devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				dev2 = re.compile('[^"\']*\.srt').findall(url3)
-				teste3 = 'https://www.elsubtitle.com/' + dev2[0]
+				teste3 = 'https://www.elsubtitle.com/tmp_searcher/' + dev2[0]
 
 				path = cachefolder+"Legendas/"
 				try:
@@ -6657,7 +6664,7 @@ def Comandotoplayer(): #519
 						for rawurlencode, sublanguage, downloadtext, worktitle, workyear, workid in url4:
 							url3 = requests.post('https://www.elsubtitle.com/subtitles-download-p2/',data={'rawurlencode': rawurlencode, 'sublanguage': sublanguage, 'downloadtext': downloadtext,'worktitle': worktitle,'workyear': workyear, 'workid': workid},headers={'Referer': 'https://www.elsubtitle.com/','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				dev2 = re.compile('[^"\']*\.srt').findall(url3)
-				teste3 = 'https://www.elsubtitle.com/' + dev2[0]
+				teste3 = 'https://www.elsubtitle.com/tmp_searcher/' + dev2[0]
 
 				path = cachefolder+"Legendas/"
 				try:
@@ -7449,7 +7456,7 @@ def DosTorrentsPlay(): #528
 						devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				dev2 = re.compile('[^"\']*\.srt').findall(url3)
-				teste3 = 'https://www.elsubtitle.com/' + dev2[0]
+				teste3 = 'https://www.elsubtitle.com/tmp_searcher/' + dev2[0]
 
 				path = cachefolder+"Legendas/"
 				try:
@@ -7838,7 +7845,7 @@ def DosTorrentsPlay1(): #5281
 						devx = re.compile('Portugue.+?"(ST.+?)".+?value="(.+?)"').findall(url2)
 						url3 = requests.post('https://www.elsubtitle.com/subtitles-download/',data={'subtitle_language': 'pt', 'subtitle_id': devx[0][0], 'imdb_id': devx[0][1]},headers={'Referer':'https://www.elsubtitle.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 				dev2 = re.compile('[^"\']*\.srt').findall(url3)
-				teste3 = 'https://www.elsubtitle.com/' + dev2[0]
+				teste3 = 'https://www.elsubtitle.com/tmp_searcher/' + dev2[0]
 
 				path = cachefolder+"Legendas/"
 				try:
