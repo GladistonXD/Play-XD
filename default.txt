@@ -18,7 +18,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.92.00"
+Versao = "23.93.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3583,7 +3583,7 @@ def Busca(): # 160
 			for link,image2,name2,imdb in match:
 				nomemod = transformar_link(link)
 				#name2 = name2.replace('</div>',' '+nomemod)
-				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…').replace('</div>',' '+nomemod)
+				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…').replace(' ','').replace('</div>',' '+nomemod)
 				if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2 or 'Serie' in name2 or 'Anime' in name2:
 					AddDir("[COLOR mediumpurple]" +name2.replace(" Torrent","").replace(" –","").replace(' Download','')+"[/COLOR]", link, 174, image2, image2, isFolder=True, info='\xa0')
 				else:
@@ -4361,7 +4361,7 @@ def transformar_link(link):
     nome_final = nome_formatado.title()
     return nome_final.strip()
 
-
+#comandotorrent.site
 def MoviesFO(): #170
 	pagina = "0" if not cPageserTR else cPageserTR
 	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + Clistafo1[int(Catfo)] +"[/COLOR]", "url" ,85 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
@@ -4380,7 +4380,7 @@ def MoviesFO(): #170
 				if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2: False
 				#if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2: False
 				else:
-					AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Download',''), link, 1711, image2, image2, isFolder=True, info='[COLOR yellow]\nIMDb: [/COLOR]'+nota.replace(' ','').replace('–','Sem nota').replace('/b>','').replace('/10',''))
+					AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Download','').replace(' ',''), link, 1711, image2, image2, isFolder=True, info='[COLOR yellow]\nIMDb: [/COLOR]'+nota.replace(' ','').replace('–','Sem nota').replace('/b>','').replace('/10',''))
 		AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserTR", info='\xa0')
 	except:
 		pass
@@ -5555,7 +5555,7 @@ def comandoseries(): #173
 			for link, image2 ,name2, nota in match:
 				nomemod = transformar_link(link)
 				name2 = name2.replace('</div>',' '+nomemod)
-				AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Download',''), link, 174, image2, image2, isFolder=True, info='\xa0')
+				AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Download','').replace(' ',''), link, 174, image2, image2, isFolder=True, info='\xa0')
 		except:
 			pass
 	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserCM", info='\xa0')
