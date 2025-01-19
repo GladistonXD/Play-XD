@@ -18,7 +18,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.91.00"
+Versao = "23.92.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -3581,7 +3581,9 @@ def Busca(): # 160
 			match = re.compile('col-md-2">.+?<a href="(.+?)".+?<img src="(.+?)".+?overlay">(.+?)<.+?IMDb:.(.+?)<').findall(link.replace('                                        ','').replace('',''))
 			#for link,name2, image2 in match:
 			for link,image2,name2,imdb in match:
-				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
+				nomemod = transformar_link(link)
+				#name2 = name2.replace('</div>',' '+nomemod)
+				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…').replace('</div>',' '+nomemod)
 				if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2 or 'Serie' in name2 or 'Anime' in name2:
 					AddDir("[COLOR mediumpurple]" +name2.replace(" Torrent","").replace(" –","").replace(' Download','')+"[/COLOR]", link, 174, image2, image2, isFolder=True, info='\xa0')
 				else:
@@ -4347,6 +4349,18 @@ def PlayMFO1(): #172
 					xbmc.executebuiltin("Notification({0}, {1}, 2000, {2})".format(popup, "[COLOR red][B]Nenhuma Legenda Encontrada[/B][/COLOR]", iconimage))
 				except:
 					pass'''
+def transformar_link(link):
+    # Remove o domínio e as barras extras
+    partes = link.split("/")[-2:]  # Pegue as duas últimas partes do link
+    nome_bruto = "-".join(partes).replace("-", " ")
+
+    # Corrigir formatação (ex: "5a" para "5ª")
+    nome_formatado = re.sub(r"(\d+)a", r"\1ª", nome_bruto)
+
+    # Capitaliza cada palavra
+    nome_final = nome_formatado.title()
+    return nome_final.strip()
+
 
 def MoviesFO(): #170
 	pagina = "0" if not cPageserTR else cPageserTR
@@ -4360,6 +4374,8 @@ def MoviesFO(): #170
 			link = requests.get("https://comandofilmeshd.site/category/"+Clistafo0[int(Catfo)]+"/page/"+str(l)+"/",headers={'Referer':'https://comandofilmeshd.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile('col-md-2">.+?<a href="(.+?)".+?<img src="(.+?)".+?overlay">(.+?)<.+?IMDb:.(.+?)<').findall(html.unescape(link))
 			for link, image2 ,name2, nota in match:
+				nomemod = transformar_link(link)
+				name2 = name2.replace('</div>',' '+nomemod)
 			#for link, name2, image2 in match:
 				if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2: False
 				#if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2: False
@@ -5537,6 +5553,8 @@ def comandoseries(): #173
 			link = requests.get("https://comandofilmeshd.site/category/series/page/"+str(y)+"/",headers={'Referer':'https://comandofilmeshd.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile('col-md-2">.+?<a href="(.+?)".+?<img src="(.+?)".+?overlay">(.+?)<.+?IMDb:.(.+?)<').findall(html.unescape(link))
 			for link, image2 ,name2, nota in match:
+				nomemod = transformar_link(link)
+				name2 = name2.replace('</div>',' '+nomemod)
 				AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Download',''), link, 174, image2, image2, isFolder=True, info='\xa0')
 		except:
 			pass
