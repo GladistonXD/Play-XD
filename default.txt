@@ -18,7 +18,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.93.00"
+Versao = "23.94.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1888,7 +1888,7 @@ def Filmesviatorrentplay(): #536
 	#arquivo.close()
 	listar=[]
 	listal=[]
-	match = re.compile('href="(.+?)".+?>(.+?)<').findall(url)
+	match = re.compile('href="(magnet:\?[^"]+)"[^>]*>([^<]+)').findall(url)
 	if match:
 		for url2,name2 in match:
 			listal.append(url2)
