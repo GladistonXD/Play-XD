@@ -18,7 +18,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.94.00"
+Versao = "23.95.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -1809,15 +1809,16 @@ def Filmesviatorrentmenu1(): #534
 	try:	
 		link = requests.get(url,headers={'Referer':'https://limontorrents.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'}).text.replace('\n','').replace('\r','')
 		#arquivo = open(cachefolder + "Comandoto.txt", "w+")
-		#arquivo.write(str(link))
+		#arquivo.write(str(link.replace('</a></p><p>Epi','</a></p><p><strong>Epi').replace('<p style="text-align: center;">','<p><strong>').replace('<p class="comment-form-comment">','<p><strong>')))
 		#arquivo.close()
-		hexd = re.compile('>Epis.dio.(.+?)<(.+?)<\/p><p><strong>').findall(link)
+		link2 = re.sub('<p>Episódio ..</p><p><iframe','',link.replace('</strong></p><p><iframe','</p><p><iframe'))
+		hexd = re.compile('>Epis.dio.(.+?)<(.+?)<\/p><p><strong').findall(link2.replace('</a></p><p>Epi','</a></p><p><strong>Epi').replace('<p style="text-align: center;">','<p><strong>').replace('<p class="comment-form-comment">','<p><strong>'))
 		hexd2 = hexd[0]
 		for name2, link in hexd:
-			#if "Filmes Torrent" in name2: False
-			#else:
-			name2 = name2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("Dual Áudio","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("Legendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]")
-			AddDir(name2, link, 535, iconimage, iconimage, isFolder=True, IsPlayable=False, info="[COLOR][/COLOR]")
+			if "01" in name2: False
+			else:
+				name2 = name2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("Dual Áudio","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("Legendados","[COLOR red][B]Legendado[/COLOR]").replace("Legendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]")
+				AddDir(name2, link, 535, iconimage, iconimage, isFolder=True, IsPlayable=False, info="[COLOR][/COLOR]")
 	except:
 		try:	
 			hexd = re.compile('">Epis.dio.(.+?)<(.+?)<\/p><p').findall(link)
