@@ -18,7 +18,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.95.00"
+Versao = "23.96.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -123,7 +123,7 @@ ClistaBIZ10=["0", "acao",                                               "animaca
 ClistaBIZ11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]" , "[COLOR yellow][B]Ação[/COLOR][/B]", "[COLOR yellow][B]Animação[/COLOR][/B]",     "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]","[COLOR yellow][B]Policial[/COLOR][/B]", "[COLOR yellow][B]Fantasia[/COLOR][/B]", "[COLOR yellow][B]Drama[/COLOR][/B]","[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]", "[COLOR yellow][B]Romance[/COLOR][/B]",                       "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]","[COLOR yellow][B]Nacionais[/COLOR][/B]",       "[COLOR yellow][B]Terror[/COLOR][/B]"]
 ClistaMEG10=["2024",                                                  "Fixados",                                                        "acao",                       "animacao",                           "comedia",                      "faroeste",                                   "fantasia",                                    "drama",                                                         "ficcao-cientifica",                                                                 "romance",                                                                "documentario",                               "aventura",                           "suspense",                                     "terror"]
 ClistaMEG11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]", "[COLOR yellow][B]Lançamentos Fixados[/COLOR][/B]",                   "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]aventura[/COLOR][/B]",          "[COLOR yellow][B]Suspense[/COLOR][/B]",                       "[COLOR yellow][B]Terror[/COLOR][/B]"]
-ClistaFHD10=["",                                                        "category/acao",                       "category/animacao",                           "category/comedia",                      "category/faroeste",                                   "category/fantasia",                                    "category/drama",                                                         "category/ficcao-cientifica",                                                                 "category/romance",                                                                "category/documentario",                               "category/aventura",                           "category/suspense",                                     "category/terror"]
+ClistaFHD10=["category/top-cine",                                                        "category/acao",                       "category/animacao",                           "category/comedia",                      "category/faroeste",                                   "category/fantasia",                                    "category/drama",                                                         "category/ficcao-cientifica",                                                                 "category/romance",                                                                "category/documentario",                               "category/aventura",                           "category/suspense",                                     "category/terror"]
 ClistaFHD11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]",                   "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]aventura[/COLOR][/B]",          "[COLOR yellow][B]Suspense[/COLOR][/B]",                       "[COLOR yellow][B]Terror[/COLOR][/B]"]
 ClistaVZ10=["0",   "all",                                                        "acao",                       "animacao",                           "comedia",                      "faroeste",                                   "fantasia",                                    "drama",                                                         "romance",                                                                "documentario",                               "misterio",                           "suspense",                                     "terror"]
 ClistaVZ11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]", "[COLOR yellow][B]2020[/COLOR][/B]",                   "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]",          "[COLOR yellow][B]Suspense[/COLOR][/B]",                       "[COLOR yellow][B]Terror[/COLOR][/B]"]
@@ -224,7 +224,7 @@ def MFilmes(): #-2
 	#AddDir("[COLOR lightgreen][B]Filmes Comando.to[/B][/COLOR]" , "", 518, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", info='\xa0')
 	AddDir("[COLOR mediumpurple][B]Filmes ComandoHDTorrents[/B][/COLOR]" , "", 170, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='\xa0')
 	#AddDir("[COLOR yellow][B]Filmes Pirate-Filmes[/B][/COLOR]" , "", 186, "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", info='\xa0')
-	AddDir("[COLOR deepskyblue][B]Filmes LimonTorrents[/B][/COLOR]" , "", 530, "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", info='\xa0')	
+	AddDir("[COLOR deepskyblue][B]Filmes Comando4kFilmes[/B][/COLOR]" , "", 530, "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", info='\xa0')	
 	#AddDir("[COLOR mediumvioletred][B]Filmes ComoEuBaixo[/B][/COLOR]" , "", 526, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='\xa0')
 	#AddDir("[COLOR salmon][B]Filmes DosTorrents[/B][/COLOR]" , "", 5261, "https://uploaddeimagens.com.br/images/003/565/308/full/Spider.png", "https://uploaddeimagens.com.br/images/003/565/308/full/Spider.png", info='\xa0')
 	#AddDir("[COLOR lightgreen][B]Filmes Max[/B][/COLOR]" , "", 465, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", info='\xa0')
@@ -239,7 +239,7 @@ def MSeries(): #-3
 	#AddDir("[B][COLOR lightgreen]Séries Comando.to[/COLOR][/B]", "config" , 522,"https://uploaddeimagens.com.br/images/003/583/194/full/serie4.png", "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg", isFolder=True, info='\xa0')
 	AddDir("[B][COLOR mediumpurple]Séries ComandoHDTorrents[/COLOR][/B]", "config" , 173,"https://uploaddeimagens.com.br/images/003/583/192/full/serie2.png", "https://tconline.com.br/wp-content/uploads/2020/02/8.1-VS250220A.jpg", isFolder=True, info='\xa0')
 	#AddDir("[B][COLOR yellow]Séries Filme-Pirate[/COLOR][/B]", "config" , 250,"https://uploaddeimagens.com.br/images/003/583/191/original/serie1.png", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='\xa0')
-	AddDir("[B][COLOR deepskyblue]Séries LimonTorrents[/COLOR][/B]", "config" , 533,"https://uploaddeimagens.com.br/images/003/583/193/full/serie3.png", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='\xa0')
+	AddDir("[B][COLOR deepskyblue]Séries Comando4kFilmes[/COLOR][/B]", "config" , 533,"https://uploaddeimagens.com.br/images/003/583/193/full/serie3.png", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='\xa0')
 	#AddDir("[B][COLOR salmon]Séries DosTorrents[/COLOR][/B]", "config" , 5291,"https://uploaddeimagens.com.br/images/003/583/195/full/serie5.png", "https://jbt-en-images.s3.ap-south-1.amazonaws.com/wp-content/uploads/2021/10/05100134/lost-in-space-s3.jpg", isFolder=True, info='\xa0')
 	#AddDir("[B][COLOR mediumvioletred]Séries ComoEuBaixo[/COLOR][/B]", "config" , 529,"https://uploaddeimagens.com.br/images/003/883/514/full/BreakingBad-7277.png", "https://uploaddeimagens.com.br/images/003/883/514/full/BreakingBad-7277.png", isFolder=True, info='\xa0')
 	#AddDir("[B][COLOR lightgreen]Séries Max[/COLOR][/B]", "config" , 468,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='\xa0')
@@ -1436,49 +1436,113 @@ def PlayVizer(): # 602 ###### opção 1
 		sys.exit()
 # --------------  Fim menu
 def FilmesHD(): #530
-	AddDir("[COLOR yellow][B][Genero dos Filmes]:[/B] " + ClistaFHD11[int(CatHD)] +"[/COLOR]", "url" ,234 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
+	pagina = "0" if not cPageFHD else cPageFHD
+	AddDir("[COLOR yellow][B][Gênero dos Filmes]:[/B] " + ClistaFHD11[int(CatHD)] +"[/COLOR]", "url" ,85 ,"https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", "https://lh5.ggpht.com/gv992ET6R_InCoMXXwIbdRLJczqOHFfLxIeY-bN2nFq0r8MDe-y-cF2aWq6Qy9P_K-4=w300", isFolder=False, info='\xa0')
 	try:
-		p= 1
-		if int(cPageFHD) > 0:
-			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ str( int(cPageFHD) ) +"][/B][/COLOR]", cPageFHD , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageFHD", info='\xa0')
-		l= int(cPageFHD)*4
-		for x in range(0, 4):
+		if int(pagina) > 0:
+			AddDir("[COLOR blue][B]<< Pagina Anterior ["+ sstr( int(pagina) ) +"][/B][/COLOR]", pagina , 120 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Previous-icon.png", isFolder=False, background="cPageFHD", info='\xa0')
+		l= int(pagina)*5
+		for x in range(0, 5):
 			l +=1
-			link = requests.get("https://limontorrents.com/"+ClistaFHD10[int(CatHD)]+"/page/"+str(l)+"/",headers={'Referer':'https://limontorrents.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'}).text.replace('\n','').replace('\r','').replace('\r','').replace('                    ','').replace('        ','')
-			link2 = re.sub('block-header">.+?block-header','',link)
-			match = re.compile('class="image"><a href="(.+?)".+?audio">(.+?)<.+?IMDb.+? (.+?)<.+?src="(.+?)".+?title="(.+?)"').findall(link2)
-			for link, dubleg, imdb, img2, name2,in match:
-				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-				if "Temporada" in name2: False
+			link = requests.get("https://comando4kfilmes.cc/category/"+ClistaFHD10[int(CatHD)]+"/page/"+str(l)+"/",headers={'Referer':'https://comando4kfilmes.cc/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
+			match = re.compile('<h1 class="post-title">.+?<a href="(.+?)".+?">(.+?)<.+?src="(.+?)".+?IMDb.+?">(.+?)<').findall(html.unescape(link))
+			for link, name2, image2, nota in match:
+				nomemod = transformar_link(link)
+				name2 = name2.replace('</div>',' '+nomemod)
+			#for link, name2, image2 in match:
+				if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2: False
+				#if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2: False
 				else:
-					imdb = imdb+'/10'
-					AddDir(name2+" ("+dubleg+")", link, 531, img2.replace("-240x340",""), img2.replace("-240x340",""), isFolder=True, IsPlayable=True, info='[COLOR yellow]\nIMDb: [/COLOR]'+imdb.replace('N/A /10','Sem nota'))
-				p += 1
-		if p >= 80:
-			AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(cPageFHD) + 2) +"][/B][/COLOR]", cPageFHD , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageFHD", info='\xa0')
+					AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Download','').replace(' ',''), link, 531, image2, image2, isFolder=True, info='[COLOR yellow]\nIMDb: [/COLOR]'+nota.replace(' ','').replace('–','Sem nota').replace('/b>','').replace('/10',''))
+		AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserTR", info='\xa0')
 	except:
 		pass
+        
+        
 def FilmesHDmenu(): #531
 	try:
 		you = re.compile("(\w.+?)[)]").findall(name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
-		trailer = requests.get("https://www.youtube.com/results?search_query="+ you[0].replace("Dublado & Legendado","").replace("Legendado","").replace("Dublado","").replace(" ","+").replace("(","")+"+Trailer"+"")
+		trailer = requests.get("https://www.youtube.com/results?search_query="+ you[0].replace(" ","+").replace("(","")+"+Trailer"+"")
 		namey = re.compile('\w').findall(you[0])
 		trailer2 = re.compile('"label":"'+namey[0]+'.+?"label":"([0-5].minuto|[0-9][0-9].segundo).+?addedVideoId":"(.+?)"').findall(trailer.text.replace('Filme ','').replace('FILME ','').replace('TRAILER ','').replace('Trailer','').replace('“',''))
-		AddDir("[COLOR yellow]Trailer YouTube[/COLOR]", "plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid="+trailer2[0][1], 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info='Trailer do filme '+you[0].replace("(","").replace("Dublado & Legendado","").replace("Legendado","").replace("Dublado",""))
+		AddDir("[COLOR yellow]Trailer YouTube[/COLOR]", "plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid="+trailer2[0][1], 212, iconimage, iconimage, isFolder=False, IsPlayable=True, info='Trailer do filme '+you[0].replace("(",""))
 	except:
 		pass
-	try:	
-		link = requests.get(url,headers={'Referer':'https://limontorrents.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'}).text.replace('\n','').replace('\r','').replace(':</strong>','a>')
-		sinopse = re.compile('og:description".content="(.+?)"').findall(link)
-		hexd = re.compile('a><a href="(.+?)">Baixar - (.+?)<').findall(link)
-		for link, name2 in hexd:
-			name2 = name2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]")
-			if sinopse:
-				AddDir(name2, link, 532, iconimage, iconimage, isFolder=False, IsPlayable=True, info=sinopse[0], background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
+	try:
+		link = requests.get(url,headers={'Referer':'https://comando4kfilmes.cc/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('::','')
+		#url1 = re.sub('-torrent.+', '-torrent-download', url)
+		#link = requests.get(url1.replace('comandofilmeshd.site','galaxytorrent.org'),headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
+		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
+		#arquivo.write(url)
+		#arquivo.close()
+		try:
+			genero = re.compile('<b>Baixar.(.+?):<.b>').findall(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('	','')))[0]
+		except:
+			genero = ''
+		match = re.compile('center"><strong>(.+?)<\/strong>(.*?)(?=center"><strong>(?:D|L.+?)<\/strong>|<\/body>)').findall(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('	','').replace("OFICIAL","").replace('<strong>ASSISTIR ONLINE DUBLADO','')))
+		matchpff = match[0]
+		sinopse = re.compile('<.span><.strong>:(.+?)<.p>').findall(html.unescape(link.replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('	','')))
+		for title2, link in match:
+			if 'ONLINE' in title2: False
 			else:
-				AddDir(name2, link, 532, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
+				title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("MULTI ÁUDIO","[COLOR springgreen][B]Multi Áudio[/B][/COLOR]").replace("OFICIAL","")
+				if sinopse:
+					for info1 in sinopse:
+						if 'Anime' in genero or 'Serie' in genero:
+							AddDir(title2, link, 177, iconimage, iconimage, isFolder=True, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
+						else:
+							AddDir(title2, link, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
+				else:
+					if 'Anime' in genero or 'Serie' in genero:
+						AddDir(title2, link, 177, iconimage, iconimage, isFolder=True, IsPlayable=True, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), info='\xa0', legdub=title2)
+					else:
+						AddDir(title2, link, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), info='\xa0', legdub=title2)
 	except:
 		pass
+		try:
+			match = re.compile('(href="https:\/\/www.ad.+?idd=.+?")').findall(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
+			#arquivo = open(cachefolder + "testeplayer.txt", "w+")
+			#arquivo.write(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
+			#arquivo.close()
+			match1 = re.compile('dn=(.+?)&').findall(urllib.parse.unquote(str(match)))
+			matchpffx = match1[0]
+			filtrar = re.compile('^\w+').findall(name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
+			t = 0
+			for name1 in match:
+				linkL = '<p style="text-align:.center;"><strong>Completo<strong'+name1
+				filtro = re.compile('(.+)').findall(str(linkL))
+				t += 1
+				for magnet in filtro:
+					AddDir("[B]"+'Completo'+"[/B]", magnet, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
+		except:
+			pass
+			try:
+				#link = requests.get(url,headers={'Referer':'https://comandofilmeshd.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
+				#arquivo = open(cachefolder + "testeplayer.txt", "w+")
+				#arquivo.write(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
+				#arquivo.close()
+				match2 = re.compile('(<.span><.strong><.p><hr .><p style="text-align: center;"><strong>.+?)<hr').findall(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('Download Mkv: ','').replace(' / Áudio:','')))
+				title2 = re.compile('<.span><.strong><.p><hr .><p style="text-align: center;"><strong>.+?00ff;">(.+?)<').findall(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
+				matchpffx = title2[0]
+				sinopse = re.compile('<.span><.strong>:(.+?)<.p>').findall(html.unescape(link.replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
+				for link in match2:
+					title2 = title2[0].replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("MULTI ÁUDIO","[COLOR springgreen][B]Multi Áudio[/B][/COLOR]").replace("OFICIAL","").replace("Inglês","[COLOR red][B]Legendado[/B][/COLOR]")
+					if sinopse:
+						for info1 in sinopse:
+							AddDir(title2, link, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
+					else:
+						AddDir(title2, link, 172, iconimage, iconimage, isFolder=False, IsPlayable=True, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), info='\xa0', legdub=title2)
+			except:
+				match2 = re.compile('(<.p><h3><a href=".+?".target=")').findall(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('Download Mkv: ','').replace(' / Áudio:','')))
+				sinopse = re.compile('<.span><.strong>:(.+?)<.p>').findall(html.unescape(link.replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','')))
+				for link in match2:
+					teste = str(link.replace('</p><h3><a href="','<p style="text-align:.center;"><strong>Completo<...href="magnet:?xt=urn:btih:'))
+					if sinopse:
+						for info1 in sinopse:
+							AddDir('Selecione a opção', teste , 172, iconimage, iconimage, isFolder=False, IsPlayable=True, info=info1, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), legdub=title2)
+					else:
+						AddDir('Selecione a opção', teste , 172, iconimage, iconimage, isFolder=False, IsPlayable=True, background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''), info='\xa0', legdub=title2)
+
 
 def FilmesHDPlay(): #532
 	PlayUrl(name,"plugin://plugin.video.elementum/play?show=''&uri="+url, subs=[cachefolder+"Legendas/Elsubtitle (Brasil)-pt.forced.srt", cachefolder+"Legendas/Legendei (Brasil)-pt.srt", cachefolder+"Legendas/OpenSubtitles (Brasil)-pt.srt"])
@@ -1794,51 +1858,33 @@ def Filmesviatorrent(): #533
 	for x in range(0, 4):
 		try:
 			y +=1
-			link = requests.get("https://limontorrents.com/category/series/page/"+str(y)+"/",headers={'Referer':'https://limontorrents.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'}).text.replace('\n','').replace('\r','').replace('                    ','').replace('        ','')
-			match = re.compile('class="image"><a href="(.+?)".+?audio">(.+?)<.+?IMDb.+? (.+?)<.+?src="(.+?)".+?title="(.+?)"').findall(link)
-			#link = requests.get("https://filmesviatorrents.site/series-torrent/page/"+ str(y) +"/",headers={'Referer':'https://filmesviatorrents.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'})
-			#match = re.compile('<a href="(.+?)">\s.+\s.+\s.+src="(.+?)".+?alt="Imagem (.+?)"').findall(link.text)
-			for link, dubleg, imdb, img2, name2,in match:
-				name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-				AddDir(name2+" ("+dubleg+")", link, 534, img2.replace("-240x340",""), img2.replace("-240x340",""), isFolder=True, IsPlayable=True, info='\xa0')
+			link = requests.get("https://comando4kfilmes.cc/category/series/page/"+str(y)+"/",headers={'Referer':'https://comando4kfilmes.cc/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
+			match = re.compile('<h1 class="post-title">.+?<a href="(.+?)".+?">(.+?)<.+?src="(.+?)".+?IMDb.+?">(.+?)<').findall(html.unescape(link))
+			for link, name2, image2, nota in match:
+				nomemod = transformar_link(link)
+				name2 = name2.replace('</div>',' '+nomemod)
+				AddDir(name2.replace(" Torrent","").replace(" –","").replace(' Download','').replace(' ',''), link, 534, image2, image2, isFolder=True, info='\xa0')
 		except:
 			pass
 	AddDir("[COLOR blue][B]Proxima Pagina >> ["+ str( int(pagina) + 2) +"][/B][/COLOR]", pagina , 110 ,"http://icons.iconarchive.com/icons/iconsmind/outline/256/Next-2-2-icon.png", isFolder=False, background="cPageserCM", info='\xa0')
     
 def Filmesviatorrentmenu1(): #534
-	try:	
-		link = requests.get(url,headers={'Referer':'https://limontorrents.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'}).text.replace('\n','').replace('\r','')
-		#arquivo = open(cachefolder + "Comandoto.txt", "w+")
-		#arquivo.write(str(link.replace('</a></p><p>Epi','</a></p><p><strong>Epi').replace('<p style="text-align: center;">','<p><strong>').replace('<p class="comment-form-comment">','<p><strong>')))
+	#try:
+		link = requests.get(url,headers={'Referer':'https://comando4kfilmes.cc/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
+		#url1 = re.sub('-torrent.+', '-torrent-download', url)
+		#link = requests.get(url1.replace('comandofilmeshd.site','galaxytorrent.org'), headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
+		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
+		#arquivo.write(link.replace('\n','').replace('\r','').replace('﻿','').replace('​​','').replace('»<b>','<strong>::').replace('«</strong>','::').replace('»<b>','<strong>:: ').replace('«</strong>','::').replace('**FIM DE TEMPORADA**','><h2'))
 		#arquivo.close()
-		link2 = re.sub('<p>Episódio ..</p><p><iframe','',link.replace('</strong></p><p><iframe','</p><p><iframe'))
-		hexd = re.compile('>Epis.dio.(.+?)<(.+?)<\/p><p><strong').findall(link2.replace('</a></p><p>Epi','</a></p><p><strong>Epi').replace('<p style="text-align: center;">','<p><strong>').replace('<p class="comment-form-comment">','<p><strong>'))
-		hexd2 = hexd[0]
-		for name2, link in hexd:
-			if "01" in name2: False
-			else:
-				name2 = name2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("Dual Áudio","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("Legendados","[COLOR red][B]Legendado[/COLOR]").replace("Legendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]")
-				AddDir(name2, link, 535, iconimage, iconimage, isFolder=True, IsPlayable=False, info="[COLOR][/COLOR]")
-	except:
-		try:	
-			hexd = re.compile('">Epis.dio.(.+?)<(.+?)<\/p><p').findall(link)
-			hexd2 = hexd[0]
-			for name2, link in hexd:
-				name2 = name2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("Dual Áudio","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("Legendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]")
-				AddDir(name2, link, 535, iconimage, iconimage, isFolder=True, IsPlayable=False, info="[COLOR][/COLOR]")
-		except:
-			try:
-				hexd = re.compile('(DOWNLOAD LINKS:).+?<a (.+?<).a>').findall(link)
-				hexd2 = hexd[0]
-				for name2, link in hexd:
-					name2 = name2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DOWNLOAD LINKS:","[COLOR springgreen][B]Completo[/B][/COLOR]")
-					AddDir(name2, link, 535, iconimage, iconimage, isFolder=True, IsPlayable=False, info="[COLOR][/COLOR]")
-			except:
-				hexd = re.compile('[.]<\/p><p>.+?">(.+?)<\/(.+?<)\/a>').findall(link)
-				for name2, link in hexd:
-					name2 = name2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("Dual Áudio","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("Legendado","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]")
-					AddDir(name2, link, 535, iconimage, iconimage, isFolder=True, IsPlayable=False, info="[COLOR][/COLOR]")
-                
+		match = re.compile('center"><strong>(.+?)<\/strong>(.*?)(?=center"><strong>(?:D|L.+?)<\/strong>|<\/body>)').findall(link.replace('\n','').replace('\r','').replace('<strong> ::','<strong>::').replace('center;">::','<strong>::').replace('»<b>','<strong>:: ').replace('«</strong>','::').replace('**FIM DE TEMPORADA**','><h2').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('	',''))
+		if match:
+			for title2, link in match:
+				if 'CACHO' in title2: False
+				else:
+					title2 = title2.replace("DUBLADO NÃO OFICIAL","[COLOR goldenrod][B]Dublagem (Não Oficial)[/B][/COLOR]").replace("DUAL ÁUDIO / DUBLADO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("LEGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("NACIONAL","[COLOR springgreen][B]Nacional[/B][/COLOR]").replace("DUAL ÁUDIO","[COLOR springgreen][B]Dual Áudio[/B][/COLOR]").replace("DUBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("EGENDADO","[COLOR red][B]Legendado[/B][/COLOR]").replace("UBLADO","[COLOR springgreen][B]Dublado[/B][/COLOR]").replace("MULTI ÁUDIO","[COLOR springgreen][B]MULTI ÁUDIO[/B][/COLOR]").replace('</b>','').replace("MULTI-ÁUDIO","[COLOR springgreen][B]Multi-Áudio[/B][/COLOR]").replace("MULTI-SUBS","/ [COLOR red][B]Multi-Subs[/B][/COLOR]").replace('ASSISTIR ONLINE ','')
+					AddDir(title2, link, 177, iconimage, iconimage, isFolder=True, IsPlayable=False, info='\xa0', background=name.replace('[COLOR yellow]','').replace('[COLOR mediumpurple]','').replace('[COLOR mediumvioletred]','').replace('[COLOR deepskyblue]','').replace('[COLOR lightgreen]','').replace('[COLOR salmon]','').replace('[COLOR mediumvioletred]','').replace('[/COLOR]',''))
+	#except:
+	#	pass
         
 def Filmesviatorrentmenu2(): #535
 		#arquivo = open(cachefolder + "ComandotoT.txt", "w+")
@@ -3610,21 +3656,21 @@ def Busca(): # 160
 		pass'''
 	if (progress.iscanceled()):
 		sys.exit(int(sys.argv[1]))
-	progress.update(80, "FilmesViaTorrent")
+	progress.update(80, "Comando4kFilmes")
 	try:
 		p= 1
-		AddDir("[B][COLOR deepskyblue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR deepskyblue]|||[/COLOR][COLOR deepskyblue] [FilmesViaTorrent] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
+		AddDir("[B][COLOR deepskyblue]|||[/COLOR][COLOR white]|||[/COLOR][COLOR deepskyblue]|||[/COLOR][COLOR deepskyblue] [Comando4kFilmes] •[/B][/COLOR]", "" , 0 ,"", isFolder=False, info="[COLOR][/COLOR]")
 		l= 0
 		for x in range(0, 1):
 			l +=1
-			link = requests.get("https://limontorrents.com/?s="+d.replace('%2B','+'),headers={'Referer':'https://limontorrents.com/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'}).text.replace('\n','').replace('\r','').replace('                    ','').replace('        ','').replace('							','')
-			match = re.compile('class="image"><a href="(.+?)".+?audio">(.+?)<.+?IMDb.+? (.+?)<.+?src="(.+?)".+?title="(.+?)"').findall(link)
-			for link, dubleg, imdb, img2, name2,in match:
+			link = requests.get("https://comando4kfilmes.cc/?s="+d.replace('%2B','+'),headers={'Referer':'https://comando4kfilmes.cc/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'}).text.replace('\n','').replace('\r','')
+			match = re.compile('<h1 class="post-title">.+?<a href="(.+?)".+?">(.+?)<.+?src="(.+?)".+?IMDb.+?">(.+?)<').findall(link)
+			for link, name2, image2, imdb in match:
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
-					if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2:
-						AddDir("[COLOR deepskyblue]" +name2+" ("+dubleg+")"+"[/COLOR]", link, 534, img2.replace("-240x340",""), img2.replace("-240x340",""), isFolder=True, IsPlayable=True, info="[COLOR][/COLOR]")
+					if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2 or 'Serie' in name2 or 'Anime' in name2:
+						AddDir("[COLOR deepskyblue]" +name2.replace(" Torrent","").replace(" –","").replace(' Download','')+"[/COLOR]", link, 534, image2, image2, isFolder=True, IsPlayable=True, info="[COLOR][/COLOR]")
 					else:
-						AddDir("[COLOR deepskyblue]" +name2+" ("+dubleg+")"+"[/COLOR]", link, 531, img2.replace("-240x340",""), img2.replace("-240x340",""), isFolder=True, IsPlayable=True, info="[COLOR][/COLOR]")
+						AddDir("[COLOR deepskyblue]" +name2.replace(" Torrent","").replace(" –","").replace(' Download','')+"[/COLOR]", link, 531, image2, image2, isFolder=True, IsPlayable=True, info="[COLOR][/COLOR]")
 	except:
 		pass
 
@@ -4477,12 +4523,14 @@ def PlayMFO1(): #172
 	#arquivo = open(cachefolder + "testeplayer.txt", "w+")
 	#arquivo.write(url)
 	#arquivo.close()
-	match = re.compile('<strong>(.+?)<.+?href="(.+?)"').findall(url.replace('<strong>ASSISTIR ONLINE','').replace('<strong><br /><a href="https://','').replace('<strong><br /> <a href="https://',''))
+	match = re.compile('<strong>(.+?)<.+?href="(.+?)"').findall(url.replace('<strong>ASSISTIR ONLINE','').replace('<strong><br /><a href="https://','').replace('<strong><br /> <a href="https://','').replace('<span style="color: #333333">','').replace('<strong><br /><',''))
 	#match = re.compile('<p style="text-align:.center;"><strong>(.+?)<.+?href="(.+?)"').findall(url.replace('center;"><strong>ASSISTIR ONLINE',''))
 	if match:
 		for name2, url2 in match:
-			listal.append(url2)
-			listar.append(name2)
+			if 'href' in name2 or 'Senha' in name2 or 'Copyright' in name2 or 'LEGENDA' in name2: False
+			else:
+				listal.append(url2)
+				listar.append(name2)
 		if len(listal) <1:
 			xbmcgui.Dialog().ok('Play XD', 'Erro, video não encontrado, tente outro servidor')
 			sys.exit(int(sys.argv[1]))
