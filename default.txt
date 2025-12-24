@@ -18,7 +18,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os.path import *
 import tempfile
 
-Versao = "23.96.00"
+Versao = "23.97.00"
 
 AddonID = 'plugin.video.GladistonXD'
 Addon = xbmcaddon.Addon(AddonID)
@@ -123,7 +123,7 @@ ClistaBIZ10=["0", "acao",                                               "animaca
 ClistaBIZ11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]" , "[COLOR yellow][B]Ação[/COLOR][/B]", "[COLOR yellow][B]Animação[/COLOR][/B]",     "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]","[COLOR yellow][B]Policial[/COLOR][/B]", "[COLOR yellow][B]Fantasia[/COLOR][/B]", "[COLOR yellow][B]Drama[/COLOR][/B]","[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]", "[COLOR yellow][B]Romance[/COLOR][/B]",                       "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]", "[COLOR yellow][B]Suspense[/COLOR][/B]","[COLOR yellow][B]Nacionais[/COLOR][/B]",       "[COLOR yellow][B]Terror[/COLOR][/B]"]
 ClistaMEG10=["2024",                                                  "Fixados",                                                        "acao",                       "animacao",                           "comedia",                      "faroeste",                                   "fantasia",                                    "drama",                                                         "ficcao-cientifica",                                                                 "romance",                                                                "documentario",                               "aventura",                           "suspense",                                     "terror"]
 ClistaMEG11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]", "[COLOR yellow][B]Lançamentos Fixados[/COLOR][/B]",                   "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]aventura[/COLOR][/B]",          "[COLOR yellow][B]Suspense[/COLOR][/B]",                       "[COLOR yellow][B]Terror[/COLOR][/B]"]
-ClistaFHD10=["category/top-cine",                                                        "category/acao",                       "category/animacao",                           "category/comedia",                      "category/faroeste",                                   "category/fantasia",                                    "category/drama",                                                         "category/ficcao-cientifica",                                                                 "category/romance",                                                                "category/documentario",                               "category/aventura",                           "category/suspense",                                     "category/terror"]
+ClistaFHD10=["category/2025",                                                        "category/acao",                       "category/animacao",                           "category/comedia",                      "category/faroeste",                                   "category/fantasia",                                    "category/drama",                                                         "category/ficcao-cientifica",                                                                 "category/romance",                                                                "category/documentario",                               "category/aventura",                           "category/suspense",                                     "category/terror"]
 ClistaFHD11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]",                   "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Ficção Ciêntifica[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]aventura[/COLOR][/B]",          "[COLOR yellow][B]Suspense[/COLOR][/B]",                       "[COLOR yellow][B]Terror[/COLOR][/B]"]
 ClistaVZ10=["0",   "all",                                                        "acao",                       "animacao",                           "comedia",                      "faroeste",                                   "fantasia",                                    "drama",                                                         "romance",                                                                "documentario",                               "misterio",                           "suspense",                                     "terror"]
 ClistaVZ11=["[COLOR yellow][B]Lançamentos[/COLOR][/B]", "[COLOR yellow][B]2020[/COLOR][/B]",                   "[COLOR yellow][B]Ação[/COLOR][/B]",     "[COLOR yellow][B]Animação[/COLOR][/B]",          "[COLOR yellow][B]Comedia[/COLOR][/B]",  "[COLOR yellow][B]Faroeste[/COLOR][/B]",            "[COLOR yellow][B]Fantasia[/COLOR][/B]",               "[COLOR yellow][B]Drama[/COLOR][/B]",                             "[COLOR yellow][B]Romance[/COLOR][/B]",                                           "[COLOR yellow][B]Documentário[/COLOR][/B]",  "[COLOR yellow][B]Mistério[/COLOR][/B]",          "[COLOR yellow][B]Suspense[/COLOR][/B]",                       "[COLOR yellow][B]Terror[/COLOR][/B]"]
@@ -221,8 +221,8 @@ def MFilmes(): #-2
 	#AddDir("[COLOR blue][B]Filmes Dublado RedeCanais[/B][/COLOR]" , cPage, 90, "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", "https://uploaddeimagens.com.br/images/002/376/274/original/ROCKKAAS.jpg", background="cPage", info='\xa0')
 	#AddDir("[COLOR blue][B]Filmes Legendado RedeCanais[/B][/COLOR]" , cPageleg, 91, "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", "https://walter.trakt.tv/images/movies/000/181/313/fanarts/thumb/cc9226edfe.jpg", background="cPageleg", info='\xa0')
 	#AddDir("[COLOR blue][B]Filmes Nacional RedeCanais[/B][/COLOR]" , cPagenac, 92, "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", "http://cdn.cinepop.com.br/2016/11/minhamaeeumapeca2_2-750x380.jpg", background="cPagenac", info='\xa0')
-	#AddDir("[COLOR lightgreen][B]Filmes Comando.to[/B][/COLOR]" , "", 518, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", info='\xa0')
-	AddDir("[COLOR mediumpurple][B]Filmes ComandoHDTorrents[/B][/COLOR]" , "", 170, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='\xa0')
+	##AddDir("[COLOR lightgreen][B]Filmes Comando.to[/B][/COLOR]" , "", 518, "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", "https://uploaddeimagens.com.br/images/002/428/080/original/ROBOZIm.jpg", info='\xa0')
+	#AddDir("[COLOR mediumpurple][B]Filmes ComandoHDTorrents[/B][/COLOR]" , "", 170, "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", "https://uploaddeimagens.com.br/images/002/644/778/original/STAR.png", info='\xa0')
 	#AddDir("[COLOR yellow][B]Filmes Pirate-Filmes[/B][/COLOR]" , "", 186, "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", "https://uploaddeimagens.com.br/images/002/588/199/original/tomb.jpg", info='\xa0')
 	AddDir("[COLOR deepskyblue][B]Filmes Comando4kFilmes[/B][/COLOR]" , "", 530, "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", "https://uploaddeimagens.com.br/images/002/711/818/full/django.jpg", info='\xa0')	
 	#AddDir("[COLOR mediumvioletred][B]Filmes ComoEuBaixo[/B][/COLOR]" , "", 526, "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", "https://uploaddeimagens.com.br/images/002/640/063/original/Vin.png", info='\xa0')
@@ -236,8 +236,8 @@ def MSeries(): #-3
 	#AddDir("[COLOR blue][B]Animes RedeCanais[/B][/COLOR]" , cPageser, 140, "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", "https://walter.trakt.tv/images/shows/000/098/580/fanarts/thumb/d48b65c8a1.jpg", background="cPageser", info='\xa0')
 	#AddDir("[COLOR blue][B]Desenhos RedeCanais[/B][/COLOR]" , cPageani, 150, "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", "https://walter.trakt.tv/images/shows/000/069/829/fanarts/thumb/f0d18d4e1d.jpg", background="cPageser", info='\xa0')
 	#AddDir("[B][COLOR cyan]Séries MMFilmes[/COLOR][/B]", "config" , 190,"https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='\xa0')
-	#AddDir("[B][COLOR lightgreen]Séries Comando.to[/COLOR][/B]", "config" , 522,"https://uploaddeimagens.com.br/images/003/583/194/full/serie4.png", "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg", isFolder=True, info='\xa0')
-	AddDir("[B][COLOR mediumpurple]Séries ComandoHDTorrents[/COLOR][/B]", "config" , 173,"https://uploaddeimagens.com.br/images/003/583/192/full/serie2.png", "https://tconline.com.br/wp-content/uploads/2020/02/8.1-VS250220A.jpg", isFolder=True, info='\xa0')
+	##AddDir("[B][COLOR lightgreen]Séries Comando.to[/COLOR][/B]", "config" , 522,"https://uploaddeimagens.com.br/images/003/583/194/full/serie4.png", "https://walter.trakt.tv/images/shows/000/098/898/fanarts/thumb/bca6f8bc3c.jpg", isFolder=True, info='\xa0')
+	#AddDir("[B][COLOR mediumpurple]Séries ComandoHDTorrents[/COLOR][/B]", "config" , 173,"https://uploaddeimagens.com.br/images/003/583/192/full/serie2.png", "https://tconline.com.br/wp-content/uploads/2020/02/8.1-VS250220A.jpg", isFolder=True, info='\xa0')
 	#AddDir("[B][COLOR yellow]Séries Filme-Pirate[/COLOR][/B]", "config" , 250,"https://uploaddeimagens.com.br/images/003/583/191/original/serie1.png", "https://cdn.mensagenscomamor.com/content/images/p000024904.jpg?v=2", isFolder=True, info='\xa0')
 	AddDir("[B][COLOR deepskyblue]Séries Comando4kFilmes[/COLOR][/B]", "config" , 533,"https://uploaddeimagens.com.br/images/003/583/193/full/serie3.png", "https://walter.trakt.tv/images/shows/000/037/522/fanarts/thumb/6ecdb75c1c.jpg", isFolder=True, info='\xa0')
 	#AddDir("[B][COLOR salmon]Séries DosTorrents[/COLOR][/B]", "config" , 5291,"https://uploaddeimagens.com.br/images/003/583/195/full/serie5.png", "https://jbt-en-images.s3.ap-south-1.amazonaws.com/wp-content/uploads/2021/10/05100134/lost-in-space-s3.jpg", isFolder=True, info='\xa0')
@@ -1444,7 +1444,7 @@ def FilmesHD(): #530
 		l= int(pagina)*5
 		for x in range(0, 5):
 			l +=1
-			link = requests.get("https://comando4kfilmes.cc/category/"+ClistaFHD10[int(CatHD)]+"/page/"+str(l)+"/",headers={'Referer':'https://comando4kfilmes.cc/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
+			link = requests.get("https://cmd1.site/category/"+ClistaFHD10[int(CatHD)]+"/page/"+str(l)+"/",headers={'Referer':'https://cmd1.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
 			match = re.compile('<h1 class="post-title">.+?<a href="(.+?)".+?">(.+?)<.+?src="(.+?)".+?IMDb.+?">(.+?)<').findall(html.unescape(link))
 			for link, name2, image2, nota in match:
 				nomemod = transformar_link(link)
@@ -1469,11 +1469,11 @@ def FilmesHDmenu(): #531
 	except:
 		pass
 	try:
-		link = requests.get(url,headers={'Referer':'https://comando4kfilmes.cc/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('::','')
+		link = requests.get(url,headers={'Referer':'https://cmd1.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('::','').replace('center;">','center">').replace('VERSÃO MKV ','').replace('SERVIDOR PARA DOWNLOAD ','')
 		#url1 = re.sub('-torrent.+', '-torrent-download', url)
 		#link = requests.get(url1.replace('comandofilmeshd.site','galaxytorrent.org'),headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
-		#arquivo.write(url)
+		#arquivo.write(str(link))
 		#arquivo.close()
 		try:
 			genero = re.compile('<b>Baixar.(.+?):<.b>').findall(html.unescape(link.replace('\n','').replace('\r','').replace('Â ','').replace('Â ','').replace('Ã¡','á').replace('Ã¢','â').replace('Ã£','ã').replace('Ã§','ç').replace('Ã¨','è').replace('Ã©','é').replace('Ãª','ê').replace('Ã¬','ì').replace('Ã³','ó').replace('Ãµ','õ').replace('Ã´','ô').replace('Ã€','À').replace('Ã­','í').replace('Ã','Á').replace('Ã','É').replace('Ã”','Ó').replace('Âª','ª').replace('â','').replace('â€“','-').replace('Ãº','ú').replace('â','’').replace('Ã','Ú').replace('Ã ','à').replace('â¦','…').replace('â','“').replace('â','”').replace('﻿','').replace('​​','').replace('	','')))[0]
@@ -1858,8 +1858,8 @@ def Filmesviatorrent(): #533
 	for x in range(0, 4):
 		try:
 			y +=1
-			link = requests.get("https://comando4kfilmes.cc/category/series/page/"+str(y)+"/",headers={'Referer':'https://comando4kfilmes.cc/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
-			match = re.compile('<h1 class="post-title">.+?<a href="(.+?)".+?">(.+?)<.+?src="(.+?)".+?IMDb.+?">(.+?)<').findall(html.unescape(link))
+			link = requests.get("https://cmd1.site/category/series/page/"+str(y)+"/",headers={'Referer':'https://cmd1.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text.replace('\n','').replace('\r','')
+			match = re.compile('<h1 class="post-title">.+?<a href="(.+?)".+?">(.+?)<.+?src="(.+?)".+?IMD..+?">(.+?)<').findall(html.unescape(link))
 			for link, name2, image2, nota in match:
 				nomemod = transformar_link(link)
 				name2 = name2.replace('</div>',' '+nomemod)
@@ -1870,7 +1870,7 @@ def Filmesviatorrent(): #533
     
 def Filmesviatorrentmenu1(): #534
 	#try:
-		link = requests.get(url,headers={'Referer':'https://comando4kfilmes.cc/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
+		link = requests.get(url,headers={'Referer':'https://cmd1.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		#url1 = re.sub('-torrent.+', '-torrent-download', url)
 		#link = requests.get(url1.replace('comandofilmeshd.site','galaxytorrent.org'), headers={'Referer':'https://galaxytorrent.org/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'}).text
 		#arquivo = open(cachefolder + "testeplayer.txt", "w+")
@@ -3612,7 +3612,7 @@ def Busca(): # 160
 				else:
 					AddDir("[COLOR lightgreen]"+name2.replace("Torrent ","").replace(' Torrent',"").replace(" –","").replace("Download","").replace("<b>","").replace("</b>","").replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')+"[/COLOR]", link, 519, image2, image2, isFolder=True, info='\xa0')
 	except:
-		pass'''
+		pass
 	if (progress.iscanceled()):
 		sys.exit(int(sys.argv[1]))
 	progress.update(50, "ComandoHdTorrents")        
@@ -3636,7 +3636,7 @@ def Busca(): # 160
 				else:
 					AddDir("[COLOR mediumpurple]" +name2.replace(" Torrent","").replace(" –","").replace(' Download','')+"[/COLOR]", link, 1711, image2, image2, isFolder=True, info='\xa0')
 	except:
-		pass
+		pass'''
 	'''if (progress.iscanceled()):
 		sys.exit(int(sys.argv[1]))
 	progress.update(50, "Pirate-Torrent")
@@ -3663,8 +3663,8 @@ def Busca(): # 160
 		l= 0
 		for x in range(0, 1):
 			l +=1
-			link = requests.get("https://comando4kfilmes.cc/?s="+d.replace('%2B','+'),headers={'Referer':'https://comando4kfilmes.cc/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'}).text.replace('\n','').replace('\r','')
-			match = re.compile('<h1 class="post-title">.+?<a href="(.+?)".+?">(.+?)<.+?src="(.+?)".+?IMDb.+?">(.+?)<').findall(link)
+			link = requests.get("https://cmd1.site/?s="+d.replace('%2B','+'),headers={'Referer':'https://cmd1.site/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'}).text.replace('\n','').replace('\r','')
+			match = re.compile('<h1 class="post-title">.+?<a href="(.+?)".+?">(.+?)<.+?src="(.+?)".+?IMD..+?">(.+?)<').findall(link)
 			for link, name2, image2, imdb in match:
 					name2 = name2.replace('&#8217;','’').replace('&#8211;','–').replace('&#038;','&').replace('&#8216;','‘').replace('&#8220;','“').replace('&#8221;','”').replace('&#8230;','…')
 					if "Serie" in name2 or "Anime" in name2 or "Temporada" in name2 or "Completo" in name2 or 'Serie' in name2 or 'Anime' in name2:
@@ -11507,7 +11507,9 @@ def CheckUpdate(msg): #200
 		uversao = requests.get( "https://raw.githubusercontent.com/GladistonXD/Play-XD/master/version.txt")
 		uversao2 = re.compile('(.+)').findall(uversao.text)
 		uversao2 = uversao2[0]
-		if uversao2 != Versao:
+		if '429: Too Many Requests' in uversao2:
+			xbmc.executebuiltin("Container.Refresh()")
+		elif uversao2 != Versao:
 			Update()
 			xbmc.executebuiltin("Container.Refresh()")
 		elif msg==True:
@@ -11516,6 +11518,7 @@ def CheckUpdate(msg): #200
 	except:
 		if msg==True:
 			xbmcgui.Dialog().ok('Play XD', "Não foi possível checar")
+	return msg
 
 def Update(): #futura atualização automatica
 	try:
